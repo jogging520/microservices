@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/atom-config-sequence/atom-config-sequence.iml" filepath="$PROJECT_DIR$/atom-config-sequence/atom-config-sequence.iml" />
+      <module fileurl="file://$PROJECT_DIR$/atom-product-course/atom-product-course.iml" filepath="$PROJECT_DIR$/atom-product-course/atom-product-course.iml" />
+      <module fileurl="file://$PROJECT_DIR$/atom-product-operation/atom-product-operation.iml" filepath="$PROJECT_DIR$/atom-product-operation/atom-product-operation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/atom-resource-storage/atom-resource-storage.iml" filepath="$PROJECT_DIR$/atom-resource-storage/atom-resource-storage.iml" />
+      <module fileurl="file://$PROJECT_DIR$/base-common/base-common.iml" filepath="$PROJECT_DIR$/base-common/base-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/base-gateway/base-gateway.iml" filepath="$PROJECT_DIR$/base-gateway/base-gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/base-launcher/base-launcher.iml" filepath="$PROJECT_DIR$/base-launcher/base-launcher.iml" />
+      <module fileurl="file://$PROJECT_DIR$/microservices.iml" filepath="$PROJECT_DIR$/microservices.iml" />
+      <module fileurl="file://$PROJECT_DIR$/orch-list-course/orch-list-course.iml" filepath="$PROJECT_DIR$/orch-list-course/orch-list-course.iml" />
+    </modules>
+  </component>
+</project>

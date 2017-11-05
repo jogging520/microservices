@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.northbrain.product.course.dao.CourseRatingPOMapper">
+  <resultMap id="BaseResultMap" type="com.northbrain.product.course.model.po.CourseRatingPO">
+    <id column="rating_id" jdbcType="INTEGER" property="ratingId" />
+    <result column="course_id" jdbcType="INTEGER" property="courseId" />
+    <result column="rating" jdbcType="NUMERIC" property="rating" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="status_time" jdbcType="TIMESTAMP" property="statusTime" />
+    <result column="desciption" jdbcType="VARCHAR" property="desciption" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    rating_id, course_id, rating, status, create_time, status_time, desciption
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from course_rating
+    where rating_id = #{ratingId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from course_rating
+    where rating_id = #{ratingId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.northbrain.product.course.model.po.CourseRatingPO">
+    insert into course_rating (rating_id, course_id, rating, 
+      status, create_time, status_time, 
+      desciption)
+    values (#{ratingId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, #{rating,jdbcType=NUMERIC}, 
+      #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{statusTime,jdbcType=TIMESTAMP}, 
+      #{desciption,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.northbrain.product.course.model.po.CourseRatingPO">
+    insert into course_rating
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ratingId != null">
+        rating_id,
+      </if>
+      <if test="courseId != null">
+        course_id,
+      </if>
+      <if test="rating != null">
+        rating,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="statusTime != null">
+        status_time,
+      </if>
+      <if test="desciption != null">
+        desciption,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ratingId != null">
+        #{ratingId,jdbcType=INTEGER},
+      </if>
+      <if test="courseId != null">
+        #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="rating != null">
+        #{rating,jdbcType=NUMERIC},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="statusTime != null">
+        #{statusTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="desciption != null">
+        #{desciption,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.product.course.model.po.CourseRatingPO">
+    update course_rating
+    <set>
+      <if test="courseId != null">
+        course_id = #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="rating != null">
+        rating = #{rating,jdbcType=NUMERIC},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="statusTime != null">
+        status_time = #{statusTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="desciption != null">
+        desciption = #{desciption,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where rating_id = #{ratingId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.product.course.model.po.CourseRatingPO">
+    update course_rating
+    set course_id = #{courseId,jdbcType=INTEGER},
+      rating = #{rating,jdbcType=NUMERIC},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      status_time = #{statusTime,jdbcType=TIMESTAMP},
+      desciption = #{desciption,jdbcType=VARCHAR}
+    where rating_id = #{ratingId,jdbcType=INTEGER}
+  </update>
+</mapper>

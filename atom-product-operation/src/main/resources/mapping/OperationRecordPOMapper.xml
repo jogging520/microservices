@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.northbrain.product.operation.dao.OperationRecordPOMapper">
+  <resultMap id="BaseResultMap" type="com.northbrain.product.operation.model.po.OperationRecordPO">
+    <id column="record_id" jdbcType="INTEGER" property="recordId" />
+    <result column="operate_type" jdbcType="VARCHAR" property="operateType" />
+    <result column="operator_id" jdbcType="INTEGER" property="operatorId" />
+    <result column="entity" jdbcType="VARCHAR" property="entity" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="finish_time" jdbcType="TIMESTAMP" property="finishTime" />
+    <result column="desciption" jdbcType="VARCHAR" property="desciption" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    record_id, operate_type, operator_id, entity, status, start_time, finish_time, desciption
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from operation_record
+    where record_id = #{recordId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from operation_record
+    where record_id = #{recordId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.northbrain.product.operation.model.po.OperationRecordPO">
+    insert into operation_record (record_id, operate_type, operator_id, 
+      entity, status, start_time, 
+      finish_time, desciption)
+    values (#{recordId,jdbcType=INTEGER}, #{operateType,jdbcType=VARCHAR}, #{operatorId,jdbcType=INTEGER}, 
+      #{entity,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{finishTime,jdbcType=TIMESTAMP}, #{desciption,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.northbrain.product.operation.model.po.OperationRecordPO">
+    insert into operation_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="recordId != null">
+        record_id,
+      </if>
+      <if test="operateType != null">
+        operate_type,
+      </if>
+      <if test="operatorId != null">
+        operator_id,
+      </if>
+      <if test="entity != null">
+        entity,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="finishTime != null">
+        finish_time,
+      </if>
+      <if test="desciption != null">
+        desciption,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="recordId != null">
+        #{recordId,jdbcType=INTEGER},
+      </if>
+      <if test="operateType != null">
+        #{operateType,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorId != null">
+        #{operatorId,jdbcType=INTEGER},
+      </if>
+      <if test="entity != null">
+        #{entity,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishTime != null">
+        #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="desciption != null">
+        #{desciption,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.product.operation.model.po.OperationRecordPO">
+    update operation_record
+    <set>
+      <if test="operateType != null">
+        operate_type = #{operateType,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorId != null">
+        operator_id = #{operatorId,jdbcType=INTEGER},
+      </if>
+      <if test="entity != null">
+        entity = #{entity,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishTime != null">
+        finish_time = #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="desciption != null">
+        desciption = #{desciption,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where record_id = #{recordId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.product.operation.model.po.OperationRecordPO">
+    update operation_record
+    set operate_type = #{operateType,jdbcType=VARCHAR},
+      operator_id = #{operatorId,jdbcType=INTEGER},
+      entity = #{entity,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      finish_time = #{finishTime,jdbcType=TIMESTAMP},
+      desciption = #{desciption,jdbcType=VARCHAR}
+    where record_id = #{recordId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.northbrain.product.operation.model.po.OperationRecordPO">
+    <id column="record_id" jdbcType="INTEGER" property="recordId" />
+    <result column="operate_type" jdbcType="VARCHAR" property="operateType" />
+    <result column="operator_id" jdbcType="INTEGER" property="operatorId" />
+    <result column="entity" jdbcType="VARCHAR" property="entity" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="finish_time" jdbcType="TIMESTAMP" property="finishTime" />
+    <result column="desciption" jdbcType="VARCHAR" property="desciption" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    record_id, operate_type, operator_id, entity, status, start_time, finish_time, desciption
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from operation_record
+    where record_id = #{recordId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from operation_record
+    where record_id = #{recordId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.northbrain.product.operation.model.po.OperationRecordPO">
+    insert into operation_record (record_id, operate_type, operator_id, 
+      entity, status, start_time, 
+      finish_time, desciption)
+    values (#{recordId,jdbcType=INTEGER}, #{operateType,jdbcType=VARCHAR}, #{operatorId,jdbcType=INTEGER}, 
+      #{entity,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{finishTime,jdbcType=TIMESTAMP}, #{desciption,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.northbrain.product.operation.model.po.OperationRecordPO">
+    insert into operation_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="recordId != null">
+        record_id,
+      </if>
+      <if test="operateType != null">
+        operate_type,
+      </if>
+      <if test="operatorId != null">
+        operator_id,
+      </if>
+      <if test="entity != null">
+        entity,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="finishTime != null">
+        finish_time,
+      </if>
+      <if test="desciption != null">
+        desciption,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="recordId != null">
+        #{recordId,jdbcType=INTEGER},
+      </if>
+      <if test="operateType != null">
+        #{operateType,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorId != null">
+        #{operatorId,jdbcType=INTEGER},
+      </if>
+      <if test="entity != null">
+        #{entity,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishTime != null">
+        #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="desciption != null">
+        #{desciption,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.product.operation.model.po.OperationRecordPO">
+    update operation_record
+    <set>
+      <if test="operateType != null">
+        operate_type = #{operateType,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorId != null">
+        operator_id = #{operatorId,jdbcType=INTEGER},
+      </if>
+      <if test="entity != null">
+        entity = #{entity,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishTime != null">
+        finish_time = #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="desciption != null">
+        desciption = #{desciption,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where record_id = #{recordId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.product.operation.model.po.OperationRecordPO">
+    update operation_record
+    set operate_type = #{operateType,jdbcType=VARCHAR},
+      operator_id = #{operatorId,jdbcType=INTEGER},
+      entity = #{entity,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      finish_time = #{finishTime,jdbcType=TIMESTAMP},
+      desciption = #{desciption,jdbcType=VARCHAR}
+    where record_id = #{recordId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.northbrain.product.operation.model.po.OperationRecordPO">
+    <id column="record_id" jdbcType="INTEGER" property="recordId" />
+    <result column="operate_type" jdbcType="VARCHAR" property="operateType" />
+    <result column="operator_id" jdbcType="INTEGER" property="operatorId" />
+    <result column="entity" jdbcType="VARCHAR" property="entity" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="finish_time" jdbcType="TIMESTAMP" property="finishTime" />
+    <result column="desciption" jdbcType="VARCHAR" property="desciption" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    record_id, operate_type, operator_id, entity, status, start_time, finish_time, desciption
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from operation_record
+    where record_id = #{recordId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from operation_record
+    where record_id = #{recordId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.northbrain.product.operation.model.po.OperationRecordPO">
+    insert into operation_record (record_id, operate_type, operator_id, 
+      entity, status, start_time, 
+      finish_time, desciption)
+    values (#{recordId,jdbcType=INTEGER}, #{operateType,jdbcType=VARCHAR}, #{operatorId,jdbcType=INTEGER}, 
+      #{entity,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{finishTime,jdbcType=TIMESTAMP}, #{desciption,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.northbrain.product.operation.model.po.OperationRecordPO">
+    insert into operation_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="recordId != null">
+        record_id,
+      </if>
+      <if test="operateType != null">
+        operate_type,
+      </if>
+      <if test="operatorId != null">
+        operator_id,
+      </if>
+      <if test="entity != null">
+        entity,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="finishTime != null">
+        finish_time,
+      </if>
+      <if test="desciption != null">
+        desciption,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="recordId != null">
+        #{recordId,jdbcType=INTEGER},
+      </if>
+      <if test="operateType != null">
+        #{operateType,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorId != null">
+        #{operatorId,jdbcType=INTEGER},
+      </if>
+      <if test="entity != null">
+        #{entity,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishTime != null">
+        #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="desciption != null">
+        #{desciption,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.product.operation.model.po.OperationRecordPO">
+    update operation_record
+    <set>
+      <if test="operateType != null">
+        operate_type = #{operateType,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorId != null">
+        operator_id = #{operatorId,jdbcType=INTEGER},
+      </if>
+      <if test="entity != null">
+        entity = #{entity,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishTime != null">
+        finish_time = #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="desciption != null">
+        desciption = #{desciption,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where record_id = #{recordId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.product.operation.model.po.OperationRecordPO">
+    update operation_record
+    set operate_type = #{operateType,jdbcType=VARCHAR},
+      operator_id = #{operatorId,jdbcType=INTEGER},
+      entity = #{entity,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      finish_time = #{finishTime,jdbcType=TIMESTAMP},
+      desciption = #{desciption,jdbcType=VARCHAR}
+    where record_id = #{recordId,jdbcType=INTEGER}
+  </update>
+</mapper>
