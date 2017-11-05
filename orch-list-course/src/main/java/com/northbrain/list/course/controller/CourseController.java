@@ -35,7 +35,7 @@ public class CourseController
      * 方法：读取在用的课程列表
      * @return 以ServiceVO封装的课程列表的JSON对象
      */
-    @GetMapping(value= Constants.URI_ORCH_LIST_GET_COURSES_IN_USED)
+    @GetMapping(value= Constants.URI_ORCH_LIST_GET_COURSES_IN_USED, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS)
     @ResponseBody
     public JSONObject readInUsedCourses()
     {

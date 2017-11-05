@@ -6,6 +6,7 @@ import com.northbrain.list.course.domain.hystrix.HystrixCourseDomain;
 
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 类名：课程DOMAIN接口
@@ -18,6 +19,7 @@ public interface ICourseDomain
      * 方法：获取在用的课程列表
      * @return 在用的课程列表
      */
-    @GetMapping(value=Constants.URI_ATOM_PRODUCT_GET_COURSES_IN_USED)
+    @GetMapping(value=Constants.URI_ATOM_PRODUCT_GET_COURSES_IN_USED, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS)
+    @ResponseBody
     ServiceVO readInUsedCourses();
 }

@@ -32,7 +32,7 @@ public enum Errors
     ERROR_SYSTEM_ILLEGAL_ACCESS_EXCEPTION					("1406", "系统发生非法访问异常。"                            ),
     ERROR_SYSTEM_ILLEGAL_ARGUMENT_EXCEPTION					("1407", "系统发生非法方法参数异常。"                         ),
     ERROR_SYSTEM_PARSE_COMMAND_LINE                         ("1408", "系统发生解析命令行错误。"                         ),
-    
+    ERROR_SYSTEM_SERVICE_HYSTRIX_EXCEPTION                  ("1888", "系统调用服务时发生异常后熔断。"),
     /**
 	 * 2XXX:通用业务级错误，ERROR_BUSINESS_COMMON_
 	 */

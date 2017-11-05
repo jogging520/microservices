@@ -5,22 +5,24 @@ import org.apache.log4j.Logger;
 import com.northbrain.base.common.model.bo.Errors;
 import com.northbrain.base.common.model.bo.Hints;
 import com.northbrain.base.common.model.vo.ServiceVO;
-import com.northbrain.list.course.domain.ICourseDomain;
+import com.northbrain.list.course.domain.IStorageDomain;
 
 /**
- * 类名：课程DOMAIN接口的熔断器实现类
+ * 类名：存储DOMAIN接口的熔断器实现类
  * 用途：用于Hystrix熔断时fallback调用
  */
-public class HystrixCourseDomain implements ICourseDomain
+public class HystrixStorageDomain implements IStorageDomain
 {
-    private static Logger logger = Logger.getLogger(HystrixCourseDomain.class);
+    private static Logger logger = Logger.getLogger(HystrixStorageDomain.class);
 
     /**
-     * 方法：Hystrix熔断时的fallback调用
-     * @return 在用的课程列表
+     * 方法：获取指定ID存储的详细信息
+     *
+     * @param storageId
+     * @return 存储的详细信息
      */
     @Override
-    public ServiceVO readInUsedCourses()
+    public ServiceVO readStorage(int storageId)
     {
         logger.info(Hints.HINT_SYSTEM_PROCESS_CALL_HYSTRIX_DOMAIN + "readInUsedCourses");
 
