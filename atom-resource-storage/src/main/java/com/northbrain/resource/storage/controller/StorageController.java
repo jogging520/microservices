@@ -4,9 +4,7 @@ import javax.websocket.server.PathParam;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.northbrain.base.common.model.bo.Constants;
 import com.northbrain.base.common.model.bo.Errors;
@@ -19,6 +17,7 @@ import com.northbrain.resource.storage.service.IStorageService;
  * 用途：解析http servlet，调用service层服务，返回给服务编排层应答数据。
  */
 @RestController
+@RequestMapping(Constants.URI_ATOM_RESOURCE_DOMAIN_REQUEST_MAPPING)
 public class StorageController
 {
     private static Logger logger = Logger.getLogger(StorageController.class);
@@ -34,7 +33,7 @@ public class StorageController
      * 方法：读取存储信息
      * @return 以ServiceVO封装的课程列表
      */
-    @GetMapping(value= Constants.URI_ATOM_RESOURCE_GET_STORAGE_SPECIFIED, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS)
+    @RequestMapping(value= Constants.URI_ATOM_RESOURCE_GET_STORAGE_SPECIFIED, method = RequestMethod.GET, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS)
     @ResponseBody
     public ServiceVO readStorage(@PathParam("storageId")int storageId)
     {

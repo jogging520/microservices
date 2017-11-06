@@ -1,9 +1,19 @@
 package com.northbrain.resource.storage.dto.impl;
 
+import org.springframework.stereotype.Component;
+
 import com.northbrain.base.common.model.vo.StorageVO;
 import com.northbrain.resource.storage.dto.IStorageDTO;
 import com.northbrain.resource.storage.model.po.StoragePO;
 
+/**
+ * 类名：存储数据传输对象接口的实现类
+ * 用途：用于VO和PO之间的转换
+ * @author Jiakun
+ * @version 1.0
+ *
+ */
+@Component
 public class StorageDTO implements IStorageDTO
 {
     /**

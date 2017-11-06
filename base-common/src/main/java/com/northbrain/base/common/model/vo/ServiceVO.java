@@ -1,6 +1,5 @@
 package com.northbrain.base.common.model.vo;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import com.northbrain.base.common.model.bo.Errors;
 
 import java.text.DateFormat;
@@ -16,15 +15,10 @@ import java.util.Date;
  */
 public class ServiceVO
 {
-    @JSONField(ordinal = 1)
     private String 	requestTime;			//请求时间
-    @JSONField(ordinal = 2)
     private String 	responseTime;			//响应时间
-    @JSONField(ordinal = 3)
     private String 	responseCode;			//响应代码（业务级）
-    @JSONField(ordinal = 4)
     private String 	responseDesc;	        //响应描述（业务级）
-    @JSONField(ordinal = 5)
     private Object  response;               //响应对象
 
     public ServiceVO()

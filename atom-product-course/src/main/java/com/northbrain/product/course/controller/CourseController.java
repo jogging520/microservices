@@ -15,6 +15,7 @@ import com.northbrain.product.course.service.ICourseService;
  * 用途：解析http servlet，调用service层服务，返回给服务编排层应答数据。
  */
 @RestController
+@RequestMapping(Constants.URI_ATOM_PRODUCT_DOMAIN_REQUEST_MAPPING)
 public class CourseController 
 {
 	private static Logger logger = Logger.getLogger(CourseController.class);
@@ -31,7 +32,7 @@ public class CourseController
      * 方法：读取在用的课程列表
      * @return 以ServiceVO封装的课程列表
      */
-	@GetMapping(value=Constants.URI_ATOM_PRODUCT_GET_COURSES_IN_USED, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS)
+	@RequestMapping(value=Constants.URI_ATOM_PRODUCT_GET_COURSES_IN_USED, method = RequestMethod.GET, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS)
     @ResponseBody
     public ServiceVO readInUsedCourses()
     {

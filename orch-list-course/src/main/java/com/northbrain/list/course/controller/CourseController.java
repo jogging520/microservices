@@ -3,11 +3,10 @@ package com.northbrain.list.course.controller;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.northbrain.base.common.model.bo.Constants;
 import com.northbrain.base.common.model.bo.Errors;
 import com.northbrain.base.common.model.bo.Hints;
@@ -19,6 +18,7 @@ import com.northbrain.list.course.service.ICourseService;
  * 用途：解析http servlet，调用service层服务，返回交互表现层应答数据。
  */
 @RestController
+@RequestMapping(Constants.URI_ATOM_LIST_DOMAIN_REQUEST_MAPPING)
 public class CourseController
 {
     private static Logger logger = Logger.getLogger(CourseController.class);
@@ -37,7 +37,7 @@ public class CourseController
      */
     @GetMapping(value= Constants.URI_ORCH_LIST_GET_COURSES_IN_USED, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS)
     @ResponseBody
-    public JSONObject readInUsedCourses()
+    public ServiceVO readInUsedCourses()
     {
         logger.info(Hints.HINT_SYSTEM_PROCESS_CALL_CONTROLLER + "readInUsedCourses");
 
@@ -47,8 +47,6 @@ public class CourseController
             return null;
         }
 
-        ServiceVO serviceVO = this.courseService.readInUsedCourses();
-
-        return (JSONObject) JSON.toJSON(serviceVO);
+        return this.courseService.readInUsedCourses();
     }
 }

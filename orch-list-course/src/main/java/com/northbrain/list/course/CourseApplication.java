@@ -34,7 +34,7 @@ public class CourseApplication
             //设置应用名称
             LauncherUitl.appendParameter(Constants.STORAGE_ZOOKEEPER_BUSINESS_NAMESPACE,
                     Names.BUSINESS_COMMON_APPLICATION_NAME.getName(),
-                    Constants.BUSINESS_PRODUCT_COURSE_ORCH_MICROSERVICE);
+                    Constants.BUSINESS_LIST_COURSE_ORCH_MICROSERVICE);
             //设置日志级别
             LauncherUitl.setLog();
 
@@ -43,7 +43,7 @@ public class CourseApplication
             //设置服务名称
             Map<String, Object> defaultProperties = new HashMap<>();
             defaultProperties.put(Constants.SYSTEM_SPRING_PROPERTY_APPLICATION_NAME,
-                    Constants.BUSINESS_PRODUCT_COURSE_ORCH_MICROSERVICE);
+                    Constants.BUSINESS_LIST_COURSE_ORCH_MICROSERVICE);
 
             //设置spring.application.name
             SpringApplication springApplication = new SpringApplication(CourseApplication.class);

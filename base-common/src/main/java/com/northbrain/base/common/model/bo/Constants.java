@@ -37,9 +37,9 @@ public class Constants
 
     public static final String BUSINESS_PRODUCT_COURSE_ATOM_MICROSERVICE                                = "atom-product-course";                //原子微服务：产品-课程
     public static final String BUSINESS_PRODUCT_OPERATION_ATOM_MICROSERVICE                             = "atom-product-operation";             //原子微服务：产品-操作记录
-    public static final String BUSINESS_RESOURCE_STORAGE_ATOM_MICROSERVICE                              = "atom-resource-storage";               //原子微服务：资源-存储
+    public static final String BUSINESS_RESOURCE_STORAGE_ATOM_MICROSERVICE                              = "atom-resource-storage";              //原子微服务：资源-存储
 
-    public static final String BUSINESS_PRODUCT_COURSE_ORCH_MICROSERVICE                                = "orch-product-course";                //编排微服务：产品-课程
+    public static final String BUSINESS_LIST_COURSE_ORCH_MICROSERVICE                                   = "orch-list-course";                   //编排微服务：列表-课程
 
 
     public static final String STORAGE_ZOOKEEPER_PROJECT_NAMESPACE										= "project";							//项目的命名空间    
@@ -92,13 +92,16 @@ public class Constants
      * 分别是：产品、资源、服务、关系、参与者、计费、日志、安全、报表、统计、搜索、配置（参数）、第三方
      * 编排服务域名包括：LIST、DETAIL、HOTSPOT等
      */
-    public static final String URI_ATOM_PRODUCT_GET_COURSES_IN_USED                                     = "product/course";						//原子服务URI：获取全量在用的课程清单（只有课程本身）
-    public static final String URI_ATOM_PRODUCT_GET_COURSE_SPECIFIED									= "product/course/{id}";				//原子服务URI：获取指定的课程（只有课程本身）
-    public static final String URI_ATOM_PRODUCT_POST_OPERATION_RECORD                                   = "product/operation";					//原子服务URI：增加操作记录
+    public static final String URI_ATOM_PRODUCT_DOMAIN_REQUEST_MAPPING                                  = "/product";                           //原子服务URI：产品域
+    public static final String URI_ATOM_RESOURCE_DOMAIN_REQUEST_MAPPING                                 = "/resource";                          //原子服务URI：资源域
+    public static final String URI_ATOM_LIST_DOMAIN_REQUEST_MAPPING                                     = "/list";                              //原子服务URI：清单域
+    public static final String URI_ATOM_PRODUCT_GET_COURSES_IN_USED                                     = "/course";						    //原子服务URI：获取全量在用的课程清单（只有课程本身）
+    public static final String URI_ATOM_PRODUCT_GET_COURSE_SPECIFIED									= "/course/{id}";				        //原子服务URI：获取指定的课程（只有课程本身）
+    public static final String URI_ATOM_PRODUCT_POST_OPERATION_RECORD                                   = "operation";					        //原子服务URI：增加操作记录
 
-    public static final String URI_ATOM_RESOURCE_GET_STORAGE_SPECIFIED                                  = "resource/storage/{id}";              //原子服务URI：获取指定的存储信息
+    public static final String URI_ATOM_RESOURCE_GET_STORAGE_SPECIFIED                                  = "storage/{id}";                       //原子服务URI：获取指定的存储信息
 
-    public static final String URI_ORCH_LIST_GET_COURSES_IN_USED                                        = "list/course";							//编排服务URI：获取全量在用的课程清单（只有课程本身）
+    public static final String URI_ORCH_LIST_GET_COURSES_IN_USED                                        = "/course";						//编排服务URI：获取全量在用的课程清单（只有课程本身）
 
     /**
      * 匹配布尔类型

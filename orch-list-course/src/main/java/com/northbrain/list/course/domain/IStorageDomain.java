@@ -1,14 +1,10 @@
 package com.northbrain.list.course.domain;
 
-import javax.websocket.server.PathParam;
-
 import org.springframework.cloud.netflix.feign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.northbrain.base.common.model.bo.Constants;
 import com.northbrain.base.common.model.vo.ServiceVO;
-import com.northbrain.list.course.domain.hystrix.HystrixCourseDomain;
 import com.northbrain.list.course.domain.hystrix.HystrixStorageDomain;
 
 /**
@@ -22,7 +18,7 @@ public interface IStorageDomain
      * 方法：获取指定ID存储的详细信息
      * @return 存储的详细信息
      */
-    @GetMapping(value=Constants.URI_ATOM_PRODUCT_GET_COURSES_IN_USED, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS)
+    @RequestMapping(value=Constants.URI_ATOM_PRODUCT_GET_COURSES_IN_USED, method = RequestMethod.GET, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS)
     @ResponseBody
-    ServiceVO readStorage(@PathParam("storageId")int storageId);
+    ServiceVO readStorage(@PathVariable("storageId")int storageId);
 }
