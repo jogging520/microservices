@@ -1,14 +1,22 @@
 package com.northbrain.product.course.controller;
 
-import com.northbrain.base.common.model.bo.Errors;
-import com.northbrain.base.common.model.bo.Hints;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONException;
 import com.northbrain.base.common.model.bo.Constants;
+import com.northbrain.base.common.model.bo.Errors;
+import com.northbrain.base.common.model.bo.Hints;
 import com.northbrain.base.common.model.vo.ServiceVO;
+import com.northbrain.base.common.util.StackTracerUtil;
 import com.northbrain.product.course.service.ICourseService;
+
+import feign.FeignException;
 
 /**
  * 类名：课程控制层类（原子服务）
@@ -34,17 +42,43 @@ public class CourseController
      */
 	@RequestMapping(value=Constants.URI_ATOM_PRODUCT_GET_COURSES_IN_USED, method = RequestMethod.GET, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS)
     @ResponseBody
-    public ServiceVO readInUsedCourses()
+    public String readInUsedCourses()
     {
         logger.debug(Hints.HINT_SYSTEM_PROCESS_CALL_CONTROLLER + "readInUsedCourses");
+        ServiceVO serviceVO = new ServiceVO();
 
-        if(courseService == null)
+        try
         {
-            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "courseService");
+            if(courseService == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "courseService");
 
-            return new ServiceVO();
+                return JSON.toJSONString(serviceVO);
+            }
+
+            return JSON.toJSONString(courseService.readInUsedCourses());
+        }
+        catch (IllegalStateException illegalStateException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(illegalStateException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_ILLEGAL_STATE_EXCEPTION);
+        }
+        catch (JSONException jSONException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(jSONException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_JSON_EXCEPTION);
+        }
+        catch (FeignException feignException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(feignException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_FEIGN_EXCEPTION);
+        }
+        catch (Exception exception)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(exception));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_OTHER_UNKNOW_EXCEPTION);
         }
 
-        return courseService.readInUsedCourses();
+        return JSON.toJSONString(serviceVO);
     }
 }

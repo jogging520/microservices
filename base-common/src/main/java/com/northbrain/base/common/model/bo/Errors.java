@@ -33,6 +33,10 @@ public enum Errors
     ERROR_SYSTEM_ILLEGAL_ARGUMENT_EXCEPTION					("1407", "系统发生非法方法参数异常。"                         ),
     ERROR_SYSTEM_PARSE_COMMAND_LINE                         ("1408", "系统发生解析命令行错误。"                         ),
     ERROR_SYSTEM_SERVICE_HYSTRIX_EXCEPTION                  ("1888", "系统调用服务时发生异常后熔断。"),
+    ERROR_SYSTEM_ILLEGAL_STATE_EXCEPTION                    ("1999", "系统调用服务时发生无效状态异常。"),
+    ERROR_SYSTEM_CLASS_CAST_EXCEPTION                       ("1997", "系统调用服务时发生类映射错误。"),
+    ERROR_SYSTEM_JSON_EXCEPTION                             ("1996", "系统调用服务时发生JSON错误。"),
+    ERROR_SYSTEM_FEIGN_EXCEPTION                            ("1995", "系统调用Feign服务时发生错误。"),
     /**
 	 * 2XXX:通用业务级错误，ERROR_BUSINESS_COMMON_
 	 */
@@ -49,7 +53,8 @@ public enum Errors
     ERROR_BUSINESS_COMMON_UPDATE_PARAMETERS					("2105", "同步更新Paramters基础配置器时发生错误。"              ),
     ERROR_BUSINESS_COMMON_REMOVE_PARAMETERS					("2105", "同步删除Paramters基础配置器时发生错误。"              ),
     ERROR_BUSINESS_COMMON_COMMAND_LINE_MISSING				("2350", "命令行参数缺失或错误。"                             ),
-    
+    ERROR_BUSINESS_COMMON_CALL_ATOMIC_SERVICE				("2351", "调用原子服务失败。"                             ),
+
     /**
 	 * 3XXX:专用业务级错误，ERROR_BUSINESS_XXXX_，XXXX如ONLINEEDU等
 	 */

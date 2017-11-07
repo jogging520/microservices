@@ -1,16 +1,19 @@
 package com.northbrain.resource.storage.controller;
 
-import javax.websocket.server.PathParam;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONException;
 import com.northbrain.base.common.model.bo.Constants;
 import com.northbrain.base.common.model.bo.Errors;
 import com.northbrain.base.common.model.bo.Hints;
 import com.northbrain.base.common.model.vo.ServiceVO;
+import com.northbrain.base.common.util.StackTracerUtil;
 import com.northbrain.resource.storage.service.IStorageService;
+
+import feign.FeignException;
 
 /**
  * 类名：存储控制层类（原子服务）
@@ -35,17 +38,43 @@ public class StorageController
      */
     @RequestMapping(value= Constants.URI_ATOM_RESOURCE_GET_STORAGE_SPECIFIED, method = RequestMethod.GET, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS)
     @ResponseBody
-    public ServiceVO readStorage(@PathParam("storageId")int storageId)
+    public String readStorage(@PathVariable("storageId")int storageId)
     {
         logger.info(Hints.HINT_SYSTEM_PROCESS_CALL_CONTROLLER + "readStorage");
+        ServiceVO serviceVO = new ServiceVO();
 
-        if(storageService == null)
+        try
         {
-            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "storageService");
+            if(storageService == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "storageService");
 
-            return new ServiceVO();
+                return JSON.toJSONString(serviceVO);
+            }
+
+            return JSON.toJSONString(storageService.readStorage(storageId));
+        }
+        catch(IllegalStateException illegalStateException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(illegalStateException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_ILLEGAL_STATE_EXCEPTION);
+        }
+        catch (JSONException jSONException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(jSONException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_JSON_EXCEPTION);
+        }
+        catch (FeignException feignException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(feignException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_FEIGN_EXCEPTION);
+        }
+        catch(Exception exception)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(exception));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_OTHER_UNKNOW_EXCEPTION);
         }
 
-        return storageService.readStorage(storageId);
+        return JSON.toJSONString(serviceVO);
     }
 }

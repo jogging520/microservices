@@ -8,9 +8,10 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONException;
+import com.alibaba.fastjson.JSONObject;
 import com.northbrain.base.common.model.bo.Errors;
 import com.northbrain.base.common.model.vo.CourseVO;
 import com.northbrain.base.common.model.vo.OrchCourseVO;
@@ -21,6 +22,8 @@ import com.northbrain.list.course.domain.ICourseDomain;
 import com.northbrain.list.course.domain.IOperationRecordDomain;
 import com.northbrain.list.course.domain.IStorageDomain;
 import com.northbrain.list.course.service.ICourseService;
+
+import feign.FeignException;
 
 /**
  * 类名：课程服务接口的实现类
@@ -55,7 +58,6 @@ public class CourseService implements ICourseService
 
         try
         {
-
             if (courseDomain == null)
             {
                 logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "courseDomain");
@@ -68,7 +70,7 @@ public class CourseService implements ICourseService
                 return orchServiceVO;
             }
 
-            atomServiceVO = this.courseDomain.readInUsedCourses();
+            atomServiceVO = JSON.parseObject(this.courseDomain.readInUsedCourses(), ServiceVO.class);
 
             if (atomServiceVO == null)
             {
@@ -76,15 +78,23 @@ public class CourseService implements ICourseService
                 return orchServiceVO;
             }
 
-            if (atomServiceVO.getResponse() == null)
+            if(!atomServiceVO.getResponseCode().equals(Errors.SUCCESS_EXECUTE.getCode()))
             {
-                logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "atomServiceVO.getResponse()");
+                logger.error(Errors.ERROR_BUSINESS_COMMON_CALL_ATOMIC_SERVICE + atomServiceVO.getResponseCode());
                 return orchServiceVO;
             }
 
-            logger.info("-------------" + atomServiceVO.getResponse().getClass());
+            Object atomServiceResponse = atomServiceVO.getResponse();
 
-            ArrayList atomCourseVOS = ArrayList.class.cast(atomServiceVO.getResponse());
+            if (atomServiceResponse == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "atomServiceResponse");
+                return orchServiceVO;
+            }
+
+            logger.info("-------------" + atomServiceResponse.getClass());
+            //JSONArray atomCourseVOS = JSONArray.parseArray(atomServiceResponse, )
+            JSONArray atomCourseVOS = JSONArray.class.cast(atomServiceResponse);
 
             //List<CourseVO> atomCourseVOS = (ArrayList<CourseVO>) atomServiceVO.getResponse();
 
@@ -103,16 +113,17 @@ public class CourseService implements ICourseService
             {
                 orchCourseVO = new OrchCourseVO();
                 logger.info(String.format("++++++++++++%s", object.getClass()));
-                ObjectMapper mapper = new ObjectMapper();
-                CourseVO courseVO = mapper.readValue((JsonParser) object, new TypeReference<CourseVO>(){});
-
+                //ObjectMapper mapper = new ObjectMapper();
+                //CourseVO courseVO = mapper.readValue((JsonParser) object, new TypeReference<CourseVO>(){});
+                //CourseVO courseVO = JSON.parseObject(object, CourseVO.class);
+                CourseVO courseVO = (CourseVO) JSONObject.toJavaObject((JSON) object, CourseVO.class);
                 orchCourseVO.setCourseId(courseVO.getCourseId());
                 orchCourseVO.setName(courseVO.getName());
                 orchCourseVO.setGrade(courseVO.getGrade());
                 orchCourseVO.setLevel(courseVO.getLevel());
                 orchCourseVO.setSubject(courseVO.getSubject());
 
-                ServiceVO thumbnailVO = this.storageDomain.readStorage(courseVO.getCourseId());
+                ServiceVO thumbnailVO = JSON.parseObject(this.storageDomain.readStorage(courseVO.getCourseId()), ServiceVO.class);
 
                 if (thumbnailVO == null)
                 {
@@ -120,7 +131,15 @@ public class CourseService implements ICourseService
                     continue;
                 }
 
-                StorageVO atomStorageVO = (StorageVO) thumbnailVO.getResponse();
+                Object thumbnailResponse = thumbnailVO.getResponse();
+
+                if (thumbnailResponse == null)
+                {
+                    logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "thumbnailResponse");
+                    continue;
+                }
+
+                StorageVO atomStorageVO = StorageVO.class.cast(thumbnailResponse);
 
                 if (atomStorageVO == null)
                 {
@@ -140,7 +159,27 @@ public class CourseService implements ICourseService
             orchServiceVO.setResponse(orchCourseVOS);
             orchServiceVO.setResponseCodeAndDesc(Errors.SUCCESS_EXECUTE);
         }
-        catch(Exception exception)
+        catch (ClassCastException classCastException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(classCastException));
+            orchServiceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_CLASS_CAST_EXCEPTION);
+        }
+        catch(IllegalStateException illegalStateException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(illegalStateException));
+            orchServiceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_ILLEGAL_STATE_EXCEPTION);
+        }
+        catch (JSONException jSONException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(jSONException));
+            orchServiceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_JSON_EXCEPTION);
+        }
+        catch (FeignException feignException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(feignException));
+            orchServiceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_FEIGN_EXCEPTION);
+        }
+        catch (Exception exception)
         {
             logger.error(StackTracerUtil.getExceptionInfo(exception));
             orchServiceVO.setResponseCodeAndDesc(Errors.ERROR_OTHER_UNKNOW_EXCEPTION);

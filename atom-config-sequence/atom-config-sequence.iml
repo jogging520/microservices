@@ -17,6 +17,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="base-launcher" />
     <orderEntry type="module" module-name="base-common" />
+    <orderEntry type="library" name="Maven: com.alibaba:fastjson:1.2.39" level="project" />
     <orderEntry type="library" name="Maven: org.apache.curator:curator-framework:2.11.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.curator:curator-recipes:2.11.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.curator:curator-client:4.0.0" level="project" />
@@ -138,5 +139,7 @@
     <orderEntry type="library" name="Maven: org.aspectj:aspectjweaver:1.8.10" level="project" />
     <orderEntry type="library" name="Maven: org.apache.maven.reporting:maven-reporting-api:2.0.6" level="project" />
     <orderEntry type="library" name="Maven: org.apache.maven.doxia:doxia-sink-api:1.0-alpha-7" level="project" />
+    <orderEntry type="library" name="Maven: io.github.openfeign:feign-core:9.5.0" level="project" />
+    <orderEntry type="library" name="Maven: org.jvnet:animal-sniffer-annotation:1.0" level="project" />
   </component>
 </module>

@@ -94,14 +94,14 @@ public class Constants
      */
     public static final String URI_ATOM_PRODUCT_DOMAIN_REQUEST_MAPPING                                  = "/product";                           //原子服务URI：产品域
     public static final String URI_ATOM_RESOURCE_DOMAIN_REQUEST_MAPPING                                 = "/resource";                          //原子服务URI：资源域
-    public static final String URI_ATOM_LIST_DOMAIN_REQUEST_MAPPING                                     = "/list";                              //原子服务URI：清单域
     public static final String URI_ATOM_PRODUCT_GET_COURSES_IN_USED                                     = "/course";						    //原子服务URI：获取全量在用的课程清单（只有课程本身）
     public static final String URI_ATOM_PRODUCT_GET_COURSE_SPECIFIED									= "/course/{id}";				        //原子服务URI：获取指定的课程（只有课程本身）
     public static final String URI_ATOM_PRODUCT_POST_OPERATION_RECORD                                   = "operation";					        //原子服务URI：增加操作记录
 
-    public static final String URI_ATOM_RESOURCE_GET_STORAGE_SPECIFIED                                  = "storage/{id}";                       //原子服务URI：获取指定的存储信息
+    public static final String URI_ATOM_RESOURCE_GET_STORAGE_SPECIFIED                                  = "/storage/{storageId}";               //原子服务URI：获取指定的存储信息
 
-    public static final String URI_ORCH_LIST_GET_COURSES_IN_USED                                        = "/course";						//编排服务URI：获取全量在用的课程清单（只有课程本身）
+    public static final String URI_ORCH_LIST_DOMAIN_REQUEST_MAPPING                                     = "/list";                              //原子服务URI：清单域
+    public static final String URI_ORCH_LIST_GET_COURSES_IN_USED                                        = "/course";						    //编排服务URI：获取全量在用的课程清单（只有课程本身）
 
     /**
      * 匹配布尔类型

@@ -10,7 +10,7 @@
     <artifactId>atom-config-sequence</artifactId>
     <packaging>jar</packaging>
 
-    <name>atom-common-sequence</name>
+    <name>atom-config-sequence</name>
     <url>http://maven.apache.org</url>
 
     <properties>

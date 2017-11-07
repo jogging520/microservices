@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 import com.northbrain.product.course.model.po.CoursePO;
 
 @Mapper
+@Component(value="coursePOMapper")
 public interface CoursePOMapper 
 {
     int deleteByPrimaryKey(Integer courseId);
