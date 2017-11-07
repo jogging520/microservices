@@ -22,7 +22,7 @@ public enum Hints
     HINT_SYSTEM_PROCESS_THREAD_POOL_EXECUTE_TASK				("线程池线程执行任务。"                                           ),
     HINT_SYSTEM_PROCESS_THREAD_SLEEP							("当前线程休眠："                                                  ),
     HINT_SYSTEM_PROCESS_CALL_CONTROLLER                         ("开始调用控制层方法："                                           ),
-    HINT_SYSTEM_PROCESS_CALL_HYSTRIX_DOMAIN                     ("调用原子服务时发生熔断。"                                    ),
+    HINT_SYSTEM_PROCESS_CALL_HYSTRIX_DAO                        ("调用原子服务时发生熔断。"                                    ),
 
     HINT_SYSTEM_SPRING_BEAN_DEFINITION_REGISTRY					("动态注册bean。"                                                   ),
     

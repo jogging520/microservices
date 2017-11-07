@@ -39,8 +39,6 @@ public class StorageService implements IStorageService
     {
         ServiceVO serviceVO = new ServiceVO();
 
-        StorageVO storageVO;
-
         try
         {
             if(storageDomain == null)
@@ -51,8 +49,7 @@ public class StorageService implements IStorageService
                 return serviceVO;
             }
 
-            storageVO = storageDomain.readStorage(storageId);
-            serviceVO.setResponse(storageVO);
+            serviceVO.setResponse(storageDomain.readStorage(storageId));
             serviceVO.setResponseCodeAndDesc(Errors.SUCCESS_EXECUTE);
         }
         catch(NumberFormatException numberFormatException)

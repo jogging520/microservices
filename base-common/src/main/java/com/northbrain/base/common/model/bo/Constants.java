@@ -26,7 +26,7 @@ public class Constants
     public static final String BUSINESS_COMMON_COMMAND_LINE_PROJECT_NAME								= "projectName";						//命令行:项目名称
     public static final String BUSINESS_COMMON_COMMAND_LINE_SERVER_PORT									= "server.port";						//命令行:服务端口号（tomcat）
     public static final String BUSINESS_COMMON_COMMAND_LINE_SPRING_CONFIG_LOCATION						= "spring.config.location";				//命令行:配置文件位置
-    public static final String BUSINESS_COMMON_SERVICE_GATEWAY                                          = "service-gateway";                    //服务网关
+    public static final String BUSINESS_COMMON_SERVICE_GATEWAY                                          = "base-gateway";                       //服务网关
     public static final String BUSINESS_COMMON_HTTP_REQUEST_CONSUMERS                                   = "application/json";
     public static final String BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS                                   = "application/json";
 
