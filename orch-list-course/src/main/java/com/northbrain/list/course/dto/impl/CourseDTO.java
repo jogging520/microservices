@@ -53,9 +53,7 @@ public class CourseDTO implements ICourseDTO
             return null;
         }
 
-        JSONArray atomCourseVOS = JSONArray.class.cast(atomServiceVOResponse);
-
-        return atomCourseVOS;
+        return JSONArray.class.cast(atomServiceVOResponse);
     }
 
     /**
@@ -68,7 +66,7 @@ public class CourseDTO implements ICourseDTO
     @Override
     public CourseVO convertToCourseVO(Object object) throws Exception
     {
-        return (CourseVO) JSONObject.toJavaObject((JSON) object, CourseVO.class);
+        return JSONObject.toJavaObject((JSON) object, CourseVO.class);
     }
 
     /**
@@ -103,6 +101,6 @@ public class CourseDTO implements ICourseDTO
             return null;
         }
 
-        return (StorageVO) JSONObject.toJavaObject((JSON) atomServiceVOResponse, StorageVO.class);
+        return JSONObject.toJavaObject((JSON) atomServiceVOResponse, StorageVO.class);
     }
 }
