@@ -36,4 +36,11 @@ public interface ICourseDTO
      */
     StorageVO convertToStorageVO(String serviceVOJSONString) throws Exception;
 
+    /**
+     * 方法：将原子服务返回的ServiceVO的JSON串转换成INTEGER
+     *
+     * @param serviceVOJSONString 调用课程原子服务返回的JSON串
+     * @return JSON串转换成INTEGER
+     */
+    Integer convertToInteger(String serviceVOJSONString) throws Exception;
 }

@@ -11,9 +11,9 @@
     <module>base-gateway</module>
     <module>atom-product-course</module>
     <module>atom-resource-storage</module>
-    <module>atom-product-operation</module>
-    <module>atom-config-sequence</module>
     <module>orch-list-course</module>
+    <module>atom-common-sequence</module>
+    <module>atom-relation-operation-record</module>
   </modules>
   <packaging>pom</packaging>
 

@@ -14,6 +14,7 @@ import com.northbrain.base.common.model.vo.OrchCourseVO;
 import com.northbrain.base.common.model.vo.StorageVO;
 import com.northbrain.list.course.dao.ICourseDAO;
 import com.northbrain.list.course.dao.IOperationRecordDAO;
+import com.northbrain.list.course.dao.ISequenceDAO;
 import com.northbrain.list.course.dao.IStorageDAO;
 import com.northbrain.list.course.domain.ICourseDomain;
 import com.northbrain.list.course.dto.ICourseDTO;
@@ -32,14 +33,16 @@ public class CourseDomain implements ICourseDomain
     private final IStorageDAO storageDAO;
     private final IOperationRecordDAO operationRecordDAO;
     private final ICourseDTO courseDTO;
+    private final ISequenceDAO sequenceDAO;
 
     @Autowired
-    public CourseDomain(ICourseDAO courseDAO, IStorageDAO storageDAO, IOperationRecordDAO operationRecordDAO, ICourseDTO courseDTO)
+    public CourseDomain(ICourseDAO courseDAO, IStorageDAO storageDAO, IOperationRecordDAO operationRecordDAO, ICourseDTO courseDTO, ISequenceDAO sequenceDAO)
     {
         this.courseDAO = courseDAO;
         this.storageDAO = storageDAO;
         this.operationRecordDAO = operationRecordDAO;
         this.courseDTO = courseDTO;
+        this.sequenceDAO = sequenceDAO;
     }
 
     /**
@@ -64,11 +67,21 @@ public class CourseDomain implements ICourseDomain
             return null;
         }
 
+        if (sequenceDAO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "sequenceDAO");
+            return null;
+        }
+
         if (courseDTO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "courseDTO");
             return null;
         }
+
+        Integer operationRecordId = courseDTO.convertToInteger(sequenceDAO.readNextGlobalValue());
+
+        logger.info("---------next value:" + operationRecordId);
 
         JSONArray atomCourseVOS = courseDTO.convertToCourseVOArray(this.courseDAO.readAtomInUsedCourses());
 

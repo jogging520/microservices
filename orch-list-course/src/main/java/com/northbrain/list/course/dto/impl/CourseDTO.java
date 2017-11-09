@@ -22,6 +22,7 @@ import com.northbrain.list.course.dto.ICourseDTO;
 public class CourseDTO implements ICourseDTO
 {
     private static Logger logger = Logger.getLogger(CourseDTO.class);
+
     /**
      * 方法：将原子服务返回的ServiceVO的JSON串转换成JSON数组
      *
@@ -102,5 +103,39 @@ public class CourseDTO implements ICourseDTO
         }
 
         return JSONObject.toJavaObject((JSON) atomServiceVOResponse, StorageVO.class);
+    }
+
+    /**
+     * 方法：将原子服务返回的ServiceVO的JSON串转换成INTEGER
+     *
+     * @param serviceVOJSONString 调用课程原子服务返回的JSON串
+     * @return JSON串转换成INTEGER
+     */
+    @Override
+    public Integer convertToInteger(String serviceVOJSONString) throws Exception
+    {
+        ServiceVO atomServiceVO = JSON.parseObject(serviceVOJSONString, ServiceVO.class);
+
+        if (atomServiceVO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "atomServiceVO");
+            return null;
+        }
+
+        if(!atomServiceVO.getResponseCode().equals(Errors.SUCCESS_EXECUTE.getCode()))
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_CALL_ATOMIC_SERVICE + atomServiceVO.getResponseCode());
+            return null;
+        }
+
+        Object atomServiceVOResponse = atomServiceVO.getResponse();
+
+        if (atomServiceVOResponse == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "atomServiceVOResponse");
+            return null;
+        }
+
+        return Integer.class.cast(atomServiceVOResponse);
     }
 }

@@ -13,7 +13,8 @@ public class Constants
 	 * 这部分是一般的常量定义
 	 */
 	public static final long   BUSINESS_COMMON_DEFAULT_INTEVALMS 										= 30000L;								//默认的轮询时间间隔，30秒	
-	public static final String BUSINESS_COMMON_TRUE 													= "TRUE";
+	public static final int    BUSINESS_COMMON_BASIC_SEQUENCE                                           = 1000000000;
+    public static final String BUSINESS_COMMON_TRUE 													= "TRUE";
     public static final String BUSINESS_COMMON_NODE_SEPARATOR 											= "/";									//Zookeeper的分隔符
     public static final String BUSINESS_COMMON_LOG_DEBUG_LEVEL											= "DEBUG";								//DEBUG日志级别
     public static final String BUSINESS_COMMON_LOG_ENCODING												= "UTF-8";								//日志编码格式
@@ -33,7 +34,7 @@ public class Constants
     /**
      * 微服务名称定义
      */
-    public static final String BUSINESS_CONFIG_SEQUENCE_ATOM_MICROSERVICE                               = "atom-config-sequence";               //原子微服务：配置-序列号
+    public static final String BUSINESS_COMMON_SEQUENCE_ATOM_MICROSERVICE                               = "atom-common-sequence";               //原子微服务：配置-序列号
 
     public static final String BUSINESS_PRODUCT_COURSE_ATOM_MICROSERVICE                                = "atom-product-course";                //原子微服务：产品-课程
     public static final String BUSINESS_PRODUCT_OPERATION_ATOM_MICROSERVICE                             = "atom-product-operation";             //原子微服务：产品-操作记录
@@ -50,13 +51,14 @@ public class Constants
     public static final String STORAGE_ZOOKEEPER_SERVICE_NAMESPACE										= "service";							//后端：服务域命名空间
     public static final String STORAGE_ZOOKEEPER_PARTY_NAMESPACE										= "party";							    //后端：参与者域命名空间
     public static final String STORAGE_ZOOKEEPER_RELATION_NAMESPACE										= "relation";							//后端：关系域命名空间
+    public static final String STORAGE_ZOOKEEPER_COMMON_NAMESPACE										= "common";							    //后端：通用域命名空间
     public static final String STORAGE_ZOOKEEPER_LIST_NAMESPACE										    = "list";							    //前端：清单域命名空间
-    public static final String STORAGE_ZOOKEEPER_SEQUENCE_NAMESPACE										= "sequence";							//序列号域命名空间
     public static final String STORAGE_ZOOKEEPER_CONFIG_NAMESPACE										= "config";								//配置的命名空间
     public static final String STORAGE_ZOOKEEPER_STORAGE_NAMESPACE 										= "STORAGE";							//存储大类常量命名空间（Parameter配置）
     public static final String STORAGE_ZOOKEEPER_BUSINESS_NAMESPACE 									= "BUSINESS";							//业务大类常量命名空间（Parameter配置）
     public static final String STORAGE_ZOOKEEPER_SYSTEM_NAMESPACE 										= "SYSTEM";								//系统大类常量命名空间（Parameter配置）
-    
+    public static final String STORAGE_ZOOKEEPER_SEQUENCE_NAMESPACE 									= "sequence";							//序列号命名空间（也是全局的序列号载体
+
     public static final String STORAGE_DATABASE_JDBC_DRIVER_CLASS_NAME_PROPERTY_NAME                	= "driverClassName"; 					//数据库驱动属性名
     public static final String STORAGE_DATABASE_JDBC_URL_PROPERTY_NAME                              	= "url"; 								//数据库连接串属性名
     public static final String STORAGE_DATABASE_JDBC_USER_NAME_PROPERTY_NAME                        	= "username"; 							//数据库登录用户名属性名
@@ -88,17 +90,22 @@ public class Constants
     /**
      * 这部分是URI定义
      * URI_方法_域名
-     * 原子服务域名包括：PRODUCT、RESOURCE、SERVICE、RELATION、PARTY、CHARGE、LOG、SECURITY、REPORT、STATISTICS、SEARCH、CONFIG、THETHIRD
-     * 分别是：产品、资源、服务、关系、参与者、计费、日志、安全、报表、统计、搜索、配置（参数）、第三方
+     * 原子服务域名包括：PRODUCT、RESOURCE、SERVICE、RELATION、PARTY、CHARGE、COMMON、SECURITY、REPORT、STATISTICS、SEARCH、CONFIG、THETHIRD
+     * 分别是：产品、资源、服务、关系、参与者、计费、通用、安全、报表、统计、搜索、配置（参数）、第三方
      * 编排服务域名包括：LIST、DETAIL、HOTSPOT等
      */
     public static final String URI_ATOM_PRODUCT_DOMAIN_REQUEST_MAPPING                                  = "/product";                           //原子服务URI：产品域
     public static final String URI_ATOM_RESOURCE_DOMAIN_REQUEST_MAPPING                                 = "/resource";                          //原子服务URI：资源域
+    public static final String URI_ATOM_COMMON_DOMAIN_REQUEST_MAPPING                                   = "/common";                            //原子服务URI：通用域
+
+
     public static final String URI_ATOM_PRODUCT_GET_COURSES_IN_USED                                     = "/course";						    //原子服务URI：获取全量在用的课程清单（只有课程本身）
     public static final String URI_ATOM_PRODUCT_GET_COURSE_SPECIFIED									= "/course/{id}";				        //原子服务URI：获取指定的课程（只有课程本身）
     public static final String URI_ATOM_PRODUCT_POST_OPERATION_RECORD                                   = "operation";					        //原子服务URI：增加操作记录
 
     public static final String URI_ATOM_RESOURCE_GET_STORAGE_SPECIFIED                                  = "/storage/{storageId}";               //原子服务URI：获取指定的存储信息
+
+    public static final String URI_ATOM_COMMON_GET_NEXT_GLOBAL_VALUE                                    = "/sequence";                          //原子服务URI：获取全局唯一的序列号
 
     public static final String URI_ORCH_LIST_DOMAIN_REQUEST_MAPPING                                     = "/list";                              //原子服务URI：清单域
     public static final String URI_ORCH_LIST_GET_COURSES_IN_USED                                        = "/course";						    //编排服务URI：获取全量在用的课程清单（只有课程本身）
