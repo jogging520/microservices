@@ -2,6 +2,8 @@ package com.northbrain.base.common.model.vo;
 
 import java.util.Date;
 
+import com.northbrain.base.common.model.bo.Constants;
+
 public class CourseVO
 {
 	private Integer courseId;
@@ -102,5 +104,13 @@ public class CourseVO
 
     public void setDesciption(String desciption) {
         this.desciption = desciption == null ? null : desciption.trim();
+    }
+
+    public String toString()
+    {
+        return String.valueOf(
+                this.getCourseId() + Constants.BUSINESS_COMMON_COMMAND_LINE_END_SYMBOL +
+                this.getGrade()
+        );
     }
 }

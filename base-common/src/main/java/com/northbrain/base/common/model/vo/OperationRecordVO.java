@@ -3,6 +3,8 @@ package com.northbrain.base.common.model.vo;
 import java.util.Date;
 import java.util.List;
 
+import com.northbrain.base.common.model.bo.Constants;
+
 public class OperationRecordVO
 {
     private Integer recordId;
@@ -23,9 +25,9 @@ public class OperationRecordVO
 
     private String description;
 
-    private List<OperationRecordDetail> operationRecordDetails;
+    private List<OperationRecordDetailVO> operationRecordDetailVOS;
 
-    public static class OperationRecordDetail
+    public static class OperationRecordDetailVO
     {
         private Long recordDetailId;
 
@@ -190,11 +192,21 @@ public class OperationRecordVO
         this.description = description == null ? null : description.trim();
     }
 
-    public List<OperationRecordDetail> getOperationRecordDetails() {
-        return operationRecordDetails;
+    public List<OperationRecordDetailVO> getOperationRecordDetailVOS() {
+        return operationRecordDetailVOS;
     }
 
-    public void setOperationRecordDetails(List<OperationRecordDetail> operationRecordDetails) {
-        this.operationRecordDetails = operationRecordDetails;
+    public void setOperationRecordDetailVOS(List<OperationRecordDetailVO> operationRecordDetailVOS) {
+        this.operationRecordDetailVOS = operationRecordDetailVOS;
+    }
+
+    public String toString()
+    {
+        return String.valueOf
+                (
+                        this.getRecordId() + Constants.BUSINESS_COMMON_COMMAND_LINE_END_SYMBOL +
+                        this.getOperatorId() + Constants.BUSINESS_COMMON_COMMAND_LINE_END_SYMBOL +
+                        this.getDescription()
+                );
     }
 }

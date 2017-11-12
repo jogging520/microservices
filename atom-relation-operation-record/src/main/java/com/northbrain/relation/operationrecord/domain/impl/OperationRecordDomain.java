@@ -14,6 +14,8 @@ import com.northbrain.relation.operationrecord.dao.OperationRecordDetailPOMapper
 import com.northbrain.relation.operationrecord.dao.OperationRecordPOMapper;
 import com.northbrain.relation.operationrecord.domain.IOperationRecordDomain;
 import com.northbrain.relation.operationrecord.dto.IOperationRecordDTO;
+import com.northbrain.relation.operationrecord.exception.OperationRecordInsertException;
+import com.northbrain.relation.operationrecord.exception.OperationRecordUpdateException;
 import com.northbrain.relation.operationrecord.model.po.OperationRecordDetailPO;
 import com.northbrain.relation.operationrecord.model.po.OperationRecordPO;
 
@@ -75,8 +77,11 @@ public class OperationRecordDomain implements IOperationRecordDomain
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
 
+        logger.debug(operationRecordVO);
+
         OperationRecordPO operationRecordPO = operationRecordDTO.convertToOperationRecordPO(operationRecordVO);
 
+        //对于操作记录本身，如果没有记录，那么插入一条记录，否则更新当前记录。
         if(operationRecordPO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "operationRecordPO");
@@ -85,41 +90,43 @@ public class OperationRecordDomain implements IOperationRecordDomain
 
         if(operationRecordPOMapper.selectByPrimaryKey(operationRecordPO.getRecordId()) == null)
         {
-            if(operationRecordPOMapper.insert(operationRecordPO) > 0)
+            if(operationRecordPOMapper.insertSelective(operationRecordPO) == 0)
             {
-                if (operationRecordVO.getOperationRecordDetails() != null && operationRecordVO.getOperationRecordDetails().size() > 0) {
-                    List<OperationRecordDetailPO> operationRecordDetailPOs = operationRecordDTO.convertToOperationRecordDetailPOs(operationRecordVO);
-
-                    if (operationRecordDetailPOs == null) {
-                        logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "operationRecordDetailPOs");
-                        throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
-                    }
-
-                    for (OperationRecordDetailPO operationRecordDetailPO : operationRecordDetailPOs)
-                    {
-                        if(operationRecordDetailPOMapper.selectByPrimaryKey(operationRecordDetailPO.getRecordDetailId()) == null)
-                        {
-                            if (operationRecordDetailPOMapper.insert(operationRecordDetailPO) == 0)
-                                return false;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                return false;
+                logger.error(Errors.ERROR_BUSINESS_RELATION_OPERATION_RECORD_INSERT + String.valueOf(operationRecordPO.getRecordId()));
+                throw new OperationRecordInsertException(Errors.ERROR_BUSINESS_RELATION_OPERATION_RECORD_INSERT_EXCEPTION);
             }
         }
         else
         {
-            if(operationRecordPOMapper.updateByPrimaryKey(operationRecordPO) > 0)
+            if(operationRecordPOMapper.updateByPrimaryKeySelective(operationRecordPO) == 0)
             {
-
+                logger.error(Errors.ERROR_BUSINESS_RELATION_OPERATION_RECORD_UPDATE+ String.valueOf(operationRecordPO.getRecordId()));
+                throw new OperationRecordUpdateException(Errors.ERROR_BUSINESS_RELATION_OPERATION_RECORD_UPDATE_EXCEPTION);
             }
-            //不能返回失败，要不然每次都要判断。
-            //如果已经存在，那么就更新，包括finish_time
-            //到达return false，还是抛出异常，需要明确！！！！！！！！！！！！！
-            return false;
+        }
+
+        //对于操作记录明细，只有插入、没有更新。如果有其中一条记录插入失败，为保证业务的完整性，整个事务失败。
+        if (operationRecordVO.getOperationRecordDetailVOS() != null && operationRecordVO.getOperationRecordDetailVOS().size() > 0)
+        {
+            List<OperationRecordDetailPO> operationRecordDetailPOs = operationRecordDTO.convertToOperationRecordDetailPOs(operationRecordVO);
+
+            if (operationRecordDetailPOs == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "operationRecordDetailPOs");
+                throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+            }
+
+            for (OperationRecordDetailPO operationRecordDetailPO : operationRecordDetailPOs)
+            {
+                if(operationRecordDetailPOMapper.selectByPrimaryKey(operationRecordDetailPO.getRecordDetailId()) == null)
+                {
+                    if (operationRecordDetailPOMapper.insertSelective(operationRecordDetailPO) == 0)
+                    {
+                        logger.error(Errors.ERROR_BUSINESS_RELATION_OPERATION_RECORD_INSERT + String.valueOf(operationRecordDetailPO.getRecordId()));
+                        throw new OperationRecordInsertException(Errors.ERROR_BUSINESS_RELATION_OPERATION_RECORD_INSERT_EXCEPTION);
+                    }
+                }
+            }
         }
 
         return true;
@@ -135,6 +142,7 @@ public class OperationRecordDomain implements IOperationRecordDomain
     @Override
     public boolean updateOperationRecord(OperationRecordVO operationRecordVO) throws Exception
     {
+        //只更新record，不更新detail
         return false;
     }
 }

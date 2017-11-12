@@ -58,11 +58,11 @@ public class OperationRecordDTO implements IOperationRecordDTO
             return operationRecordVO;
         }
 
-        List<OperationRecordVO.OperationRecordDetail> operationRecordDetailVOS = new ArrayList<>();
+        List<OperationRecordVO.OperationRecordDetailVO> operationRecordDetailVOS = new ArrayList<>();
 
         for(OperationRecordDetailPO operationRecordDetailPO: operationRecordDetailPOS)
         {
-            OperationRecordVO.OperationRecordDetail operationRecordDetailVO = new OperationRecordVO.OperationRecordDetail();
+            OperationRecordVO.OperationRecordDetailVO operationRecordDetailVO = new OperationRecordVO.OperationRecordDetailVO();
 
             operationRecordDetailVO.setRecordDetailId(operationRecordDetailPO.getRecordDetailId());
             operationRecordDetailVO.setRecordId(operationRecordDetailPO.getRecordId());
@@ -77,7 +77,7 @@ public class OperationRecordDTO implements IOperationRecordDTO
             operationRecordDetailVOS.add(operationRecordDetailVO);
         }
 
-        operationRecordVO.setOperationRecordDetails(operationRecordDetailVOS);
+        operationRecordVO.setOperationRecordDetailVOS(operationRecordDetailVOS);
 
         return operationRecordVO;
     }
@@ -126,15 +126,15 @@ public class OperationRecordDTO implements IOperationRecordDTO
             throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
-        if(operationRecordVO.getOperationRecordDetails() == null)
+        if(operationRecordVO.getOperationRecordDetailVOS() == null)
         {
-            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "operationRecordVO.getOperationRecordDetails()");
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "operationRecordVO.getOperationRecordDetailVOS()");
             throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         List<OperationRecordDetailPO> operationRecordDetailPOS = new ArrayList<>();
 
-        for(OperationRecordVO.OperationRecordDetail operationRecordDetailVO: operationRecordVO.getOperationRecordDetails())
+        for(OperationRecordVO.OperationRecordDetailVO operationRecordDetailVO : operationRecordVO.getOperationRecordDetailVOS())
         {
 
             OperationRecordDetailPO operationRecordDetailPO = new OperationRecordDetailPO();
