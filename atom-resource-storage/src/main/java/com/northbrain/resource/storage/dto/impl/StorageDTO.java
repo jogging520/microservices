@@ -1,7 +1,10 @@
 package com.northbrain.resource.storage.dto.impl;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
+import com.northbrain.base.common.exception.ArgumentInputException;
+import com.northbrain.base.common.model.bo.Errors;
 import com.northbrain.base.common.model.vo.StorageVO;
 import com.northbrain.resource.storage.dto.IStorageDTO;
 import com.northbrain.resource.storage.model.po.StoragePO;
@@ -16,6 +19,8 @@ import com.northbrain.resource.storage.model.po.StoragePO;
 @Component
 public class StorageDTO implements IStorageDTO
 {
+    private static Logger logger = Logger.getLogger(StorageDTO.class);
+
     /**
      * 方法：将持久化对象StoragePO转换成值对象StorageVO
      *
@@ -25,6 +30,12 @@ public class StorageDTO implements IStorageDTO
     @Override
     public StorageVO convertToCourseVO(StoragePO storagePO) throws Exception
     {
+        if(storagePO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "storagePO");
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
         StorageVO storageVO = new StorageVO();
 
         storageVO.setStorageId(storagePO.getStorageId());
@@ -48,6 +59,12 @@ public class StorageDTO implements IStorageDTO
     @Override
     public StoragePO convertToCoursePO(StorageVO storageVO) throws Exception
     {
+        if(storageVO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "storageVO");
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
         StoragePO storagePO = new StoragePO();
 
         storagePO.setStorageId(storageVO.getStorageId());

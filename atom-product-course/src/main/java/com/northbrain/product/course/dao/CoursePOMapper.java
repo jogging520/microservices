@@ -12,17 +12,17 @@ import com.northbrain.product.course.model.po.CoursePO;
 @Component(value="coursePOMapper")
 public interface CoursePOMapper 
 {
-    int deleteByPrimaryKey(Integer courseId);
+    int deleteByPrimaryKey(Integer courseId) throws Exception;
 
-    int insert(CoursePO record);
+    int insert(CoursePO record) throws Exception;
 
-    int insertSelective(CoursePO record);
+    int insertSelective(CoursePO record) throws Exception;
 
-    CoursePO selectByPrimaryKey(Integer courseId);
+    CoursePO selectByPrimaryKey(Integer courseId) throws Exception;
     
-    List<CoursePO> selectByStatus(@Param("status") Integer status);
+    List<CoursePO> selectByStatus(@Param("status") Integer status) throws Exception;
 
-    int updateByPrimaryKeySelective(CoursePO record);
+    int updateByPrimaryKeySelective(CoursePO record) throws Exception;
 
-    int updateByPrimaryKey(CoursePO record);
+    int updateByPrimaryKey(CoursePO record) throws Exception;
 }

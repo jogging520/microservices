@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.northbrain.base.common.exception.ArgumentInputException;
 import com.northbrain.base.common.model.bo.Errors;
 import com.northbrain.base.common.model.vo.CourseVO;
 import com.northbrain.base.common.model.vo.ServiceVO;
@@ -32,6 +33,12 @@ public class CourseDTO implements ICourseDTO
     @Override
     public JSONArray convertToCourseVOArray(String serviceVOJSONString) throws Exception
     {
+        if(serviceVOJSONString == null || serviceVOJSONString.equals(""))
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "serviceVOJSONString");
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
         ServiceVO atomServiceVO = JSON.parseObject(serviceVOJSONString, ServiceVO.class);
 
         if (atomServiceVO == null)
@@ -67,6 +74,12 @@ public class CourseDTO implements ICourseDTO
     @Override
     public CourseVO convertToCourseVO(Object object) throws Exception
     {
+        if(object == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "object");
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
         return JSONObject.toJavaObject((JSON) object, CourseVO.class);
     }
 
@@ -80,6 +93,12 @@ public class CourseDTO implements ICourseDTO
     @Override
     public StorageVO convertToStorageVO(String serviceVOJSONString) throws Exception
     {
+        if(serviceVOJSONString == null || serviceVOJSONString.equals(""))
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "serviceVOJSONString");
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
         ServiceVO atomServiceVO = JSON.parseObject(serviceVOJSONString, ServiceVO.class);
 
         if (atomServiceVO == null)
@@ -114,6 +133,12 @@ public class CourseDTO implements ICourseDTO
     @Override
     public Integer convertToInteger(String serviceVOJSONString) throws Exception
     {
+        if(serviceVOJSONString == null || serviceVOJSONString.equals(""))
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "serviceVOJSONString");
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
         ServiceVO atomServiceVO = JSON.parseObject(serviceVOJSONString, ServiceVO.class);
 
         if (atomServiceVO == null)

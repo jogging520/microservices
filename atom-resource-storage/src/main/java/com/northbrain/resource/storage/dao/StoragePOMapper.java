@@ -9,15 +9,15 @@ import com.northbrain.resource.storage.model.po.StoragePO;
 @Component(value="storagePOMapper")
 public interface StoragePOMapper
 {
-    int deleteByPrimaryKey(Integer storageId);
+    int deleteByPrimaryKey(Integer storageId) throws Exception;
 
-    int insert(StoragePO record);
+    int insert(StoragePO record) throws Exception;
 
-    int insertSelective(StoragePO record);
+    int insertSelective(StoragePO record) throws Exception;
 
-    StoragePO selectByPrimaryKey(Integer storageId);
+    StoragePO selectByPrimaryKey(Integer storageId) throws Exception;
 
-    int updateByPrimaryKeySelective(StoragePO record);
+    int updateByPrimaryKeySelective(StoragePO record) throws Exception;
 
-    int updateByPrimaryKey(StoragePO record);
+    int updateByPrimaryKey(StoragePO record) throws Exception;
 }

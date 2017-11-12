@@ -1,7 +1,10 @@
 package com.northbrain.product.course.dto.impl;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
+import com.northbrain.base.common.exception.ArgumentInputException;
+import com.northbrain.base.common.model.bo.Errors;
 import com.northbrain.base.common.model.vo.CourseVO;
 import com.northbrain.product.course.dto.ICourseDTO;
 import com.northbrain.product.course.model.po.CoursePO;
@@ -16,6 +19,7 @@ import com.northbrain.product.course.model.po.CoursePO;
 @Component
 public class CourseDTO implements ICourseDTO
 {
+	private static Logger logger = Logger.getLogger(CourseDTO.class);
 	/**
 	 * 方法：将持久化对象CoursePO转换成值对象CourseVO
 	 * @param coursePO 持久化对象
@@ -24,6 +28,12 @@ public class CourseDTO implements ICourseDTO
 	@Override
 	public CourseVO convertToCourseVO(CoursePO coursePO) throws Exception
 	{
+		if(coursePO == null)
+		{
+			logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "coursePO");
+			throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+		}
+
 		CourseVO courseVO = new CourseVO();
     	
     	courseVO.setCourseId(coursePO.getCourseId());
@@ -48,6 +58,12 @@ public class CourseDTO implements ICourseDTO
 	@Override
 	public CoursePO convertToCoursePO(CourseVO courseVO) throws Exception
 	{
+		if(courseVO == null)
+		{
+			logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "courseVO");
+			throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+		}
+
 		CoursePO coursePO = new CoursePO();
     	
 		coursePO.setCourseId(courseVO.getCourseId());

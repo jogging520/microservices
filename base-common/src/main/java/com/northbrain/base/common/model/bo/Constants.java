@@ -37,8 +37,8 @@ public class Constants
     public static final String BUSINESS_COMMON_SEQUENCE_ATOM_MICROSERVICE                               = "atom-common-sequence";               //原子微服务：配置-序列号
 
     public static final String BUSINESS_PRODUCT_COURSE_ATOM_MICROSERVICE                                = "atom-product-course";                //原子微服务：产品-课程
-    public static final String BUSINESS_PRODUCT_OPERATION_ATOM_MICROSERVICE                             = "atom-product-operation";             //原子微服务：产品-操作记录
     public static final String BUSINESS_RESOURCE_STORAGE_ATOM_MICROSERVICE                              = "atom-resource-storage";              //原子微服务：资源-存储
+    public static final String BUSINESS_RELATION_OPERATION_RECORD_ATOM_MICROSERVICE                     = "atom-relation-operation-record";     //原子微服务：关系-操作记录
 
     public static final String BUSINESS_LIST_COURSE_ORCH_MICROSERVICE                                   = "orch-list-course";                   //编排微服务：列表-课程
 
