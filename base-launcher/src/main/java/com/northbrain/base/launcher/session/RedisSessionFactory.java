@@ -290,7 +290,7 @@ public class RedisSessionFactory
             }
 
             retries++;
-            CommonUtil.sleeping(Names.BUSINESS_COMMON_MANAGE_INTERVAL_MS);
+            CommonUtil.sleeping();
         }
 
         return jedis;

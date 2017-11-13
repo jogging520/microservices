@@ -147,7 +147,7 @@ public class ZooKeeperSessionFactory
             }
 
             retries++;
-            CommonUtil.sleeping(Names.BUSINESS_COMMON_MANAGE_INTERVAL_MS);
+            CommonUtil.sleeping();
         }
 
         return curatorFramework;

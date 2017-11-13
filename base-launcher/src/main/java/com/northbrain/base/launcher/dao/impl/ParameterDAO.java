@@ -92,7 +92,7 @@ public class ParameterDAO extends ZooKeeperCacheDAO implements IParameterDAO, Pa
 		
 		if(nameSpaces.length <= 1)
 		{
-			logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_EMPTY + "directoryItem");
+			logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_EMPTY + "nameSpaces");
 			throw new CollectionEmptyException(Errors.EROOR_BUSINESS_COMMON_COLLECTION_EMPTY_EXCEPTION);
 		}
 		

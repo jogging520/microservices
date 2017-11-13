@@ -21,42 +21,21 @@ public class CommonUtil
     private static Logger logger = Logger.getLogger(CommonUtil.class);    
 
     /**
-     * 方法：获取时间间隔（不同类型的时间间隔不等）
-     * @param name 名称
+     * 方法：获取时间间隔
      * @return 时间间隔
      */
-    private static long getInteval(Names name) throws Exception
+    private static long getInteval() throws Exception
     {
-        if(name == null)
-        {
-        	logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "name");
-        	throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
-        }
-        
-        String syncIntervalMs = Parameters.get(name);
-
-        if(syncIntervalMs == null || syncIntervalMs.equals(""))
-        {
-            logger.error(Errors.ERROR_BUSINESS_COMMON_PARAMETER_CONFIG + name.getName());
-            throw new ParameterConfigException(Errors.ERROR_BUSINESS_COMMON_PARAMETER_CONFIG_EXCEPTION);
-        }
-
-        return Long.parseLong(syncIntervalMs);
+        return Constants.BUSINESS_COMMON_DEFAULT_INTEVALMS;
     }
 
     /**
      * 方法：休眠当前线程
      * @param name 间隔时长名称
      */
-    public static void sleeping(Names name) throws Exception
+    public static void sleeping() throws Exception
     {
-    	if(name == null)
-        {
-        	logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "name");
-        	throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
-        }
-    	
-    	long inteval = getInteval(name);
+    	long inteval = getInteval();
 
         if(inteval == 0L)
             inteval = Constants.BUSINESS_COMMON_DEFAULT_INTEVALMS;

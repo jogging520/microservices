@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * 类名：产品域操作记录DAO接口
  * 用途：用于通知Feign组件对该接口进行代理
  */
-@FeignClient(name = Constants.BUSINESS_PRODUCT_OPERATION_ATOM_MICROSERVICE)
+@FeignClient(name = Constants.BUSINESS_RELATION_OPERATION_RECORD_ATOM_MICROSERVICE)
 public interface IOperationRecordDAO
 {
     /**

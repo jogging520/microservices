@@ -174,7 +174,7 @@ public class Parameters
         
         if(getState() != STATE.VALID)
         {
-            CommonUtil.sleeping(Names.BUSINESS_COMMON_MANAGE_INTERVAL_MS);
+            CommonUtil.sleeping();
             
             if(getState() != STATE.VALID)
             	throw new ParametersStateException(Errors.ERROR_BUSINESS_COMMON_PARAMETER_STATUS_EXCEPTION);
@@ -356,7 +356,7 @@ public class Parameters
     {
         StringBuilder result = new StringBuilder();
 
-        result.append("Status");
+        result.append("Status:");
         result.append(getState());
 
         for(Item item: items)

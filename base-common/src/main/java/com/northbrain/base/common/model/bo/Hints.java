@@ -13,8 +13,8 @@ public enum Hints
     /**
      * HINT_SYSTEM：系统级提示
      */
-	HINT_SYSTEM_PROCESS_BEGIN_INVOKE_METHOD                     (">>>>开始调用方法："                                          ),
-    HINT_SYSTEM_PROCESS_END_INVOKE_METHOD                       ("<<<<结束调用方法："                                          ),
+	HINT_SYSTEM_PROCESS_BEGIN_INVOKE_METHOD                     ("==>开始调用方法："                                          ),
+    HINT_SYSTEM_PROCESS_END_INVOKE_METHOD                       ("<==结束调用方法："                                          ),
     HINT_SYSTEM_PROCESS_INVOKE_METHOD_COST                      ("耗时(ms)："                                                  ),
     HINT_SYSTEM_PROCESS_SYSTEM_STARTUP                          ("系统启动......."                                              ),
     HINT_SYSTEM_PROCESS_SYSTEM_SHUTDOWN                         ("系统退出......."                                              ),
