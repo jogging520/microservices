@@ -123,27 +123,20 @@ public class LauncherDomain implements ILauncherDomain, BeanDefinitionRegistryPo
     		parameterDAO.sync(storageZooKeeperConfigPath + Constants.STORAGE_ZOOKEEPER_STORAGE_NAMESPACE, true);
     		parameterDAO.sync(storageZooKeeperConfigPath + Constants.STORAGE_ZOOKEEPER_SYSTEM_NAMESPACE, true);
         }
-        catch (ParametersStateException parametersStateException)
+        catch (ParametersStateException | ParameterConfigException | ArgumentInputException parametersStateException)
         {
             logger.error(StackTracerUtil.getExceptionInfo(parametersStateException));
+            throw new RuntimeException(parametersStateException);
         }
-        catch (ArgumentInputException argumentInputException)
-        {
-        	logger.error(StackTracerUtil.getExceptionInfo(argumentInputException));
-        }
-        catch (ParameterConfigException parameterConfigException)
-        {
-        	logger.error(StackTracerUtil.getExceptionInfo(parameterConfigException));
-        }
-        catch (IOException exception)
+        catch (IOException ioexception)
         {
         	logger.error(Errors.ERROR_SYSTEM_IO_EXCEPTION);
-            logger.error(StackTracerUtil.getExceptionInfo(exception));
+            throw new RuntimeException(ioexception);
         }
         catch (Exception exception)
         {
             logger.error(Errors.ERROR_OTHER_UNKNOW_EXCEPTION);
-            logger.error(StackTracerUtil.getExceptionInfo(exception));
+            throw new RuntimeException(exception);
         }
     }
     

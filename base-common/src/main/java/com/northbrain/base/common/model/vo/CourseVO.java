@@ -2,6 +2,7 @@ package com.northbrain.base.common.model.vo;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.northbrain.base.common.model.bo.Constants;
 
 public class CourseVO
@@ -20,8 +21,10 @@ public class CourseVO
 
     private Integer status;
 
+    @JSONField(format=Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
     private Date createTime;
 
+    @JSONField(format=Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
     private Date statusTime;
 
     private String desciption;

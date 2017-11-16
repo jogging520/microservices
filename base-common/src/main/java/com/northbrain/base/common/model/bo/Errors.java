@@ -72,6 +72,7 @@ public enum Errors
     ERROR_STORAGE_ZOOKEEPER_INCORRECT_DATAVERSION			        ("4050", "ZooKeeper的数据版本错误。"                        ),
     ERROR_STORAGE_REDIS_SESSION_EXCEPTION					        ("4202", "Redis会话连接异常："                             ),
     ERROR_STORAGE_REDIS_SESSION_NULL	                  	        ("4101", "获取Redis会话不成功。"                            ),
+    ERROR_STORAGE_BAD_SQL_GRAMMAR_EXCEPTION	                  	    ("4333", "连接数据库或执行数据库操作时候发生异常。"                            ),
 
     /**
 	 * 5XXX:其他错误，如未知错误，ERROR_OTHER_

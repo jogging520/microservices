@@ -3,6 +3,7 @@ package com.northbrain.base.common.model.vo;
 import java.util.Date;
 import java.util.List;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.northbrain.base.common.model.bo.Constants;
 
 public class OperationRecordVO
@@ -19,8 +20,10 @@ public class OperationRecordVO
 
     private Integer status;
 
+    @JSONField(format=Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
     private Date startTime;
 
+    @JSONField(format=Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
     private Date finishTime;
 
     private String description;

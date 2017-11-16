@@ -13,14 +13,14 @@ import com.northbrain.list.course.dao.hystrix.HystrixSequenceDAO;
  * 用途：用于通知Feign组件对该接口进行代理
  */
 @FeignClient(name = Constants.BUSINESS_COMMON_SEQUENCE_ATOM_MICROSERVICE, fallback = HystrixSequenceDAO.class)
-@RequestMapping(Constants.URI_ATOM_COMMON_DOMAIN_REQUEST_MAPPING)
+@RequestMapping(Constants.URI_ATOM_COMMON_GLOBAL_SEQUENCE_REQUEST_MAPPING)
 public interface ISequenceDAO
 {
     /**
      * 方法：通过原子服务获取在用的序列号
      * @return 全局唯一的序列号
      */
-    @RequestMapping(value=Constants.URI_ATOM_COMMON_GET_NEXT_GLOBAL_VALUE, method = RequestMethod.GET, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS)
+    @RequestMapping(method = RequestMethod.GET, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS)
     @ResponseBody
     String readNextGlobalValue() throws Exception;
 }

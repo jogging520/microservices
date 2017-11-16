@@ -1,9 +1,9 @@
 package com.northbrain.base.common.model.vo;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.northbrain.base.common.model.bo.Constants;
 import com.northbrain.base.common.model.bo.Errors;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -15,53 +15,38 @@ import java.util.Date;
  */
 public class ServiceVO
 {
-    private String 	requestTime;			//请求时间
-    private String 	responseTime;			//响应时间
+    @JSONField(format= Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
+    private Date  	requestTime;			//请求时间
+    @JSONField(format=Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
+    private Date 	responseTime;			//响应时间
     private String 	responseCode;			//响应代码（业务级）
     private String 	responseDesc;	        //响应描述（业务级）
     private Object  response;               //响应对象
 
     public ServiceVO()
     {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
-
-        Date date = new Date();
-        this.setRequestTime(dateFormat.format(date));
+        this.setRequestTime(new Date());
         this.setResponseCodeAndDesc(Errors.ERROR_OTHER_UNKNOW_EXCEPTION);
     }
 
-    public String getRequestTime()
+    public Date getRequestTime()
     {
         return requestTime;
     }
 
-    private void setRequestTime(String requestTime)
+    private void setRequestTime(Date requestTime)
     {
         this.requestTime = requestTime;
     }
 
-    public void setRequestTime(Date requestTime)
-    {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
-
-        this.requestTime = dateFormat.format(requestTime);
-    }
-
-    public String getResponseTime()
+    public Date getResponseTime()
     {
         return responseTime;
     }
 
-    public void setResponseTime(String responseTime)
-    {
-        this.responseTime = responseTime;
-    }
-
     public void setResponseTime(Date responseTime)
     {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
-
-        this.responseTime = dateFormat.format(responseTime);
+        this.responseTime = responseTime;
     }
 
     public String getResponseCode()

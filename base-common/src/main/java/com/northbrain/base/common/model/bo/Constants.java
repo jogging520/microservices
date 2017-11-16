@@ -16,6 +16,8 @@ public class Constants
     public static final int    BUSINESS_COMMON_BASIC_SEQUENCE                                           = 1000000000;
     public static final String BUSINESS_COMMON_TRUE 													= "TRUE";
     public static final String BUSINESS_COMMON_NODE_SEPARATOR 											= "/";									//Zookeeper的分隔符
+    public static final String BUSINESS_COMMON_JSON_REQUEST_DATE_FORMART                                = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";         //Json请求报文日期格式
+    public static final String BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART                               = "yyyy-MM-dd HH:mm:ss.SSS";         //Json响应报文日期格式
     public static final String BUSINESS_COMMON_LOG_DEBUG_LEVEL											= "DEBUG";								//DEBUG日志级别
     public static final String BUSINESS_COMMON_LOG_ENCODING												= "UTF-8";								//日志编码格式
     public static final String BUSINESS_COMMON_LOG_APPENDER_NAME										= "common";								//LOG4J appender名称											= "DEBUG";								//DEBUG日志级别
@@ -95,21 +97,19 @@ public class Constants
      * 分别是：产品、资源、服务、关系、参与者、计费、通用、安全、报表、统计、搜索、配置（参数）、第三方
      * 编排服务域名包括：LIST、DETAIL、HOTSPOT等
      */
-    public static final String URI_ATOM_PRODUCT_DOMAIN_REQUEST_MAPPING                                  = "/product";                           //原子服务URI：产品域
-    public static final String URI_ATOM_RESOURCE_DOMAIN_REQUEST_MAPPING                                 = "/resource";                          //原子服务URI：资源域
-    public static final String URI_ATOM_COMMON_DOMAIN_REQUEST_MAPPING                                   = "/common";                            //原子服务URI：通用域
+    public static final String URI_ATOM_PRODUCT_COURSE_REQUEST_MAPPING                                  = "/product/course";						    //原子服务URI：课程清单（只有课程本身）
+    public static final String URI_ATOM_PRODUCT_COURSE_SPECIFIED_REQUEST_MAPPING						= "/{courseId}";				        //原子服务URI：指定的课程（只有课程本身）
+
+    public static final String URI_ATOM_RESOURCE_STORAGE_REQUEST_MAPPING                                = "/resource/storage";                           //原子服务URI：存储信息
+    public static final String URI_ATOM_RESOURCE_STORAGE_SPECIFIED_REQUEST_MAPPING                      = "/{storageId}";               //原子服务URI：指定的存储信息
+
+    public static final String URI_ATOM_RELATION_OPERATION_RECORD_REQUEST_MAPPING                       = "/relation/operationrecord";          //原子服务URI：操作记录
 
 
-    public static final String URI_ATOM_PRODUCT_GET_COURSES_IN_USED                                     = "/course";						    //原子服务URI：获取全量在用的课程清单（只有课程本身）
-    public static final String URI_ATOM_PRODUCT_GET_COURSE_SPECIFIED									= "/course/{id}";				        //原子服务URI：获取指定的课程（只有课程本身）
-    public static final String URI_ATOM_PRODUCT_POST_OPERATION_RECORD                                   = "operation";					        //原子服务URI：增加操作记录
+    public static final String URI_ATOM_COMMON_GLOBAL_SEQUENCE_REQUEST_MAPPING                          = "/common/sequence";                          //原子服务URI：全局唯一的序列号
 
-    public static final String URI_ATOM_RESOURCE_GET_STORAGE_SPECIFIED                                  = "/storage/{storageId}";               //原子服务URI：获取指定的存储信息
-
-    public static final String URI_ATOM_COMMON_GET_NEXT_GLOBAL_VALUE                                    = "/sequence";                          //原子服务URI：获取全局唯一的序列号
-
-    public static final String URI_ORCH_LIST_DOMAIN_REQUEST_MAPPING                                     = "/list";                              //原子服务URI：清单域
-    public static final String URI_ORCH_LIST_GET_COURSES_IN_USED                                        = "/course";						    //编排服务URI：获取全量在用的课程清单（只有课程本身）
+    public static final String URI_ORCH_LIST_COURSE_REQUEST_MAPPING                                     = "/list/course";						    //编排服务URI：全量在用的课程清单（只有课程本身）
+    public static final String URI_ORCH_LIST_COURSE_SPECIFIED_REQUEST_MAPPING                           = "/{courseId}";						    //编排服务URI：全量在用的课程清单（只有课程本身）
 
     /**
      * 匹配布尔类型

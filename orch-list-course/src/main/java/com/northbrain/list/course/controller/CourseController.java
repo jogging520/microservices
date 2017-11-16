@@ -1,7 +1,12 @@
 package com.northbrain.list.course.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import com.alibaba.fastjson.JSON;
@@ -20,7 +25,7 @@ import feign.FeignException;
  * 用途：解析http servlet，调用service层服务，返回交互表现层应答数据。
  */
 @RestController
-@RequestMapping(Constants.URI_ORCH_LIST_DOMAIN_REQUEST_MAPPING)
+@RequestMapping(Constants.URI_ORCH_LIST_COURSE_REQUEST_MAPPING)
 public class CourseController
 {
     private static Logger logger = Logger.getLogger(CourseController.class);
@@ -37,7 +42,7 @@ public class CourseController
      * 方法：读取在用的课程列表
      * @return 以ServiceVO封装的课程列表的JSON对象
      */
-    @RequestMapping(value= Constants.URI_ORCH_LIST_GET_COURSES_IN_USED, method = RequestMethod.GET, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS)
+    @RequestMapping(method = RequestMethod.GET, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS)
     @ResponseBody
     public String readInUsedCourses()
     {
@@ -76,5 +81,15 @@ public class CourseController
         }
 
         return JSON.toJSONString(serviceVO);
+    }
+
+    /**
+     * 方法 ：Json日期格式转换
+     * @param servletRequestDataBinder 前端属性在后台封装成一个对象
+     */
+    @InitBinder
+    public void initBinder(ServletRequestDataBinder servletRequestDataBinder)
+    {
+        servletRequestDataBinder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat(Constants.BUSINESS_COMMON_JSON_REQUEST_DATE_FORMART), false));
     }
 }

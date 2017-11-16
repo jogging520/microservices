@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * 用途：用于通知Feign组件对该接口进行代理
  */
 @FeignClient(name = Constants.BUSINESS_PRODUCT_COURSE_ATOM_MICROSERVICE, fallback = HystrixCourseDAO.class)
-@RequestMapping(Constants.URI_ATOM_PRODUCT_DOMAIN_REQUEST_MAPPING)
+@RequestMapping(Constants.URI_ATOM_PRODUCT_COURSE_REQUEST_MAPPING)
 public interface ICourseDAO
 {
     /**
      * 方法：通过原子服务获取在用的课程列表
      * @return 在用的课程列表
      */
-    @RequestMapping(value=Constants.URI_ATOM_PRODUCT_GET_COURSES_IN_USED, method = RequestMethod.GET, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS)
+    @RequestMapping(method = RequestMethod.GET, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS)
     @ResponseBody
     String readAtomInUsedCourses() throws Exception;
 }
