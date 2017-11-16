@@ -2,6 +2,7 @@ package com.northbrain.resource.storage.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class StorageController
 
     /**
      * 方法：读取存储信息
-     * @return 以ServiceVO封装的课程列表
+     * @return 以ServiceVO封装的存储信息
      */
     @RequestMapping(value= Constants.URI_ATOM_RESOURCE_STORAGE_SPECIFIED_REQUEST_MAPPING, method = RequestMethod.GET, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS)
     @ResponseBody
@@ -50,14 +51,78 @@ public class StorageController
 
         try
         {
+            if(storageId <= 0)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE + "storageId:" + storageId);
+                serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION);
+
+                return JSON.toJSONString(serviceVO);
+            }
+
             if(storageService == null)
             {
                 logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "storageService");
+                serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
 
                 return JSON.toJSONString(serviceVO);
             }
 
             return JSON.toJSONString(storageService.readStorage(storageId));
+        }
+        catch(IllegalStateException illegalStateException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(illegalStateException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_ILLEGAL_STATE_EXCEPTION);
+        }
+        catch (JSONException jSONException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(jSONException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_JSON_EXCEPTION);
+        }
+        catch (FeignException feignException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(feignException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_FEIGN_EXCEPTION);
+        }
+        catch(Exception exception)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(exception));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_OTHER_UNKNOW_EXCEPTION);
+        }
+
+        return JSON.toJSONString(serviceVO);
+    }
+
+    /**
+     * 方法：读取一组存储信息
+     * @return 以ServiceVO封装的存储信息
+     */
+    @RequestMapping(method = RequestMethod.GET, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS)
+    @ResponseBody
+    public String readStorages(@RequestBody List<Integer> storageIds)
+    {
+        logger.info(Hints.HINT_SYSTEM_PROCESS_CALL_CONTROLLER + "readStorage");
+        ServiceVO serviceVO = new ServiceVO();
+
+        try
+        {
+            if(storageIds == null || storageIds.size() == 0)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "storageIds");
+                serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+
+                return JSON.toJSONString(serviceVO);
+            }
+
+            if(storageService == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "storageService");
+                serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+
+                return JSON.toJSONString(serviceVO);
+            }
+
+            return JSON.toJSONString(storageService.readStorages(storageIds));
         }
         catch(IllegalStateException illegalStateException)
         {

@@ -1,6 +1,9 @@
 package com.northbrain.resource.storage.service;
 
+import java.util.List;
+
 import com.northbrain.base.common.model.vo.ServiceVO;
+import com.northbrain.base.common.model.vo.StorageVO;
 
 /**
  * 类名：存储服务接口
@@ -16,4 +19,11 @@ public interface IStorageService
      * @return ServiceVO封装类
      */
     ServiceVO readStorage(int storageId);
+
+    /**
+     * 方法：获取一组指定资源ID的资源信息
+     * @param storageIds 一组资源的ID集合
+     * @return ServiceVO封装类，封装了选出的存储信息的集合
+     */
+    ServiceVO readStorages(List<Integer> storageIds);
 }

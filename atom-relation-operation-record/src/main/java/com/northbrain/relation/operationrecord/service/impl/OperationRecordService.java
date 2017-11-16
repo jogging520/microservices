@@ -51,6 +51,14 @@ public class OperationRecordService implements IOperationRecordService
 
         try
         {
+            if(operationRecordVO == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "operationRecordVO");
+                serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+
+                return serviceVO;
+            }
+
             if(operationRecordDomain == null)
             {
                 logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "operationRecordDomain");

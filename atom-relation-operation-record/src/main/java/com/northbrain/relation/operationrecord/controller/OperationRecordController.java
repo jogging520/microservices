@@ -52,9 +52,18 @@ public class OperationRecordController
 
         try
         {
+            if(operationRecordVO == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "operationRecordVO");
+                serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+
+                return JSON.toJSONString(serviceVO);
+            }
+
             if(operationRecordService == null)
             {
                 logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "operationRecordService");
+                serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
 
                 return JSON.toJSONString(serviceVO);
             }

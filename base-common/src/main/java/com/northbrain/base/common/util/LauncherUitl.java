@@ -68,6 +68,12 @@ public class LauncherUitl
      */
     public static boolean parseCommandLine(String[] arguments) throws Exception
     {    	
+    	if(arguments == null || arguments.length == 0)
+		{
+			logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "arguments");
+			return false;
+		}
+
     	String commandLine = Arrays.toString(arguments);
     	
     	if(!commandLine.contains(Constants.BUSINESS_COMMON_COMMAND_LINE_PROJECT_NAME))

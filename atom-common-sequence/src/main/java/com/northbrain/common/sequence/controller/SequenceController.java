@@ -51,6 +51,7 @@ public class SequenceController
             if(sequenceService == null)
             {
                 logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "sequenceService");
+                serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
 
                 return JSON.toJSONString(serviceVO);
             }

@@ -54,6 +54,8 @@ public class CourseDomain implements ICourseDomain
     public List<OrchCourseVO> readInUsedCourses() throws Exception
     {
         List<OrchCourseVO> orchCourseVOS;
+        List<Integer> storageIds;
+        List<StorageVO> storageVOS;
 
         if (courseDAO == null)
         {
@@ -70,6 +72,12 @@ public class CourseDomain implements ICourseDomain
         if (sequenceDAO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "sequenceDAO");
+            return null;
+        }
+
+        if (operationRecordDAO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "operationRecordDAO");
             return null;
         }
 
@@ -90,6 +98,16 @@ public class CourseDomain implements ICourseDomain
             logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_EMPTY + "atomCourseVOS");
             return null;
         }
+
+        storageIds = new ArrayList<>();
+
+        for (Object object : atomCourseVOS)
+        {
+            CourseVO courseVO = courseDTO.convertToCourseVO(object);
+            storageIds.add(courseVO.getThumbnail());
+        }
+
+        storageVOS =
 
         orchCourseVOS = new ArrayList<>();
 

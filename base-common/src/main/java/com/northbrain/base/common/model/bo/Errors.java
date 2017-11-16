@@ -50,6 +50,7 @@ public enum Errors
     ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL                       ("2101", "参数为空错误。"                                  ),
     ERROR_BUSINESS_COMMON_OBJECT_NULL                               ("2103", "空对象错误。"                                   ),
     ERROR_BUSINESS_COMMON_OBJECT_EMPTY						        ("2104", "选出来的数据为空："                               ),
+    ERROR_BUSINESS_COMMON_NUMBER_SCOPE          			        ("2106", "数值范围不正确。"                                  ),
     ERROR_BUSINESS_COMMON_UPDATE_PARAMETERS					        ("2105", "同步更新Paramters基础配置器时发生错误。"              ),
     ERROR_BUSINESS_COMMON_REMOVE_PARAMETERS					        ("2105", "同步删除Paramters基础配置器时发生错误。"              ),
     ERROR_BUSINESS_COMMON_COMMAND_LINE_MISSING				        ("2350", "命令行参数缺失或错误。"                             ),

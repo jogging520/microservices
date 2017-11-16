@@ -1,5 +1,7 @@
 package com.northbrain.list.course.dao;
 
+import java.util.List;
+
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,4 +23,12 @@ public interface IStorageDAO
     @RequestMapping(value=Constants.URI_ATOM_RESOURCE_STORAGE_SPECIFIED_REQUEST_MAPPING, method = RequestMethod.GET, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS)
     @ResponseBody
     String readAtomStorage(@PathVariable("storageId")int storageId) throws Exception;
+
+    /**
+     * 方法：读取一组存储信息
+     * @return 以ServiceVO封装的存储信息
+     */
+    @RequestMapping(method = RequestMethod.GET, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS)
+    @ResponseBody
+    String readAtomStorages(@RequestBody List<Integer> storageIds) throws Exception;
 }

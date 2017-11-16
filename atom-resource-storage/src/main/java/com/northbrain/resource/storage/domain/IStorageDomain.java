@@ -1,5 +1,7 @@
 package com.northbrain.resource.storage.domain;
 
+import java.util.List;
+
 import com.northbrain.base.common.model.vo.StorageVO;
 
 /**
@@ -15,6 +17,15 @@ public interface IStorageDomain
      * 方法：获取特定的资源信息
      * @param storageId 资源存储编号
      * @return 课程
+     * @throws Exception 异常
      */
     StorageVO readStorage(int storageId) throws Exception;
+
+    /**
+     * 方法：获取一组指定资源ID的资源信息
+     * @param storageIds 一组资源的ID集合
+     * @return 一组指定资源ID的资源信息
+     * @throws Exception 异常
+     */
+    List<StorageVO> readStorages(List<Integer> storageIds) throws Exception;
 }
