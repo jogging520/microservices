@@ -22,5 +22,5 @@ public interface ISequenceDAO
      */
     @RequestMapping(method = RequestMethod.GET, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS)
     @ResponseBody
-    String readNextGlobalValue() throws Exception;
+    String readAtomNextGlobalValue() throws Exception;
 }

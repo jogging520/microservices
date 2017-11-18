@@ -3,7 +3,6 @@ package com.northbrain.relation.operationrecord.service.impl;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Date;
-import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +15,7 @@ import com.northbrain.base.common.model.vo.OperationRecordVO;
 import com.northbrain.base.common.model.vo.ServiceVO;
 import com.northbrain.base.common.util.StackTracerUtil;
 import com.northbrain.relation.operationrecord.domain.IOperationRecordDomain;
-import com.northbrain.relation.operationrecord.exception.OperationRecordInsertException;
-import com.northbrain.relation.operationrecord.exception.OperationRecordUpdateException;
+import com.northbrain.relation.operationrecord.exception.OperationRecordException;
 import com.northbrain.relation.operationrecord.service.IOperationRecordService;
 
 /**
@@ -145,15 +143,10 @@ public class OperationRecordService implements IOperationRecordService
             logger.error(StackTracerUtil.getExceptionInfo(zooKeeperSessionException));
             serviceVO.setResponseCodeAndDesc(Errors.ERROR_STORAGE_ZOOKEEPER_SESSION_EXCEPTION);
         }
-        catch (OperationRecordInsertException operationRecordInsertException)
+        catch (OperationRecordException operationRecordInsertException)
         {
             logger.error(StackTracerUtil.getExceptionInfo(operationRecordInsertException));
-            serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_RELATION_OPERATION_RECORD_INSERT_EXCEPTION);
-        }
-        catch (OperationRecordUpdateException operationRecordUpdateException)
-        {
-            logger.error(StackTracerUtil.getExceptionInfo(operationRecordUpdateException));
-            serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_RELATION_OPERATION_RECORD_UPDATE_EXCEPTION);
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_RELATION_OPERATION_RECORD_EXCEPTION);
         }
         catch (BadSqlGrammarException badSqlGrammarException)
         {

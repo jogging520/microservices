@@ -13,11 +13,12 @@ public class Constants
 	 * 这部分是一般的常量定义
 	 */
 	public static final long   BUSINESS_COMMON_DEFAULT_INTEVALMS 										= 30000L;								//默认的轮询时间间隔，30秒
-    public static final int    BUSINESS_COMMON_BASIC_SEQUENCE                                           = 1000000000;
+    public static final int    BUSINESS_COMMON_BASIC_SEQUENCE                                           = 1000000000;                           //基础的序列号
+    public static final int    BUSINESS_COMMON_OPERATION_RECORD_DETAIL_ID_MULTIPLE                      = 100;                                  //操作记录明细ID号的倍数关系，明细记录由操作记录的ID乘以该值得到
     public static final String BUSINESS_COMMON_TRUE 													= "TRUE";
     public static final String BUSINESS_COMMON_NODE_SEPARATOR 											= "/";									//Zookeeper的分隔符
     public static final String BUSINESS_COMMON_JSON_REQUEST_DATE_FORMART                                = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";         //Json请求报文日期格式
-    public static final String BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART                               = "yyyy-MM-dd HH:mm:ss.SSS";         //Json响应报文日期格式
+    public static final String BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART                               = "yyyy-MM-dd HH:mm:ss.SSS";            //Json响应报文日期格式
     public static final String BUSINESS_COMMON_LOG_DEBUG_LEVEL											= "DEBUG";								//DEBUG日志级别
     public static final String BUSINESS_COMMON_LOG_ENCODING												= "UTF-8";								//日志编码格式
     public static final String BUSINESS_COMMON_LOG_APPENDER_NAME										= "common";								//LOG4J appender名称											= "DEBUG";								//DEBUG日志级别

@@ -14,8 +14,7 @@ import com.northbrain.relation.operationrecord.dao.OperationRecordDetailPOMapper
 import com.northbrain.relation.operationrecord.dao.OperationRecordPOMapper;
 import com.northbrain.relation.operationrecord.domain.IOperationRecordDomain;
 import com.northbrain.relation.operationrecord.dto.IOperationRecordDTO;
-import com.northbrain.relation.operationrecord.exception.OperationRecordInsertException;
-import com.northbrain.relation.operationrecord.exception.OperationRecordUpdateException;
+import com.northbrain.relation.operationrecord.exception.OperationRecordException;
 import com.northbrain.relation.operationrecord.model.po.OperationRecordDetailPO;
 import com.northbrain.relation.operationrecord.model.po.OperationRecordPO;
 
@@ -45,7 +44,7 @@ public class OperationRecordDomain implements IOperationRecordDomain
 
     /**
      * 方法：新建一条操作记录，根据OperationRecordVO再转换成相应的PO
-     *
+     * 如果已经存在，那么更新该操作记录及明细。
      * @param operationRecordVO 操作记录值对象
      * @return 是否新增成功
      * @throws Exception 异常
@@ -93,7 +92,7 @@ public class OperationRecordDomain implements IOperationRecordDomain
             if(operationRecordPOMapper.insertSelective(operationRecordPO) == 0)
             {
                 logger.error(Errors.ERROR_BUSINESS_RELATION_OPERATION_RECORD_INSERT + String.valueOf(operationRecordPO.getRecordId()));
-                throw new OperationRecordInsertException(Errors.ERROR_BUSINESS_RELATION_OPERATION_RECORD_INSERT_EXCEPTION);
+                throw new OperationRecordException(Errors.ERROR_BUSINESS_RELATION_OPERATION_RECORD_EXCEPTION);
             }
         }
         else
@@ -101,7 +100,7 @@ public class OperationRecordDomain implements IOperationRecordDomain
             if(operationRecordPOMapper.updateByPrimaryKeySelective(operationRecordPO) == 0)
             {
                 logger.error(Errors.ERROR_BUSINESS_RELATION_OPERATION_RECORD_UPDATE+ String.valueOf(operationRecordPO.getRecordId()));
-                throw new OperationRecordUpdateException(Errors.ERROR_BUSINESS_RELATION_OPERATION_RECORD_UPDATE_EXCEPTION);
+                throw new OperationRecordException(Errors.ERROR_BUSINESS_RELATION_OPERATION_RECORD_EXCEPTION);
             }
         }
 
@@ -110,7 +109,7 @@ public class OperationRecordDomain implements IOperationRecordDomain
         {
             List<OperationRecordDetailPO> operationRecordDetailPOs = operationRecordDTO.convertToOperationRecordDetailPOs(operationRecordVO);
 
-            if (operationRecordDetailPOs == null)
+            if (operationRecordDetailPOs == null || operationRecordDetailPOs.size() == 0)
             {
                 logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "operationRecordDetailPOs");
                 throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
@@ -123,7 +122,15 @@ public class OperationRecordDomain implements IOperationRecordDomain
                     if (operationRecordDetailPOMapper.insertSelective(operationRecordDetailPO) == 0)
                     {
                         logger.error(Errors.ERROR_BUSINESS_RELATION_OPERATION_RECORD_INSERT + String.valueOf(operationRecordDetailPO.getRecordId()));
-                        throw new OperationRecordInsertException(Errors.ERROR_BUSINESS_RELATION_OPERATION_RECORD_INSERT_EXCEPTION);
+                        throw new OperationRecordException(Errors.ERROR_BUSINESS_RELATION_OPERATION_RECORD_EXCEPTION);
+                    }
+                }
+                else
+                {
+                    if (operationRecordDetailPOMapper.updateByPrimaryKeySelective(operationRecordDetailPO) == 0)
+                    {
+                        logger.error(Errors.ERROR_BUSINESS_RELATION_OPERATION_RECORD_INSERT + String.valueOf(operationRecordDetailPO.getRecordId()));
+                        throw new OperationRecordException(Errors.ERROR_BUSINESS_RELATION_OPERATION_RECORD_EXCEPTION);
                     }
                 }
             }
@@ -134,7 +141,7 @@ public class OperationRecordDomain implements IOperationRecordDomain
 
     /**
      * 方法：更新操作记录，根据OperationRecordVO再转换成相应的PO
-     *
+     * 只更新record，不更新detail
      * @param operationRecordVO 操作记录值对象
      * @return 是否更新成功
      * @throws Exception 异常
@@ -142,7 +149,48 @@ public class OperationRecordDomain implements IOperationRecordDomain
     @Override
     public boolean updateOperationRecord(OperationRecordVO operationRecordVO) throws Exception
     {
-        //只更新record，不更新detail
-        return false;
+        if(operationRecordVO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "operationRecordVO");
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        if(operationRecordPOMapper == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "operationRecordPOMapper");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        if(operationRecordDTO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "operationRecordDTO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        logger.debug(operationRecordVO);
+
+        OperationRecordPO operationRecordPO = operationRecordDTO.convertToOperationRecordPO(operationRecordVO);
+
+        //对于操作记录本身，如果没有记录，那么插入一条记录，否则更新当前记录。
+        if(operationRecordPO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "operationRecordPO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        if(operationRecordPOMapper.selectByPrimaryKey(operationRecordPO.getRecordId()) == null)
+        {
+            throw new OperationRecordException(Errors.ERROR_BUSINESS_RELATION_OPERATION_RECORD_EXCEPTION);
+        }
+        else
+        {
+            if(operationRecordPOMapper.updateByPrimaryKeySelective(operationRecordPO) == 0)
+            {
+                logger.error(Errors.ERROR_BUSINESS_RELATION_OPERATION_RECORD_UPDATE+ String.valueOf(operationRecordPO.getRecordId()));
+                throw new OperationRecordException(Errors.ERROR_BUSINESS_RELATION_OPERATION_RECORD_EXCEPTION);
+            }
+        }
+
+        return true;
     }
 }

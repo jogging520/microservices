@@ -2,6 +2,7 @@ package com.northbrain.list.course.dto;
 
 import com.alibaba.fastjson.JSONArray;
 import com.northbrain.base.common.model.vo.CourseVO;
+import com.northbrain.base.common.model.vo.OperationRecordVO;
 import com.northbrain.base.common.model.vo.StorageVO;
 
 /**
@@ -13,7 +14,7 @@ import com.northbrain.base.common.model.vo.StorageVO;
 public interface ICourseDTO
 {
     /**
-     * 方法：将原子服务返回的ServiceVO的JSON串转换成JSON数组
+     * 方法：将原子服务返回的ServiceVO的JSON串转换成CourseVO的JSON数组
      * @param serviceVOJSONString 调用课程原子服务返回的JSON串
      * @return JSON串转换成JSON数组
      * @throws Exception 异常
@@ -37,10 +38,35 @@ public interface ICourseDTO
     StorageVO convertToStorageVO(String serviceVOJSONString) throws Exception;
 
     /**
+     * 方法：将对象转换成StorageVO
+     *
+     * @param object 待转换对象
+     * @return StorageVO
+     * @throws Exception 异常
+     */
+    StorageVO convertToStorageVO(Object object) throws Exception;
+
+    /**
+     * 方法：将原子服务返回的ServiceVO的JSON串转换成StorageVO的JSON数组
+     * @param serviceVOJSONString 调用课程原子服务返回的JSON串
+     * @return JSON串转换成JSON数组
+     * @throws Exception 异常
+     */
+    JSONArray convertToStorageVOArray(String serviceVOJSONString) throws Exception;
+
+    /**
      * 方法：将原子服务返回的ServiceVO的JSON串转换成INTEGER
      *
      * @param serviceVOJSONString 调用课程原子服务返回的JSON串
      * @return JSON串转换成INTEGER
      */
     Integer convertToInteger(String serviceVOJSONString) throws Exception;
+
+    /**
+     * 方法：将原子服务返回的ServiceVO的JSON串转换成boolean值
+     * @param serviceVOJSONString 调用课程原子服务返回的JSON串
+     * @return boolean值
+     * @throws Exception 异常
+     */
+    boolean convertToBoolean(String serviceVOJSONString) throws Exception;
 }

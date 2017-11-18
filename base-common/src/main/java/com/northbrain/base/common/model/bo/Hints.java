@@ -29,7 +29,7 @@ public enum Hints
     HINT_SYSTEM_MONITOR_FREE_MEMORY_INFO                        ("当前JVM剩余内存量："                                   ),
 
     /**
-     * HINT_SYSTEM_COMMON：通用业务级提示
+     * HINT_BUSINESS_COMMON：通用业务级提示
      */
     HINT_BUSINESS_COMMON_COMMAND_LINE_ARGUMENT					("系统启动命令行参数："                                    ),
     HINT_BUSINESS_COMMON_DYNAMIC_ADD_REMOTE_PROPERTIES			("初始化bean前，动态增加远端（zk服务器）提供的属性。"              ),
@@ -43,12 +43,12 @@ public enum Hints
     HINT_BUSINESS_COMMON_SEQUENCE_NEXT_VALUE					("获取到的序列号为："                                     ),
     
     /**
-     * HINT_SYSTEM_XXXX：专用业务级提示，XXXX如ONLINEEDU等
+     * HINT_BUSINESS_XXXX：专用业务级提示，XXXX如LIST、DETAIL等
      */
     
     
     /**
-     * HINT_SYSTEM_XXXX：数据存储级提示，XXXX如ZOOKEEPER、REDIS、POSTGRESQL等
+     * HINT_STORAGE_XXXX：数据存储级提示，XXXX如ZOOKEEPER、REDIS、POSTGRESQL等
      */
     HINT_STORAGE_ZOOKEEPER_CONNECT_SERVER                       ("连接ZooKeeper服务。"                                  ),
     HINT_STORAGE_ZOOKEEPER_DOMAIN_NAMESPACE                     ("域命名空间为："                                       ),

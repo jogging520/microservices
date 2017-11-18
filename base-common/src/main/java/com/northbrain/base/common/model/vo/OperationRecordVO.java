@@ -1,9 +1,11 @@
 package com.northbrain.base.common.model.vo;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.northbrain.base.common.model.bo.BaseType;
 import com.northbrain.base.common.model.bo.Constants;
 
 public class OperationRecordVO
@@ -34,8 +36,6 @@ public class OperationRecordVO
     {
         private Long recordDetailId;
 
-        private Integer recordId;
-
         private Integer rank;
 
         private String operateType;
@@ -56,14 +56,6 @@ public class OperationRecordVO
 
         public void setRecordDetailId(Long recordDetailId) {
             this.recordDetailId = recordDetailId;
-        }
-
-        public Integer getRecordId() {
-            return recordId;
-        }
-
-        public void setRecordId(Integer recordId) {
-            this.recordId = recordId;
         }
 
         public Integer getRank() {
@@ -201,6 +193,21 @@ public class OperationRecordVO
 
     public void setOperationRecordDetailVOS(List<OperationRecordDetailVO> operationRecordDetailVOS) {
         this.operationRecordDetailVOS = operationRecordDetailVOS;
+    }
+
+    public void addOperationRecordDetail(OperationRecordDetailVO newOperationRecordDetailVO)
+    {
+        if(this.operationRecordDetailVOS == null)
+            this.operationRecordDetailVOS = new ArrayList<>();
+
+        boolean isContain = false;
+
+        for(OperationRecordDetailVO operationRecordDetailVO: this.operationRecordDetailVOS)
+            if(operationRecordDetailVO.getRecordDetailId() == newOperationRecordDetailVO.getRecordDetailId())
+                isContain = true;
+
+        if(!isContain)
+            this.operationRecordDetailVOS.add(newOperationRecordDetailVO);
     }
 
     public String toString()

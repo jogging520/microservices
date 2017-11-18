@@ -14,6 +14,16 @@ public class BaseType
     public enum OPERATINGSYSTEM {LINUX, UNIX, WINDOWS, ZOOKEEPER}
 
     /**
+     * 操作类型
+     */
+    public enum OPERATETYPE {READ, UPDATE, CREATE, DELETE}
+
+    /**
+     * 域
+     */
+    public enum DOMAIN {PRODUCT, RESOURCE, CHARGE, SERVICE, PARTY, RELATION, LIST, GATEWAY, COMMON}
+
+    /**
      * 服务类型：原子服务、编排服务、进程
      */
     public enum SERVICETYPE {ATOM, ORCH, PROC}
@@ -21,7 +31,7 @@ public class BaseType
     /**
      * 状态
      */
-    public enum STATUS {INITIAL, INUSED}
+    public enum STATUS {INITIAL, INUSED, SUCCESS, FAILURE}
     
     /**
      * 阶段：有效、失效、同步

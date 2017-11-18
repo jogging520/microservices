@@ -65,7 +65,6 @@ public class OperationRecordDTO implements IOperationRecordDTO
             OperationRecordVO.OperationRecordDetailVO operationRecordDetailVO = new OperationRecordVO.OperationRecordDetailVO();
 
             operationRecordDetailVO.setRecordDetailId(operationRecordDetailPO.getRecordDetailId());
-            operationRecordDetailVO.setRecordId(operationRecordDetailPO.getRecordId());
             operationRecordDetailVO.setRank(operationRecordDetailPO.getRank());
             operationRecordDetailVO.setOperateType(operationRecordDetailPO.getOperateType());
             operationRecordDetailVO.setDomain(operationRecordDetailPO.getDomain());
@@ -140,7 +139,7 @@ public class OperationRecordDTO implements IOperationRecordDTO
             OperationRecordDetailPO operationRecordDetailPO = new OperationRecordDetailPO();
 
             operationRecordDetailPO.setRecordDetailId(operationRecordDetailVO.getRecordDetailId());
-            operationRecordDetailPO.setRecordId(operationRecordDetailVO.getRecordId());
+            operationRecordDetailPO.setRecordId(operationRecordVO.getRecordId());
             operationRecordDetailPO.setRank(operationRecordDetailVO.getRank());
             operationRecordDetailPO.setOperateType(operationRecordDetailVO.getOperateType());
             operationRecordDetailPO.setDomain(operationRecordDetailVO.getDomain());

@@ -3,15 +3,15 @@ package com.northbrain.relation.operationrecord.exception;
 import com.northbrain.base.common.model.bo.Errors;
 
 /**
- * 操作记录插入Exception
+ * 操作记录插入或更新Exception
  * @author Jiakun
  * @version 1.0
  */
-public class OperationRecordInsertException extends Exception
+public class OperationRecordException extends Exception
 {
     private static final long serialVersionUID = 0L;
 
-    public OperationRecordInsertException(Errors exception)
+    public OperationRecordException(Errors exception)
     {
         super(exception + "");
     }
