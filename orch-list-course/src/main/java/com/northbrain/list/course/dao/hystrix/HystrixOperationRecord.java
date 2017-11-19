@@ -33,21 +33,4 @@ public class HystrixOperationRecord implements IOperationRecordDAO
 
         return JSON.toJSONString(serviceVO);
     }
-
-    /**
-     * 方法：通过原子服务更新产品域操作记录
-     *
-     * @param operationRecordVO 操作记录值对象
-     * @return 是否增加成功
-     */
-    @Override
-    public String updateAtomOperationRecord(OperationRecordVO operationRecordVO) throws Exception
-    {
-        logger.info(Hints.HINT_SYSTEM_PROCESS_CALL_HYSTRIX_DAO + "updateAtomOperationRecord");
-
-        ServiceVO serviceVO = new ServiceVO();
-        serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_SERVICE_HYSTRIX_EXCEPTION);
-
-        return JSON.toJSONString(serviceVO);
-    }
 }

@@ -11,6 +11,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 import com.northbrain.base.common.model.bo.*;
 import com.northbrain.base.common.util.LauncherUitl;
+import com.northbrain.base.common.util.StackTracerUtil;
 
 @SpringBootApplication
 @ComponentScan({"com.northbrain"})
@@ -19,40 +20,51 @@ public class StorageApplication
 {
     private static Logger logger = Logger.getLogger(StorageApplication.class);
 
-    public static void main(String[] arguments) throws Exception
+    public static void main(String[] arguments)
     {
-        if(LauncherUitl.parseCommandLine(arguments))
+        try
         {
-            //初始化属性配置，从application.properties中读取zookeeper和业务的基础配置参数。
-            LauncherUitl.initProperties(BaseType.SERVICETYPE.ATOM);
-            //设置域名
-            LauncherUitl.appendParameter(Constants.STORAGE_ZOOKEEPER_STORAGE_NAMESPACE,
-                    Names.STORAGE_ZOOKEEPER_DOMAIN_NAMESPACE.getName(),
-                    Constants.STORAGE_ZOOKEEPER_RESOURCE_NAMESPACE);
-            //设置应用名称
-            LauncherUitl.appendParameter(Constants.STORAGE_ZOOKEEPER_BUSINESS_NAMESPACE,
-                    Names.BUSINESS_COMMON_APPLICATION_NAME.getName(),
-                    Constants.BUSINESS_RESOURCE_STORAGE_ATOM_MICROSERVICE);
-            //设置日志级别
-            LauncherUitl.setLog();
+            if(LauncherUitl.parseCommandLine(arguments))
+            {
+                //初始化属性配置，从application.properties中读取zookeeper和业务的基础配置参数。
+                LauncherUitl.initProperties(BaseType.SERVICETYPE.ATOM);
+                //设置域名
+                LauncherUitl.appendParameter(Constants.STORAGE_ZOOKEEPER_STORAGE_NAMESPACE,
+                        Names.STORAGE_ZOOKEEPER_DOMAIN_NAMESPACE.getName(),
+                        Constants.STORAGE_ZOOKEEPER_RESOURCE_NAMESPACE);
+                //设置应用名称
+                LauncherUitl.appendParameter(Constants.STORAGE_ZOOKEEPER_BUSINESS_NAMESPACE,
+                        Names.BUSINESS_COMMON_APPLICATION_NAME.getName(),
+                        Constants.BUSINESS_RESOURCE_STORAGE_ATOM_MICROSERVICE);
+                //设置日志级别
+                LauncherUitl.setLog();
 
-            logger.info(Hints.HINT_SYSTEM_PROCESS_SYSTEM_STARTUP);
+                logger.info(Hints.HINT_SYSTEM_PROCESS_SYSTEM_STARTUP);
 
-            //设置服务名称
-            Map<String, Object> defaultProperties = new HashMap<>();
-            defaultProperties.put(Constants.SYSTEM_SPRING_PROPERTY_APPLICATION_NAME,
-                    Constants.BUSINESS_RESOURCE_STORAGE_ATOM_MICROSERVICE);
+                //设置服务名称
+                Map<String, Object> defaultProperties = new HashMap<>();
+                defaultProperties.put(Constants.SYSTEM_SPRING_PROPERTY_APPLICATION_NAME,
+                        Constants.BUSINESS_RESOURCE_STORAGE_ATOM_MICROSERVICE);
 
-            //设置spring.application.name
-            SpringApplication springApplication = new SpringApplication(StorageApplication.class);
-            springApplication.setDefaultProperties(defaultProperties);
+                //设置spring.application.name
+                SpringApplication springApplication = new SpringApplication(StorageApplication.class);
+                springApplication.setDefaultProperties(defaultProperties);
 
-            //启动服务
-            springApplication.run(arguments);
+                //启动服务
+                springApplication.run(arguments);
+            }
+            else
+            {
+                logger.error(Errors.ERROR_SYSTEM_PARSE_COMMAND_LINE);
+            }
         }
-        else
+        catch (Exception exception)
         {
-            logger.error(Errors.ERROR_SYSTEM_PARSE_COMMAND_LINE);
+            logger.error(StackTracerUtil.getExceptionInfo(exception));
+        }
+        catch (Throwable throwable)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(throwable));
         }
     }
 }

@@ -265,6 +265,9 @@ public class CourseDTO implements ICourseDTO
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
 
-        return JSONObject.toJavaObject((JSON) atomServiceVOResponse, Boolean.class);
+        if(atomServiceVOResponse.getClass() == Boolean.class)
+            return (Boolean) atomServiceVOResponse;
+        else
+            throw new ClassCastException();
     }
 }

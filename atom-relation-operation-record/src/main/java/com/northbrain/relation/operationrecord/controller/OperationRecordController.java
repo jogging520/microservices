@@ -43,7 +43,7 @@ public class OperationRecordController
      * 方法：新增一条操作记录
      * @return 以ServiceVO封装的课程列表
      */
-    @RequestMapping(method = RequestMethod.PUT, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS, consumes = Constants.BUSINESS_COMMON_HTTP_REQUEST_CONSUMERS)
+    @RequestMapping(method = RequestMethod.POST, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS, consumes = Constants.BUSINESS_COMMON_HTTP_REQUEST_CONSUMERS)
     @ResponseBody
     public String createOperationRecord(@RequestBody OperationRecordVO operationRecordVO)
     {
@@ -69,52 +69,6 @@ public class OperationRecordController
             }
 
             return JSON.toJSONString(operationRecordService.createOperationRecord(operationRecordVO));
-        }
-        catch (IllegalStateException illegalStateException)
-        {
-            logger.error(StackTracerUtil.getExceptionInfo(illegalStateException));
-            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_ILLEGAL_STATE_EXCEPTION);
-        }
-        catch (JSONException jSONException)
-        {
-            logger.error(StackTracerUtil.getExceptionInfo(jSONException));
-            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_JSON_EXCEPTION);
-        }
-        catch (FeignException feignException)
-        {
-            logger.error(StackTracerUtil.getExceptionInfo(feignException));
-            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_FEIGN_EXCEPTION);
-        }
-        catch (Exception exception)
-        {
-            logger.error(StackTracerUtil.getExceptionInfo(exception));
-            serviceVO.setResponseCodeAndDesc(Errors.ERROR_OTHER_UNKNOW_EXCEPTION);
-        }
-
-        return JSON.toJSONString(serviceVO);
-    }
-
-    /**
-     * 方法：更新操作记录
-     * @return 以ServiceVO封装的课程列表
-     */
-    @RequestMapping(method = RequestMethod.POST, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS, consumes = Constants.BUSINESS_COMMON_HTTP_REQUEST_CONSUMERS)
-    @ResponseBody
-    public String updateOperationRecord(@RequestBody OperationRecordVO operationRecordVO)
-    {
-        logger.debug(Hints.HINT_SYSTEM_PROCESS_CALL_CONTROLLER + "updateOperationRecord");
-        ServiceVO serviceVO = new ServiceVO();
-
-        try
-        {
-            if(operationRecordService == null)
-            {
-                logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "operationRecordService");
-
-                return JSON.toJSONString(serviceVO);
-            }
-
-            return JSON.toJSONString(operationRecordService.updateOperationRecord(operationRecordVO));
         }
         catch (IllegalStateException illegalStateException)
         {

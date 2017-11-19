@@ -79,6 +79,11 @@ public class CourseService implements ICourseService
             logger.error(StackTracerUtil.getExceptionInfo(exception));
             serviceVO.setResponseCodeAndDesc(Errors.ERROR_OTHER_UNKNOW_EXCEPTION);
         }
+        catch (Throwable throwable)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(throwable));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_OTHER_UNKNOW_EXCEPTION);
+        }
 
         serviceVO.setResponseTime(new Date());
         return serviceVO;

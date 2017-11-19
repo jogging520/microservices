@@ -55,7 +55,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <fork>true</fork>
-                    <mainClass>com.northbrain.product.course.CourseApplication</mainClass>
+                    <mainClass>com.northbrain.relation.operationrecord.OperationRecordApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>
@@ -71,7 +71,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>com.northbrain.product.course.CourseApplication</mainClass>
+                            <mainClass>com.northbrain.relation.operationrecord.OperationRecordApplication</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

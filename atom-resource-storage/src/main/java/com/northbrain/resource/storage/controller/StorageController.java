@@ -97,7 +97,7 @@ public class StorageController
      * 方法：读取一组存储信息
      * @return 以ServiceVO封装的存储信息
      */
-    @RequestMapping(method = RequestMethod.GET, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS)
+    @RequestMapping(method = RequestMethod.POST, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS, consumes = Constants.BUSINESS_COMMON_HTTP_REQUEST_CONSUMERS)
     @ResponseBody
     public String readStorages(@RequestBody List<Integer> storageIds)
     {

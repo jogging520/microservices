@@ -21,7 +21,7 @@ public class HystrixSequenceDAO implements ISequenceDAO
      * @return 在用的课程列表
      */
     @Override
-    public String readNextGlobalValue() throws Exception
+    public String readAtomNextGlobalValue() throws Exception
     {
         logger.info(Hints.HINT_SYSTEM_PROCESS_CALL_HYSTRIX_DAO + "readNextGlobalValue");
 

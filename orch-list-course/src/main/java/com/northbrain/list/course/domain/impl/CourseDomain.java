@@ -75,7 +75,7 @@ public class CourseDomain implements ICourseDomain
         }
 
         //2、新生成一条操作记录，并作为分布式事务（最终一致性）的开始。状态为初始状态。
-        OperationRecordVO operationRecordVO = createAtomOperationRecord(operationRecordId, BaseType.OPERATETYPE.READ,
+        OperationRecordVO operationRecordVO = createOperationRecord(operationRecordId, BaseType.OPERATETYPE.READ,
                 8888, BaseType.DOMAIN.LIST, Constants.BUSINESS_LIST_COURSE_ORCH_MICROSERVICE,
                 BaseType.STATUS.INITIAL, "TEST");
 
@@ -86,26 +86,44 @@ public class CourseDomain implements ICourseDomain
         }
 
         //3、调用课程列表原子服务，获取课程列表
-        List<CourseVO> courseVOS = readAtomInUsedCourses(operationRecordVO, rank++);
+        rank++;
+        OperationRecordVO.OperationRecordDetailVO operationRecordDetailVO = createOperationRecordDetail(operationRecordVO, rank,
+                BaseType.OPERATETYPE.READ, BaseType.DOMAIN.PRODUCT,
+                Constants.BUSINESS_PRODUCT_COURSE_ATOM_MICROSERVICE, BaseType.STATUS.INITIAL);
+
+        List<CourseVO> courseVOS = readAtomInUsedCourses();
 
         if (courseVOS == null || courseVOS.size() == 0)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_EMPTY + "courseVOS");
-            updateAtomOperationRecord(operationRecordVO, BaseType.STATUS.FAILURE);
+            operationRecordDetailVO.setStatus(BaseType.STATUS.FAILURE.ordinal());
 
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
 
+        operationRecordDetailVO.setStatus(BaseType.STATUS.SUCCESS.ordinal());
+        operationRecordDetailVO.setFinishTime(new Date());
+        operationRecordVO.addOperationRecordDetail(operationRecordDetailVO);
+
         //4、根据课程列表，获取课程缩略图的存储列表
-        List<StorageVO> storageVOS = readAtomStorages(operationRecordVO, rank++, courseVOS);
+        rank++;
+        operationRecordDetailVO = createOperationRecordDetail(operationRecordVO, rank,
+                BaseType.OPERATETYPE.READ, BaseType.DOMAIN.RESOURCE,
+                Constants.BUSINESS_RESOURCE_STORAGE_ATOM_MICROSERVICE, BaseType.STATUS.INITIAL);
+
+        List<StorageVO> storageVOS = readAtomStorages(courseVOS);
 
         if (storageVOS == null || storageVOS.size() == 0)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_EMPTY + "storageVOS");
-            updateAtomOperationRecord(operationRecordVO, BaseType.STATUS.FAILURE);
+            operationRecordDetailVO.setStatus(BaseType.STATUS.FAILURE.ordinal());
 
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
+
+        operationRecordDetailVO.setStatus(BaseType.STATUS.SUCCESS.ordinal());
+        operationRecordDetailVO.setFinishTime(new Date());
+        operationRecordVO.addOperationRecordDetail(operationRecordDetailVO);
 
         //5、根据课程列表和缩略图URL列表，循环生成编排层的课程列表
         List<OrchCourseVO> orchCourseVOS = new ArrayList<>();
@@ -137,7 +155,9 @@ public class CourseDomain implements ICourseDomain
             orchCourseVOS.add(orchCourseVO);
         }
 
-        updateAtomOperationRecord(operationRecordVO, BaseType.STATUS.SUCCESS);
+        operationRecordVO.setStatus(BaseType.STATUS.SUCCESS.ordinal());
+        operationRecordVO.setFinishTime(new Date());
+        createAtomOperationRecord(operationRecordVO);
 
         return orchCourseVOS;
     }
@@ -169,7 +189,7 @@ public class CourseDomain implements ICourseDomain
     }
 
     /**
-     * 方法：通过微服务创建一条操作记录
+     * 方法：创建一条操作记录
      * @param operationRecordId 操作记录流水号
      * @param operationType 操作类型
      * @param operatorId 操作工号
@@ -180,7 +200,7 @@ public class CourseDomain implements ICourseDomain
      * @return 操作记录对象
      * @throws Exception 异常
      */
-    private OperationRecordVO createAtomOperationRecord(int operationRecordId, BaseType.OPERATETYPE operationType, int operatorId,
+    private OperationRecordVO createOperationRecord(int operationRecordId, BaseType.OPERATETYPE operationType, int operatorId,
                                      BaseType.DOMAIN domain, String serviceName, BaseType.STATUS status,
                                      String description) throws Exception
     {
@@ -202,18 +222,6 @@ public class CourseDomain implements ICourseDomain
             throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
-        if (operationRecordDAO == null)
-        {
-            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "operationRecordDAO");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
-        }
-
-        if (courseDTO == null)
-        {
-            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "courseDTO");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
-        }
-
         OperationRecordVO operationRecordVO = new OperationRecordVO();
         operationRecordVO.setRecordId(operationRecordId);
         operationRecordVO.setOperateType(operationType.name());
@@ -225,24 +233,15 @@ public class CourseDomain implements ICourseDomain
         operationRecordVO.setFinishTime(new Date());
         operationRecordVO.setDescription(description);
 
-        boolean isCreated = courseDTO.convertToBoolean(operationRecordDAO.createAtomOperationRecord(operationRecordVO));
-
-        if(!isCreated)
-        {
-            logger.error(Errors.ERROR_BUSINESS_COMMON_OPERATION_RECORD);
-            throw new OperationRecordException(Errors.ERROR_BUSINESS_COMMON_OPERATION_RECORD_EXCEPTION);
-        }
-
         return operationRecordVO;
     }
 
     /**
-     * 方法：更新操作记录，包括状态与完成时间
+     * 方法：通过微服务新增一条操作记录，将操作记录持久化
      * @param operationRecordVO 操作记录对象
-     * @param status 状态
      * @throws Exception 异常
      */
-    private void updateAtomOperationRecord(OperationRecordVO operationRecordVO, BaseType.STATUS status) throws Exception
+    private void createAtomOperationRecord(OperationRecordVO operationRecordVO) throws Exception
     {
         if (operationRecordVO == null)
         {
@@ -262,17 +261,13 @@ public class CourseDomain implements ICourseDomain
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
 
-        operationRecordVO.setStatus(status.ordinal());
-        operationRecordVO.setFinishTime(new Date());
+        boolean isCreated = courseDTO.convertToBoolean(operationRecordDAO.createAtomOperationRecord(operationRecordVO));
 
-        boolean isUpdated = courseDTO.convertToBoolean(operationRecordDAO.updateAtomOperationRecord(operationRecordVO));
-
-        if(!isUpdated)
+        if(!isCreated)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_OPERATION_RECORD);
             throw new OperationRecordException(Errors.ERROR_BUSINESS_COMMON_OPERATION_RECORD_EXCEPTION);
         }
-
     }
 
     /**
@@ -286,7 +281,7 @@ public class CourseDomain implements ICourseDomain
      * @return 操作明细对象
      * @throws Exception 异常
      */
-    private OperationRecordVO.OperationRecordDetailVO createAtomOperationRecordDetail(OperationRecordVO operationRecordVO, int rank, BaseType.OPERATETYPE operationType,
+    private OperationRecordVO.OperationRecordDetailVO createOperationRecordDetail(OperationRecordVO operationRecordVO, int rank, BaseType.OPERATETYPE operationType,
                                                                                       BaseType.DOMAIN domain, String serviceName, BaseType.STATUS status) throws Exception
     {
         if (operationRecordVO == null)
@@ -331,64 +326,7 @@ public class CourseDomain implements ICourseDomain
 
         operationRecordVO.addOperationRecordDetail(operationRecordDetailVO);
 
-        boolean isCreated = courseDTO.convertToBoolean(operationRecordDAO.createAtomOperationRecord(operationRecordVO));
-
-        if(!isCreated)
-        {
-            logger.error(Errors.ERROR_BUSINESS_COMMON_OPERATION_RECORD);
-            throw new OperationRecordException(Errors.ERROR_BUSINESS_COMMON_OPERATION_RECORD_EXCEPTION);
-        }
-
         return operationRecordDetailVO;
-    }
-
-    /**
-     * 方法：更新操作记录明细
-     * @param operationRecordVO 操作记录对象
-     * @param operationRecordDetailVO 操作记录明细对象
-     * @param status 要更新的状态
-     * @throws Exception 异常
-     */
-    private void updateAtomOperationRecordDetail(OperationRecordVO operationRecordVO,
-                                                 OperationRecordVO.OperationRecordDetailVO operationRecordDetailVO,
-                                                 BaseType.STATUS status) throws Exception
-    {
-        if (operationRecordVO == null)
-        {
-            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "operationRecordVO");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
-        }
-
-        if (operationRecordDetailVO == null)
-        {
-            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "operationRecordDetailVO");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
-        }
-
-        if (operationRecordDAO == null)
-        {
-            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "operationRecordDAO");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
-        }
-
-        if (courseDTO == null)
-        {
-            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "courseDTO");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
-        }
-
-        operationRecordVO.setOperationRecordDetailVOS(null);
-        operationRecordDetailVO.setStatus(status.ordinal());
-        operationRecordDetailVO.setFinishTime(new Date());
-        operationRecordVO.addOperationRecordDetail(operationRecordDetailVO);
-
-        boolean isUpdated = courseDTO.convertToBoolean(operationRecordDAO.createAtomOperationRecord(operationRecordVO));
-
-        if(!isUpdated)
-        {
-            logger.error(Errors.ERROR_BUSINESS_COMMON_OPERATION_RECORD);
-            throw new OperationRecordException(Errors.ERROR_BUSINESS_COMMON_OPERATION_RECORD_EXCEPTION);
-        }
     }
 
     /**
@@ -396,20 +334,8 @@ public class CourseDomain implements ICourseDomain
      * @return 课程列表
      * @throws Exception 异常
      */
-    private List<CourseVO> readAtomInUsedCourses(OperationRecordVO operationRecordVO, int rank) throws Exception
+    private List<CourseVO> readAtomInUsedCourses() throws Exception
     {
-        if (operationRecordVO == null)
-        {
-            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "operationRecordVO");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
-        }
-
-        if (rank <= 0)
-        {
-            logger.error(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE + "rank:" + String.valueOf(rank));
-            throw new NumberScopeException(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION);
-        }
-
         if (courseDAO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "courseDAO");
@@ -422,17 +348,11 @@ public class CourseDomain implements ICourseDomain
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
 
-        OperationRecordVO.OperationRecordDetailVO operationRecordDetailVO = createAtomOperationRecordDetail(operationRecordVO, rank,
-                BaseType.OPERATETYPE.READ, BaseType.DOMAIN.PRODUCT,
-                Constants.BUSINESS_PRODUCT_COURSE_ATOM_MICROSERVICE, BaseType.STATUS.INITIAL);
-
         JSONArray atomCourseVOS = courseDTO.convertToCourseVOArray(this.courseDAO.readAtomInUsedCourses());
 
         if (atomCourseVOS == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_EMPTY + "atomCourseVOS");
-            updateAtomOperationRecordDetail(operationRecordVO, operationRecordDetailVO, BaseType.STATUS.FAILURE);
-
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
 
@@ -448,8 +368,6 @@ public class CourseDomain implements ICourseDomain
             courseVOS.add(courseVO);
         }
 
-        updateAtomOperationRecordDetail(operationRecordVO, operationRecordDetailVO, BaseType.STATUS.SUCCESS);
-
         return courseVOS;
     }
 
@@ -458,20 +376,8 @@ public class CourseDomain implements ICourseDomain
      * @param courseVOS 课程列表
      * @return 存储信息列表
      */
-    private List<StorageVO> readAtomStorages(OperationRecordVO operationRecordVO, int rank, List<CourseVO> courseVOS) throws Exception
+    private List<StorageVO> readAtomStorages(List<CourseVO> courseVOS) throws Exception
     {
-        if (operationRecordVO == null)
-        {
-            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "operationRecordVO");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
-        }
-
-        if (rank <= 0)
-        {
-            logger.error(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE + "rank:" + String.valueOf(rank));
-            throw new NumberScopeException(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION);
-        }
-
         if (courseVOS == null || courseVOS.size() == 0)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "courseVOS");
@@ -490,10 +396,6 @@ public class CourseDomain implements ICourseDomain
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
 
-        OperationRecordVO.OperationRecordDetailVO operationRecordDetailVO = createAtomOperationRecordDetail(operationRecordVO, rank,
-                BaseType.OPERATETYPE.READ, BaseType.DOMAIN.RESOURCE,
-                Constants.BUSINESS_RESOURCE_STORAGE_ATOM_MICROSERVICE, BaseType.STATUS.INITIAL);
-
         List<Integer> storageIds = new ArrayList<>();
 
         for (CourseVO courseVO: courseVOS)
@@ -504,8 +406,6 @@ public class CourseDomain implements ICourseDomain
         if (storageIds.size() == 0)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_EMPTY + "storageIds");
-            updateAtomOperationRecordDetail(operationRecordVO, operationRecordDetailVO, BaseType.STATUS.FAILURE);
-
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
 
@@ -514,8 +414,6 @@ public class CourseDomain implements ICourseDomain
         if (atomStorageVOS == null || atomStorageVOS.size() == 0)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_EMPTY + "atomStorageVOS");
-            updateAtomOperationRecordDetail(operationRecordVO, operationRecordDetailVO, BaseType.STATUS.FAILURE);
-
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
 
@@ -530,8 +428,6 @@ public class CourseDomain implements ICourseDomain
 
             storageVOS.add(storageVO);
         }
-
-        updateAtomOperationRecordDetail(operationRecordVO, operationRecordDetailVO, BaseType.STATUS.SUCCESS);
 
         return storageVOS;
     }

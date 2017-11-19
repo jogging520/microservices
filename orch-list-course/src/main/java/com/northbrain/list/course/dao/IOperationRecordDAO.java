@@ -23,16 +23,7 @@ public interface IOperationRecordDAO
      * @param operationRecordVO 操作记录值对象
      * @return 是否增加成功
      */
-    @RequestMapping(method = RequestMethod.PUT, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS, consumes = Constants.BUSINESS_COMMON_HTTP_REQUEST_CONSUMERS)
-    @ResponseBody
-    String createAtomOperationRecord(@RequestBody OperationRecordVO operationRecordVO) throws Exception;
-
-    /**
-     * 方法：通过原子服务更新产品域操作记录
-     * @param operationRecordVO 操作记录值对象
-     * @return 是否增加成功
-     */
     @RequestMapping(method = RequestMethod.POST, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS, consumes = Constants.BUSINESS_COMMON_HTTP_REQUEST_CONSUMERS)
     @ResponseBody
-    String updateAtomOperationRecord(@RequestBody OperationRecordVO operationRecordVO) throws Exception;
+    String createAtomOperationRecord(@RequestBody OperationRecordVO operationRecordVO) throws Exception;
 }
