@@ -37,6 +37,7 @@ public enum Errors
     ERROR_SYSTEM_CLASS_CAST_EXCEPTION                               ("1997", "系统调用服务时发生类映射错误。"),
     ERROR_SYSTEM_JSON_EXCEPTION                                     ("1996", "系统调用服务时发生JSON错误。"),
     ERROR_SYSTEM_FEIGN_EXCEPTION                                    ("1995", "系统调用Feign服务时发生错误。"),
+    ERROR_SYSTEM_CLIENT_EXCEPTION                                   ("1994", "系统调用Feign服务时发生client错误。"),
     /**
 	 * 2XXX:通用业务级错误，ERROR_BUSINESS_COMMON_
 	 */

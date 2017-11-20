@@ -2,6 +2,7 @@ package com.northbrain.list.course.service.impl;
 
 import java.util.Date;
 
+import com.netflix.client.ClientException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -73,6 +74,11 @@ public class CourseService implements ICourseService
         {
             logger.error(StackTracerUtil.getExceptionInfo(feignException));
             serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_FEIGN_EXCEPTION);
+        }
+        catch (ClientException clientException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(clientException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_CLIENT_EXCEPTION);
         }
         catch (Exception exception)
         {
