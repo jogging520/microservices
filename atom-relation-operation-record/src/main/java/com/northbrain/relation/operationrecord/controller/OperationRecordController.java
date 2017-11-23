@@ -26,7 +26,6 @@ import feign.FeignException;
  * 用途：解析http servlet，调用service层服务，返回给服务编排层应答数据。
  */
 @RestController
-@RequestMapping(Constants.URI_ATOM_RELATION_OPERATION_RECORD_REQUEST_MAPPING)
 public class OperationRecordController
 {
     private static Logger logger = Logger.getLogger(OperationRecordController.class);
@@ -43,7 +42,7 @@ public class OperationRecordController
      * 方法：新增一条操作记录
      * @return 以ServiceVO封装的课程列表
      */
-    @RequestMapping(method = RequestMethod.POST, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS, consumes = Constants.BUSINESS_COMMON_HTTP_REQUEST_CONSUMERS)
+    @RequestMapping(value = Constants.URI_ATOM_RELATION_OPERATION_RECORD_REQUEST_MAPPING, method = RequestMethod.POST, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS, consumes = Constants.BUSINESS_COMMON_HTTP_REQUEST_CONSUMERS)
     @ResponseBody
     public String createOperationRecord(@RequestBody OperationRecordVO operationRecordVO)
     {

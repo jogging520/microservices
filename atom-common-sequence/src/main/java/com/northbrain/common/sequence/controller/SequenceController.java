@@ -23,7 +23,6 @@ import feign.FeignException;
  * 用途：解析http servlet，调用service层服务，返回给服务编排层应答数据。
  */
 @RestController
-@RequestMapping(Constants.URI_ATOM_COMMON_GLOBAL_SEQUENCE_REQUEST_MAPPING)
 public class SequenceController
 {
     private static Logger logger = Logger.getLogger(SequenceController.class);
@@ -39,7 +38,7 @@ public class SequenceController
      * 方法：读取在用的课程列表
      * @return 以ServiceVO封装的课程列表
      */
-    @RequestMapping(method = RequestMethod.GET, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS)
+    @RequestMapping(value = Constants.URI_ATOM_COMMON_GLOBAL_SEQUENCE_REQUEST_MAPPING, method = RequestMethod.GET, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS)
     @ResponseBody
     public String readNextGlobalValue()
     {

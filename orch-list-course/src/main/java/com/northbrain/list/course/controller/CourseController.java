@@ -25,7 +25,6 @@ import feign.FeignException;
  * 用途：解析http servlet，调用service层服务，返回交互表现层应答数据。
  */
 @RestController
-@RequestMapping(Constants.URI_ORCH_LIST_COURSE_REQUEST_MAPPING)
 public class CourseController
 {
     private static Logger logger = Logger.getLogger(CourseController.class);
@@ -42,7 +41,7 @@ public class CourseController
      * 方法：读取在用的课程列表
      * @return 以ServiceVO封装的课程列表的JSON对象
      */
-    @RequestMapping(method = RequestMethod.GET, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS)
+    @RequestMapping(value = Constants.URI_ORCH_LIST_COURSE_REQUEST_MAPPING, method = RequestMethod.GET, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS)
     @ResponseBody
     public String readInUsedCourses()
     {

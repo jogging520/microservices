@@ -26,7 +26,6 @@ import feign.FeignException;
  * 用途：解析http servlet，调用service层服务，返回给服务编排层应答数据。
  */
 @RestController
-@RequestMapping(Constants.URI_ATOM_RESOURCE_STORAGE_REQUEST_MAPPING)
 public class StorageController
 {
     private static Logger logger = Logger.getLogger(StorageController.class);
@@ -97,7 +96,7 @@ public class StorageController
      * 方法：读取一组存储信息
      * @return 以ServiceVO封装的存储信息
      */
-    @RequestMapping(method = RequestMethod.POST, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS, consumes = Constants.BUSINESS_COMMON_HTTP_REQUEST_CONSUMERS)
+    @RequestMapping(value = Constants.URI_ATOM_RESOURCE_STORAGE_REQUEST_MAPPING, method = RequestMethod.POST, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS, consumes = Constants.BUSINESS_COMMON_HTTP_REQUEST_CONSUMERS)
     @ResponseBody
     public String readStorages(@RequestBody List<Integer> storageIds)
     {
