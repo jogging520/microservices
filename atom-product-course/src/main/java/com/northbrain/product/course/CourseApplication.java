@@ -1,21 +1,22 @@
 package com.northbrain.product.course;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import com.northbrain.base.common.model.bo.*;
+import com.northbrain.base.common.util.LauncherUitl;
+import com.northbrain.base.common.util.StackTracerUtil;
 import org.apache.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.northbrain.base.common.model.bo.*;
-import com.northbrain.base.common.util.LauncherUitl;
-import com.northbrain.base.common.util.StackTracerUtil;
+import java.util.HashMap;
+import java.util.Map;
 
 @SpringBootApplication
 @ComponentScan({"com.northbrain"})
 @EnableDiscoveryClient
+@EnableTransactionManagement
 public class CourseApplication
 {	
 	private static Logger logger = Logger.getLogger(CourseApplication.class);

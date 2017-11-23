@@ -12,10 +12,12 @@ import org.springframework.context.annotation.ComponentScan;
 import com.northbrain.base.common.model.bo.*;
 import com.northbrain.base.common.util.LauncherUitl;
 import com.northbrain.base.common.util.StackTracerUtil;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
 @ComponentScan({"com.northbrain"})
 @EnableDiscoveryClient
+@EnableTransactionManagement
 public class StorageApplication
 {
     private static Logger logger = Logger.getLogger(StorageApplication.class);
