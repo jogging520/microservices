@@ -17,6 +17,7 @@ import com.northbrain.base.common.model.bo.Constants;
  * 类名：序列号DAO接口
  * 用途：用于通知Feign组件对该接口进行代理
  */
+@Component(value="sequenceDAO")
 @FeignClient(name = Constants.BUSINESS_COMMON_SEQUENCE_ATOM_MICROSERVICE, fallback = ISequenceDAO.HystrixSequenceDAO.class)
 public interface ISequenceDAO
 {
@@ -32,7 +33,7 @@ public interface ISequenceDAO
      * 类名：序列号DAO接口的熔断器实现类
      * 用途：用于Hystrix熔断时fallback调用
      */
-    @Component
+    @Component(value="hystrixSequenceDAO")
     class HystrixSequenceDAO implements ISequenceDAO
     {
         private static Logger logger = Logger.getLogger(HystrixSequenceDAO.class);

@@ -58,6 +58,7 @@ public class CourseDomain implements ICourseDomain
     /**
      * 方法：读取在用的课程列表
      * 为避免多次调用微服务，对于存储信息，可采用一次性调用，然后循环查找。
+     * 在调用微服务的过程中，将记录信息输出至log中，在exception和最终才将操作记录持久化。
      * @return 在用的课程列表
      */
     @Override
@@ -85,6 +86,8 @@ public class CourseDomain implements ICourseDomain
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
 
+        logger.info(operationRecordVO);
+
         //3、调用课程列表原子服务，获取课程列表
         rank++;
         OperationRecordVO.OperationRecordDetailVO operationRecordDetailVO = createOperationRecordDetail(operationRecordVO, rank,
@@ -93,10 +96,12 @@ public class CourseDomain implements ICourseDomain
 
         List<CourseVO> courseVOS = readAtomInUsedCourses();
 
-        if (courseVOS == null || courseVOS.size() == 0)
+        if (courseVOS == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_EMPTY + "courseVOS");
             operationRecordDetailVO.setStatus(BaseType.STATUS.FAILURE.ordinal());
+            logger.info(operationRecordVO);
+            createAtomOperationRecord(operationRecordVO);
 
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
@@ -104,6 +109,8 @@ public class CourseDomain implements ICourseDomain
         operationRecordDetailVO.setStatus(BaseType.STATUS.SUCCESS.ordinal());
         operationRecordDetailVO.setFinishTime(new Date());
         operationRecordVO.addOperationRecordDetail(operationRecordDetailVO);
+
+        logger.info(operationRecordVO);
 
         //4、根据课程列表，获取课程缩略图的存储列表
         rank++;
@@ -113,10 +120,12 @@ public class CourseDomain implements ICourseDomain
 
         List<StorageVO> storageVOS = readAtomStorages(courseVOS);
 
-        if (storageVOS == null || storageVOS.size() == 0)
+        if (storageVOS == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_EMPTY + "storageVOS");
             operationRecordDetailVO.setStatus(BaseType.STATUS.FAILURE.ordinal());
+            logger.info(operationRecordVO);
+            createAtomOperationRecord(operationRecordVO);
 
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
@@ -125,7 +134,9 @@ public class CourseDomain implements ICourseDomain
         operationRecordDetailVO.setFinishTime(new Date());
         operationRecordVO.addOperationRecordDetail(operationRecordDetailVO);
 
-        //5、根据课程列表和缩略图URL列表，循环生成编排层的课程列表
+        logger.info(operationRecordVO);
+
+        //5、根据课程列表和缩略图URL列表，循环生成编排层的课程列表。采用等值连接的方式，避免没有存储信息的数据暴露出去。
         List<OrchCourseVO> orchCourseVOS = new ArrayList<>();
 
         for (CourseVO courseVO: courseVOS)
@@ -138,14 +149,21 @@ public class CourseDomain implements ICourseDomain
             orchCourseVO.setLevel(courseVO.getLevel());
             orchCourseVO.setSubject(courseVO.getSubject());
 
+            boolean isExists = false;
+
             for (StorageVO storageVO: storageVOS)
             {
                 if(Objects.equals(storageVO.getStorageId(), courseVO.getThumbnail()))
                 {
+                    isExists = true;
                     orchCourseVO.setThumbnail(storageVO.getUri());
                     break;
                 }
             }
+
+            //如果不存在，那么就不增加该条记录，确保为等值连接方式。
+            if(!isExists)
+                continue;
 
             orchCourseVO.setStatus(courseVO.getStatus());
             orchCourseVO.setCreateTime(courseVO.getCreateTime());
@@ -157,6 +175,7 @@ public class CourseDomain implements ICourseDomain
 
         operationRecordVO.setStatus(BaseType.STATUS.SUCCESS.ordinal());
         operationRecordVO.setFinishTime(new Date());
+        logger.info(operationRecordVO);
         createAtomOperationRecord(operationRecordVO);
 
         return orchCourseVOS;

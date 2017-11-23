@@ -19,6 +19,7 @@ import com.northbrain.base.common.model.vo.OperationRecordVO;
  * 类名：产品域操作记录DAO接口
  * 用途：用于通知Feign组件对该接口进行代理
  */
+@Component(value="operationRecordDAO")
 @FeignClient(name = Constants.BUSINESS_RELATION_OPERATION_RECORD_ATOM_MICROSERVICE, fallback = IOperationRecordDAO.HystrixOperationRecord.class)
 public interface IOperationRecordDAO
 {
@@ -35,7 +36,7 @@ public interface IOperationRecordDAO
      * 类名：操作记录DAO接口的熔断器实现类
      * 用途：用于Hystrix熔断时fallback调用
      */
-    @Component
+    @Component(value="hystrixOperationRecord")
     class HystrixOperationRecord implements IOperationRecordDAO
     {
         private static Logger logger = Logger.getLogger(HystrixOperationRecord.class);

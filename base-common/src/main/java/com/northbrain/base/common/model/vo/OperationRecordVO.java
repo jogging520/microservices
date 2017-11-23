@@ -3,9 +3,10 @@ package com.northbrain.base.common.model.vo;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.annotation.JSONField;
-import com.northbrain.base.common.model.bo.BaseType;
 import com.northbrain.base.common.model.bo.Constants;
 
 public class OperationRecordVO
@@ -203,7 +204,7 @@ public class OperationRecordVO
         boolean isContain = false;
 
         for(OperationRecordDetailVO operationRecordDetailVO: this.operationRecordDetailVOS)
-            if(operationRecordDetailVO.getRecordDetailId() == newOperationRecordDetailVO.getRecordDetailId())
+            if(Objects.equals(operationRecordDetailVO.getRecordDetailId(), newOperationRecordDetailVO.getRecordDetailId()))
                 isContain = true;
 
         if(!isContain)
@@ -212,11 +213,6 @@ public class OperationRecordVO
 
     public String toString()
     {
-        return String.valueOf
-                (
-                        this.getRecordId() + Constants.BUSINESS_COMMON_COMMAND_LINE_END_SYMBOL +
-                        this.getOperatorId() + Constants.BUSINESS_COMMON_COMMAND_LINE_END_SYMBOL +
-                        this.getDescription()
-                );
+        return JSON.toJSONString(this);
     }
 }

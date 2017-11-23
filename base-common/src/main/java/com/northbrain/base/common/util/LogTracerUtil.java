@@ -40,7 +40,7 @@ public class LogTracerUtil
      * 方法：在被调用方法的前后打印时间及耗时
      * @param proceedingJoinPoint 处理连接点
      * @return 被调用方法的处理结果
-     * @throws Throwable 
+     * @throws Throwable 异常
      */
     @Around("invokeLog()")
     public Object doAround(ProceedingJoinPoint proceedingJoinPoint) throws Throwable

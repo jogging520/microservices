@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * 类名：课程DAO接口
  * 用途：用于通知Feign组件对该接口进行代理
  */
+@Component(value="courseDAO")
 @FeignClient(name = Constants.BUSINESS_PRODUCT_COURSE_ATOM_MICROSERVICE, fallback = ICourseDAO.HystrixCourseDAO.class)
 public interface ICourseDAO
 {
@@ -32,7 +33,7 @@ public interface ICourseDAO
      * 类名：课程DAO接口的熔断器实现类
      * 用途：用于Hystrix熔断时fallback调用
      */
-    @Component
+    @Component(value="hystrixCourseDAO")
     class HystrixCourseDAO implements ICourseDAO
     {
         private static Logger logger = Logger.getLogger(HystrixCourseDAO.class);
