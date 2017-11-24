@@ -39,6 +39,12 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-feign</artifactId>
         </dependency>
+        <!-- feign-core -->
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-core</artifactId>
+            <version>9.5.0</version>
+        </dependency>
         <!-- 使用Apache HttpClient替换Feign原生httpclient -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>

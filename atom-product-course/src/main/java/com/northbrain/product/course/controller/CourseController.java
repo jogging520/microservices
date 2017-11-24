@@ -18,8 +18,6 @@ import com.northbrain.base.common.model.vo.ServiceVO;
 import com.northbrain.base.common.util.StackTracerUtil;
 import com.northbrain.product.course.service.ICourseService;
 
-import feign.FeignException;
-
 /**
  * 类名：课程控制层类（原子服务）
  * 用途：解析http servlet，调用service层服务，返回给服务编排层应答数据。
@@ -69,11 +67,6 @@ public class CourseController
         {
             logger.error(StackTracerUtil.getExceptionInfo(jSONException));
             serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_JSON_EXCEPTION);
-        }
-        catch (FeignException feignException)
-        {
-            logger.error(StackTracerUtil.getExceptionInfo(feignException));
-            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_FEIGN_EXCEPTION);
         }
         catch (Exception exception)
         {

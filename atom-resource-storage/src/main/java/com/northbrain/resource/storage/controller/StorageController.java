@@ -19,7 +19,6 @@ import com.northbrain.base.common.model.vo.ServiceVO;
 import com.northbrain.base.common.util.StackTracerUtil;
 import com.northbrain.resource.storage.service.IStorageService;
 
-import feign.FeignException;
 
 /**
  * 类名：存储控制层类（原子服务）
@@ -78,11 +77,6 @@ public class StorageController
             logger.error(StackTracerUtil.getExceptionInfo(jSONException));
             serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_JSON_EXCEPTION);
         }
-        catch (FeignException feignException)
-        {
-            logger.error(StackTracerUtil.getExceptionInfo(feignException));
-            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_FEIGN_EXCEPTION);
-        }
         catch(Exception exception)
         {
             logger.error(StackTracerUtil.getExceptionInfo(exception));
@@ -132,11 +126,6 @@ public class StorageController
         {
             logger.error(StackTracerUtil.getExceptionInfo(jSONException));
             serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_JSON_EXCEPTION);
-        }
-        catch (FeignException feignException)
-        {
-            logger.error(StackTracerUtil.getExceptionInfo(feignException));
-            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_FEIGN_EXCEPTION);
         }
         catch(Exception exception)
         {
