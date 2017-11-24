@@ -28,7 +28,7 @@ public interface IOperationRecordDAO
      * @param operationRecordVO 操作记录值对象
      * @return 是否增加成功
      */
-    @RequestMapping(value = Constants.URI_ATOM_RELATION_OPERATION_RECORD_REQUEST_MAPPING, method = RequestMethod.POST, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS, consumes = Constants.BUSINESS_COMMON_HTTP_REQUEST_CONSUMERS)
+    @RequestMapping(value = Constants.URI_ATOM_RELATION_OPERATION_RECORD_REQUEST_MAPPING, method = RequestMethod.PUT, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS, consumes = Constants.BUSINESS_COMMON_HTTP_REQUEST_CONSUMERS)
     @ResponseBody
     String createAtomOperationRecord(@RequestBody OperationRecordVO operationRecordVO) throws Exception;
 
