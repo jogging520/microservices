@@ -80,7 +80,14 @@
       <artifactId>maven-reporting-api</artifactId>
       <version>2.0.6</version>
     </dependency>
+    <!-- json -->
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>fastjson</artifactId>
+      <version>RELEASE</version>
+    </dependency>
   </dependencies>
+
   <dependencyManagement>
     <dependencies>
       <dependency>

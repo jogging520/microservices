@@ -116,6 +116,11 @@ public class OperationRecordVO
         }
     }
 
+    public OperationRecordVO()
+    {
+
+    }
+
     public Integer getRecordId() {
         return recordId;
     }
