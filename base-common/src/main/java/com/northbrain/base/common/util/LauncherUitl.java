@@ -205,7 +205,7 @@ public class LauncherUitl
     {
     	if(resourcePropertySource == null)
     	{
-    		logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "resourcePropertySource");
+    		logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "resourcePropertySource");
     		throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
     	}
     	

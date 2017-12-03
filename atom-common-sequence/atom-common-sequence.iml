@@ -19,6 +19,7 @@
     <orderEntry type="library" name="Arquillian JUnit:Release" level="project" />
     <orderEntry type="module" module-name="base-launcher" />
     <orderEntry type="module" module-name="base-common" />
+    <orderEntry type="library" name="Maven: io.jsonwebtoken:jjwt:0.9.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.curator:curator-framework:2.11.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.curator:curator-recipes:2.11.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.curator:curator-client:4.0.0" level="project" />

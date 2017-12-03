@@ -32,8 +32,14 @@ public class Constants
     public static final String BUSINESS_COMMON_COMMAND_LINE_SERVER_PORT									= "server.port";						//命令行:服务端口号（tomcat）
     public static final String BUSINESS_COMMON_COMMAND_LINE_SPRING_CONFIG_LOCATION						= "spring.config.location";				//命令行:配置文件位置
     public static final String BUSINESS_COMMON_SERVICE_GATEWAY                                          = "base-gateway";                       //服务网关
-    public static final String BUSINESS_COMMON_HTTP_REQUEST_CONSUMERS                                   = "application/json";
-    public static final String BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS                                   = "application/json";
+    public static final String BUSINESS_COMMON_HTTP_REQUEST_CONSUMERS                                   = "application/json";                   //http请求消费类型
+    public static final String BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS                                   = "application/json";                   //http请求生产类型
+    public static final String BUSINESS_COMMON_JWT_HEADER_PARAM_TYPE                                    = "typ";                                //JWT的header部分类型参数
+    public static final String BUSINESS_COMMON_JWT_HEADER_PARAM_TYPE_VALUE                              = "JWT";                                //JWT的header部分类型参数取值
+    public static final String BUSINESS_COMMON_JWT_CLAIM_PARAM_ROLE                                     = "role";                               //JWT的claim部分类型角色参数
+    public static final String BUSINESS_COMMON_JWT_CLAIM_PARAM_NAME                                     = "name";                               //JWT的claim部分类型名称参数
+    public static final String BUSINESS_COMMON_JWT_CLAIM_PARAM_USER_ID                                  = "userid";                             //JWT的claim部分类型用户编号参数
+
 
     /**
      * 微服务名称定义
