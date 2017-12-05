@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/atom-common-parameter/atom-common-parameter.iml" filepath="$PROJECT_DIR$/atom-common-parameter/atom-common-parameter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/atom-common-security/atom-common-security.iml" filepath="$PROJECT_DIR$/atom-common-security/atom-common-security.iml" />
       <module fileurl="file://$PROJECT_DIR$/atom-common-sequence/atom-common-sequence.iml" filepath="$PROJECT_DIR$/atom-common-sequence/atom-common-sequence.iml" />
       <module fileurl="file://$PROJECT_DIR$/atom-product-course/atom-product-course.iml" filepath="$PROJECT_DIR$/atom-product-course/atom-product-course.iml" />
       <module fileurl="file://$PROJECT_DIR$/atom-relation-operation-record/atom-relation-operation-record.iml" filepath="$PROJECT_DIR$/atom-relation-operation-record/atom-relation-operation-record.iml" />

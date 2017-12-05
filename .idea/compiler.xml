@@ -6,6 +6,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="atom-common-parameter" />
+        <module name="atom-common-security" />
         <module name="atom-common-sequence" />
         <module name="atom-product-course" />
         <module name="atom-relation-operation-record" />
@@ -17,6 +19,8 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="atom-common-parameter" target="1.8" />
+      <module name="atom-common-security" target="1.8" />
       <module name="atom-common-sequence" target="1.8" />
       <module name="atom-config-sequence" target="1.8" />
       <module name="atom-product-course" target="1.8" />

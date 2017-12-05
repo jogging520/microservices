@@ -45,6 +45,8 @@ public class Constants
      * 微服务名称定义
      */
     public static final String BUSINESS_COMMON_SEQUENCE_ATOM_MICROSERVICE                               = "atom-common-sequence";               //原子微服务：配置-序列号
+    public static final String BUSINESS_COMMON_SECURITY_ATOM_MICROSERVICE                               = "atom-common-security";               //原子微服务：配置-安全
+    public static final String BUSINESS_COMMON_PARAMETER_ATOM_MICROSERVICE                              = "atom-common-parameter";              //原子微服务：配置-参数
 
     public static final String BUSINESS_PRODUCT_COURSE_ATOM_MICROSERVICE                                = "atom-product-course";                //原子微服务：产品-课程
     public static final String BUSINESS_RESOURCE_STORAGE_ATOM_MICROSERVICE                              = "atom-resource-storage";              //原子微服务：资源-存储
