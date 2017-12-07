@@ -5,8 +5,7 @@ import com.northbrain.base.common.exception.NumberScopeException;
 import com.northbrain.base.common.exception.ObjectNullException;
 import com.northbrain.base.common.model.bo.Errors;
 import com.northbrain.base.common.model.vo.RoleVO;
-import com.northbrain.party.role.dao.RoleHisPOMapper;
-import com.northbrain.party.role.dao.RolePOMapper;
+import com.northbrain.party.role.dao.*;
 import com.northbrain.party.role.domain.IRoleDomain;
 import com.northbrain.party.role.dto.IRoleDTO;
 import com.northbrain.party.role.model.po.RolePO;
@@ -31,13 +30,24 @@ public class RoleDomain implements IRoleDomain
 
     private final RolePOMapper rolePOMapper;
     private final RoleHisPOMapper roleHisPOMapper;
+    private final PartyPOMapper partyPOMapper;
+    private final PartyHisPOMapper partyHisPOMapper;
+    private final PartyDetailPOMapper partyDetailPOMapper;
+    private final PartyDetailHisPOMapper partyDetailHisPOMapper;
     private final IRoleDTO roleDTO;
 
     @Autowired
-    public RoleDomain(RolePOMapper rolePOMapper, RoleHisPOMapper roleHisPOMapper, IRoleDTO roleDTO)
+    public RoleDomain(RolePOMapper rolePOMapper, RoleHisPOMapper roleHisPOMapper,
+                      PartyPOMapper partyPOMapper, PartyHisPOMapper partyHisPOMapper,
+                      PartyDetailPOMapper partyDetailPOMapper, PartyDetailHisPOMapper partyDetailHisPOMapper,
+                      IRoleDTO roleDTO)
     {
         this.rolePOMapper = rolePOMapper;
         this.roleHisPOMapper = roleHisPOMapper;
+        this.partyPOMapper = partyPOMapper;
+        this.partyHisPOMapper = partyHisPOMapper;
+        this.partyDetailPOMapper = partyDetailPOMapper;
+        this.partyDetailHisPOMapper = partyDetailHisPOMapper;
         this.roleDTO = roleDTO;
     }
 
