@@ -1,23 +1,13 @@
-package com.northbrain.base.common.model.vo;
+package com.northbrain.common.security.model.po;
 
 import java.util.Date;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.northbrain.base.common.model.bo.Constants;
+public class RegistryPO {
+    private Integer registryId;
 
-/**
- * 类名：角色值对象类
- * 用途：用于持久层以上的角色对象传递
- * @author Jiakun
- * @version 1.0
- */
-public class RoleVO
-{
+    private Integer partyId;
+
     private Integer roleId;
-
-    private String name;
-
-    private String alias;
 
     private String domain;
 
@@ -27,13 +17,27 @@ public class RoleVO
 
     private Integer status;
 
-    @JSONField(format= Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
     private Date createTime;
 
-    @JSONField(format=Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
     private Date statusTime;
 
     private String desciption;
+
+    public Integer getRegistryId() {
+        return registryId;
+    }
+
+    public void setRegistryId(Integer registryId) {
+        this.registryId = registryId;
+    }
+
+    public Integer getPartyId() {
+        return partyId;
+    }
+
+    public void setPartyId(Integer partyId) {
+        this.partyId = partyId;
+    }
 
     public Integer getRoleId() {
         return roleId;
@@ -41,22 +45,6 @@ public class RoleVO
 
     public void setRoleId(Integer roleId) {
         this.roleId = roleId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
-    }
-
-    public String getAlias() {
-        return alias;
-    }
-
-    public void setAlias(String alias) {
-        this.alias = alias == null ? null : alias.trim();
     }
 
     public String getDomain() {

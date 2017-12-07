@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.northbrain.common.security.dao.LoginHisPOMapper">
+  <resultMap id="BaseResultMap" type="com.northbrain.common.security.model.po.LoginHisPO">
+    <id column="record_id" jdbcType="INTEGER" property="recordId" />
+    <result column="operate_type" jdbcType="VARCHAR" property="operateType" />
+    <result column="login_id" jdbcType="INTEGER" property="loginId" />
+    <result column="registry_id" jdbcType="INTEGER" property="registryId" />
+    <result column="party_id" jdbcType="INTEGER" property="partyId" />
+    <result column="role_id" jdbcType="INTEGER" property="roleId" />
+    <result column="domain" jdbcType="VARCHAR" property="domain" />
+    <result column="category" jdbcType="VARCHAR" property="category" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
+    <result column="logout_time" jdbcType="TIMESTAMP" property="logoutTime" />
+    <result column="desciption" jdbcType="VARCHAR" property="desciption" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    record_id, operate_type, login_id, registry_id, party_id, role_id, domain, category, 
+    type, status, login_time, logout_time, desciption
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from login_his
+    where record_id = #{recordId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from login_his
+    where record_id = #{recordId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.northbrain.common.security.model.po.LoginHisPO">
+    insert into login_his (record_id, operate_type, login_id, 
+      registry_id, party_id, role_id, 
+      domain, category, type, 
+      status, login_time, logout_time, 
+      desciption)
+    values (#{recordId,jdbcType=INTEGER}, #{operateType,jdbcType=VARCHAR}, #{loginId,jdbcType=INTEGER}, 
+      #{registryId,jdbcType=INTEGER}, #{partyId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, 
+      #{domain,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{loginTime,jdbcType=TIMESTAMP}, #{logoutTime,jdbcType=TIMESTAMP}, 
+      #{desciption,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.northbrain.common.security.model.po.LoginHisPO">
+    insert into login_his
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="recordId != null">
+        record_id,
+      </if>
+      <if test="operateType != null">
+        operate_type,
+      </if>
+      <if test="loginId != null">
+        login_id,
+      </if>
+      <if test="registryId != null">
+        registry_id,
+      </if>
+      <if test="partyId != null">
+        party_id,
+      </if>
+      <if test="roleId != null">
+        role_id,
+      </if>
+      <if test="domain != null">
+        domain,
+      </if>
+      <if test="category != null">
+        category,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="loginTime != null">
+        login_time,
+      </if>
+      <if test="logoutTime != null">
+        logout_time,
+      </if>
+      <if test="desciption != null">
+        desciption,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="recordId != null">
+        #{recordId,jdbcType=INTEGER},
+      </if>
+      <if test="operateType != null">
+        #{operateType,jdbcType=VARCHAR},
+      </if>
+      <if test="loginId != null">
+        #{loginId,jdbcType=INTEGER},
+      </if>
+      <if test="registryId != null">
+        #{registryId,jdbcType=INTEGER},
+      </if>
+      <if test="partyId != null">
+        #{partyId,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="domain != null">
+        #{domain,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="loginTime != null">
+        #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logoutTime != null">
+        #{logoutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="desciption != null">
+        #{desciption,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.common.security.model.po.LoginHisPO">
+    update login_his
+    <set>
+      <if test="operateType != null">
+        operate_type = #{operateType,jdbcType=VARCHAR},
+      </if>
+      <if test="loginId != null">
+        login_id = #{loginId,jdbcType=INTEGER},
+      </if>
+      <if test="registryId != null">
+        registry_id = #{registryId,jdbcType=INTEGER},
+      </if>
+      <if test="partyId != null">
+        party_id = #{partyId,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null">
+        role_id = #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="domain != null">
+        domain = #{domain,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="loginTime != null">
+        login_time = #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logoutTime != null">
+        logout_time = #{logoutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="desciption != null">
+        desciption = #{desciption,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where record_id = #{recordId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.common.security.model.po.LoginHisPO">
+    update login_his
+    set operate_type = #{operateType,jdbcType=VARCHAR},
+      login_id = #{loginId,jdbcType=INTEGER},
+      registry_id = #{registryId,jdbcType=INTEGER},
+      party_id = #{partyId,jdbcType=INTEGER},
+      role_id = #{roleId,jdbcType=INTEGER},
+      domain = #{domain,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      login_time = #{loginTime,jdbcType=TIMESTAMP},
+      logout_time = #{logoutTime,jdbcType=TIMESTAMP},
+      desciption = #{desciption,jdbcType=VARCHAR}
+    where record_id = #{recordId,jdbcType=INTEGER}
+  </update>
+</mapper>

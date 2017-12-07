@@ -4,8 +4,8 @@
   <resultMap id="BaseResultMap" type="com.northbrain.product.course.model.po.CoursePO">
     <id column="course_id" jdbcType="INTEGER" property="courseId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="department" jdbcType="VARCHAR" property="department" />
     <result column="grade" jdbcType="INTEGER" property="grade" />
-    <result column="level" jdbcType="INTEGER" property="level" />
     <result column="subject" jdbcType="VARCHAR" property="subject" />
     <result column="thumbnail" jdbcType="INTEGER" property="thumbnail" />
     <result column="status" jdbcType="INTEGER" property="status" />
@@ -14,7 +14,8 @@
     <result column="desciption" jdbcType="VARCHAR" property="desciption" />
   </resultMap>
   <sql id="Base_Column_List">
-    course_id, name, grade, level, subject, thumbnail, status, create_time, status_time, desciption
+    course_id, name, department, grade, subject, thumbnail, status, create_time, status_time, 
+    desciption
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -23,7 +24,7 @@
     where course_id = #{courseId,jdbcType=INTEGER}
   </select>
   <select id="selectByStatus" resultMap="BaseResultMap" statementType="STATEMENT">
-    select 
+    select
     <include refid="Base_Column_List" />
     from course
     where status = ${status}
@@ -33,12 +34,12 @@
     where course_id = #{courseId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.northbrain.product.course.model.po.CoursePO">
-    insert into course (course_id, name, grade, 
-      level, subject, thumbnail, 
+    insert into course (course_id, name, department, 
+      grade, subject, thumbnail, 
       status, create_time, status_time, 
       desciption)
-    values (#{courseId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{grade,jdbcType=INTEGER}, 
-      #{level,jdbcType=INTEGER}, #{subject,jdbcType=VARCHAR}, #{thumbnail,jdbcType=INTEGER}, 
+    values (#{courseId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, 
+      #{grade,jdbcType=INTEGER}, #{subject,jdbcType=VARCHAR}, #{thumbnail,jdbcType=INTEGER}, 
       #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{statusTime,jdbcType=TIMESTAMP}, 
       #{desciption,jdbcType=VARCHAR})
   </insert>
@@ -51,11 +52,11 @@
       <if test="name != null">
         name,
       </if>
+      <if test="department != null">
+        department,
+      </if>
       <if test="grade != null">
         grade,
-      </if>
-      <if test="level != null">
-        level,
       </if>
       <if test="subject != null">
         subject,
@@ -83,11 +84,11 @@
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
+      <if test="department != null">
+        #{department,jdbcType=VARCHAR},
+      </if>
       <if test="grade != null">
         #{grade,jdbcType=INTEGER},
-      </if>
-      <if test="level != null">
-        #{level,jdbcType=INTEGER},
       </if>
       <if test="subject != null">
         #{subject,jdbcType=VARCHAR},
@@ -115,11 +116,11 @@
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
+      <if test="department != null">
+        department = #{department,jdbcType=VARCHAR},
+      </if>
       <if test="grade != null">
         grade = #{grade,jdbcType=INTEGER},
-      </if>
-      <if test="level != null">
-        level = #{level,jdbcType=INTEGER},
       </if>
       <if test="subject != null">
         subject = #{subject,jdbcType=VARCHAR},
@@ -145,8 +146,8 @@
   <update id="updateByPrimaryKey" parameterType="com.northbrain.product.course.model.po.CoursePO">
     update course
     set name = #{name,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
       grade = #{grade,jdbcType=INTEGER},
-      level = #{level,jdbcType=INTEGER},
       subject = #{subject,jdbcType=VARCHAR},
       thumbnail = #{thumbnail,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},

@@ -7,7 +7,7 @@ import com.northbrain.product.course.model.po.CourseHisPO;
 
 @Mapper
 @Component(value="courseHisPOMapper")
-public interface CourseHisPOMapper 
+public interface CourseHisPOMapper
 {
     int deleteByPrimaryKey(Integer recordId) throws Exception;
 

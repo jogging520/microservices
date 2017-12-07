@@ -41,8 +41,8 @@ public class CourseDTO implements ICourseDTO
     	
     	courseVO.setCourseId(coursePO.getCourseId());
     	courseVO.setName(coursePO.getName());
+		courseVO.setDepartment(coursePO.getDepartment());
     	courseVO.setGrade(coursePO.getGrade());
-    	courseVO.setLevel(coursePO.getLevel());
     	courseVO.setSubject(coursePO.getSubject());
     	courseVO.setThumbnail(coursePO.getThumbnail());
     	courseVO.setStatus(coursePO.getStatus());
@@ -73,8 +73,8 @@ public class CourseDTO implements ICourseDTO
     	
 		coursePO.setCourseId(courseVO.getCourseId());
 		coursePO.setName(courseVO.getName());
+		coursePO.setDepartment(courseVO.getDepartment());
 		coursePO.setGrade(courseVO.getGrade());
-		coursePO.setLevel(courseVO.getLevel());
 		coursePO.setSubject(courseVO.getSubject());
 		coursePO.setThumbnail(courseVO.getThumbnail());
 		coursePO.setStatus(courseVO.getStatus());

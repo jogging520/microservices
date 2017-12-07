@@ -16,13 +16,22 @@ import java.util.Date;
  */
 public class ServiceVO
 {
+    //请求时间
     @JSONField(format= Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
-    private Date  	requestTime;			//请求时间
+    private Date  	requestTime;
+
+    //响应时间
     @JSONField(format=Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
-    private Date 	responseTime;			//响应时间
-    private String 	responseCode;			//响应代码（业务级）
-    private String 	responseDesc;	        //响应描述（业务级）
-    private Object  response;               //响应对象
+    private Date 	responseTime;
+
+    //响应代码（业务级）
+    private String 	responseCode;
+
+    //响应描述（业务级）
+    private String 	responseDesc;
+
+    //响应对象
+    private Object  response;
 
     public ServiceVO()
     {

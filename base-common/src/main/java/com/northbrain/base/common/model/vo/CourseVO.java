@@ -13,26 +13,36 @@ import com.northbrain.base.common.model.bo.Constants;
  */
 public class CourseVO
 {
+    //课程编号
 	private Integer courseId;
 
+	//课程名称
     private String name;
 
+    //学部
+    private String department;
+
+    //年级
     private Integer grade;
 
-    private Integer level;
-
+    //学科名称
     private String subject;
 
+    //缩略图ID
     private Integer thumbnail;
 
+    //状态
     private Integer status;
 
+    //创建时间
     @JSONField(format=Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
     private Date createTime;
 
+    //状态时间
     @JSONField(format=Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
     private Date statusTime;
 
+    //描述
     private String desciption;
 
     public Integer getCourseId() {
@@ -51,20 +61,20 @@ public class CourseVO
         this.name = name == null ? null : name.trim();
     }
 
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department == null ? null : department.trim();
+    }
+
     public Integer getGrade() {
         return grade;
     }
 
     public void setGrade(Integer grade) {
         this.grade = grade;
-    }
-
-    public Integer getLevel() {
-        return level;
-    }
-
-    public void setLevel(Integer level) {
-        this.level = level;
     }
 
     public String getSubject() {

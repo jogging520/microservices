@@ -2,25 +2,42 @@ package com.northbrain.product.course.model.po;
 
 import java.util.Date;
 
-public class CoursePO {
+/**
+ * 类名：课程持久化对象类
+ * 用途：与数据库中课程表对应的持久化对象
+ * @author Jiakun
+ * @version 1.0
+ */
+public class CoursePO
+{
+    //课程编号
     private Integer courseId;
 
+    //课程名称
     private String name;
 
+    //学部
+    private String department;
+
+    //年级
     private Integer grade;
 
-    private Integer level;
-
+    //学科名称
     private String subject;
 
+    //缩略图ID
     private Integer thumbnail;
 
+    //状态
     private Integer status;
 
+    //创建时间
     private Date createTime;
 
+    //状态时间
     private Date statusTime;
 
+    //描述
     private String desciption;
 
     public Integer getCourseId() {
@@ -39,20 +56,20 @@ public class CoursePO {
         this.name = name == null ? null : name.trim();
     }
 
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department == null ? null : department.trim();
+    }
+
     public Integer getGrade() {
         return grade;
     }
 
     public void setGrade(Integer grade) {
         this.grade = grade;
-    }
-
-    public Integer getLevel() {
-        return level;
-    }
-
-    public void setLevel(Integer level) {
-        this.level = level;
     }
 
     public String getSubject() {

@@ -10,7 +10,7 @@ import com.northbrain.product.course.model.po.CoursePO;
 
 @Mapper
 @Component(value="coursePOMapper")
-public interface CoursePOMapper 
+public interface CoursePOMapper
 {
     int deleteByPrimaryKey(Integer courseId) throws Exception;
 
@@ -19,7 +19,7 @@ public interface CoursePOMapper
     int insertSelective(CoursePO record) throws Exception;
 
     CoursePO selectByPrimaryKey(Integer courseId) throws Exception;
-    
+
     List<CoursePO> selectByStatus(@Param("status") Integer status) throws Exception;
 
     int updateByPrimaryKeySelective(CoursePO record) throws Exception;

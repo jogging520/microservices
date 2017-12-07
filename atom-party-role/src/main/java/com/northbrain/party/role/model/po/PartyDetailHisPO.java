@@ -1,23 +1,19 @@
-package com.northbrain.product.course.model.po;
+package com.northbrain.party.role.model.po;
 
 import java.util.Date;
 
-public class CourseHisPO {
+public class PartyDetailHisPO {
     private Integer recordId;
 
     private String operateType;
 
-    private Integer courseId;
+    private Integer partyDetailId;
 
-    private String name;
+    private Integer partyId;
 
-    private String department;
+    private String attribute;
 
-    private Integer grade;
-
-    private String subject;
-
-    private Integer thumbnail;
+    private String value;
 
     private Integer status;
 
@@ -43,52 +39,36 @@ public class CourseHisPO {
         this.operateType = operateType == null ? null : operateType.trim();
     }
 
-    public Integer getCourseId() {
-        return courseId;
+    public Integer getPartyDetailId() {
+        return partyDetailId;
     }
 
-    public void setCourseId(Integer courseId) {
-        this.courseId = courseId;
+    public void setPartyDetailId(Integer partyDetailId) {
+        this.partyDetailId = partyDetailId;
     }
 
-    public String getName() {
-        return name;
+    public Integer getPartyId() {
+        return partyId;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setPartyId(Integer partyId) {
+        this.partyId = partyId;
     }
 
-    public String getDepartment() {
-        return department;
+    public String getAttribute() {
+        return attribute;
     }
 
-    public void setDepartment(String department) {
-        this.department = department == null ? null : department.trim();
+    public void setAttribute(String attribute) {
+        this.attribute = attribute == null ? null : attribute.trim();
     }
 
-    public Integer getGrade() {
-        return grade;
+    public String getValue() {
+        return value;
     }
 
-    public void setGrade(Integer grade) {
-        this.grade = grade;
-    }
-
-    public String getSubject() {
-        return subject;
-    }
-
-    public void setSubject(String subject) {
-        this.subject = subject == null ? null : subject.trim();
-    }
-
-    public Integer getThumbnail() {
-        return thumbnail;
-    }
-
-    public void setThumbnail(Integer thumbnail) {
-        this.thumbnail = thumbnail;
+    public void setValue(String value) {
+        this.value = value == null ? null : value.trim();
     }
 
     public Integer getStatus() {

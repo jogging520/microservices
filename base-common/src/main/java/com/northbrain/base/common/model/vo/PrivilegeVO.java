@@ -2,6 +2,9 @@ package com.northbrain.base.common.model.vo;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.northbrain.base.common.model.bo.Constants;
+
 /**
  * 类名：权限值对象类
  * 用途：用于持久层以上的权限对象传递
@@ -22,8 +25,10 @@ public class PrivilegeVO
 
     private Integer status;
 
+    @JSONField(format= Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
     private Date createTime;
 
+    @JSONField(format=Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
     private Date statusTime;
 
     private String desciption;

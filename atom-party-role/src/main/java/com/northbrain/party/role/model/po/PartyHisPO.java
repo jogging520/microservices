@@ -1,23 +1,21 @@
-package com.northbrain.base.common.model.vo;
+package com.northbrain.party.role.model.po;
 
 import java.util.Date;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.northbrain.base.common.model.bo.Constants;
+public class PartyHisPO {
+    private Integer recordId;
 
-/**
- * 类名：角色值对象类
- * 用途：用于持久层以上的角色对象传递
- * @author Jiakun
- * @version 1.0
- */
-public class RoleVO
-{
-    private Integer roleId;
+    private String operateType;
 
-    private String name;
+    private Integer partyId;
 
     private String alias;
+
+    private String password;
+
+    private Integer entityId;
+
+    private Integer roleId;
 
     private String domain;
 
@@ -27,28 +25,34 @@ public class RoleVO
 
     private Integer status;
 
-    @JSONField(format= Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
     private Date createTime;
 
-    @JSONField(format=Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
     private Date statusTime;
 
     private String desciption;
 
-    public Integer getRoleId() {
-        return roleId;
+    public Integer getRecordId() {
+        return recordId;
     }
 
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
+    public void setRecordId(Integer recordId) {
+        this.recordId = recordId;
     }
 
-    public String getName() {
-        return name;
+    public String getOperateType() {
+        return operateType;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setOperateType(String operateType) {
+        this.operateType = operateType == null ? null : operateType.trim();
+    }
+
+    public Integer getPartyId() {
+        return partyId;
+    }
+
+    public void setPartyId(Integer partyId) {
+        this.partyId = partyId;
     }
 
     public String getAlias() {
@@ -57,6 +61,30 @@ public class RoleVO
 
     public void setAlias(String alias) {
         this.alias = alias == null ? null : alias.trim();
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
+    }
+
+    public Integer getEntityId() {
+        return entityId;
+    }
+
+    public void setEntityId(Integer entityId) {
+        this.entityId = entityId;
+    }
+
+    public Integer getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 
     public String getDomain() {

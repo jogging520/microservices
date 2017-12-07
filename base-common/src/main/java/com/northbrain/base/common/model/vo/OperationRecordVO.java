@@ -17,24 +17,33 @@ import com.northbrain.base.common.model.bo.Constants;
  */
 public class OperationRecordVO
 {
+    //流水记录编号
     private Integer recordId;
 
+    //操作类型
     private String operateType;
 
+    //操作员编号
     private Integer operatorId;
 
+    //归属域名
     private String domain;
 
+    //服务名称
     private String serviceName;
 
+    //状态
     private Integer status;
 
+    //创建时间
     @JSONField(format=Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
     private Date startTime;
 
+    //状态时间
     @JSONField(format=Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
     private Date finishTime;
 
+    //描述
     private String description;
 
     private List<OperationRecordDetailVO> operationRecordDetailVOS;

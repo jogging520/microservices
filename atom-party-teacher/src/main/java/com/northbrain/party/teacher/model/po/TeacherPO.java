@@ -9,8 +9,6 @@ public class TeacherPO {
 
     private String alias;
 
-    private Integer roleId;
-
     private String department;
 
     private Integer grade;
@@ -49,14 +47,6 @@ public class TeacherPO {
 
     public void setAlias(String alias) {
         this.alias = alias == null ? null : alias.trim();
-    }
-
-    public Integer getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
     }
 
     public String getDepartment() {

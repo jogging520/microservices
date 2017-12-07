@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.northbrain.party.role.dao.PartyPOMapper">
+  <resultMap id="BaseResultMap" type="com.northbrain.party.role.model.po.PartyPO">
+    <id column="party_id" jdbcType="INTEGER" property="partyId" />
+    <result column="alias" jdbcType="VARCHAR" property="alias" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="entity_id" jdbcType="INTEGER" property="entityId" />
+    <result column="role_id" jdbcType="INTEGER" property="roleId" />
+    <result column="domain" jdbcType="VARCHAR" property="domain" />
+    <result column="category" jdbcType="VARCHAR" property="category" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="status_time" jdbcType="TIMESTAMP" property="statusTime" />
+    <result column="desciption" jdbcType="VARCHAR" property="desciption" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    party_id, alias, password, entity_id, role_id, domain, category, type, status, create_time, 
+    status_time, desciption
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from party
+    where party_id = #{partyId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from party
+    where party_id = #{partyId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.northbrain.party.role.model.po.PartyPO">
+    insert into party (party_id, alias, password, 
+      entity_id, role_id, domain, 
+      category, type, status, 
+      create_time, status_time, desciption
+      )
+    values (#{partyId,jdbcType=INTEGER}, #{alias,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{entityId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{domain,jdbcType=VARCHAR}, 
+      #{category,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{statusTime,jdbcType=TIMESTAMP}, #{desciption,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.northbrain.party.role.model.po.PartyPO">
+    insert into party
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="partyId != null">
+        party_id,
+      </if>
+      <if test="alias != null">
+        alias,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="entityId != null">
+        entity_id,
+      </if>
+      <if test="roleId != null">
+        role_id,
+      </if>
+      <if test="domain != null">
+        domain,
+      </if>
+      <if test="category != null">
+        category,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="statusTime != null">
+        status_time,
+      </if>
+      <if test="desciption != null">
+        desciption,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="partyId != null">
+        #{partyId,jdbcType=INTEGER},
+      </if>
+      <if test="alias != null">
+        #{alias,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="entityId != null">
+        #{entityId,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="domain != null">
+        #{domain,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="statusTime != null">
+        #{statusTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="desciption != null">
+        #{desciption,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.party.role.model.po.PartyPO">
+    update party
+    <set>
+      <if test="alias != null">
+        alias = #{alias,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="entityId != null">
+        entity_id = #{entityId,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null">
+        role_id = #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="domain != null">
+        domain = #{domain,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="statusTime != null">
+        status_time = #{statusTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="desciption != null">
+        desciption = #{desciption,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where party_id = #{partyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.party.role.model.po.PartyPO">
+    update party
+    set alias = #{alias,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      entity_id = #{entityId,jdbcType=INTEGER},
+      role_id = #{roleId,jdbcType=INTEGER},
+      domain = #{domain,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      status_time = #{statusTime,jdbcType=TIMESTAMP},
+      desciption = #{desciption,jdbcType=VARCHAR}
+    where party_id = #{partyId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.northbrain.party.role.model.po.PartyPO">
+    <id column="party_id" jdbcType="INTEGER" property="partyId" />
+    <result column="category" jdbcType="VARCHAR" property="category" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="entity_id" jdbcType="INTEGER" property="entityId" />
+    <result column="role_id" jdbcType="INTEGER" property="roleId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="status_time" jdbcType="TIMESTAMP" property="statusTime" />
+    <result column="desciption" jdbcType="VARCHAR" property="desciption" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    party_id, category, type, entity_id, role_id, status, create_time, status_time, desciption
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from party
+    where party_id = #{partyId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from party
+    where party_id = #{partyId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.northbrain.party.role.model.po.PartyPO">
+    insert into party (party_id, category, type, 
+      entity_id, role_id, status, 
+      create_time, status_time, desciption
+      )
+    values (#{partyId,jdbcType=INTEGER}, #{category,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{entityId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{statusTime,jdbcType=TIMESTAMP}, #{desciption,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.northbrain.party.role.model.po.PartyPO">
+    insert into party
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="partyId != null">
+        party_id,
+      </if>
+      <if test="category != null">
+        category,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="entityId != null">
+        entity_id,
+      </if>
+      <if test="roleId != null">
+        role_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="statusTime != null">
+        status_time,
+      </if>
+      <if test="desciption != null">
+        desciption,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="partyId != null">
+        #{partyId,jdbcType=INTEGER},
+      </if>
+      <if test="category != null">
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="entityId != null">
+        #{entityId,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="statusTime != null">
+        #{statusTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="desciption != null">
+        #{desciption,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.party.role.model.po.PartyPO">
+    update party
+    <set>
+      <if test="category != null">
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="entityId != null">
+        entity_id = #{entityId,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null">
+        role_id = #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="statusTime != null">
+        status_time = #{statusTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="desciption != null">
+        desciption = #{desciption,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where party_id = #{partyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.party.role.model.po.PartyPO">
+    update party
+    set category = #{category,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      entity_id = #{entityId,jdbcType=INTEGER},
+      role_id = #{roleId,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      status_time = #{statusTime,jdbcType=TIMESTAMP},
+      desciption = #{desciption,jdbcType=VARCHAR}
+    where party_id = #{partyId,jdbcType=INTEGER}
+  </update>
+</mapper>
