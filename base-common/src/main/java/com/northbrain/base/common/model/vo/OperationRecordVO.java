@@ -9,6 +9,12 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.northbrain.base.common.model.bo.Constants;
 
+/**
+ * 类名：操作记录值对象类
+ * 用途：用于持久层以上的操作记录对象传递
+ * @author Jiakun
+ * @version 1.0
+ */
 public class OperationRecordVO
 {
     private Integer recordId;

@@ -1,5 +1,6 @@
 package com.northbrain.product.course.dto.impl;
 
+import com.northbrain.base.common.model.bo.Hints;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
@@ -34,6 +35,8 @@ public class CourseDTO implements ICourseDTO
 			throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
 		}
 
+		logger.debug(Hints.HINT_BUSINESS_COMMON_PO_VO_CONVERTION);
+
 		CourseVO courseVO = new CourseVO();
     	
     	courseVO.setCourseId(coursePO.getCourseId());
@@ -63,6 +66,8 @@ public class CourseDTO implements ICourseDTO
 			logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "courseVO");
 			throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
 		}
+
+		logger.debug(Hints.HINT_BUSINESS_COMMON_PO_VO_CONVERTION);
 
 		CoursePO coursePO = new CoursePO();
     	

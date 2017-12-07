@@ -9,6 +9,8 @@
         <module name="atom-common-parameter" />
         <module name="atom-common-security" />
         <module name="atom-common-sequence" />
+        <module name="atom-party-role" />
+        <module name="atom-party-teacher" />
         <module name="atom-product-course" />
         <module name="atom-relation-operation-record" />
         <module name="atom-resource-storage" />
@@ -23,6 +25,8 @@
       <module name="atom-common-security" target="1.8" />
       <module name="atom-common-sequence" target="1.8" />
       <module name="atom-config-sequence" target="1.8" />
+      <module name="atom-party-role" target="1.8" />
+      <module name="atom-party-teacher" target="1.8" />
       <module name="atom-product-course" target="1.8" />
       <module name="atom-product-operation" target="1.8" />
       <module name="atom-relation-operation-record" target="1.8" />

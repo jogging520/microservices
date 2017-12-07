@@ -5,12 +5,21 @@ import java.util.Date;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.northbrain.base.common.model.bo.Constants;
 
+/**
+ * 类名：编排层课程值对象类
+ * 用途：用于编排层的课程对象传递
+ * @author Jiakun
+ * @version 1.0
+ */
 public class OrchCourseVO
 {
+    //课程编号
     private Integer courseId;
 
+    //课程名称
     private String name;
 
+    //年级
     private Integer grade;
 
     private Integer level;

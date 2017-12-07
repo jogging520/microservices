@@ -5,6 +5,12 @@ import java.util.Date;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.northbrain.base.common.model.bo.Constants;
 
+/**
+ * 类名：课程值对象类
+ * 用途：用于持久层以上的课程对象传递
+ * @author Jiakun
+ * @version 1.0
+ */
 public class CourseVO
 {
 	private Integer courseId;

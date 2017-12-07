@@ -1,5 +1,6 @@
 package com.northbrain.list.course.dto.impl;
 
+import com.northbrain.base.common.model.bo.Hints;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
@@ -42,6 +43,8 @@ public class CourseDTO implements ICourseDTO
             throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
+        logger.debug(Hints.HINT_BUSINESS_COMMON_JSON_VO_CONVERTION);
+
         ServiceVO atomServiceVO = JSON.parseObject(serviceVOJSONString, ServiceVO.class);
 
         if (atomServiceVO == null)
@@ -83,6 +86,8 @@ public class CourseDTO implements ICourseDTO
             throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
+        logger.debug(Hints.HINT_BUSINESS_COMMON_JSON_VO_CONVERTION);
+
         return JSONObject.toJavaObject((JSON) object, CourseVO.class);
     }
 
@@ -101,6 +106,8 @@ public class CourseDTO implements ICourseDTO
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "serviceVOJSONString");
             throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
+
+        logger.debug(Hints.HINT_BUSINESS_COMMON_JSON_VO_CONVERTION);
 
         ServiceVO atomServiceVO = JSON.parseObject(serviceVOJSONString, ServiceVO.class);
 
@@ -143,6 +150,8 @@ public class CourseDTO implements ICourseDTO
             throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
+        logger.debug(Hints.HINT_BUSINESS_COMMON_JSON_VO_CONVERTION);
+
         return JSONObject.toJavaObject((JSON) object, StorageVO.class);
     }
 
@@ -161,6 +170,8 @@ public class CourseDTO implements ICourseDTO
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "serviceVOJSONString");
             throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
+
+        logger.debug(Hints.HINT_BUSINESS_COMMON_JSON_VO_CONVERTION);
 
         ServiceVO atomServiceVO = JSON.parseObject(serviceVOJSONString, ServiceVO.class);
 
@@ -202,6 +213,8 @@ public class CourseDTO implements ICourseDTO
             throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
+        logger.debug(Hints.HINT_BUSINESS_COMMON_JSON_VO_CONVERTION);
+
         ServiceVO atomServiceVO = JSON.parseObject(serviceVOJSONString, ServiceVO.class);
 
         if (atomServiceVO == null)
@@ -242,6 +255,8 @@ public class CourseDTO implements ICourseDTO
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "serviceVOJSONString");
             throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
+
+        logger.debug(Hints.HINT_BUSINESS_COMMON_JSON_VO_CONVERTION);
 
         ServiceVO atomServiceVO = JSON.parseObject(serviceVOJSONString, ServiceVO.class);
 

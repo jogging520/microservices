@@ -1,5 +1,6 @@
 package com.northbrain.resource.storage.dto.impl;
 
+import com.northbrain.base.common.model.bo.Hints;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
@@ -36,6 +37,8 @@ public class StorageDTO implements IStorageDTO
             throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
+        logger.debug(Hints.HINT_BUSINESS_COMMON_PO_VO_CONVERTION);
+
         StorageVO storageVO = new StorageVO();
 
         storageVO.setStorageId(storagePO.getStorageId());
@@ -64,6 +67,8 @@ public class StorageDTO implements IStorageDTO
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "storageVO");
             throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
+
+        logger.debug(Hints.HINT_BUSINESS_COMMON_PO_VO_CONVERTION);
 
         StoragePO storagePO = new StoragePO();
 

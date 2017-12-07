@@ -106,7 +106,7 @@ public class CourseDomain implements ICourseDomain
 		if(coursePO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_EMPTY + "coursePO");
-            throw new CollectionEmptyException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
 
 		return courseDTO.convertToCourseVO(coursePO);

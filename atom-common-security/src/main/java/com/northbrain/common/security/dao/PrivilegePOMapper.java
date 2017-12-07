@@ -1,0 +1,22 @@
+package com.northbrain.common.security.dao;
+
+import com.northbrain.common.security.model.po.PrivilegePO;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
+
+@Mapper
+@Component(value="privilegePOMapper")
+public interface PrivilegePOMapper
+{
+    int deleteByPrimaryKey(Integer privilegeId) throws Exception;
+
+    int insert(PrivilegePO record) throws Exception;
+
+    int insertSelective(PrivilegePO record) throws Exception;
+
+    PrivilegePO selectByPrimaryKey(Integer privilegeId) throws Exception;
+
+    int updateByPrimaryKeySelective(PrivilegePO record) throws Exception;
+
+    int updateByPrimaryKey(PrivilegePO record) throws Exception;
+}

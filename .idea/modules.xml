@@ -5,6 +5,8 @@
       <module fileurl="file://$PROJECT_DIR$/atom-common-parameter/atom-common-parameter.iml" filepath="$PROJECT_DIR$/atom-common-parameter/atom-common-parameter.iml" />
       <module fileurl="file://$PROJECT_DIR$/atom-common-security/atom-common-security.iml" filepath="$PROJECT_DIR$/atom-common-security/atom-common-security.iml" />
       <module fileurl="file://$PROJECT_DIR$/atom-common-sequence/atom-common-sequence.iml" filepath="$PROJECT_DIR$/atom-common-sequence/atom-common-sequence.iml" />
+      <module fileurl="file://$PROJECT_DIR$/atom-party-role/atom-party-role.iml" filepath="$PROJECT_DIR$/atom-party-role/atom-party-role.iml" />
+      <module fileurl="file://$PROJECT_DIR$/atom-party-teacher/atom-party-teacher.iml" filepath="$PROJECT_DIR$/atom-party-teacher/atom-party-teacher.iml" />
       <module fileurl="file://$PROJECT_DIR$/atom-product-course/atom-product-course.iml" filepath="$PROJECT_DIR$/atom-product-course/atom-product-course.iml" />
       <module fileurl="file://$PROJECT_DIR$/atom-relation-operation-record/atom-relation-operation-record.iml" filepath="$PROJECT_DIR$/atom-relation-operation-record/atom-relation-operation-record.iml" />
       <module fileurl="file://$PROJECT_DIR$/atom-resource-storage/atom-resource-storage.iml" filepath="$PROJECT_DIR$/atom-resource-storage/atom-resource-storage.iml" />

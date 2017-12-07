@@ -41,6 +41,8 @@ public enum Hints
     HINT_BUSINESS_COMMON_REMOVE_PARAMETER_ITEM					("移除Parameters基础配置器项目："),
     HINT_BUSINESS_COMMON_UPDATE_PARAMETER_ITEM					("更新Parameters基础配置器项目："),
     HINT_BUSINESS_COMMON_SEQUENCE_NEXT_VALUE					("获取到的序列号为："),
+    HINT_BUSINESS_COMMON_PO_VO_CONVERTION					    ("开始进行持久化对象和值对象的转换。"),
+    HINT_BUSINESS_COMMON_JSON_VO_CONVERTION					    ("开始进行JSON对象和值对象的转换。"),
     HINT_BUSINESS_COMMON_HTTP_SERVLET_REQUEST					("接收到http请求     ："),
     HINT_BUSINESS_COMMON_HTTP_SERVLET_REQUEST_URL				("======URL         ："),
     HINT_BUSINESS_COMMON_HTTP_SERVLET_REQUEST_HTTP_METHOD		("======HTTP_METHOD ："),

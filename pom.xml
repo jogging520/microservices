@@ -16,6 +16,8 @@
     <module>atom-relation-operation-record</module>
       <module>atom-common-security</module>
     <module>atom-common-parameter</module>
+      <module>atom-party-role</module>
+    <module>atom-party-teacher</module>
   </modules>
   <packaging>pom</packaging>
 

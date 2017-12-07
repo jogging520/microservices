@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.northbrain.party.teacher.dao.TeacherHisPOMapper">
+  <resultMap id="BaseResultMap" type="com.northbrain.party.teacher.model.po.TeacherHisPO">
+    <id column="record_id" jdbcType="INTEGER" property="recordId" />
+    <result column="operate_type" jdbcType="VARCHAR" property="operateType" />
+    <result column="teacher_id" jdbcType="INTEGER" property="teacherId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="alias" jdbcType="VARCHAR" property="alias" />
+    <result column="role_id" jdbcType="INTEGER" property="roleId" />
+    <result column="department" jdbcType="VARCHAR" property="department" />
+    <result column="grade" jdbcType="INTEGER" property="grade" />
+    <result column="subject" jdbcType="VARCHAR" property="subject" />
+    <result column="thumbnail" jdbcType="INTEGER" property="thumbnail" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="status_time" jdbcType="TIMESTAMP" property="statusTime" />
+    <result column="desciption" jdbcType="VARCHAR" property="desciption" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    record_id, operate_type, teacher_id, name, alias, role_id, department, grade, subject, 
+    thumbnail, status, create_time, status_time, desciption
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from teacher_his
+    where record_id = #{recordId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from teacher_his
+    where record_id = #{recordId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.northbrain.party.teacher.model.po.TeacherHisPO">
+    insert into teacher_his (record_id, operate_type, teacher_id, 
+      name, alias, role_id, 
+      department, grade, subject, 
+      thumbnail, status, create_time, 
+      status_time, desciption)
+    values (#{recordId,jdbcType=INTEGER}, #{operateType,jdbcType=VARCHAR}, #{teacherId,jdbcType=INTEGER}, 
+      #{name,jdbcType=VARCHAR}, #{alias,jdbcType=VARCHAR}, #{roleId,jdbcType=INTEGER}, 
+      #{department,jdbcType=VARCHAR}, #{grade,jdbcType=INTEGER}, #{subject,jdbcType=VARCHAR}, 
+      #{thumbnail,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{statusTime,jdbcType=TIMESTAMP}, #{desciption,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.northbrain.party.teacher.model.po.TeacherHisPO">
+    insert into teacher_his
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="recordId != null">
+        record_id,
+      </if>
+      <if test="operateType != null">
+        operate_type,
+      </if>
+      <if test="teacherId != null">
+        teacher_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="alias != null">
+        alias,
+      </if>
+      <if test="roleId != null">
+        role_id,
+      </if>
+      <if test="department != null">
+        department,
+      </if>
+      <if test="grade != null">
+        grade,
+      </if>
+      <if test="subject != null">
+        subject,
+      </if>
+      <if test="thumbnail != null">
+        thumbnail,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="statusTime != null">
+        status_time,
+      </if>
+      <if test="desciption != null">
+        desciption,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="recordId != null">
+        #{recordId,jdbcType=INTEGER},
+      </if>
+      <if test="operateType != null">
+        #{operateType,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherId != null">
+        #{teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="alias != null">
+        #{alias,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="department != null">
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null">
+        #{grade,jdbcType=INTEGER},
+      </if>
+      <if test="subject != null">
+        #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="thumbnail != null">
+        #{thumbnail,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="statusTime != null">
+        #{statusTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="desciption != null">
+        #{desciption,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.party.teacher.model.po.TeacherHisPO">
+    update teacher_his
+    <set>
+      <if test="operateType != null">
+        operate_type = #{operateType,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherId != null">
+        teacher_id = #{teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="alias != null">
+        alias = #{alias,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null">
+        role_id = #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="department != null">
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null">
+        grade = #{grade,jdbcType=INTEGER},
+      </if>
+      <if test="subject != null">
+        subject = #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="thumbnail != null">
+        thumbnail = #{thumbnail,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="statusTime != null">
+        status_time = #{statusTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="desciption != null">
+        desciption = #{desciption,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where record_id = #{recordId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.party.teacher.model.po.TeacherHisPO">
+    update teacher_his
+    set operate_type = #{operateType,jdbcType=VARCHAR},
+      teacher_id = #{teacherId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      alias = #{alias,jdbcType=VARCHAR},
+      role_id = #{roleId,jdbcType=INTEGER},
+      department = #{department,jdbcType=VARCHAR},
+      grade = #{grade,jdbcType=INTEGER},
+      subject = #{subject,jdbcType=VARCHAR},
+      thumbnail = #{thumbnail,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      status_time = #{statusTime,jdbcType=TIMESTAMP},
+      desciption = #{desciption,jdbcType=VARCHAR}
+    where record_id = #{recordId,jdbcType=INTEGER}
+  </update>
+</mapper>

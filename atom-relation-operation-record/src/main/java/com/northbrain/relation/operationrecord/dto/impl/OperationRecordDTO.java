@@ -3,6 +3,7 @@ package com.northbrain.relation.operationrecord.dto.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.northbrain.base.common.model.bo.Hints;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
@@ -41,6 +42,8 @@ public class OperationRecordDTO implements IOperationRecordDTO
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "operationRecordPO");
             throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
+
+        logger.debug(Hints.HINT_BUSINESS_COMMON_PO_VO_CONVERTION);
 
         OperationRecordVO operationRecordVO = new OperationRecordVO();
         operationRecordVO.setRecordId(operationRecordPO.getRecordId());
@@ -96,6 +99,8 @@ public class OperationRecordDTO implements IOperationRecordDTO
             throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
+        logger.debug(Hints.HINT_BUSINESS_COMMON_PO_VO_CONVERTION);
+
         OperationRecordPO operationRecordPO = new OperationRecordPO();
         operationRecordPO.setRecordId(operationRecordVO.getRecordId());
         operationRecordPO.setOperateType(operationRecordVO.getOperateType());
@@ -130,6 +135,8 @@ public class OperationRecordDTO implements IOperationRecordDTO
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "operationRecordVO.getOperationRecordDetailVOS()");
             throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
+
+        logger.debug(Hints.HINT_BUSINESS_COMMON_PO_VO_CONVERTION);
 
         List<OperationRecordDetailPO> operationRecordDetailPOS = new ArrayList<>();
 

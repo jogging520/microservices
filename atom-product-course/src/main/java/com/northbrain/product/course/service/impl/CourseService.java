@@ -178,6 +178,14 @@ public class CourseService implements ICourseService
 		
 		try
         {
+            if(courseId <= 0)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE + "courseId:" + courseId);
+                serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION);
+
+                return serviceVO;
+            }
+
             if(courseDomain == null)
             {
                 logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "courseDomain");

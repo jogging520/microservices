@@ -5,6 +5,8 @@
     <file url="file://$PROJECT_DIR$/atom-common-parameter" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/atom-common-security" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/atom-common-sequence" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/atom-party-role" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/atom-party-teacher" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/atom-product-course" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/atom-relation-operation-record" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/atom-resource-storage" charset="UTF-8" />

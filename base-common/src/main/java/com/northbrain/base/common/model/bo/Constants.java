@@ -51,6 +51,7 @@ public class Constants
     public static final String BUSINESS_PRODUCT_COURSE_ATOM_MICROSERVICE                                = "atom-product-course";                //原子微服务：产品-课程
     public static final String BUSINESS_RESOURCE_STORAGE_ATOM_MICROSERVICE                              = "atom-resource-storage";              //原子微服务：资源-存储
     public static final String BUSINESS_RELATION_OPERATION_RECORD_ATOM_MICROSERVICE                     = "atom-relation-operation-record";     //原子微服务：关系-操作记录
+    public static final String BUSINESS_PARTY_ROLE_ATOM_MICROSERVICE                                    = "atom-party-role";                    //原子微服务：参与者-角色
 
     public static final String BUSINESS_LIST_COURSE_ORCH_MICROSERVICE                                   = "orch-list-course";                   //编排微服务：列表-课程
 
@@ -107,18 +108,22 @@ public class Constants
      * 编排服务域名包括：LIST、DETAIL、HOTSPOT等
      */
     public static final String URI_ATOM_PRODUCT_COURSE_REQUEST_MAPPING                                  = "/product/course";					//原子服务URI：课程清单（只有课程本身）
-    public static final String URI_ATOM_PRODUCT_COURSE_SPECIFIED_REQUEST_MAPPING						= "/product/course/{courseId}";				        //原子服务URI：指定的课程（只有课程本身）
+    public static final String URI_ATOM_PRODUCT_COURSE_SPECIFIED_REQUEST_MAPPING						= "/product/course/{courseId}";			//原子服务URI：指定的课程（只有课程本身）
 
     public static final String URI_ATOM_RESOURCE_STORAGE_REQUEST_MAPPING                                = "/resource/storage";                  //原子服务URI：存储信息
-    public static final String URI_ATOM_RESOURCE_STORAGE_SPECIFIED_REQUEST_MAPPING                      = "/resource/storage/{storageId}";                       //原子服务URI：指定的存储信息
+    public static final String URI_ATOM_RESOURCE_STORAGE_SPECIFIED_REQUEST_MAPPING                      = "/resource/storage/{storageId}";      //原子服务URI：指定的存储信息
 
     public static final String URI_ATOM_RELATION_OPERATION_RECORD_REQUEST_MAPPING                       = "/relation/operationrecord";          //原子服务URI：操作记录
 
+    public static final String URI_ATOM_PARTY_ROLE_SPECIFIED_REQUEST_MAPPING                            = "/party/role/{name}";                 //原子服务URI：指定的参与者角色
 
     public static final String URI_ATOM_COMMON_GLOBAL_SEQUENCE_REQUEST_MAPPING                          = "/common/sequence";                   //原子服务URI：全局唯一的序列号
 
+    public static final String URI_ATOM_COMMON_SECURITY_PRIVILEGE_SPECIFIED_REQUEST_MAPPING             = "/common/privilege/{privilegeId}";    //原子服务URI：指定的权限
+    public static final String URI_ATOM_COMMON_SECURITY_ACCESS_CONTROL_SPECIFIED_REQUEST_MAPPING        = "/common/accesscontrol/{roleId}";     //原子服务URI：指定的权限
+
     public static final String URI_ORCH_LIST_COURSE_REQUEST_MAPPING                                     = "/list/course";						//编排服务URI：全量在用的课程清单（只有课程本身）
-    public static final String URI_ORCH_LIST_COURSE_SPECIFIED_REQUEST_MAPPING                           = "/list/course/{courseId}";						//编排服务URI：全量在用的课程清单（只有课程本身）
+    public static final String URI_ORCH_LIST_COURSE_SPECIFIED_REQUEST_MAPPING                           = "/list/course/{courseId}";			//编排服务URI：全量在用的课程清单（只有课程本身）
 
     /**
      * 匹配布尔类型
