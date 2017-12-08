@@ -2,10 +2,7 @@ package com.northbrain.common.security.service.impl;
 
 import com.northbrain.base.common.exception.*;
 import com.northbrain.base.common.model.bo.Errors;
-import com.northbrain.base.common.model.vo.AccessControlVO;
-import com.northbrain.base.common.model.vo.LoginVO;
-import com.northbrain.base.common.model.vo.PrivilegeVO;
-import com.northbrain.base.common.model.vo.ServiceVO;
+import com.northbrain.base.common.model.vo.*;
 import com.northbrain.base.common.util.StackTracerUtil;
 import com.northbrain.common.security.domain.ISecurityDomain;
 import com.northbrain.common.security.exception.LoginException;
@@ -15,6 +12,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -452,6 +451,483 @@ public class SecurityService implements ISecurityService
         {
             logger.error(StackTracerUtil.getExceptionInfo(throwable));
             serviceVO.setResponseCodeAndDesc(Errors.ERROR_OTHER_UNKNOW_EXCEPTION);
+        }
+
+        serviceVO.setResponseTime(new Date());
+
+        return serviceVO;
+    }
+
+    /**
+     * 方法：新增一条注册信息（注册）
+     *
+     * @param registryVO registryVO 注册信息值对象
+     * @return ServiceVO封装类
+     */
+    @Override
+    @Transactional
+    public ServiceVO createRegistry(RegistryVO registryVO)
+    {
+        ServiceVO serviceVO = new ServiceVO();
+
+        try
+        {
+            if(registryVO == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "registryVO");
+                serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+
+                return serviceVO;
+            }
+
+            if(securityDomain == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "securityDomain");
+                serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+
+                return serviceVO;
+            }
+
+            serviceVO.setResponse(securityDomain.createRegistry(registryVO));
+            serviceVO.setResponseCodeAndDesc(Errors.SUCCESS_EXECUTE);
+        }
+        catch (NumberFormatException numberFormatException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(numberFormatException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_NUMBER_FORMAT_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (InterruptedException interruptedException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(interruptedException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_INTERRUPTED_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (FileNotFoundException fileNotFoundException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(fileNotFoundException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_FILE_NOT_FOUND_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (IOException iOException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(iOException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_IO_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (IllegalAccessException illegalAccessException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(illegalAccessException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_ILLEGAL_ACCESS_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (IllegalArgumentException illegalArgumentException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(illegalArgumentException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_ILLEGAL_ARGUMENT_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (ArgumentInputException argumentInputException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(argumentInputException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (CollectionEmptyException collectionEmptyException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(collectionEmptyException));
+            serviceVO.setResponseCodeAndDesc(Errors.EROOR_BUSINESS_COMMON_COLLECTION_EMPTY_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (NumberScopeException numberScopeException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(numberScopeException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (ObjectNullException objectNullException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(objectNullException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (ParameterConfigException parameterConfigException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(parameterConfigException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_PARAMETER_CONFIG_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (ParametersStateException parametersStateException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(parametersStateException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_PARAMETER_STATUS_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (RedisSessionException redisSessionException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(redisSessionException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_STORAGE_REDIS_SESSION_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (ThreadPoolExecutorException threadPoolExecutorException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(threadPoolExecutorException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_THREAD_POOL_EXECUTOR_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (ZooKeeperSessionException zooKeeperSessionException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(zooKeeperSessionException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_STORAGE_ZOOKEEPER_SESSION_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (BadSqlGrammarException badSqlGrammarException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(badSqlGrammarException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_STORAGE_BAD_SQL_GRAMMAR_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (RegistryException registryException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(registryException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_SECURITY_REGISTRY_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (LoginException loginException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(loginException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_SECURITY_LOGIN_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (Exception exception)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(exception));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_OTHER_UNKNOW_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (Throwable throwable)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(throwable));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_OTHER_UNKNOW_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+
+        serviceVO.setResponseTime(new Date());
+
+        return serviceVO;
+    }
+
+    /**
+     * 方法：创建一条登录信息（登录）
+     *
+     * @param loginVO 登录信息值对象
+     * @return ServiceVO封装类
+     */
+    @Override
+    @Transactional
+    public ServiceVO createLogin(LoginVO loginVO)
+    {
+        ServiceVO serviceVO = new ServiceVO();
+
+        try
+        {
+            if(loginVO == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "loginVO");
+                serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+
+                return serviceVO;
+            }
+
+            if(securityDomain == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "securityDomain");
+                serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+
+                return serviceVO;
+            }
+
+            serviceVO.setResponse(securityDomain.createLogin(loginVO));
+            serviceVO.setResponseCodeAndDesc(Errors.SUCCESS_EXECUTE);
+        }
+        catch (NumberFormatException numberFormatException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(numberFormatException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_NUMBER_FORMAT_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (InterruptedException interruptedException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(interruptedException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_INTERRUPTED_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (FileNotFoundException fileNotFoundException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(fileNotFoundException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_FILE_NOT_FOUND_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (IOException iOException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(iOException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_IO_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (IllegalAccessException illegalAccessException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(illegalAccessException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_ILLEGAL_ACCESS_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (IllegalArgumentException illegalArgumentException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(illegalArgumentException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_ILLEGAL_ARGUMENT_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (ArgumentInputException argumentInputException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(argumentInputException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (CollectionEmptyException collectionEmptyException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(collectionEmptyException));
+            serviceVO.setResponseCodeAndDesc(Errors.EROOR_BUSINESS_COMMON_COLLECTION_EMPTY_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (NumberScopeException numberScopeException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(numberScopeException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (ObjectNullException objectNullException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(objectNullException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (ParameterConfigException parameterConfigException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(parameterConfigException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_PARAMETER_CONFIG_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (ParametersStateException parametersStateException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(parametersStateException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_PARAMETER_STATUS_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (RedisSessionException redisSessionException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(redisSessionException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_STORAGE_REDIS_SESSION_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (ThreadPoolExecutorException threadPoolExecutorException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(threadPoolExecutorException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_THREAD_POOL_EXECUTOR_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (ZooKeeperSessionException zooKeeperSessionException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(zooKeeperSessionException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_STORAGE_ZOOKEEPER_SESSION_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (BadSqlGrammarException badSqlGrammarException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(badSqlGrammarException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_STORAGE_BAD_SQL_GRAMMAR_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (RegistryException registryException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(registryException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_SECURITY_REGISTRY_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (LoginException loginException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(loginException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_SECURITY_LOGIN_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (Exception exception)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(exception));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_OTHER_UNKNOW_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (Throwable throwable)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(throwable));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_OTHER_UNKNOW_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+
+        serviceVO.setResponseTime(new Date());
+
+        return serviceVO;
+    }
+
+    /**
+     * 方法：更新一条登录信息（登出）
+     *
+     * @param loginVO 登录信息值对象
+     * @return ServiceVO封装类
+     */
+    @Override
+    @Transactional
+    public ServiceVO updateLogin(LoginVO loginVO)
+    {
+        ServiceVO serviceVO = new ServiceVO();
+
+        try
+        {
+            if(loginVO == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "loginVO");
+                serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+
+                return serviceVO;
+            }
+
+            if(securityDomain == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "securityDomain");
+                serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+
+                return serviceVO;
+            }
+
+            serviceVO.setResponse(securityDomain.updateLogin(loginVO));
+            serviceVO.setResponseCodeAndDesc(Errors.SUCCESS_EXECUTE);
+        }
+        catch (NumberFormatException numberFormatException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(numberFormatException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_NUMBER_FORMAT_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (InterruptedException interruptedException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(interruptedException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_INTERRUPTED_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (FileNotFoundException fileNotFoundException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(fileNotFoundException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_FILE_NOT_FOUND_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (IOException iOException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(iOException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_IO_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (IllegalAccessException illegalAccessException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(illegalAccessException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_ILLEGAL_ACCESS_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (IllegalArgumentException illegalArgumentException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(illegalArgumentException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_ILLEGAL_ARGUMENT_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (ArgumentInputException argumentInputException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(argumentInputException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (CollectionEmptyException collectionEmptyException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(collectionEmptyException));
+            serviceVO.setResponseCodeAndDesc(Errors.EROOR_BUSINESS_COMMON_COLLECTION_EMPTY_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (NumberScopeException numberScopeException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(numberScopeException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (ObjectNullException objectNullException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(objectNullException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (ParameterConfigException parameterConfigException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(parameterConfigException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_PARAMETER_CONFIG_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (ParametersStateException parametersStateException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(parametersStateException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_PARAMETER_STATUS_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (RedisSessionException redisSessionException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(redisSessionException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_STORAGE_REDIS_SESSION_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (ThreadPoolExecutorException threadPoolExecutorException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(threadPoolExecutorException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_THREAD_POOL_EXECUTOR_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (ZooKeeperSessionException zooKeeperSessionException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(zooKeeperSessionException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_STORAGE_ZOOKEEPER_SESSION_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (BadSqlGrammarException badSqlGrammarException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(badSqlGrammarException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_STORAGE_BAD_SQL_GRAMMAR_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (RegistryException registryException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(registryException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_SECURITY_REGISTRY_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (LoginException loginException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(loginException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_SECURITY_LOGIN_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (Exception exception)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(exception));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_OTHER_UNKNOW_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        catch (Throwable throwable)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(throwable));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_OTHER_UNKNOW_EXCEPTION);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
         }
 
         serviceVO.setResponseTime(new Date());

@@ -2,8 +2,7 @@ package com.northbrain.common.security.model.po;
 
 import java.util.Date;
 
-public class LoginPO
-{
+public class LoginPO {
     private Integer loginId;
 
     private Integer registryId;
@@ -11,6 +10,8 @@ public class LoginPO
     private Integer partyId;
 
     private Integer roleId;
+
+    private Integer organizationId;
 
     private String domain;
 
@@ -56,6 +57,14 @@ public class LoginPO
 
     public void setRoleId(Integer roleId) {
         this.roleId = roleId;
+    }
+
+    public Integer getOrganizationId() {
+        return organizationId;
+    }
+
+    public void setOrganizationId(Integer organizationId) {
+        this.organizationId = organizationId;
     }
 
     public String getDomain() {

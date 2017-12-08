@@ -7,6 +7,8 @@ public class AccessControlPO {
 
     private Integer roleId;
 
+    private Integer organizationId;
+
     private Integer privilegeId;
 
     private Integer status;
@@ -29,6 +31,14 @@ public class AccessControlPO {
 
     public void setRoleId(Integer roleId) {
         this.roleId = roleId;
+    }
+
+    public Integer getOrganizationId() {
+        return organizationId;
+    }
+
+    public void setOrganizationId(Integer organizationId) {
+        this.organizationId = organizationId;
     }
 
     public Integer getPrivilegeId() {

@@ -1,5 +1,7 @@
 package com.northbrain.common.security.service;
 
+import com.northbrain.base.common.model.vo.LoginVO;
+import com.northbrain.base.common.model.vo.RegistryVO;
 import com.northbrain.base.common.model.vo.ServiceVO;
 
 /**
@@ -30,4 +32,25 @@ public interface ISecurityService
      * @return ServiceVO封装类
      */
     ServiceVO readLoginsByParty(Integer partyId);
+
+    /**
+     * 方法：新增一条注册信息（注册）
+     * @param registryVO registryVO 注册信息值对象
+     * @return ServiceVO封装类
+     */
+    ServiceVO createRegistry(RegistryVO registryVO);
+
+    /**
+     * 方法：创建一条登录信息（登录）
+     * @param loginVO 登录信息值对象
+     * @return ServiceVO封装类
+     */
+    ServiceVO createLogin(LoginVO loginVO);
+
+    /**
+     * 方法：更新一条登录信息（登出）
+     * @param loginVO 登录信息值对象
+     * @return ServiceVO封装类
+     */
+    ServiceVO updateLogin(LoginVO loginVO);
 }

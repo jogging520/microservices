@@ -17,7 +17,7 @@ import java.util.Date;
 public class ServiceVO
 {
     //请求时间
-    @JSONField(format= Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
+    @JSONField(format=Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
     private Date  	requestTime;
 
     //响应时间

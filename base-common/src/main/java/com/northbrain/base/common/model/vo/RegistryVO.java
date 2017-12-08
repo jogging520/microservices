@@ -6,25 +6,21 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.northbrain.base.common.model.bo.Constants;
 
-/**
- * 类名：存储值对象类
- * 用途：用于持久层以上的存储对象传递
- * @author Jiakun
- * @version 1.0
- */
-public class StorageVO
+public class RegistryVO
 {
-    private Integer storageId;
+    private Integer registryId;
+
+    private Integer partyId;
+
+    private String domain;
 
     private String category;
 
     private String type;
 
-    private String uri;
-
     private Integer status;
 
-    @JSONField(format=Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
+    @JSONField(format= Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
     private Date createTime;
 
     @JSONField(format=Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
@@ -32,12 +28,28 @@ public class StorageVO
 
     private String desciption;
 
-    public Integer getStorageId() {
-        return storageId;
+    public Integer getRegistryId() {
+        return registryId;
     }
 
-    public void setStorageId(Integer storageId) {
-        this.storageId = storageId;
+    public void setRegistryId(Integer registryId) {
+        this.registryId = registryId;
+    }
+
+    public Integer getPartyId() {
+        return partyId;
+    }
+
+    public void setPartyId(Integer partyId) {
+        this.partyId = partyId;
+    }
+
+    public String getDomain() {
+        return domain;
+    }
+
+    public void setDomain(String domain) {
+        this.domain = domain == null ? null : domain.trim();
     }
 
     public String getCategory() {
@@ -54,14 +66,6 @@ public class StorageVO
 
     public void setType(String type) {
         this.type = type == null ? null : type.trim();
-    }
-
-    public String getUri() {
-        return uri;
-    }
-
-    public void setUri(String uri) {
-        this.uri = uri == null ? null : uri.trim();
     }
 
     public Integer getStatus() {

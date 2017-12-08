@@ -6,6 +6,8 @@ import com.alibaba.fastjson.JSONException;
 import com.northbrain.base.common.model.bo.Constants;
 import com.northbrain.base.common.model.bo.Errors;
 import com.northbrain.base.common.model.bo.Hints;
+import com.northbrain.base.common.model.vo.LoginVO;
+import com.northbrain.base.common.model.vo.RegistryVO;
 import com.northbrain.base.common.model.vo.ServiceVO;
 import com.northbrain.base.common.util.StackTracerUtil;
 import com.northbrain.common.security.service.ISecurityService;
@@ -167,6 +169,159 @@ public class SecurityController
             }
 
             return JSON.toJSONString(securityService.readLoginsByParty(partyId));
+        }
+        catch (IllegalStateException illegalStateException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(illegalStateException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_ILLEGAL_STATE_EXCEPTION);
+        }
+        catch (JSONException jSONException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(jSONException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_JSON_EXCEPTION);
+        }
+        catch (Exception exception)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(exception));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_OTHER_UNKNOW_EXCEPTION);
+        }
+
+        return JSON.toJSONString(serviceVO);
+    }
+
+    /**
+     * 方法：新增一条注册信息（注册）
+     * @param registryVO 注册信息值对象
+     * @return 参与者列表的JSON串
+     */
+    @RequestMapping(value = Constants.URI_ATOM_COMMON_SECURITY_REGISTRY_REQUEST_MAPPING, method = RequestMethod.PUT, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS, consumes = Constants.BUSINESS_COMMON_HTTP_REQUEST_CONSUMERS)
+    @ResponseBody
+    public String createRegistry(@RequestBody RegistryVO registryVO)
+    {
+        logger.debug(Hints.HINT_SYSTEM_PROCESS_CALL_CONTROLLER + "createRegistry");
+        ServiceVO serviceVO = new ServiceVO();
+
+        try
+        {
+            if(registryVO == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "registryVO");
+                serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+
+                return JSON.toJSONString(serviceVO);
+            }
+
+            if(securityService == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "securityService");
+                serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+
+                return JSON.toJSONString(serviceVO);
+            }
+
+            return JSON.toJSONString(securityService.createRegistry(registryVO));
+        }
+        catch (IllegalStateException illegalStateException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(illegalStateException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_ILLEGAL_STATE_EXCEPTION);
+        }
+        catch (JSONException jSONException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(jSONException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_JSON_EXCEPTION);
+        }
+        catch (Exception exception)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(exception));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_OTHER_UNKNOW_EXCEPTION);
+        }
+
+        return JSON.toJSONString(serviceVO);
+    }
+
+    /**
+     * 方法：创建一条登录信息（登录）
+     * @param loginVO 登录信息值对象
+     * @return 参与者列表的JSON串
+     */
+    @RequestMapping(value = Constants.URI_ATOM_COMMON_SECURITY_LOGIN_REQUEST_MAPPING, method = RequestMethod.PUT, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS, consumes = Constants.BUSINESS_COMMON_HTTP_REQUEST_CONSUMERS)
+    @ResponseBody
+    public String createLogin(@RequestBody LoginVO loginVO)
+    {
+        logger.debug(Hints.HINT_SYSTEM_PROCESS_CALL_CONTROLLER + "createLogin");
+        ServiceVO serviceVO = new ServiceVO();
+
+        try
+        {
+            if(loginVO == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "loginVO");
+                serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+
+                return JSON.toJSONString(serviceVO);
+            }
+
+            if(securityService == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "securityService");
+                serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+
+                return JSON.toJSONString(serviceVO);
+            }
+
+            return JSON.toJSONString(securityService.createLogin(loginVO));
+        }
+        catch (IllegalStateException illegalStateException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(illegalStateException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_ILLEGAL_STATE_EXCEPTION);
+        }
+        catch (JSONException jSONException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(jSONException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_JSON_EXCEPTION);
+        }
+        catch (Exception exception)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(exception));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_OTHER_UNKNOW_EXCEPTION);
+        }
+
+        return JSON.toJSONString(serviceVO);
+    }
+
+    /**
+     * 方法：更新一条登录信息（登出）
+     * @param loginVO 登录信息值对象
+     * @return 参与者列表的JSON串
+     */
+    @RequestMapping(value = Constants.URI_ATOM_COMMON_SECURITY_LOGIN_REQUEST_MAPPING, method = RequestMethod.POST, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS, consumes = Constants.BUSINESS_COMMON_HTTP_REQUEST_CONSUMERS)
+    @ResponseBody
+    public String updateLogin(@RequestBody LoginVO loginVO)
+    {
+        logger.debug(Hints.HINT_SYSTEM_PROCESS_CALL_CONTROLLER + "updateLogin");
+        ServiceVO serviceVO = new ServiceVO();
+
+        try
+        {
+            if(loginVO == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "loginVO");
+                serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+
+                return JSON.toJSONString(serviceVO);
+            }
+
+            if(securityService == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "securityService");
+                serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+
+                return JSON.toJSONString(serviceVO);
+            }
+
+            return JSON.toJSONString(securityService.updateLogin(loginVO));
         }
         catch (IllegalStateException illegalStateException)
         {

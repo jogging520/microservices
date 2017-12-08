@@ -7,16 +7,17 @@ import com.northbrain.common.security.model.po.RegistryPO;
 
 @Mapper
 @Component(value="registryPOMapper")
-public interface RegistryPOMapper {
-    int deleteByPrimaryKey(Integer registryId);
+public interface RegistryPOMapper
+{
+    int deleteByPrimaryKey(Integer registryId) throws Exception;
 
-    int insert(RegistryPO record);
+    int insert(RegistryPO record) throws Exception;
 
-    int insertSelective(RegistryPO record);
+    int insertSelective(RegistryPO record) throws Exception;
 
-    RegistryPO selectByPrimaryKey(Integer registryId);
+    RegistryPO selectByPrimaryKey(Integer registryId) throws Exception;
 
-    int updateByPrimaryKeySelective(RegistryPO record);
+    int updateByPrimaryKeySelective(RegistryPO record) throws Exception;
 
-    int updateByPrimaryKey(RegistryPO record);
+    int updateByPrimaryKey(RegistryPO record) throws Exception;
 }

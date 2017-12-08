@@ -1,11 +1,12 @@
 package com.northbrain.common.security.dao;
 
-import com.northbrain.common.security.model.po.AccessControlPO;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import com.northbrain.common.security.model.po.AccessControlPO;
 
 @Mapper
 @Component(value="accessControlPOMapper")
@@ -19,7 +20,7 @@ public interface AccessControlPOMapper
 
     AccessControlPO selectByPrimaryKey(Integer accessControlId) throws Exception;
 
-    List<AccessControlPO> selectByRole(@Param("roleId")Integer roleId) throws Exception;
+    List<AccessControlPO> selectByRole(@Param("roleId") Integer roleId) throws Exception;
 
     int updateByPrimaryKeySelective(AccessControlPO record) throws Exception;
 

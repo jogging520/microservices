@@ -120,8 +120,10 @@ public class Constants
     public static final String URI_ATOM_COMMON_GLOBAL_SEQUENCE_REQUEST_MAPPING                          = "/common/sequence";                           //原子服务URI：全局唯一的序列号
 
     public static final String URI_ATOM_COMMON_SECURITY_PRIVILEGE_SPECIFIED_REQUEST_MAPPING             = "/common/security/privilege/{privilegeId}";   //原子服务URI：指定的权限
-    public static final String URI_ATOM_COMMON_SECURITY_ACCESS_CONTROL_SPECIFIED_REQUEST_MAPPING        = "/common/security/accesscontrol/{roleId}";    //原子服务URI：指定的权限
-    public static final String URI_ATOM_COMMON_SECURITY_LOGIN_SPECIFIED_REQUEST_MAPPING                 = "/common/security/login/{partyId}";           //原子服务URI：指定的权限
+    public static final String URI_ATOM_COMMON_SECURITY_ACCESS_CONTROL_SPECIFIED_REQUEST_MAPPING        = "/common/security/accesscontrol/{roleId}";    //原子服务URI：指定的访问控制
+    public static final String URI_ATOM_COMMON_SECURITY_LOGIN_SPECIFIED_REQUEST_MAPPING                 = "/common/security/login/{partyId}";           //原子服务URI：指定的登录信息
+    public static final String URI_ATOM_COMMON_SECURITY_REGISTRY_REQUEST_MAPPING                        = "/common/security/registry";                  //原子服务URI：注册
+    public static final String URI_ATOM_COMMON_SECURITY_LOGIN_REQUEST_MAPPING                           = "/common/security/login";                     //原子服务URI：登录
 
     public static final String URI_ORCH_LIST_COURSE_REQUEST_MAPPING                                     = "/list/course";						        //编排服务URI：全量在用的课程清单（只有课程本身）
     public static final String URI_ORCH_LIST_COURSE_SPECIFIED_REQUEST_MAPPING                           = "/list/course/{courseId}";			        //编排服务URI：全量在用的课程清单（只有课程本身）

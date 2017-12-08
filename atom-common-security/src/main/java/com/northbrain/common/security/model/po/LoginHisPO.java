@@ -15,6 +15,8 @@ public class LoginHisPO {
 
     private Integer roleId;
 
+    private Integer organizationId;
+
     private String domain;
 
     private String category;
@@ -75,6 +77,14 @@ public class LoginHisPO {
 
     public void setRoleId(Integer roleId) {
         this.roleId = roleId;
+    }
+
+    public Integer getOrganizationId() {
+        return organizationId;
+    }
+
+    public void setOrganizationId(Integer organizationId) {
+        this.organizationId = organizationId;
     }
 
     public String getDomain() {

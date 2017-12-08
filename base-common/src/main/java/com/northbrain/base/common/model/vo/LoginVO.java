@@ -16,6 +16,8 @@ public class LoginVO
 
     private Integer roleId;
 
+    private Integer organizationId;
+
     private String domain;
 
     private String category;
@@ -24,7 +26,7 @@ public class LoginVO
 
     private Integer status;
 
-    @JSONField(format= Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
+    @JSONField(format=Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
     private Date loginTime;
 
     @JSONField(format=Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
@@ -62,6 +64,14 @@ public class LoginVO
 
     public void setRoleId(Integer roleId) {
         this.roleId = roleId;
+    }
+
+    public Integer getOrganizationId() {
+        return organizationId;
+    }
+
+    public void setOrganizationId(Integer organizationId) {
+        this.organizationId = organizationId;
     }
 
     public String getDomain() {

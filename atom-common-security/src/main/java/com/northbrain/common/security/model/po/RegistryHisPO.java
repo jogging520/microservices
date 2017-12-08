@@ -11,8 +11,6 @@ public class RegistryHisPO {
 
     private Integer partyId;
 
-    private Integer roleId;
-
     private String domain;
 
     private String category;
@@ -57,14 +55,6 @@ public class RegistryHisPO {
 
     public void setPartyId(Integer partyId) {
         this.partyId = partyId;
-    }
-
-    public Integer getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
     }
 
     public String getDomain() {

@@ -7,16 +7,17 @@ import com.northbrain.common.security.model.po.RegistryHisPO;
 
 @Mapper
 @Component(value="registryHisPOMapper")
-public interface RegistryHisPOMapper {
-    int deleteByPrimaryKey(Integer recordId);
+public interface RegistryHisPOMapper
+{
+    int deleteByPrimaryKey(Integer recordId) throws Exception;
 
-    int insert(RegistryHisPO record);
+    int insert(RegistryHisPO record) throws Exception;
 
-    int insertSelective(RegistryHisPO record);
+    int insertSelective(RegistryHisPO record) throws Exception;
 
-    RegistryHisPO selectByPrimaryKey(Integer recordId);
+    RegistryHisPO selectByPrimaryKey(Integer recordId) throws Exception;
 
-    int updateByPrimaryKeySelective(RegistryHisPO record);
+    int updateByPrimaryKeySelective(RegistryHisPO record) throws Exception;
 
-    int updateByPrimaryKey(RegistryHisPO record);
+    int updateByPrimaryKey(RegistryHisPO record) throws Exception;
 }

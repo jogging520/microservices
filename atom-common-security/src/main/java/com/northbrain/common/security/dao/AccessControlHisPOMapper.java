@@ -1,8 +1,9 @@
 package com.northbrain.common.security.dao;
 
-import com.northbrain.common.security.model.po.AccessControlHisPO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
+
+import com.northbrain.common.security.model.po.AccessControlHisPO;
 
 @Mapper
 @Component(value="accessControlHisPOMapper")

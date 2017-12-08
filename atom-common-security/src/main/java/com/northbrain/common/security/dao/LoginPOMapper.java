@@ -1,16 +1,17 @@
 package com.northbrain.common.security.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import com.northbrain.common.security.model.po.LoginPO;
 
-import java.util.List;
-
 @Mapper
 @Component(value="loginPOMapper")
-public interface LoginPOMapper {
+public interface LoginPOMapper
+{
     int deleteByPrimaryKey(Integer loginId) throws Exception;
 
     int insert(LoginPO record) throws Exception;

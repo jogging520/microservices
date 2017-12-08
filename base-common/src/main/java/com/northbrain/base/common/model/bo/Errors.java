@@ -63,8 +63,13 @@ public enum Errors
     /**
 	 * 3XXX:专用业务级错误，ERROR_BUSINESS_XXXX_，XXXX如ONLINEEDU等
 	 */
+    ERROR_BUSINESS_COMMON_SECURITY_REGISTRY_EXCEPTION               ("3001", "操作注册信息时候发生异常。"),
+    ERROR_BUSINESS_COMMON_SECURITY_REGISTRY_INSERT                  ("3002", "插入注册信息时候发生异常。"),
+    ERROR_BUSINESS_COMMON_SECURITY_LOGIN_EXCEPTION                  ("3003", "操作登录信息时候发生异常。"),
+    ERROR_BUSINESS_COMMON_SECURITY_LOGIN_INSERT                     ("3004", "插入登录信息时候发生异常。"),
+    ERROR_BUSINESS_COMMON_SECURITY_LOGIN_UPDATE                     ("3005", "更新登录信息时候发生异常。"),
 
-    ERROR_BUSINESS_RELATION_OPERATION_RECORD_EXCEPTION              ("3101", "插入业务记录时候发生异常。"),
+    ERROR_BUSINESS_RELATION_OPERATION_RECORD_EXCEPTION              ("3101", "操作业务记录时候发生异常。"),
     ERROR_BUSINESS_RELATION_OPERATION_RECORD_INSERT                 ("3102", "插入业务记录时候发生异常。"),
     ERROR_BUSINESS_RELATION_OPERATION_RECORD_UPDATE                 ("3104", "更新业务记录时候发生异常。"),
 

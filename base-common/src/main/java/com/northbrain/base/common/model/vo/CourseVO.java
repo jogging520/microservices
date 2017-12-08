@@ -2,6 +2,7 @@ package com.northbrain.base.common.model.vo;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.northbrain.base.common.model.bo.Constants;
 
@@ -127,9 +128,6 @@ public class CourseVO
 
     public String toString()
     {
-        return String.valueOf(
-                this.getCourseId() + Constants.BUSINESS_COMMON_COMMAND_LINE_END_SYMBOL +
-                this.getGrade()
-        );
+        return JSON.toJSONString(this);
     }
 }

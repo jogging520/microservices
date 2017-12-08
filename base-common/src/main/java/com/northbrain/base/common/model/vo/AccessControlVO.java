@@ -2,6 +2,7 @@ package com.northbrain.base.common.model.vo;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.northbrain.base.common.model.bo.Constants;
 
@@ -17,11 +18,13 @@ public class AccessControlVO
 
     private Integer roleId;
 
+    private Integer organizationId;
+
     private Integer privilegeId;
 
     private Integer status;
 
-    @JSONField(format= Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
+    @JSONField(format=Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
     private Date createTime;
 
     @JSONField(format=Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
@@ -41,6 +44,14 @@ public class AccessControlVO
 
     public void setRoleId(Integer roleId) {
         this.roleId = roleId;
+    }
+
+    public Integer getOrganizationId() {
+        return organizationId;
+    }
+
+    public void setOrganizationId(Integer organizationId) {
+        this.organizationId = organizationId;
     }
 
     public Integer getPrivilegeId() {
@@ -73,5 +84,10 @@ public class AccessControlVO
 
     public void setStatusTime(Date statusTime) {
         this.statusTime = statusTime;
+    }
+
+    public String toString()
+    {
+        return JSON.toJSONString(this);
     }
 }

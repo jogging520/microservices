@@ -111,6 +111,7 @@ public class SecurityDTO implements ISecurityDTO
 
         accessControlVO.setAccessControlId(accessControlPO.getAccessControlId());
         accessControlVO.setRoleId(accessControlPO.getRoleId());
+        accessControlVO.setOrganizationId(accessControlPO.getOrganizationId());
         accessControlVO.setPrivilegeId(accessControlPO.getPrivilegeId());
         accessControlVO.setStatus(accessControlPO.getStatus());
         accessControlVO.setCreateTime(accessControlPO.getCreateTime());
@@ -140,6 +141,7 @@ public class SecurityDTO implements ISecurityDTO
 
         accessControlPO.setAccessControlId(accessControlVO.getAccessControlId());
         accessControlPO.setRoleId(accessControlVO.getRoleId());
+        accessControlPO.setOrganizationId(accessControlVO.getOrganizationId());
         accessControlPO.setPrivilegeId(accessControlVO.getPrivilegeId());
         accessControlPO.setStatus(accessControlVO.getStatus());
         accessControlPO.setCreateTime(accessControlVO.getCreateTime());
@@ -171,6 +173,7 @@ public class SecurityDTO implements ISecurityDTO
         loginVO.setRegistryId(loginPO.getRegistryId());
         loginVO.setPartyId(loginPO.getPartyId());
         loginVO.setRoleId(loginPO.getRoleId());
+        loginVO.setOrganizationId(loginPO.getOrganizationId());
         loginVO.setDomain(loginPO.getDomain());
         loginVO.setCategory(loginPO.getCategory());
         loginVO.setType(loginPO.getType());
@@ -205,6 +208,7 @@ public class SecurityDTO implements ISecurityDTO
         loginPO.setRegistryId(loginVO.getRegistryId());
         loginPO.setPartyId(loginVO.getPartyId());
         loginPO.setRoleId(loginVO.getRoleId());
+        loginPO.setOrganizationId(loginVO.getOrganizationId());
         loginPO.setDomain(loginVO.getDomain());
         loginPO.setCategory(loginVO.getCategory());
         loginPO.setType(loginVO.getType());
@@ -237,7 +241,6 @@ public class SecurityDTO implements ISecurityDTO
 
         registryVO.setRegistryId(registryPO.getRegistryId());
         registryVO.setPartyId(registryPO.getPartyId());
-        registryVO.setRoleId(registryPO.getRoleId());
         registryVO.setDomain(registryPO.getDomain());
         registryVO.setCategory(registryPO.getCategory());
         registryVO.setType(registryPO.getType());
@@ -270,7 +273,6 @@ public class SecurityDTO implements ISecurityDTO
 
         registryPO.setRegistryId(registryVO.getRegistryId());
         registryPO.setPartyId(registryVO.getPartyId());
-        registryPO.setRoleId(registryVO.getRoleId());
         registryPO.setDomain(registryVO.getDomain());
         registryPO.setCategory(registryVO.getCategory());
         registryPO.setType(registryVO.getType());
