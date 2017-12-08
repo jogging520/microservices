@@ -24,6 +24,12 @@
     from login
     where login_id = #{loginId,jdbcType=INTEGER}
   </select>
+  <select id="selectByParty" resultMap="BaseResultMap" statementType="STATEMENT">
+    select
+    <include refid="Base_Column_List" />
+    from login
+    where party_id = ${partyId}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from login
     where login_id = #{loginId,jdbcType=INTEGER}

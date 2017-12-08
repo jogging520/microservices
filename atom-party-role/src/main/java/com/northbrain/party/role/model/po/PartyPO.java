@@ -2,7 +2,8 @@ package com.northbrain.party.role.model.po;
 
 import java.util.Date;
 
-public class PartyPO {
+public class PartyPO
+{
     private Integer partyId;
 
     private String alias;

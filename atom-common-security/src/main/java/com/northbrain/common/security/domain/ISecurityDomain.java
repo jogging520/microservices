@@ -1,7 +1,9 @@
 package com.northbrain.common.security.domain;
 
 import com.northbrain.base.common.model.vo.AccessControlVO;
+import com.northbrain.base.common.model.vo.LoginVO;
 import com.northbrain.base.common.model.vo.PrivilegeVO;
+import com.northbrain.base.common.model.vo.RegistryVO;
 
 import java.util.List;
 
@@ -29,4 +31,36 @@ public interface ISecurityDomain
      * @throws Exception 异常
      */
     List<AccessControlVO> readAccessControlsByRole(Integer roleId) throws Exception;
+
+    /**
+     * 方法：获取登录信息
+     * @param partyId 参与者编号
+     * @return 登录信息的值对象列表
+     * @throws Exception 异常
+     */
+    List<LoginVO> readLoginsByParty(Integer partyId) throws Exception;
+
+    /**
+     * 方法：新增一条注册信息（注册）
+     * @param registryVO 注册信息值对象
+     * @return 是否新增成功
+     * @throws Exception 异常
+     */
+    boolean createRegistry(RegistryVO registryVO) throws Exception;
+
+    /**
+     * 方法：创建一条登录信息（登录）
+     * @param loginVO 登录信息值对象
+     * @return 是否创建成功
+     * @throws Exception 异常
+     */
+    boolean createLogin(LoginVO loginVO) throws Exception;
+
+    /**
+     * 方法：更新一条登录信息（登出）
+     * @param loginVO 登录信息值对象
+     * @return 是否更新成功
+     * @throws Exception 异常
+     */
+    boolean updateLogin(LoginVO loginVO) throws Exception;
 }

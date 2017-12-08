@@ -1,8 +1,12 @@
-package com.northbrain.common.security.model.po;
+package com.northbrain.base.common.model.vo;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.annotation.JSONField;
+import com.northbrain.base.common.model.bo.Constants;
 
 import java.util.Date;
 
-public class LoginPO
+public class LoginVO
 {
     private Integer loginId;
 
@@ -20,8 +24,10 @@ public class LoginPO
 
     private Integer status;
 
+    @JSONField(format= Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
     private Date loginTime;
 
+    @JSONField(format=Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
     private Date logoutTime;
 
     private String desciption;
@@ -112,5 +118,10 @@ public class LoginPO
 
     public void setDesciption(String desciption) {
         this.desciption = desciption == null ? null : desciption.trim();
+    }
+
+    public String toString()
+    {
+        return JSON.toJSONString(this);
     }
 }

@@ -2,7 +2,8 @@ package com.northbrain.party.teacher.model.po;
 
 import java.util.Date;
 
-public class TeacherPO {
+public class TeacherPO
+{
     private Integer teacherId;
 
     private String name;

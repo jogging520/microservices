@@ -18,6 +18,9 @@
     <module>atom-common-parameter</module>
       <module>atom-party-role</module>
     <module>atom-party-teacher</module>
+      <module>atom-party-organization</module>
+      <module>atom-party-school</module>
+    <module>atom-party-student</module>
   </modules>
   <packaging>pom</packaging>
 

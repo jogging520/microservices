@@ -7,16 +7,17 @@ import com.northbrain.party.role.model.po.PartyPO;
 
 @Mapper
 @Component(value="partyPOMapper")
-public interface PartyPOMapper {
-    int deleteByPrimaryKey(Integer partyId);
+public interface PartyPOMapper
+{
+    int deleteByPrimaryKey(Integer partyId) throws Exception;
 
-    int insert(PartyPO record);
+    int insert(PartyPO record) throws Exception;
 
-    int insertSelective(PartyPO record);
+    int insertSelective(PartyPO record) throws Exception;
 
-    PartyPO selectByPrimaryKey(Integer partyId);
+    PartyPO selectByPrimaryKey(Integer partyId) throws Exception;
 
-    int updateByPrimaryKeySelective(PartyPO record);
+    int updateByPrimaryKeySelective(PartyPO record) throws Exception;
 
-    int updateByPrimaryKey(PartyPO record);
+    int updateByPrimaryKey(PartyPO record) throws Exception;
 }

@@ -23,4 +23,11 @@ public interface ISecurityService
      * @return ServiceVO封装类
      */
     ServiceVO readAccessControlsByRole(Integer roleId);
+
+    /**
+     * 方法：获取特定的参与者登录信息列表
+     * @param partyId 参与者编号
+     * @return ServiceVO封装类
+     */
+    ServiceVO readLoginsByParty(Integer partyId);
 }

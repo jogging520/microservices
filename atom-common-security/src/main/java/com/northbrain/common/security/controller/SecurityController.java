@@ -137,6 +137,57 @@ public class SecurityController
     }
 
     /**
+     * 方法：获取特定的参与者登录信息列表
+     * @param partyId 参与者编号
+     * @return 参与者列表的JSON串
+     */
+    @RequestMapping(value = Constants.URI_ATOM_COMMON_SECURITY_LOGIN_SPECIFIED_REQUEST_MAPPING, method = RequestMethod.GET, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS)
+    @ResponseBody
+    public String readLoginsByParty(@PathVariable("partyId")int partyId)
+    {
+        logger.debug(Hints.HINT_SYSTEM_PROCESS_CALL_CONTROLLER + "readAccessControl");
+        ServiceVO serviceVO = new ServiceVO();
+
+        try
+        {
+            if(partyId <= 0)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE + "roleId:" + partyId);
+                serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION);
+
+                return JSON.toJSONString(serviceVO);
+            }
+
+            if(securityService == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "securityService");
+                serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+
+                return JSON.toJSONString(serviceVO);
+            }
+
+            return JSON.toJSONString(securityService.readLoginsByParty(partyId));
+        }
+        catch (IllegalStateException illegalStateException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(illegalStateException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_ILLEGAL_STATE_EXCEPTION);
+        }
+        catch (JSONException jSONException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(jSONException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_JSON_EXCEPTION);
+        }
+        catch (Exception exception)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(exception));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_OTHER_UNKNOW_EXCEPTION);
+        }
+
+        return JSON.toJSONString(serviceVO);
+    }
+
+    /**
      * 方法 ：Json日期格式转换
      * @param servletRequestDataBinder 前端属性在后台封装成一个对象
      */

@@ -5,15 +5,18 @@ import com.northbrain.base.common.exception.NumberScopeException;
 import com.northbrain.base.common.exception.ObjectNullException;
 import com.northbrain.base.common.model.bo.Errors;
 import com.northbrain.base.common.model.vo.AccessControlVO;
+import com.northbrain.base.common.model.vo.LoginVO;
 import com.northbrain.base.common.model.vo.PrivilegeVO;
-import com.northbrain.common.security.dao.AccessControlHisPOMapper;
-import com.northbrain.common.security.dao.AccessControlPOMapper;
-import com.northbrain.common.security.dao.PrivilegeHisPOMapper;
-import com.northbrain.common.security.dao.PrivilegePOMapper;
+import com.northbrain.base.common.model.vo.RegistryVO;
+import com.northbrain.common.security.dao.*;
 import com.northbrain.common.security.domain.ISecurityDomain;
 import com.northbrain.common.security.dto.ISecurityDTO;
+import com.northbrain.common.security.exception.LoginException;
+import com.northbrain.common.security.exception.RegistryException;
 import com.northbrain.common.security.model.po.AccessControlPO;
+import com.northbrain.common.security.model.po.LoginPO;
 import com.northbrain.common.security.model.po.PrivilegePO;
+import com.northbrain.common.security.model.po.RegistryPO;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -37,17 +40,26 @@ public class SecurityDomain implements ISecurityDomain
     private final PrivilegeHisPOMapper privilegeHisPOMapper;
     private final AccessControlPOMapper accessControlPOMapper;
     private final AccessControlHisPOMapper accessControlHisPOMapper;
+    private final LoginPOMapper loginPOMapper;
+    private final LoginHisPOMapper loginHisPOMapper;
+    private final RegistryPOMapper registryPOMapper;
+    private final RegistryHisPOMapper registryHisPOMapper;
     private final ISecurityDTO securityDTO;
 
     @Autowired
     public SecurityDomain(PrivilegePOMapper privilegePOMapper, PrivilegeHisPOMapper privilegeHisPOMapper,
                           AccessControlPOMapper accessControlPOMapper, AccessControlHisPOMapper accessControlHisPOMapper,
-                          ISecurityDTO securityDTO)
+                          LoginPOMapper loginPOMapper, LoginHisPOMapper loginHisPOMapper,
+                          RegistryPOMapper registryPOMapper, RegistryHisPOMapper registryHisPOMapper, ISecurityDTO securityDTO)
     {
         this.privilegePOMapper = privilegePOMapper;
         this.privilegeHisPOMapper = privilegeHisPOMapper;
         this.accessControlPOMapper = accessControlPOMapper;
         this.accessControlHisPOMapper = accessControlHisPOMapper;
+        this.loginPOMapper = loginPOMapper;
+        this.loginHisPOMapper = loginHisPOMapper;
+        this.registryPOMapper = registryPOMapper;
+        this.registryHisPOMapper = registryHisPOMapper;
         this.securityDTO = securityDTO;
     }
 
@@ -138,5 +150,213 @@ public class SecurityDomain implements ISecurityDomain
         }
 
         return accessControlVOS;
+    }
+
+    /**
+     * 方法：获取登录信息
+     *
+     * @param partyId 参与者编号
+     * @return 登录信息的值对象列表
+     * @throws Exception 异常
+     */
+    @Override
+    public List<LoginVO> readLoginsByParty(Integer partyId) throws Exception
+    {
+        if(partyId <= 0)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE + "partyId:" + partyId);
+            throw new NumberScopeException(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION);
+        }
+
+        if(loginPOMapper == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "loginPOMapper");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        if(securityDTO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "securityDTO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        List<LoginPO> loginPOS = loginPOMapper.selectByParty(partyId);
+
+        if(loginPOS == null || loginPOS.size() == 0)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_EMPTY + "loginPOS");
+            throw new CollectionEmptyException(Errors.EROOR_BUSINESS_COMMON_COLLECTION_EMPTY_EXCEPTION);
+        }
+
+        List<LoginVO> loginVOS = new ArrayList<>();
+        LoginVO loginVO;
+
+        for(LoginPO loginPO: loginPOS)
+        {
+            loginVO = securityDTO.convertToLoginVO(loginPO);
+
+            if(loginVO == null)
+                continue;
+
+            loginVOS.add(loginVO);
+        }
+
+        return loginVOS;
+    }
+
+    /**
+     * 方法：新增一条注册信息（注册）
+     *
+     * @param registryVO 注册信息值对象
+     * @return 是否新增成功
+     * @throws Exception 异常
+     */
+    @Override
+    public boolean createRegistry(RegistryVO registryVO) throws Exception
+    {
+        if(registryVO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "registryVO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        if(registryPOMapper == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "registryPOMapper");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        if(securityDTO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "securityDTO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        logger.debug(registryVO);
+
+        RegistryPO registryPO = securityDTO.convertToRegistryPO(registryVO);
+
+        if(registryPO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "registryPO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        if(registryPOMapper.selectByPrimaryKey(registryPO.getRegistryId()) == null)
+        {
+            if(registryPOMapper.insertSelective(registryPO) == 0)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_SECURITY_REGISTRY_INSERT + String.valueOf(registryPO.getRegistryId()));
+                throw new RegistryException(Errors.ERROR_BUSINESS_COMMON_SECURITY_REGISTRY_EXCEPTION);
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * 方法：创建一条登录信息（登录）
+     *
+     * @param loginVO 登录信息值对象
+     * @return 是否创建成功
+     * @throws Exception 异常
+     */
+    @Override
+    public boolean createLogin(LoginVO loginVO) throws Exception
+    {
+        if(loginVO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "loginVO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        if(loginPOMapper == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "loginPOMapper");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        if(securityDTO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "securityDTO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        logger.debug(loginVO);
+
+        LoginPO loginPO = securityDTO.convertToLoginPO(loginVO);
+
+        if(loginPO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "loginPO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        if(loginPOMapper.selectByPrimaryKey(loginPO.getLoginId()) == null)
+        {
+            if(loginPOMapper.insertSelective(loginPO) == 0)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_SECURITY_LOGIN_INSERT + String.valueOf(loginPO.getLoginId()));
+                throw new LoginException(Errors.ERROR_BUSINESS_COMMON_SECURITY_LOGIN_EXCEPTION);
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * 方法：更新一条登录信息（登出）
+     *
+     * @param loginVO 登录信息值对象
+     * @return 是否更新成功
+     * @throws Exception 异常
+     */
+    @Override
+    public boolean updateLogin(LoginVO loginVO) throws Exception
+    {
+        if(loginVO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "loginVO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        if(loginPOMapper == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "loginPOMapper");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        if(securityDTO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "securityDTO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        logger.debug(loginVO);
+
+        LoginPO loginPO = securityDTO.convertToLoginPO(loginVO);
+
+        if(loginPO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "loginPO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        if(loginPOMapper.selectByPrimaryKey(loginPO.getLoginId()) != null)
+        {
+            if(loginPOMapper.updateByPrimaryKeySelective(loginPO) == 0)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_SECURITY_LOGIN_UPDATE + String.valueOf(loginPO.getLoginId()));
+                throw new LoginException(Errors.ERROR_BUSINESS_COMMON_SECURITY_LOGIN_EXCEPTION);
+            }
+
+            return true;
+        }
+
+        return false;
     }
 }
