@@ -343,9 +343,15 @@ public class CourseDomain implements ICourseDomain
         operationRecordDetailVO.setStartTime(new Date());
         operationRecordDetailVO.setFinishTime(new Date());
 
-        operationRecordVO.addOperationRecordDetail(operationRecordDetailVO);
-
-        return operationRecordDetailVO;
+        if(operationRecordVO.addOperationRecordDetail(operationRecordDetailVO))
+        {
+            return operationRecordDetailVO;
+        }
+        else
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OPERATION_RECORD);
+            throw new OperationRecordException(Errors.ERROR_BUSINESS_COMMON_OPERATION_RECORD_EXCEPTION);
+        }
     }
 
     /**

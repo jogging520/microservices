@@ -15,6 +15,7 @@ public class Constants
 	public static final long   BUSINESS_COMMON_DEFAULT_INTEVALMS 										= 30000L;								        //默认的轮询时间间隔，30秒
     public static final int    BUSINESS_COMMON_BASIC_SEQUENCE                                           = 1000000000;                                   //基础的序列号
     public static final int    BUSINESS_COMMON_OPERATION_RECORD_DETAIL_ID_MULTIPLE                      = 100;                                          //操作记录明细ID号的倍数关系，明细记录由操作记录的ID乘以该值得到
+    public static final int    BUSINESS_COMMON_OPERATION_RECORD_DEFAULT_ID                              = -1;                                           //操作记录默认编号
     public static final String BUSINESS_COMMON_TRUE 													= "TRUE";
     public static final String BUSINESS_COMMON_NODE_SEPARATOR 											= "/";									        //Zookeeper的分隔符
     public static final String BUSINESS_COMMON_JSON_REQUEST_DATE_FORMART                                = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";                 //Json请求报文日期格式
@@ -46,7 +47,7 @@ public class Constants
      */
     public static final String BUSINESS_COMMON_SEQUENCE_ATOM_MICROSERVICE                               = "atom-common-sequence";                       //原子微服务：配置-序列号
     public static final String BUSINESS_COMMON_SECURITY_ATOM_MICROSERVICE                               = "atom-common-security";                       //原子微服务：配置-安全
-    public static final String BUSINESS_COMMON_PARAMETER_ATOM_MICROSERVICE                              = "atom-common-parameter";                      //原子微服务：配置-参数
+    public static final String BUSINESS_COMMON_STRATEGY_ATOM_MICROSERVICE                               = "atom-common-strategy";                       //原子微服务：配置-策略
 
     public static final String BUSINESS_PRODUCT_COURSE_ATOM_MICROSERVICE                                = "atom-product-course";                        //原子微服务：产品-课程
     public static final String BUSINESS_RESOURCE_STORAGE_ATOM_MICROSERVICE                              = "atom-resource-storage";                      //原子微服务：资源-存储
@@ -124,6 +125,7 @@ public class Constants
     public static final String URI_ATOM_COMMON_SECURITY_LOGIN_SPECIFIED_REQUEST_MAPPING                 = "/common/security/login/{partyId}";           //原子服务URI：指定的登录信息
     public static final String URI_ATOM_COMMON_SECURITY_REGISTRY_REQUEST_MAPPING                        = "/common/security/registry";                  //原子服务URI：注册
     public static final String URI_ATOM_COMMON_SECURITY_LOGIN_REQUEST_MAPPING                           = "/common/security/login";                     //原子服务URI：登录
+    public static final String URI_ATOM_COMMON_STRATEGY_REQUEST_MAPPING                                 = "/common/strategy";                           //原子服务URI：策略
 
     public static final String URI_ORCH_LIST_COURSE_REQUEST_MAPPING                                     = "/list/course";						        //编排服务URI：全量在用的课程清单（只有课程本身）
     public static final String URI_ORCH_LIST_COURSE_SPECIFIED_REQUEST_MAPPING                           = "/list/course/{courseId}";			        //编排服务URI：全量在用的课程清单（只有课程本身）

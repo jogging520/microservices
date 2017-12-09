@@ -14,13 +14,13 @@
     <module>orch-list-course</module>
     <module>atom-common-sequence</module>
     <module>atom-relation-operation-record</module>
-      <module>atom-common-security</module>
-    <module>atom-common-parameter</module>
-      <module>atom-party-role</module>
+    <module>atom-common-security</module>
+    <module>atom-party-role</module>
     <module>atom-party-teacher</module>
-      <module>atom-party-organization</module>
-      <module>atom-party-school</module>
+    <module>atom-party-organization</module>
+    <module>atom-party-school</module>
     <module>atom-party-student</module>
+    <module>atom-common-strategy</module>
   </modules>
   <packaging>pom</packaging>
 

@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/atom-common-parameter/atom-common-parameter.iml" filepath="$PROJECT_DIR$/atom-common-parameter/atom-common-parameter.iml" />
       <module fileurl="file://$PROJECT_DIR$/atom-common-security/atom-common-security.iml" filepath="$PROJECT_DIR$/atom-common-security/atom-common-security.iml" />
       <module fileurl="file://$PROJECT_DIR$/atom-common-sequence/atom-common-sequence.iml" filepath="$PROJECT_DIR$/atom-common-sequence/atom-common-sequence.iml" />
+      <module fileurl="file://$PROJECT_DIR$/atom-common-strategy/atom-common-strategy.iml" filepath="$PROJECT_DIR$/atom-common-strategy/atom-common-strategy.iml" />
       <module fileurl="file://$PROJECT_DIR$/atom-party-organization/atom-party-organization.iml" filepath="$PROJECT_DIR$/atom-party-organization/atom-party-organization.iml" />
       <module fileurl="file://$PROJECT_DIR$/atom-party-role/atom-party-role.iml" filepath="$PROJECT_DIR$/atom-party-role/atom-party-role.iml" />
       <module fileurl="file://$PROJECT_DIR$/atom-party-school/atom-party-school.iml" filepath="$PROJECT_DIR$/atom-party-school/atom-party-school.iml" />

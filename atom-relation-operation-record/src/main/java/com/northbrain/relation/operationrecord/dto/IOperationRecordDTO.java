@@ -36,5 +36,5 @@ public interface IOperationRecordDTO
      * @return 操作记录VO
      * @throws Exception 异常
      */
-    List<OperationRecordDetailPO> convertToOperationRecordDetailPOs(OperationRecordVO operationRecordVO) throws Exception;
+    List<OperationRecordDetailPO> convertToOperationRecordDetailPOS(OperationRecordVO operationRecordVO) throws Exception;
 }

@@ -15,11 +15,11 @@
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
     <result column="logout_time" jdbcType="TIMESTAMP" property="logoutTime" />
-    <result column="desciption" jdbcType="VARCHAR" property="desciption" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
   </resultMap>
   <sql id="Base_Column_List">
     record_id, operate_type, login_id, registry_id, party_id, role_id, organization_id, 
-    domain, category, type, status, login_time, logout_time, desciption
+    domain, category, type, status, login_time, logout_time, description
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -36,12 +36,12 @@
       registry_id, party_id, role_id, 
       organization_id, domain, category, 
       type, status, login_time, 
-      logout_time, desciption)
+      logout_time, description)
     values (#{recordId,jdbcType=INTEGER}, #{operateType,jdbcType=VARCHAR}, #{loginId,jdbcType=INTEGER}, 
       #{registryId,jdbcType=INTEGER}, #{partyId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, 
       #{organizationId,jdbcType=INTEGER}, #{domain,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR}, 
       #{type,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{loginTime,jdbcType=TIMESTAMP}, 
-      #{logoutTime,jdbcType=TIMESTAMP}, #{desciption,jdbcType=VARCHAR})
+      #{logoutTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.northbrain.common.security.model.po.LoginHisPO">
     insert into login_his
@@ -85,8 +85,8 @@
       <if test="logoutTime != null">
         logout_time,
       </if>
-      <if test="desciption != null">
-        desciption,
+      <if test="description != null">
+        description,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -129,8 +129,8 @@
       <if test="logoutTime != null">
         #{logoutTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="desciption != null">
-        #{desciption,jdbcType=VARCHAR},
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -173,8 +173,8 @@
       <if test="logoutTime != null">
         logout_time = #{logoutTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="desciption != null">
-        desciption = #{desciption,jdbcType=VARCHAR},
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
       </if>
     </set>
     where record_id = #{recordId,jdbcType=INTEGER}
@@ -193,7 +193,7 @@
       status = #{status,jdbcType=INTEGER},
       login_time = #{loginTime,jdbcType=TIMESTAMP},
       logout_time = #{logoutTime,jdbcType=TIMESTAMP},
-      desciption = #{desciption,jdbcType=VARCHAR}
+      description = #{description,jdbcType=VARCHAR}
     where record_id = #{recordId,jdbcType=INTEGER}
   </update>
   <resultMap id="BaseResultMap" type="com.northbrain.common.security.model.po.LoginHisPO">
@@ -209,11 +209,11 @@
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
     <result column="logout_time" jdbcType="TIMESTAMP" property="logoutTime" />
-    <result column="desciption" jdbcType="VARCHAR" property="desciption" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
   </resultMap>
   <sql id="Base_Column_List">
     record_id, operate_type, login_id, registry_id, party_id, role_id, domain, category, 
-    type, status, login_time, logout_time, desciption
+    type, status, login_time, logout_time, description
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -230,12 +230,12 @@
       registry_id, party_id, role_id, 
       domain, category, type, 
       status, login_time, logout_time, 
-      desciption)
+      description)
     values (#{recordId,jdbcType=INTEGER}, #{operateType,jdbcType=VARCHAR}, #{loginId,jdbcType=INTEGER}, 
       #{registryId,jdbcType=INTEGER}, #{partyId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, 
       #{domain,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
       #{status,jdbcType=INTEGER}, #{loginTime,jdbcType=TIMESTAMP}, #{logoutTime,jdbcType=TIMESTAMP}, 
-      #{desciption,jdbcType=VARCHAR})
+      #{description,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.northbrain.common.security.model.po.LoginHisPO">
     insert into login_his
@@ -276,8 +276,8 @@
       <if test="logoutTime != null">
         logout_time,
       </if>
-      <if test="desciption != null">
-        desciption,
+      <if test="description != null">
+        description,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -317,8 +317,8 @@
       <if test="logoutTime != null">
         #{logoutTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="desciption != null">
-        #{desciption,jdbcType=VARCHAR},
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -358,8 +358,8 @@
       <if test="logoutTime != null">
         logout_time = #{logoutTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="desciption != null">
-        desciption = #{desciption,jdbcType=VARCHAR},
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
       </if>
     </set>
     where record_id = #{recordId,jdbcType=INTEGER}
@@ -377,7 +377,7 @@
       status = #{status,jdbcType=INTEGER},
       login_time = #{loginTime,jdbcType=TIMESTAMP},
       logout_time = #{logoutTime,jdbcType=TIMESTAMP},
-      desciption = #{desciption,jdbcType=VARCHAR}
+      description = #{description,jdbcType=VARCHAR}
     where record_id = #{recordId,jdbcType=INTEGER}
   </update>
 </mapper>

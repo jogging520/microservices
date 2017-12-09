@@ -107,7 +107,7 @@ public class OperationRecordDomain implements IOperationRecordDomain
         //对于操作记录明细，只有插入、没有更新。如果有其中一条记录插入失败，为保证业务的完整性，整个事务失败。
         if (operationRecordVO.getOperationRecordDetailVOS() != null && operationRecordVO.getOperationRecordDetailVOS().size() > 0)
         {
-            List<OperationRecordDetailPO> operationRecordDetailPOs = operationRecordDTO.convertToOperationRecordDetailPOs(operationRecordVO);
+            List<OperationRecordDetailPO> operationRecordDetailPOs = operationRecordDTO.convertToOperationRecordDetailPOS(operationRecordVO);
 
             if (operationRecordDetailPOs == null || operationRecordDetailPOs.size() == 0)
             {

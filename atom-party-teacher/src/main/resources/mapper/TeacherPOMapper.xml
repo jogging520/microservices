@@ -12,11 +12,11 @@
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="status_time" jdbcType="TIMESTAMP" property="statusTime" />
-    <result column="desciption" jdbcType="VARCHAR" property="desciption" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
   </resultMap>
   <sql id="Base_Column_List">
     teacher_id, name, alias, department, grade, subject, thumbnail, status, create_time, 
-    status_time, desciption
+    status_time, description
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -32,11 +32,11 @@
     insert into teacher (teacher_id, name, alias, 
       department, grade, subject, 
       thumbnail, status, create_time, 
-      status_time, desciption)
+      status_time, description)
     values (#{teacherId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{alias,jdbcType=VARCHAR}, 
       #{department,jdbcType=VARCHAR}, #{grade,jdbcType=INTEGER}, #{subject,jdbcType=VARCHAR}, 
       #{thumbnail,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{statusTime,jdbcType=TIMESTAMP}, #{desciption,jdbcType=VARCHAR})
+      #{statusTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.northbrain.party.teacher.model.po.TeacherPO">
     insert into teacher
@@ -71,8 +71,8 @@
       <if test="statusTime != null">
         status_time,
       </if>
-      <if test="desciption != null">
-        desciption,
+      <if test="description != null">
+        description,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -106,8 +106,8 @@
       <if test="statusTime != null">
         #{statusTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="desciption != null">
-        #{desciption,jdbcType=VARCHAR},
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -141,8 +141,8 @@
       <if test="statusTime != null">
         status_time = #{statusTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="desciption != null">
-        desciption = #{desciption,jdbcType=VARCHAR},
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
       </if>
     </set>
     where teacher_id = #{teacherId,jdbcType=INTEGER}
@@ -158,7 +158,7 @@
       status = #{status,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       status_time = #{statusTime,jdbcType=TIMESTAMP},
-      desciption = #{desciption,jdbcType=VARCHAR}
+      description = #{description,jdbcType=VARCHAR}
     where teacher_id = #{teacherId,jdbcType=INTEGER}
   </update>
   <resultMap id="BaseResultMap" type="com.northbrain.party.teacher.model.po.TeacherPO">
@@ -173,11 +173,11 @@
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="status_time" jdbcType="TIMESTAMP" property="statusTime" />
-    <result column="desciption" jdbcType="VARCHAR" property="desciption" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
   </resultMap>
   <sql id="Base_Column_List">
     teacher_id, name, alias, role_id, department, grade, subject, thumbnail, status, 
-    create_time, status_time, desciption
+    create_time, status_time, description
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -193,12 +193,12 @@
     insert into teacher (teacher_id, name, alias, 
       role_id, department, grade, 
       subject, thumbnail, status, 
-      create_time, status_time, desciption
+      create_time, status_time, description
       )
     values (#{teacherId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{alias,jdbcType=VARCHAR}, 
       #{roleId,jdbcType=INTEGER}, #{department,jdbcType=VARCHAR}, #{grade,jdbcType=INTEGER}, 
       #{subject,jdbcType=VARCHAR}, #{thumbnail,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{statusTime,jdbcType=TIMESTAMP}, #{desciption,jdbcType=VARCHAR}
+      #{createTime,jdbcType=TIMESTAMP}, #{statusTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.northbrain.party.teacher.model.po.TeacherPO">
@@ -237,8 +237,8 @@
       <if test="statusTime != null">
         status_time,
       </if>
-      <if test="desciption != null">
-        desciption,
+      <if test="description != null">
+        description,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -275,8 +275,8 @@
       <if test="statusTime != null">
         #{statusTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="desciption != null">
-        #{desciption,jdbcType=VARCHAR},
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -313,8 +313,8 @@
       <if test="statusTime != null">
         status_time = #{statusTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="desciption != null">
-        desciption = #{desciption,jdbcType=VARCHAR},
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
       </if>
     </set>
     where teacher_id = #{teacherId,jdbcType=INTEGER}
@@ -331,7 +331,7 @@
       status = #{status,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       status_time = #{statusTime,jdbcType=TIMESTAMP},
-      desciption = #{desciption,jdbcType=VARCHAR}
+      description = #{description,jdbcType=VARCHAR}
     where teacher_id = #{teacherId,jdbcType=INTEGER}
   </update>
 </mapper>

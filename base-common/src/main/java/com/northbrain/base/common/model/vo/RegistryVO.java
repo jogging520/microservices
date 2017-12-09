@@ -26,7 +26,7 @@ public class RegistryVO
     @JSONField(format=Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
     private Date statusTime;
 
-    private String desciption;
+    private String description;
 
     public Integer getRegistryId() {
         return registryId;
@@ -92,12 +92,12 @@ public class RegistryVO
         this.statusTime = statusTime;
     }
 
-    public String getDesciption() {
-        return desciption;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesciption(String desciption) {
-        this.desciption = desciption == null ? null : desciption.trim();
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
     }
 
     public String toString()

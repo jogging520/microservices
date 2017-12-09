@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.northbrain.common.strategy.dao.StrategyDetailPOMapper">
+  <resultMap id="BaseResultMap" type="com.northbrain.common.strategy.model.po.StrategyDetailPO">
+    <id column="strategy_detail_id" jdbcType="INTEGER" property="strategyDetailId" />
+    <result column="strategy_id" jdbcType="INTEGER" property="strategyId" />
+    <result column="attribute" jdbcType="VARCHAR" property="attribute" />
+    <result column="value" jdbcType="VARCHAR" property="value" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="status_time" jdbcType="TIMESTAMP" property="statusTime" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    strategy_detail_id, strategy_id, attribute, value, status, create_time, status_time, 
+    description
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from strategy_detail
+    where strategy_detail_id = #{strategyDetailId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from strategy_detail
+    where strategy_detail_id = #{strategyDetailId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.northbrain.common.strategy.model.po.StrategyDetailPO">
+    insert into strategy_detail (strategy_detail_id, strategy_id, attribute, 
+      value, status, create_time, 
+      status_time, description)
+    values (#{strategyDetailId,jdbcType=INTEGER}, #{strategyId,jdbcType=INTEGER}, #{attribute,jdbcType=VARCHAR}, 
+      #{value,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{statusTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.northbrain.common.strategy.model.po.StrategyDetailPO">
+    insert into strategy_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="strategyDetailId != null">
+        strategy_detail_id,
+      </if>
+      <if test="strategyId != null">
+        strategy_id,
+      </if>
+      <if test="attribute != null">
+        attribute,
+      </if>
+      <if test="value != null">
+        value,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="statusTime != null">
+        status_time,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="strategyDetailId != null">
+        #{strategyDetailId,jdbcType=INTEGER},
+      </if>
+      <if test="strategyId != null">
+        #{strategyId,jdbcType=INTEGER},
+      </if>
+      <if test="attribute != null">
+        #{attribute,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null">
+        #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="statusTime != null">
+        #{statusTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.common.strategy.model.po.StrategyDetailPO">
+    update strategy_detail
+    <set>
+      <if test="strategyId != null">
+        strategy_id = #{strategyId,jdbcType=INTEGER},
+      </if>
+      <if test="attribute != null">
+        attribute = #{attribute,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null">
+        value = #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="statusTime != null">
+        status_time = #{statusTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where strategy_detail_id = #{strategyDetailId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.common.strategy.model.po.StrategyDetailPO">
+    update strategy_detail
+    set strategy_id = #{strategyId,jdbcType=INTEGER},
+      attribute = #{attribute,jdbcType=VARCHAR},
+      value = #{value,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      status_time = #{statusTime,jdbcType=TIMESTAMP},
+      description = #{description,jdbcType=VARCHAR}
+    where strategy_detail_id = #{strategyDetailId,jdbcType=INTEGER}
+  </update>
+</mapper>

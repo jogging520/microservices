@@ -53,7 +53,7 @@ public class SecurityDTO implements ISecurityDTO
         privilegeVO.setStatus(privilegePO.getStatus());
         privilegeVO.setCreateTime(privilegePO.getCreateTime());
         privilegeVO.setStatusTime(privilegePO.getStatusTime());
-        privilegeVO.setDesciption(privilegePO.getDesciption());
+        privilegeVO.setDescription(privilegePO.getDescription());
 
         return privilegeVO;
     }
@@ -85,7 +85,7 @@ public class SecurityDTO implements ISecurityDTO
         privilegePO.setStatus(privilegeVO.getStatus());
         privilegePO.setCreateTime(privilegeVO.getCreateTime());
         privilegePO.setStatusTime(privilegeVO.getStatusTime());
-        privilegePO.setDesciption(privilegeVO.getDesciption());
+        privilegePO.setDescription(privilegeVO.getDescription());
 
         return privilegePO;
     }
@@ -180,7 +180,7 @@ public class SecurityDTO implements ISecurityDTO
         loginVO.setStatus(loginPO.getStatus());
         loginVO.setLoginTime(loginPO.getLoginTime());
         loginVO.setLogoutTime(loginPO.getLogoutTime());
-        loginVO.setDesciption(loginPO.getDesciption());
+        loginVO.setDescription(loginPO.getDescription());
 
         return loginVO;
     }
@@ -215,7 +215,7 @@ public class SecurityDTO implements ISecurityDTO
         loginPO.setStatus(loginVO.getStatus());
         loginPO.setLoginTime(loginVO.getLoginTime());
         loginPO.setLogoutTime(loginVO.getLogoutTime());
-        loginPO.setDesciption(loginVO.getDesciption());
+        loginPO.setDescription(loginVO.getDescription());
 
         return loginPO;
     }
@@ -247,7 +247,7 @@ public class SecurityDTO implements ISecurityDTO
         registryVO.setStatus(registryPO.getStatus());
         registryVO.setCreateTime(registryPO.getCreateTime());
         registryVO.setStatusTime(registryPO.getStatusTime());
-        registryVO.setDesciption(registryPO.getDesciption());
+        registryVO.setDescription(registryPO.getDescription());
 
         return registryVO;
     }
@@ -279,7 +279,7 @@ public class SecurityDTO implements ISecurityDTO
         registryPO.setStatus(registryVO.getStatus());
         registryPO.setCreateTime(registryVO.getCreateTime());
         registryPO.setStatusTime(registryVO.getStatusTime());
-        registryPO.setDesciption(registryVO.getDesciption());
+        registryPO.setDescription(registryVO.getDescription());
 
         return registryPO;
     }

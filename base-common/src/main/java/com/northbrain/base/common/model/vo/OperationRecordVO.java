@@ -46,90 +46,8 @@ public class OperationRecordVO
     //描述
     private String description;
 
+    //操作记录明细列表
     private List<OperationRecordDetailVO> operationRecordDetailVOS;
-
-    public static class OperationRecordDetailVO
-    {
-        private Long recordDetailId;
-
-        private Integer rank;
-
-        private String operateType;
-
-        private String domain;
-
-        private String serviceName;
-
-        private Integer status;
-
-        private Date startTime;
-
-        private Date finishTime;
-
-        public Long getRecordDetailId() {
-            return recordDetailId;
-        }
-
-        public void setRecordDetailId(Long recordDetailId) {
-            this.recordDetailId = recordDetailId;
-        }
-
-        public Integer getRank() {
-            return rank;
-        }
-
-        public void setRank(Integer rank) {
-            this.rank = rank;
-        }
-
-        public String getOperateType() {
-            return operateType;
-        }
-
-        public void setOperateType(String operateType) {
-            this.operateType = operateType == null ? null : operateType.trim();
-        }
-
-        public String getDomain() {
-            return domain;
-        }
-
-        public void setDomain(String domain) {
-            this.domain = domain == null ? null : domain.trim();
-        }
-
-        public String getServiceName() {
-            return serviceName;
-        }
-
-        public void setServiceName(String serviceName) {
-            this.serviceName = serviceName == null ? null : serviceName.trim();
-        }
-
-        public Integer getStatus() {
-            return status;
-        }
-
-        public void setStatus(Integer status) {
-            this.status = status;
-        }
-
-        public Date getStartTime() {
-            return startTime;
-        }
-
-        public void setStartTime(Date startTime) {
-            this.startTime = startTime;
-        }
-
-        public Date getFinishTime() {
-            return finishTime;
-        }
-
-        public void setFinishTime(Date finishTime) {
-            this.finishTime = finishTime;
-        }
-    }
 
     public OperationRecordVO()
     {
@@ -216,8 +134,11 @@ public class OperationRecordVO
         this.operationRecordDetailVOS = operationRecordDetailVOS;
     }
 
-    public void addOperationRecordDetail(OperationRecordDetailVO newOperationRecordDetailVO)
+    public boolean addOperationRecordDetail(OperationRecordDetailVO newOperationRecordDetailVO)
     {
+        if(newOperationRecordDetailVO == null)
+            return false;
+
         if(this.operationRecordDetailVOS == null)
             this.operationRecordDetailVOS = new ArrayList<>();
 
@@ -229,10 +150,97 @@ public class OperationRecordVO
 
         if(!isContain)
             this.operationRecordDetailVOS.add(newOperationRecordDetailVO);
+
+        return true;
     }
 
     public String toString()
     {
         return JSON.toJSONString(this);
+    }
+
+    public static class OperationRecordDetailVO
+    {
+        private Long recordDetailId;
+
+        private Integer rank;
+
+        private String operateType;
+
+        private String domain;
+
+        private String serviceName;
+
+        private Integer status;
+
+        @JSONField(format=Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
+        private Date startTime;
+
+        @JSONField(format=Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
+        private Date finishTime;
+
+        public Long getRecordDetailId() {
+            return recordDetailId;
+        }
+
+        public void setRecordDetailId(Long recordDetailId) {
+            this.recordDetailId = recordDetailId;
+        }
+
+        public Integer getRank() {
+            return rank;
+        }
+
+        public void setRank(Integer rank) {
+            this.rank = rank;
+        }
+
+        public String getOperateType() {
+            return operateType;
+        }
+
+        public void setOperateType(String operateType) {
+            this.operateType = operateType == null ? null : operateType.trim();
+        }
+
+        public String getDomain() {
+            return domain;
+        }
+
+        public void setDomain(String domain) {
+            this.domain = domain == null ? null : domain.trim();
+        }
+
+        public String getServiceName() {
+            return serviceName;
+        }
+
+        public void setServiceName(String serviceName) {
+            this.serviceName = serviceName == null ? null : serviceName.trim();
+        }
+
+        public Integer getStatus() {
+            return status;
+        }
+
+        public void setStatus(Integer status) {
+            this.status = status;
+        }
+
+        public Date getStartTime() {
+            return startTime;
+        }
+
+        public void setStartTime(Date startTime) {
+            this.startTime = startTime;
+        }
+
+        public Date getFinishTime() {
+            return finishTime;
+        }
+
+        public void setFinishTime(Date finishTime) {
+            this.finishTime = finishTime;
+        }
     }
 }

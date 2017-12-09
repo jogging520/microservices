@@ -5,9 +5,7 @@ import com.netflix.zuul.context.RequestContext;
 import com.northbrain.base.common.model.bo.BaseType;
 import com.northbrain.base.common.util.JsonWebTokenUtil;
 import org.apache.log4j.Logger;
-import sun.plugin.dom.core.CoreConstants;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 public class JsonWebTokenFilter extends ZuulFilter
@@ -46,7 +44,7 @@ public class JsonWebTokenFilter extends ZuulFilter
     {
         RequestContext requestContext = RequestContext.getCurrentContext();
         HttpServletRequest httpServletRequest = requestContext.getRequest();
-
+/*
 
         if (!httpServletRequest.getRequestURI().contains("login"))
         {
@@ -94,6 +92,10 @@ public class JsonWebTokenFilter extends ZuulFilter
                     return null;
                 }
             }
+
         }
+        */
+
+return null;
     }
 }

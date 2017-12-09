@@ -6,9 +6,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="atom-common-parameter" />
         <module name="atom-common-security" />
         <module name="atom-common-sequence" />
+        <module name="atom-common-strategy" />
         <module name="atom-party-organization" />
         <module name="atom-party-role" />
         <module name="atom-party-school" />
@@ -27,6 +27,7 @@
       <module name="atom-common-parameter" target="1.8" />
       <module name="atom-common-security" target="1.8" />
       <module name="atom-common-sequence" target="1.8" />
+      <module name="atom-common-strategy" target="1.8" />
       <module name="atom-config-sequence" target="1.8" />
       <module name="atom-party-organization" target="1.8" />
       <module name="atom-party-role" target="1.8" />

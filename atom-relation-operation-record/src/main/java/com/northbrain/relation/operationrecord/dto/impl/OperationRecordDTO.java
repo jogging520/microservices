@@ -122,7 +122,7 @@ public class OperationRecordDTO implements IOperationRecordDTO
      * @throws Exception 异常
      */
     @Override
-    public List<OperationRecordDetailPO> convertToOperationRecordDetailPOs(OperationRecordVO operationRecordVO) throws Exception
+    public List<OperationRecordDetailPO> convertToOperationRecordDetailPOS(OperationRecordVO operationRecordVO) throws Exception
     {
         if(operationRecordVO == null)
         {

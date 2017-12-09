@@ -48,7 +48,7 @@ public class RoleDTO implements IRoleDTO
         roleVO.setStatus(rolePO.getStatus());
         roleVO.setCreateTime(rolePO.getCreateTime());
         roleVO.setStatusTime(rolePO.getStatusTime());
-        roleVO.setDesciption(rolePO.getDesciption());
+        roleVO.setDescription(rolePO.getDescription());
 
         return roleVO;
     }
@@ -81,7 +81,7 @@ public class RoleDTO implements IRoleDTO
         rolePO.setStatus(roleVO.getStatus());
         rolePO.setCreateTime(roleVO.getCreateTime());
         rolePO.setStatusTime(roleVO.getStatusTime());
-        rolePO.setDesciption(roleVO.getDesciption());
+        rolePO.setDescription(roleVO.getDescription());
 
         return rolePO;
     }
