@@ -112,7 +112,7 @@ public class StrategyDomain implements IStrategyDomain
         //插入在用表的同时，插入历史表，以便后续业务统计、分析、恢复等操作。
         if(strategyPOMapper.selectByPrimaryKey(strategyPO.getStrategyId()) == null)
         {
-            if(strategyPOMapper.insertSelective(strategyPO) == 0)
+            if(strategyPOMapper.insert(strategyPO) == 0)
             {
                 logger.error(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_INSERT + String.valueOf(strategyPO.getStrategyId()));
                 throw new StrategyException(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_EXCEPTION);
@@ -120,7 +120,7 @@ public class StrategyDomain implements IStrategyDomain
 
             StrategyHisPO strategyHisPO = strategyDTO.convertToStrategyHisPO(strategyVO.getRecordId(), BaseType.OPERATETYPE.CREATE.name(), strategyPO);
 
-            if(strategyHisPOMapper.insertSelective(strategyHisPO) == 0)
+            if(strategyHisPOMapper.insert(strategyHisPO) == 0)
             {
                 logger.error(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_INSERT + String.valueOf(strategyHisPO.getStrategyId()));
                 throw new StrategyException(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_EXCEPTION);
@@ -142,7 +142,7 @@ public class StrategyDomain implements IStrategyDomain
                 //插入在用表的同时，插入历史表，以便后续业务统计、分析、恢复等操作。
                 if(strategyDetailPOMapper.selectByPrimaryKey(strategyDetailPO.getStrategyDetailId()) == null)
                 {
-                    if (strategyDetailPOMapper.insertSelective(strategyDetailPO) == 0)
+                    if (strategyDetailPOMapper.insert(strategyDetailPO) == 0)
                     {
                         logger.error(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_INSERT + String.valueOf(strategyDetailPO.getStrategyDetailId()));
                         throw new StrategyException(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_EXCEPTION);
@@ -150,7 +150,7 @@ public class StrategyDomain implements IStrategyDomain
 
                     StrategyDetailHisPO strategyDetailHisPO = strategyDTO.convertToStrategyDetailHisPO(strategyVO.getRecordId(), BaseType.OPERATETYPE.CREATE.name(), strategyDetailPO);
 
-                    if (strategyDetailHisPOMapper.insertSelective(strategyDetailHisPO) == 0)
+                    if (strategyDetailHisPOMapper.insert(strategyDetailHisPO) == 0)
                     {
                         logger.error(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_INSERT + String.valueOf(strategyDetailHisPO.getStrategyDetailId()));
                         throw new StrategyException(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_EXCEPTION);
@@ -221,7 +221,7 @@ public class StrategyDomain implements IStrategyDomain
         //更新在用表的同时，插入历史表，以便后续业务统计、分析、恢复等操作。
         if(strategyPOMapper.selectByPrimaryKey(strategyPO.getStrategyId()) == null)
         {
-            if(strategyPOMapper.updateByPrimaryKeySelective(strategyPO) == 0)
+            if(strategyPOMapper.updateByPrimaryKey(strategyPO) == 0)
             {
                 logger.error(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_UPDATE + String.valueOf(strategyPO.getStrategyId()));
                 throw new StrategyException(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_EXCEPTION);
@@ -230,7 +230,7 @@ public class StrategyDomain implements IStrategyDomain
             StrategyHisPO strategyHisPO = strategyDTO.convertToStrategyHisPO(strategyVO.getRecordId(), BaseType.OPERATETYPE.UPDATE.name(), strategyPO);
 
             //对于更新的也是插入历史表
-            if(strategyHisPOMapper.insertSelective(strategyHisPO) == 0)
+            if(strategyHisPOMapper.insert(strategyHisPO) == 0)
             {
                 logger.error(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_UPDATE + String.valueOf(strategyHisPO.getStrategyId()));
                 throw new StrategyException(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_EXCEPTION);
@@ -252,7 +252,7 @@ public class StrategyDomain implements IStrategyDomain
                 //插入在用表的同时，插入历史表，以便后续业务统计、分析、恢复等操作。
                 if(strategyDetailPOMapper.selectByPrimaryKey(strategyDetailPO.getStrategyDetailId()) == null)
                 {
-                    if (strategyDetailPOMapper.updateByPrimaryKeySelective(strategyDetailPO) == 0)
+                    if (strategyDetailPOMapper.updateByPrimaryKey(strategyDetailPO) == 0)
                     {
                         logger.error(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_UPDATE + String.valueOf(strategyDetailPO.getStrategyDetailId()));
                         throw new StrategyException(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_EXCEPTION);
@@ -261,7 +261,7 @@ public class StrategyDomain implements IStrategyDomain
                     StrategyDetailHisPO strategyDetailHisPO = strategyDTO.convertToStrategyDetailHisPO(strategyVO.getRecordId(), BaseType.OPERATETYPE.CREATE.name(), strategyDetailPO);
 
                     //对于更新的也是插入历史表
-                    if (strategyDetailHisPOMapper.insertSelective(strategyDetailHisPO) == 0)
+                    if (strategyDetailHisPOMapper.insert(strategyDetailHisPO) == 0)
                     {
                         logger.error(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_UPDATE + String.valueOf(strategyDetailHisPO.getStrategyDetailId()));
                         throw new StrategyException(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_EXCEPTION);
@@ -341,7 +341,7 @@ public class StrategyDomain implements IStrategyDomain
             StrategyHisPO strategyHisPO = strategyDTO.convertToStrategyHisPO(strategyVO.getRecordId(), BaseType.OPERATETYPE.DELETE.name(), strategyPO);
 
             //对于删除的也是插入历史表
-            if(strategyHisPOMapper.insertSelective(strategyHisPO) == 0)
+            if(strategyHisPOMapper.insert(strategyHisPO) == 0)
             {
                 logger.error(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_DELETE + String.valueOf(strategyHisPO.getStrategyId()));
                 throw new StrategyException(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_EXCEPTION);
@@ -372,7 +372,7 @@ public class StrategyDomain implements IStrategyDomain
                     StrategyDetailHisPO strategyDetailHisPO = strategyDTO.convertToStrategyDetailHisPO(strategyVO.getRecordId(), BaseType.OPERATETYPE.CREATE.name(), strategyDetailPO);
 
                     //对于删除的也是插入历史表
-                    if (strategyDetailHisPOMapper.insertSelective(strategyDetailHisPO) == 0)
+                    if (strategyDetailHisPOMapper.insert(strategyDetailHisPO) == 0)
                     {
                         logger.error(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_DELETE + String.valueOf(strategyDetailHisPO.getStrategyDetailId()));
                         throw new StrategyException(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_EXCEPTION);

@@ -1,14 +1,16 @@
-package com.northbrain.party.role.model.po;
+package com.northbrain.base.common.model.vo;
 
 import java.util.Date;
+import java.util.List;
 
-public class PartyHisPO
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.annotation.JSONField;
+import com.northbrain.base.common.model.bo.Constants;
+
+public class PartyVO
 {
-    //流水记录编号
+    //操作编号
     private Integer recordId;
-
-    //操作类型
-    private String operateType;
 
     //参与者编号
     private Integer partyId;
@@ -38,13 +40,17 @@ public class PartyHisPO
     private Integer status;
 
     //创建时间
+    @JSONField(format= Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
     private Date createTime;
 
     //状态时间
+    @JSONField(format= Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
     private Date statusTime;
 
     //描述
     private String description;
+
+    private List<PartyDetailVO> partyDetailVOS;
 
     public Integer getRecordId() {
         return recordId;
@@ -52,14 +58,6 @@ public class PartyHisPO
 
     public void setRecordId(Integer recordId) {
         this.recordId = recordId;
-    }
-
-    public String getOperateType() {
-        return operateType;
-    }
-
-    public void setOperateType(String operateType) {
-        this.operateType = operateType == null ? null : operateType.trim();
     }
 
     public Integer getPartyId() {
@@ -156,5 +154,101 @@ public class PartyHisPO
 
     public void setDescription(String description) {
         this.description = description == null ? null : description.trim();
+    }
+
+    public List<PartyDetailVO> getPartyDetailVOS() {
+        return partyDetailVOS;
+    }
+
+    public void setPartyDetailVOS(List<PartyDetailVO> partyDetailVOS) {
+        this.partyDetailVOS = partyDetailVOS;
+    }
+
+    public String toString()
+    {
+        return JSON.toJSONString(this);
+    }
+
+
+    public static class PartyDetailVO
+    {
+        //参与者明细编号
+        private Integer partyDetailId;
+
+        //属性
+        private String attribute;
+
+        //取值
+        private String value;
+
+        //状态
+        private Integer status;
+
+        //创建时间
+        @JSONField(format= Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
+        private Date createTime;
+
+        //状态时间
+        @JSONField(format= Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
+        private Date statusTime;
+
+        //描述
+        private String description;
+
+        public Integer getPartyDetailId() {
+            return partyDetailId;
+        }
+
+        public void setPartyDetailId(Integer partyDetailId) {
+            this.partyDetailId = partyDetailId;
+        }
+
+        public String getAttribute() {
+            return attribute;
+        }
+
+        public void setAttribute(String attribute) {
+            this.attribute = attribute == null ? null : attribute.trim();
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public void setValue(String value) {
+            this.value = value == null ? null : value.trim();
+        }
+
+        public Integer getStatus() {
+            return status;
+        }
+
+        public void setStatus(Integer status) {
+            this.status = status;
+        }
+
+        public Date getCreateTime() {
+            return createTime;
+        }
+
+        public void setCreateTime(Date createTime) {
+            this.createTime = createTime;
+        }
+
+        public Date getStatusTime() {
+            return statusTime;
+        }
+
+        public void setStatusTime(Date statusTime) {
+            this.statusTime = statusTime;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description == null ? null : description.trim();
+        }
     }
 }

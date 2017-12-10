@@ -21,6 +21,7 @@
     <module>atom-party-school</module>
     <module>atom-party-student</module>
     <module>atom-common-strategy</module>
+      <module>orch-public-security</module>
   </modules>
   <packaging>pom</packaging>
 

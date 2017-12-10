@@ -89,7 +89,7 @@ public class OperationRecordDomain implements IOperationRecordDomain
 
         if(operationRecordPOMapper.selectByPrimaryKey(operationRecordPO.getRecordId()) == null)
         {
-            if(operationRecordPOMapper.insertSelective(operationRecordPO) == 0)
+            if(operationRecordPOMapper.insert(operationRecordPO) == 0)
             {
                 logger.error(Errors.ERROR_BUSINESS_RELATION_OPERATION_RECORD_INSERT + String.valueOf(operationRecordPO.getRecordId()));
                 throw new OperationRecordException(Errors.ERROR_BUSINESS_RELATION_OPERATION_RECORD_EXCEPTION);
@@ -97,7 +97,7 @@ public class OperationRecordDomain implements IOperationRecordDomain
         }
         else
         {
-            if(operationRecordPOMapper.updateByPrimaryKeySelective(operationRecordPO) == 0)
+            if(operationRecordPOMapper.updateByPrimaryKey(operationRecordPO) == 0)
             {
                 logger.error(Errors.ERROR_BUSINESS_RELATION_OPERATION_RECORD_UPDATE+ String.valueOf(operationRecordPO.getRecordId()));
                 throw new OperationRecordException(Errors.ERROR_BUSINESS_RELATION_OPERATION_RECORD_EXCEPTION);
@@ -119,7 +119,7 @@ public class OperationRecordDomain implements IOperationRecordDomain
             {
                 if(operationRecordDetailPOMapper.selectByPrimaryKey(operationRecordDetailPO.getRecordDetailId()) == null)
                 {
-                    if (operationRecordDetailPOMapper.insertSelective(operationRecordDetailPO) == 0)
+                    if (operationRecordDetailPOMapper.insert(operationRecordDetailPO) == 0)
                     {
                         logger.error(Errors.ERROR_BUSINESS_RELATION_OPERATION_RECORD_INSERT + String.valueOf(operationRecordDetailPO.getRecordId()));
                         throw new OperationRecordException(Errors.ERROR_BUSINESS_RELATION_OPERATION_RECORD_EXCEPTION);
@@ -127,7 +127,7 @@ public class OperationRecordDomain implements IOperationRecordDomain
                 }
                 else
                 {
-                    if (operationRecordDetailPOMapper.updateByPrimaryKeySelective(operationRecordDetailPO) == 0)
+                    if (operationRecordDetailPOMapper.updateByPrimaryKey(operationRecordDetailPO) == 0)
                     {
                         logger.error(Errors.ERROR_BUSINESS_RELATION_OPERATION_RECORD_INSERT + String.valueOf(operationRecordDetailPO.getRecordId()));
                         throw new OperationRecordException(Errors.ERROR_BUSINESS_RELATION_OPERATION_RECORD_EXCEPTION);
@@ -184,7 +184,7 @@ public class OperationRecordDomain implements IOperationRecordDomain
         }
         else
         {
-            if(operationRecordPOMapper.updateByPrimaryKeySelective(operationRecordPO) == 0)
+            if(operationRecordPOMapper.updateByPrimaryKey(operationRecordPO) == 0)
             {
                 logger.error(Errors.ERROR_BUSINESS_RELATION_OPERATION_RECORD_UPDATE+ String.valueOf(operationRecordPO.getRecordId()));
                 throw new OperationRecordException(Errors.ERROR_BUSINESS_RELATION_OPERATION_RECORD_EXCEPTION);

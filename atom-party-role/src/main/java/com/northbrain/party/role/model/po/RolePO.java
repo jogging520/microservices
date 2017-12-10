@@ -2,25 +2,36 @@ package com.northbrain.party.role.model.po;
 
 import java.util.Date;
 
-public class RolePO {
+public class RolePO
+{
+    //角色编号
     private Integer roleId;
 
+    //角色名称
     private String name;
 
+    //别名
     private String alias;
 
+    //归属域
     private String domain;
 
+    //类别
     private String category;
 
+    //类型
     private String type;
 
+    //状态
     private Integer status;
 
+    //创建时间
     private Date createTime;
 
+    //状态时间
     private Date statusTime;
 
+    //描述
     private String description;
 
     public Integer getRoleId() {

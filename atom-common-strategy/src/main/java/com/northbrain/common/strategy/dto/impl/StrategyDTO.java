@@ -196,6 +196,8 @@ public class StrategyDTO implements IStrategyDTO
             throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
+        logger.debug(Hints.HINT_BUSINESS_COMMON_PO_VO_CONVERTION);
+
         StrategyHisPO strategyHisPO = new StrategyHisPO();
         strategyHisPO.setRecordId(recordId);
         strategyHisPO.setOperateType(operateType);
@@ -242,6 +244,8 @@ public class StrategyDTO implements IStrategyDTO
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "strategyDetailPO");
             throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
+
+        logger.debug(Hints.HINT_BUSINESS_COMMON_PO_VO_CONVERTION);
 
         StrategyDetailHisPO strategyDetailHisPO = new StrategyDetailHisPO();
 

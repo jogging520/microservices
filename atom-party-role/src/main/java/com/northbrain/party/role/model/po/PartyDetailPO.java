@@ -2,21 +2,30 @@ package com.northbrain.party.role.model.po;
 
 import java.util.Date;
 
-public class PartyDetailPO {
+public class PartyDetailPO
+{
+    //参与者明细编号
     private Integer partyDetailId;
 
+    //参与者编号
     private Integer partyId;
 
+    //属性
     private String attribute;
 
+    //取值
     private String value;
 
+    //状态
     private Integer status;
 
+    //创建时间
     private Date createTime;
 
+    //状态时间
     private Date statusTime;
 
+    //描述
     private String description;
 
     public Integer getPartyDetailId() {

@@ -4,28 +4,40 @@ import java.util.Date;
 
 public class PartyPO
 {
+    //参与者编号
     private Integer partyId;
 
+    //别名
     private String alias;
 
+    //密码
     private String password;
 
+    //具体实体编码
     private Integer entityId;
 
+    //角色编码
     private Integer roleId;
 
+    //归属域
     private String domain;
 
+    //类别
     private String category;
 
+    //类型
     private String type;
 
+    //状态
     private Integer status;
 
+    //创建时间
     private Date createTime;
 
+    //状态时间
     private Date statusTime;
 
+    //描述
     private String description;
 
     public Integer getPartyId() {

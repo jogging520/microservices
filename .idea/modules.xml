@@ -18,6 +18,7 @@
       <module fileurl="file://$PROJECT_DIR$/base-launcher/base-launcher.iml" filepath="$PROJECT_DIR$/base-launcher/base-launcher.iml" />
       <module fileurl="file://$PROJECT_DIR$/microservices.iml" filepath="$PROJECT_DIR$/microservices.iml" />
       <module fileurl="file://$PROJECT_DIR$/orch-list-course/orch-list-course.iml" filepath="$PROJECT_DIR$/orch-list-course/orch-list-course.iml" />
+      <module fileurl="file://$PROJECT_DIR$/orch-public-security/orch-public-security.iml" filepath="$PROJECT_DIR$/orch-public-security/orch-public-security.iml" />
     </modules>
   </component>
 </project>
