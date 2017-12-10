@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.northbrain.product.course.dao.ChapterDetailPOMapper">
-  <resultMap id="BaseResultMap" type="com.northbrain.product.course.model.po.ChapterDetailPO">
+<mapper namespace="com.northbrain.product.course.com.northbrain.party.organization.dao.ChapterDetailPOMapper">
+  <resultMap id="BaseResultMap" type="com.northbrain.product.course.com.northbrain.party.organization.model.po.ChapterDetailPO">
     <id column="chapter_detail_id" jdbcType="INTEGER" property="chapterDetailId" />
     <result column="chapter_id" jdbcType="INTEGER" property="chapterId" />
     <result column="attribute" jdbcType="VARCHAR" property="attribute" />
@@ -25,7 +25,7 @@
     delete from chapter_detail
     where chapter_detail_id = #{chapterDetailId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.northbrain.product.course.model.po.ChapterDetailPO">
+  <insert id="insert" parameterType="com.northbrain.product.course.com.northbrain.party.organization.model.po.ChapterDetailPO">
     insert into chapter_detail (chapter_detail_id, chapter_id, attribute, 
       value, status, create_time, 
       status_time, description)
@@ -33,7 +33,7 @@
       #{value,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{statusTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.northbrain.product.course.model.po.ChapterDetailPO">
+  <insert id="insertSelective" parameterType="com.northbrain.product.course.com.northbrain.party.organization.model.po.ChapterDetailPO">
     insert into chapter_detail
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="chapterDetailId != null">
@@ -88,7 +88,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.product.course.model.po.ChapterDetailPO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.product.course.com.northbrain.party.organization.model.po.ChapterDetailPO">
     update chapter_detail
     <set>
       <if test="chapterId != null">
@@ -115,7 +115,7 @@
     </set>
     where chapter_detail_id = #{chapterDetailId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.northbrain.product.course.model.po.ChapterDetailPO">
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.product.course.com.northbrain.party.organization.model.po.ChapterDetailPO">
     update chapter_detail
     set chapter_id = #{chapterId,jdbcType=INTEGER},
       attribute = #{attribute,jdbcType=VARCHAR},

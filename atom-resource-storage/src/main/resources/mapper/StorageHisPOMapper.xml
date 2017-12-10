@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.northbrain.resource.storage.dao.StorageHisPOMapper">
-  <resultMap id="BaseResultMap" type="com.northbrain.resource.storage.model.po.StorageHisPO">
+<mapper namespace="com.northbrain.resource.storage.com.northbrain.party.organization.dao.StorageHisPOMapper">
+  <resultMap id="BaseResultMap" type="com.northbrain.resource.storage.com.northbrain.party.organization.model.po.StorageHisPO">
     <id column="record_id" jdbcType="INTEGER" property="recordId" />
     <result column="operate_type" jdbcType="VARCHAR" property="operateType" />
     <result column="storage_id" jdbcType="INTEGER" property="storageId" />
@@ -27,7 +27,7 @@
     delete from storage_his
     where record_id = #{recordId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.northbrain.resource.storage.model.po.StorageHisPO">
+  <insert id="insert" parameterType="com.northbrain.resource.storage.com.northbrain.party.organization.model.po.StorageHisPO">
     insert into storage_his (record_id, operate_type, storage_id, 
       category, type, uri, 
       status, create_time, status_time, 
@@ -37,7 +37,7 @@
       #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{statusTime,jdbcType=TIMESTAMP}, 
       #{description,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.northbrain.resource.storage.model.po.StorageHisPO">
+  <insert id="insertSelective" parameterType="com.northbrain.resource.storage.com.northbrain.party.organization.model.po.StorageHisPO">
     insert into storage_his
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="recordId != null">
@@ -104,7 +104,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.resource.storage.model.po.StorageHisPO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.resource.storage.com.northbrain.party.organization.model.po.StorageHisPO">
     update storage_his
     <set>
       <if test="operateType != null">
@@ -137,7 +137,7 @@
     </set>
     where record_id = #{recordId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.northbrain.resource.storage.model.po.StorageHisPO">
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.resource.storage.com.northbrain.party.organization.model.po.StorageHisPO">
     update storage_his
     set operate_type = #{operateType,jdbcType=VARCHAR},
       storage_id = #{storageId,jdbcType=INTEGER},

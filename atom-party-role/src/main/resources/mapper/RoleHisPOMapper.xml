@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.northbrain.party.role.dao.RoleHisPOMapper">
-  <resultMap id="BaseResultMap" type="com.northbrain.party.role.model.po.RoleHisPO">
+<mapper namespace="com.northbrain.party.role.com.northbrain.party.organization.dao.RoleHisPOMapper">
+  <resultMap id="BaseResultMap" type="com.northbrain.party.role.com.northbrain.party.organization.model.po.RoleHisPO">
     <id column="record_id" jdbcType="INTEGER" property="recordId" />
     <result column="operate_type" jdbcType="VARCHAR" property="operateType" />
     <result column="role_id" jdbcType="INTEGER" property="roleId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="alias" jdbcType="VARCHAR" property="alias" />
-    <result column="domain" jdbcType="VARCHAR" property="domain" />
+    <result column="com.northbrain.party.organization.domain" jdbcType="VARCHAR" property="com.northbrain.party.organization.domain" />
     <result column="category" jdbcType="VARCHAR" property="category" />
     <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="status" jdbcType="INTEGER" property="status" />
@@ -16,7 +16,7 @@
     <result column="description" jdbcType="VARCHAR" property="description" />
   </resultMap>
   <sql id="Base_Column_List">
-    record_id, operate_type, role_id, name, alias, domain, category, type, status, create_time, 
+    record_id, operate_type, role_id, name, alias, com.northbrain.party.organization.domain, category, type, status, create_time,
     status_time, description
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -29,19 +29,19 @@
     delete from role_his
     where record_id = #{recordId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.northbrain.party.role.model.po.RoleHisPO">
+  <insert id="insert" parameterType="com.northbrain.party.role.com.northbrain.party.organization.model.po.RoleHisPO">
     insert into role_his (record_id, operate_type, role_id, 
-      name, alias, domain, 
+      name, alias, com.northbrain.party.organization.domain,
       category, type, status, 
       create_time, status_time, description
       )
     values (#{recordId,jdbcType=INTEGER}, #{operateType,jdbcType=VARCHAR}, #{roleId,jdbcType=INTEGER}, 
-      #{name,jdbcType=VARCHAR}, #{alias,jdbcType=VARCHAR}, #{domain,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{alias,jdbcType=VARCHAR}, #{com.northbrain.party.organization.domain,jdbcType=VARCHAR},
       #{category,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
       #{createTime,jdbcType=TIMESTAMP}, #{statusTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.northbrain.party.role.model.po.RoleHisPO">
+  <insert id="insertSelective" parameterType="com.northbrain.party.role.com.northbrain.party.organization.model.po.RoleHisPO">
     insert into role_his
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="recordId != null">
@@ -59,8 +59,8 @@
       <if test="alias != null">
         alias,
       </if>
-      <if test="domain != null">
-        domain,
+      <if test="com.northbrain.party.organization.domain != null">
+        com.northbrain.party.organization.domain,
       </if>
       <if test="category != null">
         category,
@@ -97,8 +97,8 @@
       <if test="alias != null">
         #{alias,jdbcType=VARCHAR},
       </if>
-      <if test="domain != null">
-        #{domain,jdbcType=VARCHAR},
+      <if test="com.northbrain.party.organization.domain != null">
+        #{com.northbrain.party.organization.domain,jdbcType=VARCHAR},
       </if>
       <if test="category != null">
         #{category,jdbcType=VARCHAR},
@@ -120,7 +120,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.party.role.model.po.RoleHisPO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.party.role.com.northbrain.party.organization.model.po.RoleHisPO">
     update role_his
     <set>
       <if test="operateType != null">
@@ -135,8 +135,8 @@
       <if test="alias != null">
         alias = #{alias,jdbcType=VARCHAR},
       </if>
-      <if test="domain != null">
-        domain = #{domain,jdbcType=VARCHAR},
+      <if test="com.northbrain.party.organization.domain != null">
+        com.northbrain.party.organization.domain = #{com.northbrain.party.organization.domain,jdbcType=VARCHAR},
       </if>
       <if test="category != null">
         category = #{category,jdbcType=VARCHAR},
@@ -159,13 +159,13 @@
     </set>
     where record_id = #{recordId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.northbrain.party.role.model.po.RoleHisPO">
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.party.role.com.northbrain.party.organization.model.po.RoleHisPO">
     update role_his
     set operate_type = #{operateType,jdbcType=VARCHAR},
       role_id = #{roleId,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},
       alias = #{alias,jdbcType=VARCHAR},
-      domain = #{domain,jdbcType=VARCHAR},
+      com.northbrain.party.organization.domain = #{com.northbrain.party.organization.domain,jdbcType=VARCHAR},
       category = #{category,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},

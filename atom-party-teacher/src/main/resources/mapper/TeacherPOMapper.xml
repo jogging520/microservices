@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.northbrain.party.teacher.dao.TeacherPOMapper">
-  <resultMap id="BaseResultMap" type="com.northbrain.party.teacher.model.po.TeacherPO">
+<mapper namespace="com.northbrain.party.teacher.com.northbrain.party.organization.dao.TeacherPOMapper">
+  <resultMap id="BaseResultMap" type="com.northbrain.party.teacher.com.northbrain.party.organization.model.po.TeacherPO">
     <id column="teacher_id" jdbcType="INTEGER" property="teacherId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="alias" jdbcType="VARCHAR" property="alias" />
@@ -28,7 +28,7 @@
     delete from teacher
     where teacher_id = #{teacherId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.northbrain.party.teacher.model.po.TeacherPO">
+  <insert id="insert" parameterType="com.northbrain.party.teacher.com.northbrain.party.organization.model.po.TeacherPO">
     insert into teacher (teacher_id, name, alias, 
       department, grade, subject, 
       thumbnail, status, create_time, 
@@ -38,7 +38,7 @@
       #{thumbnail,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{statusTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.northbrain.party.teacher.model.po.TeacherPO">
+  <insert id="insertSelective" parameterType="com.northbrain.party.teacher.com.northbrain.party.organization.model.po.TeacherPO">
     insert into teacher
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="teacherId != null">
@@ -111,7 +111,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.party.teacher.model.po.TeacherPO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.party.teacher.com.northbrain.party.organization.model.po.TeacherPO">
     update teacher
     <set>
       <if test="name != null">
@@ -147,7 +147,7 @@
     </set>
     where teacher_id = #{teacherId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.northbrain.party.teacher.model.po.TeacherPO">
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.party.teacher.com.northbrain.party.organization.model.po.TeacherPO">
     update teacher
     set name = #{name,jdbcType=VARCHAR},
       alias = #{alias,jdbcType=VARCHAR},
@@ -161,7 +161,7 @@
       description = #{description,jdbcType=VARCHAR}
     where teacher_id = #{teacherId,jdbcType=INTEGER}
   </update>
-  <resultMap id="BaseResultMap" type="com.northbrain.party.teacher.model.po.TeacherPO">
+  <resultMap id="BaseResultMap" type="com.northbrain.party.teacher.com.northbrain.party.organization.model.po.TeacherPO">
     <id column="teacher_id" jdbcType="INTEGER" property="teacherId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="alias" jdbcType="VARCHAR" property="alias" />
@@ -189,7 +189,7 @@
     delete from teacher
     where teacher_id = #{teacherId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.northbrain.party.teacher.model.po.TeacherPO">
+  <insert id="insert" parameterType="com.northbrain.party.teacher.com.northbrain.party.organization.model.po.TeacherPO">
     insert into teacher (teacher_id, name, alias, 
       role_id, department, grade, 
       subject, thumbnail, status, 
@@ -201,7 +201,7 @@
       #{createTime,jdbcType=TIMESTAMP}, #{statusTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.northbrain.party.teacher.model.po.TeacherPO">
+  <insert id="insertSelective" parameterType="com.northbrain.party.teacher.com.northbrain.party.organization.model.po.TeacherPO">
     insert into teacher
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="teacherId != null">
@@ -280,7 +280,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.party.teacher.model.po.TeacherPO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.party.teacher.com.northbrain.party.organization.model.po.TeacherPO">
     update teacher
     <set>
       <if test="name != null">
@@ -319,7 +319,7 @@
     </set>
     where teacher_id = #{teacherId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.northbrain.party.teacher.model.po.TeacherPO">
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.party.teacher.com.northbrain.party.organization.model.po.TeacherPO">
     update teacher
     set name = #{name,jdbcType=VARCHAR},
       alias = #{alias,jdbcType=VARCHAR},

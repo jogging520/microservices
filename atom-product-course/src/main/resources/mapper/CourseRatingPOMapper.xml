@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.northbrain.product.course.dao.CourseRatingPOMapper">
-  <resultMap id="BaseResultMap" type="com.northbrain.product.course.model.po.CourseRatingPO">
+<mapper namespace="com.northbrain.product.course.com.northbrain.party.organization.dao.CourseRatingPOMapper">
+  <resultMap id="BaseResultMap" type="com.northbrain.product.course.com.northbrain.party.organization.model.po.CourseRatingPO">
     <id column="rating_id" jdbcType="INTEGER" property="ratingId" />
     <result column="course_id" jdbcType="INTEGER" property="courseId" />
     <result column="rating" jdbcType="NUMERIC" property="rating" />
@@ -23,7 +23,7 @@
     delete from course_rating
     where rating_id = #{ratingId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.northbrain.product.course.model.po.CourseRatingPO">
+  <insert id="insert" parameterType="com.northbrain.product.course.com.northbrain.party.organization.model.po.CourseRatingPO">
     insert into course_rating (rating_id, course_id, rating, 
       status, create_time, status_time, 
       description)
@@ -31,7 +31,7 @@
       #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{statusTime,jdbcType=TIMESTAMP}, 
       #{description,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.northbrain.product.course.model.po.CourseRatingPO">
+  <insert id="insertSelective" parameterType="com.northbrain.product.course.com.northbrain.party.organization.model.po.CourseRatingPO">
     insert into course_rating
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="ratingId != null">
@@ -80,7 +80,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.product.course.model.po.CourseRatingPO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.product.course.com.northbrain.party.organization.model.po.CourseRatingPO">
     update course_rating
     <set>
       <if test="courseId != null">
@@ -104,7 +104,7 @@
     </set>
     where rating_id = #{ratingId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.northbrain.product.course.model.po.CourseRatingPO">
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.product.course.com.northbrain.party.organization.model.po.CourseRatingPO">
     update course_rating
     set course_id = #{courseId,jdbcType=INTEGER},
       rating = #{rating,jdbcType=NUMERIC},
