@@ -38,7 +38,7 @@ public class CoursePO
     private Date statusTime;
 
     //描述
-    private String desciption;
+    private String description;
 
     public Integer getCourseId() {
         return courseId;
@@ -112,11 +112,11 @@ public class CoursePO
         this.statusTime = statusTime;
     }
 
-    public String getDesciption() {
-        return desciption;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesciption(String desciption) {
-        this.desciption = desciption == null ? null : desciption.trim();
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
     }
 }

@@ -17,4 +17,18 @@ public interface IStrategyService
      * @return 是否操作成功（用ServiceVO封装）
      */
     ServiceVO createStrategy(StrategyVO strategyVO);
+
+    /**
+     * 方法：更新一条策略
+     * @param strategyVO 策略值对象
+     * @return 是否操作成功（用ServiceVO封装）
+     */
+    ServiceVO updateStrategy(StrategyVO strategyVO);
+
+    /**
+     * 方法：删除一条策略
+     * @param strategyVO 策略值对象
+     * @return 是否操作成功（用ServiceVO封装）
+     */
+    ServiceVO deleteStrategy(StrategyVO strategyVO);
 }

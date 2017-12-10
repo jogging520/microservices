@@ -8,6 +8,9 @@ import java.util.Date;
 
 public class LoginVO
 {
+    //操作编号
+    private Integer recordId;
+
     private Integer loginId;
 
     private Integer registryId;
@@ -33,6 +36,14 @@ public class LoginVO
     private Date logoutTime;
 
     private String description;
+
+    public Integer getRecordId() {
+        return recordId;
+    }
+
+    public void setRecordId(Integer recordId) {
+        this.recordId = recordId;
+    }
 
     public Integer getLoginId() {
         return loginId;

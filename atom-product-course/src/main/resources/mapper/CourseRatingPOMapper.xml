@@ -8,10 +8,10 @@
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="status_time" jdbcType="TIMESTAMP" property="statusTime" />
-    <result column="desciption" jdbcType="VARCHAR" property="desciption" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
   </resultMap>
   <sql id="Base_Column_List">
-    rating_id, course_id, rating, status, create_time, status_time, desciption
+    rating_id, course_id, rating, status, create_time, status_time, description
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -26,10 +26,10 @@
   <insert id="insert" parameterType="com.northbrain.product.course.model.po.CourseRatingPO">
     insert into course_rating (rating_id, course_id, rating, 
       status, create_time, status_time, 
-      desciption)
+      description)
     values (#{ratingId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, #{rating,jdbcType=NUMERIC}, 
       #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{statusTime,jdbcType=TIMESTAMP}, 
-      #{desciption,jdbcType=VARCHAR})
+      #{description,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.northbrain.product.course.model.po.CourseRatingPO">
     insert into course_rating
@@ -52,8 +52,8 @@
       <if test="statusTime != null">
         status_time,
       </if>
-      <if test="desciption != null">
-        desciption,
+      <if test="description != null">
+        description,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -75,8 +75,8 @@
       <if test="statusTime != null">
         #{statusTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="desciption != null">
-        #{desciption,jdbcType=VARCHAR},
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -98,8 +98,8 @@
       <if test="statusTime != null">
         status_time = #{statusTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="desciption != null">
-        desciption = #{desciption,jdbcType=VARCHAR},
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
       </if>
     </set>
     where rating_id = #{ratingId,jdbcType=INTEGER}
@@ -111,7 +111,7 @@
       status = #{status,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       status_time = #{statusTime,jdbcType=TIMESTAMP},
-      desciption = #{desciption,jdbcType=VARCHAR}
+      description = #{description,jdbcType=VARCHAR}
     where rating_id = #{ratingId,jdbcType=INTEGER}
   </update>
 </mapper>

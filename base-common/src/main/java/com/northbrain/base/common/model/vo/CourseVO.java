@@ -14,6 +14,9 @@ import com.northbrain.base.common.model.bo.Constants;
  */
 public class CourseVO
 {
+    //操作编号
+    private Integer recordId;
+
     //课程编号
 	private Integer courseId;
 
@@ -44,7 +47,15 @@ public class CourseVO
     private Date statusTime;
 
     //描述
-    private String desciption;
+    private String description;
+
+    public Integer getRecordId() {
+        return recordId;
+    }
+
+    public void setRecordId(Integer recordId) {
+        this.recordId = recordId;
+    }
 
     public Integer getCourseId() {
         return courseId;
@@ -118,12 +129,12 @@ public class CourseVO
         this.statusTime = statusTime;
     }
 
-    public String getDesciption() {
-        return desciption;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesciption(String desciption) {
-        this.desciption = desciption == null ? null : desciption.trim();
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
     }
 
     public String toString()

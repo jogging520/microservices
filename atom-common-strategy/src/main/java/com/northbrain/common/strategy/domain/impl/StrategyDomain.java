@@ -172,7 +172,105 @@ public class StrategyDomain implements IStrategyDomain
     @Override
     public boolean updateStrategy(StrategyVO strategyVO) throws Exception
     {
-        return false;
+        if(strategyVO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "strategyVO");
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        if(strategyPOMapper == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "strategyPOMapper");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        if(strategyHisPOMapper == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "strategyHisPOMapper");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        if(strategyDetailPOMapper == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "strategyDetailPOMapper");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        if(strategyDetailHisPOMapper == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "strategyDetailHisPOMapper");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        if(strategyDTO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "strategyDTO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        logger.debug(strategyVO);
+
+        StrategyPO strategyPO = strategyDTO.convertToStrategyPO(strategyVO);
+
+        if(strategyPO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "strategyPO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        //更新在用表的同时，插入历史表，以便后续业务统计、分析、恢复等操作。
+        if(strategyPOMapper.selectByPrimaryKey(strategyPO.getStrategyId()) == null)
+        {
+            if(strategyPOMapper.updateByPrimaryKeySelective(strategyPO) == 0)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_UPDATE + String.valueOf(strategyPO.getStrategyId()));
+                throw new StrategyException(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_EXCEPTION);
+            }
+
+            StrategyHisPO strategyHisPO = strategyDTO.convertToStrategyHisPO(strategyVO.getRecordId(), BaseType.OPERATETYPE.UPDATE.name(), strategyPO);
+
+            //对于更新的也是插入历史表
+            if(strategyHisPOMapper.insertSelective(strategyHisPO) == 0)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_UPDATE + String.valueOf(strategyHisPO.getStrategyId()));
+                throw new StrategyException(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_EXCEPTION);
+            }
+        }
+
+        if(strategyVO.getStrategyDetailVOS() != null && strategyVO.getStrategyDetailVOS().size() > 0)
+        {
+            List<StrategyDetailPO> strategyDetailPOS = strategyDTO.convertToStrategyDetailPOS(strategyVO);
+
+            if (strategyDetailPOS == null || strategyDetailPOS.size() == 0)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "strategyDetailPOS");
+                throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+            }
+
+            for(StrategyDetailPO strategyDetailPO: strategyDetailPOS)
+            {
+                //插入在用表的同时，插入历史表，以便后续业务统计、分析、恢复等操作。
+                if(strategyDetailPOMapper.selectByPrimaryKey(strategyDetailPO.getStrategyDetailId()) == null)
+                {
+                    if (strategyDetailPOMapper.updateByPrimaryKeySelective(strategyDetailPO) == 0)
+                    {
+                        logger.error(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_UPDATE + String.valueOf(strategyDetailPO.getStrategyDetailId()));
+                        throw new StrategyException(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_EXCEPTION);
+                    }
+
+                    StrategyDetailHisPO strategyDetailHisPO = strategyDTO.convertToStrategyDetailHisPO(strategyVO.getRecordId(), BaseType.OPERATETYPE.CREATE.name(), strategyDetailPO);
+
+                    //对于更新的也是插入历史表
+                    if (strategyDetailHisPOMapper.insertSelective(strategyDetailHisPO) == 0)
+                    {
+                        logger.error(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_UPDATE + String.valueOf(strategyDetailHisPO.getStrategyDetailId()));
+                        throw new StrategyException(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_EXCEPTION);
+                    }
+                }
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -185,6 +283,104 @@ public class StrategyDomain implements IStrategyDomain
     @Override
     public boolean deleteStrategy(StrategyVO strategyVO) throws Exception
     {
-        return false;
+        if(strategyVO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "strategyVO");
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        if(strategyPOMapper == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "strategyPOMapper");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        if(strategyHisPOMapper == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "strategyHisPOMapper");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        if(strategyDetailPOMapper == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "strategyDetailPOMapper");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        if(strategyDetailHisPOMapper == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "strategyDetailHisPOMapper");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        if(strategyDTO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "strategyDTO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        logger.debug(strategyVO);
+
+        StrategyPO strategyPO = strategyDTO.convertToStrategyPO(strategyVO);
+
+        if(strategyPO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "strategyPO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        //插入在用表的同时，插入历史表，以便后续业务统计、分析、恢复等操作。
+        if(strategyPOMapper.selectByPrimaryKey(strategyPO.getStrategyId()) == null)
+        {
+            if(strategyPOMapper.deleteByPrimaryKey(strategyPO.getStrategyId()) == 0)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_DELETE + String.valueOf(strategyPO.getStrategyId()));
+                throw new StrategyException(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_EXCEPTION);
+            }
+
+            StrategyHisPO strategyHisPO = strategyDTO.convertToStrategyHisPO(strategyVO.getRecordId(), BaseType.OPERATETYPE.DELETE.name(), strategyPO);
+
+            //对于删除的也是插入历史表
+            if(strategyHisPOMapper.insertSelective(strategyHisPO) == 0)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_DELETE + String.valueOf(strategyHisPO.getStrategyId()));
+                throw new StrategyException(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_EXCEPTION);
+            }
+        }
+
+        if(strategyVO.getStrategyDetailVOS() != null && strategyVO.getStrategyDetailVOS().size() > 0)
+        {
+            List<StrategyDetailPO> strategyDetailPOS = strategyDTO.convertToStrategyDetailPOS(strategyVO);
+
+            if (strategyDetailPOS == null || strategyDetailPOS.size() == 0)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "strategyDetailPOS");
+                throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+            }
+
+            for(StrategyDetailPO strategyDetailPO: strategyDetailPOS)
+            {
+                //插入在用表的同时，插入历史表，以便后续业务统计、分析、恢复等操作。
+                if(strategyDetailPOMapper.selectByPrimaryKey(strategyDetailPO.getStrategyDetailId()) == null)
+                {
+                    if (strategyDetailPOMapper.deleteByPrimaryKey(strategyDetailPO.getStrategyDetailId()) == 0)
+                    {
+                        logger.error(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_DELETE + String.valueOf(strategyDetailPO.getStrategyDetailId()));
+                        throw new StrategyException(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_EXCEPTION);
+                    }
+
+                    StrategyDetailHisPO strategyDetailHisPO = strategyDTO.convertToStrategyDetailHisPO(strategyVO.getRecordId(), BaseType.OPERATETYPE.CREATE.name(), strategyDetailPO);
+
+                    //对于删除的也是插入历史表
+                    if (strategyDetailHisPOMapper.insertSelective(strategyDetailHisPO) == 0)
+                    {
+                        logger.error(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_DELETE + String.valueOf(strategyDetailHisPO.getStrategyDetailId()));
+                        throw new StrategyException(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_EXCEPTION);
+                    }
+                }
+            }
+        }
+
+        return true;
     }
 }

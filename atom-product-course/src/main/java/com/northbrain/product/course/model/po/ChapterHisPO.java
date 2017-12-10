@@ -19,7 +19,7 @@ public class ChapterHisPO {
 
     private Date statusTime;
 
-    private String desciption;
+    private String description;
 
     public Integer getRecordId() {
         return recordId;
@@ -85,11 +85,11 @@ public class ChapterHisPO {
         this.statusTime = statusTime;
     }
 
-    public String getDesciption() {
-        return desciption;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesciption(String desciption) {
-        this.desciption = desciption == null ? null : desciption.trim();
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
     }
 }

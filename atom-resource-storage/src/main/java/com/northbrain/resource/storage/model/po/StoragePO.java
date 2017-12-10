@@ -2,7 +2,8 @@ package com.northbrain.resource.storage.model.po;
 
 import java.util.Date;
 
-public class StoragePO {
+public class StoragePO
+{
     private Integer storageId;
 
     private String category;
@@ -17,7 +18,7 @@ public class StoragePO {
 
     private Date statusTime;
 
-    private String desciption;
+    private String description;
 
     public Integer getStorageId() {
         return storageId;
@@ -75,11 +76,11 @@ public class StoragePO {
         this.statusTime = statusTime;
     }
 
-    public String getDesciption() {
-        return desciption;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesciption(String desciption) {
-        this.desciption = desciption == null ? null : desciption.trim();
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
     }
 }

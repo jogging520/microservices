@@ -3,6 +3,7 @@ package com.northbrain.common.security.domain.impl;
 import com.northbrain.base.common.exception.CollectionEmptyException;
 import com.northbrain.base.common.exception.NumberScopeException;
 import com.northbrain.base.common.exception.ObjectNullException;
+import com.northbrain.base.common.model.bo.BaseType;
 import com.northbrain.base.common.model.bo.Errors;
 import com.northbrain.base.common.model.vo.AccessControlVO;
 import com.northbrain.base.common.model.vo.LoginVO;
@@ -13,10 +14,8 @@ import com.northbrain.common.security.domain.ISecurityDomain;
 import com.northbrain.common.security.dto.ISecurityDTO;
 import com.northbrain.common.security.exception.LoginException;
 import com.northbrain.common.security.exception.RegistryException;
-import com.northbrain.common.security.model.po.AccessControlPO;
-import com.northbrain.common.security.model.po.LoginPO;
-import com.northbrain.common.security.model.po.PrivilegePO;
-import com.northbrain.common.security.model.po.RegistryPO;
+import com.northbrain.common.security.model.po.*;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -226,6 +225,12 @@ public class SecurityDomain implements ISecurityDomain
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
 
+        if(registryHisPOMapper == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "registryHisPOMapper");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
         if(securityDTO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "securityDTO");
@@ -247,6 +252,14 @@ public class SecurityDomain implements ISecurityDomain
             if(registryPOMapper.insertSelective(registryPO) == 0)
             {
                 logger.error(Errors.ERROR_BUSINESS_COMMON_SECURITY_REGISTRY_INSERT + String.valueOf(registryPO.getRegistryId()));
+                throw new RegistryException(Errors.ERROR_BUSINESS_COMMON_SECURITY_REGISTRY_EXCEPTION);
+            }
+
+            RegistryHisPO registryHisPO = securityDTO.convertToRegistryHisPO(registryVO.getRecordId(), BaseType.OPERATETYPE.CREATE.name(), registryPO);
+
+            if(registryHisPOMapper.insertSelective(registryHisPO) == 0)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_SECURITY_REGISTRY_INSERT + String.valueOf(registryHisPO.getRegistryId()));
                 throw new RegistryException(Errors.ERROR_BUSINESS_COMMON_SECURITY_REGISTRY_EXCEPTION);
             }
 
@@ -278,6 +291,12 @@ public class SecurityDomain implements ISecurityDomain
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
 
+        if(loginHisPOMapper == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "loginHisPOMapper");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
         if(securityDTO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "securityDTO");
@@ -299,6 +318,14 @@ public class SecurityDomain implements ISecurityDomain
             if(loginPOMapper.insertSelective(loginPO) == 0)
             {
                 logger.error(Errors.ERROR_BUSINESS_COMMON_SECURITY_LOGIN_INSERT + String.valueOf(loginPO.getLoginId()));
+                throw new LoginException(Errors.ERROR_BUSINESS_COMMON_SECURITY_LOGIN_EXCEPTION);
+            }
+
+            LoginHisPO loginHisPO = securityDTO.convertToLoginHisPO(loginVO.getRecordId(), BaseType.OPERATETYPE.CREATE.name(), loginPO);
+
+            if(loginHisPOMapper.insertSelective(loginHisPO) == 0)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_SECURITY_LOGIN_INSERT + String.valueOf(loginHisPO.getRegistryId()));
                 throw new LoginException(Errors.ERROR_BUSINESS_COMMON_SECURITY_LOGIN_EXCEPTION);
             }
 
@@ -351,6 +378,14 @@ public class SecurityDomain implements ISecurityDomain
             if(loginPOMapper.updateByPrimaryKeySelective(loginPO) == 0)
             {
                 logger.error(Errors.ERROR_BUSINESS_COMMON_SECURITY_LOGIN_UPDATE + String.valueOf(loginPO.getLoginId()));
+                throw new LoginException(Errors.ERROR_BUSINESS_COMMON_SECURITY_LOGIN_EXCEPTION);
+            }
+
+            LoginHisPO loginHisPO = securityDTO.convertToLoginHisPO(loginVO.getRecordId(), BaseType.OPERATETYPE.CREATE.name(), loginPO);
+
+            if(loginHisPOMapper.insertSelective(loginHisPO) == 0)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_SECURITY_LOGIN_INSERT + String.valueOf(loginHisPO.getRegistryId()));
                 throw new LoginException(Errors.ERROR_BUSINESS_COMMON_SECURITY_LOGIN_EXCEPTION);
             }
 

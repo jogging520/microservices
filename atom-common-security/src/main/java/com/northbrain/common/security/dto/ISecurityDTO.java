@@ -4,10 +4,7 @@ import com.northbrain.base.common.model.vo.AccessControlVO;
 import com.northbrain.base.common.model.vo.LoginVO;
 import com.northbrain.base.common.model.vo.PrivilegeVO;
 import com.northbrain.base.common.model.vo.RegistryVO;
-import com.northbrain.common.security.model.po.AccessControlPO;
-import com.northbrain.common.security.model.po.LoginPO;
-import com.northbrain.common.security.model.po.PrivilegePO;
-import com.northbrain.common.security.model.po.RegistryPO;
+import com.northbrain.common.security.model.po.*;
 
 /**
  * 类名：安全传输对象接口
@@ -61,6 +58,15 @@ public interface ISecurityDTO
     LoginPO convertToLoginPO(LoginVO loginVO) throws Exception;
 
     /**
+     * 方法：将登录信息PO转换成历史PO
+     * @param recordId 操作记录编号
+     * @param operateType 操作类型
+     * @param loginPO 登录信息持久化对象
+     * @return 登录信息历史持久化对象
+     */
+    LoginHisPO convertToLoginHisPO(Integer recordId, String operateType, LoginPO loginPO) throws Exception;
+
+    /**
      * 方法：将注册信息PO转换成VO
      * @param registryPO 注册信息持久化对象
      * @return 注册信息值对象
@@ -73,5 +79,14 @@ public interface ISecurityDTO
      * @return 注册信息持久化对象
      */
     RegistryPO convertToRegistryPO(RegistryVO registryVO) throws Exception;
+
+    /**
+     * 方法：将注册信息PO转换成历史PO
+     * @param recordId 操作记录编号
+     * @param operateType 操作类型
+     * @param registryPO 注册信息持久化对象
+     * @return 注册信息历史持久化对象
+     */
+    RegistryHisPO convertToRegistryHisPO(Integer recordId, String operateType, RegistryPO registryPO) throws Exception;
 }
 

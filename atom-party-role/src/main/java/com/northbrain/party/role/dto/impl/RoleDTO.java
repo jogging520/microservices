@@ -1,6 +1,7 @@
 package com.northbrain.party.role.dto.impl;
 
 import com.northbrain.base.common.exception.ArgumentInputException;
+import com.northbrain.base.common.model.bo.Constants;
 import com.northbrain.base.common.model.bo.Errors;
 import com.northbrain.base.common.model.bo.Hints;
 import com.northbrain.base.common.model.vo.RoleVO;
@@ -39,6 +40,7 @@ public class RoleDTO implements IRoleDTO
 
         RoleVO roleVO = new RoleVO();
 
+        roleVO.setRecordId(Constants.BUSINESS_COMMON_OPERATION_RECORD_DEFAULT_ID);
         roleVO.setRoleId(rolePO.getRoleId());
         roleVO.setName(rolePO.getName());
         roleVO.setAlias(rolePO.getAlias());

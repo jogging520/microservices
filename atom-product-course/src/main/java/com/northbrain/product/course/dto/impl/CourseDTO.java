@@ -1,5 +1,6 @@
 package com.northbrain.product.course.dto.impl;
 
+import com.northbrain.base.common.model.bo.Constants;
 import com.northbrain.base.common.model.bo.Hints;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
@@ -38,7 +39,8 @@ public class CourseDTO implements ICourseDTO
 		logger.debug(Hints.HINT_BUSINESS_COMMON_PO_VO_CONVERTION);
 
 		CourseVO courseVO = new CourseVO();
-    	
+
+		courseVO.setRecordId(Constants.BUSINESS_COMMON_OPERATION_RECORD_DEFAULT_ID);
     	courseVO.setCourseId(coursePO.getCourseId());
     	courseVO.setName(coursePO.getName());
 		courseVO.setDepartment(coursePO.getDepartment());
@@ -48,7 +50,7 @@ public class CourseDTO implements ICourseDTO
     	courseVO.setStatus(coursePO.getStatus());
     	courseVO.setCreateTime(coursePO.getCreateTime());
     	courseVO.setStatusTime(coursePO.getStatusTime());
-    	courseVO.setDesciption(coursePO.getDesciption());
+    	courseVO.setDescription(coursePO.getDescription());
     	
     	return courseVO;
 	}
@@ -80,7 +82,7 @@ public class CourseDTO implements ICourseDTO
 		coursePO.setStatus(courseVO.getStatus());
 		coursePO.setCreateTime(courseVO.getCreateTime());
 		coursePO.setStatusTime(courseVO.getStatusTime());
-		coursePO.setDesciption(courseVO.getDesciption());
+		coursePO.setDescription(courseVO.getDescription());
     	
     	return coursePO;
 	}

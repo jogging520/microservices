@@ -14,6 +14,9 @@ import com.northbrain.base.common.model.bo.Constants;
  */
 public class PrivilegeVO
 {
+    //操作编号
+    private Integer recordId;
+
     private Integer privilegeId;
 
     private String name;
@@ -33,6 +36,14 @@ public class PrivilegeVO
     private Date statusTime;
 
     private String description;
+
+    public Integer getRecordId() {
+        return recordId;
+    }
+
+    public void setRecordId(Integer recordId) {
+        this.recordId = recordId;
+    }
 
     public Integer getPrivilegeId() {
         return privilegeId;

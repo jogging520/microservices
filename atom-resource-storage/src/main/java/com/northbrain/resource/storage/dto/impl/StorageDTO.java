@@ -1,5 +1,6 @@
 package com.northbrain.resource.storage.dto.impl;
 
+import com.northbrain.base.common.model.bo.Constants;
 import com.northbrain.base.common.model.bo.Hints;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
@@ -41,6 +42,7 @@ public class StorageDTO implements IStorageDTO
 
         StorageVO storageVO = new StorageVO();
 
+        storageVO.setRecordId(Constants.BUSINESS_COMMON_OPERATION_RECORD_DEFAULT_ID);
         storageVO.setStorageId(storagePO.getStorageId());
         storageVO.setCategory(storagePO.getCategory());
         storageVO.setType(storagePO.getType());
@@ -48,7 +50,7 @@ public class StorageDTO implements IStorageDTO
         storageVO.setStatus(storagePO.getStatus());
         storageVO.setCreateTime(storagePO.getCreateTime());
         storageVO.setStatusTime(storagePO.getStatusTime());
-        storageVO.setDesciption(storagePO.getDesciption());
+        storageVO.setDescription(storagePO.getDescription());
 
         return storageVO;
     }
@@ -79,7 +81,7 @@ public class StorageDTO implements IStorageDTO
         storagePO.setStatus(storageVO.getStatus());
         storagePO.setCreateTime(storageVO.getCreateTime());
         storagePO.setStatusTime(storageVO.getStatusTime());
-        storagePO.setDesciption(storageVO.getDesciption());
+        storagePO.setDescription(storageVO.getDescription());
 
         return storagePO;
     }

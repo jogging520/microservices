@@ -9,10 +9,10 @@
     <result column="res_id" jdbcType="INTEGER" property="resId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="status_time" jdbcType="TIMESTAMP" property="statusTime" />
-    <result column="desciption" jdbcType="VARCHAR" property="desciption" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
   </resultMap>
   <sql id="Base_Column_List">
-    lesson_id, name, chapter_id, status, res_id, create_time, status_time, desciption
+    lesson_id, name, chapter_id, status, res_id, create_time, status_time, description
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -27,10 +27,10 @@
   <insert id="insert" parameterType="com.northbrain.product.course.model.po.LessonPO">
     insert into lesson (lesson_id, name, chapter_id, 
       status, res_id, create_time, 
-      status_time, desciption)
+      status_time, description)
     values (#{lessonId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{chapterId,jdbcType=INTEGER}, 
       #{status,jdbcType=INTEGER}, #{resId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{statusTime,jdbcType=TIMESTAMP}, #{desciption,jdbcType=VARCHAR})
+      #{statusTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.northbrain.product.course.model.po.LessonPO">
     insert into lesson
@@ -56,8 +56,8 @@
       <if test="statusTime != null">
         status_time,
       </if>
-      <if test="desciption != null">
-        desciption,
+      <if test="description != null">
+        description,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -82,8 +82,8 @@
       <if test="statusTime != null">
         #{statusTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="desciption != null">
-        #{desciption,jdbcType=VARCHAR},
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -108,8 +108,8 @@
       <if test="statusTime != null">
         status_time = #{statusTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="desciption != null">
-        desciption = #{desciption,jdbcType=VARCHAR},
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
       </if>
     </set>
     where lesson_id = #{lessonId,jdbcType=INTEGER}
@@ -122,7 +122,7 @@
       res_id = #{resId,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       status_time = #{statusTime,jdbcType=TIMESTAMP},
-      desciption = #{desciption,jdbcType=VARCHAR}
+      description = #{description,jdbcType=VARCHAR}
     where lesson_id = #{lessonId,jdbcType=INTEGER}
   </update>
 </mapper>

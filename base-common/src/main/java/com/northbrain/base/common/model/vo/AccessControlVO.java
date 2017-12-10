@@ -14,6 +14,9 @@ import com.northbrain.base.common.model.bo.Constants;
  */
 public class AccessControlVO
 {
+    //操作编号
+    private Integer recordId;
+
     private Integer accessControlId;
 
     private Integer roleId;
@@ -29,6 +32,14 @@ public class AccessControlVO
 
     @JSONField(format=Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
     private Date statusTime;
+
+    public Integer getRecordId() {
+        return recordId;
+    }
+
+    public void setRecordId(Integer recordId) {
+        this.recordId = recordId;
+    }
 
     public Integer getAccessControlId() {
         return accessControlId;

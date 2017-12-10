@@ -1,6 +1,8 @@
 package com.northbrain.common.security.dto.impl;
 
 import com.northbrain.base.common.exception.ArgumentInputException;
+import com.northbrain.base.common.exception.NumberScopeException;
+import com.northbrain.base.common.model.bo.Constants;
 import com.northbrain.base.common.model.bo.Errors;
 import com.northbrain.base.common.model.bo.Hints;
 import com.northbrain.base.common.model.vo.AccessControlVO;
@@ -8,10 +10,8 @@ import com.northbrain.base.common.model.vo.LoginVO;
 import com.northbrain.base.common.model.vo.PrivilegeVO;
 import com.northbrain.base.common.model.vo.RegistryVO;
 import com.northbrain.common.security.dto.ISecurityDTO;
-import com.northbrain.common.security.model.po.AccessControlPO;
-import com.northbrain.common.security.model.po.LoginPO;
-import com.northbrain.common.security.model.po.PrivilegePO;
-import com.northbrain.common.security.model.po.RegistryPO;
+import com.northbrain.common.security.model.po.*;
+
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
@@ -45,6 +45,7 @@ public class SecurityDTO implements ISecurityDTO
 
         PrivilegeVO privilegeVO = new PrivilegeVO();
 
+        privilegeVO.setRecordId(Constants.BUSINESS_COMMON_OPERATION_RECORD_DEFAULT_ID);
         privilegeVO.setPrivilegeId(privilegePO.getPrivilegeId());
         privilegeVO.setName(privilegePO.getName());
         privilegeVO.setDomain(privilegePO.getDomain());
@@ -109,6 +110,7 @@ public class SecurityDTO implements ISecurityDTO
 
         AccessControlVO accessControlVO = new AccessControlVO();
 
+        accessControlVO.setRecordId(Constants.BUSINESS_COMMON_OPERATION_RECORD_DEFAULT_ID);
         accessControlVO.setAccessControlId(accessControlPO.getAccessControlId());
         accessControlVO.setRoleId(accessControlPO.getRoleId());
         accessControlVO.setOrganizationId(accessControlPO.getOrganizationId());
@@ -169,6 +171,7 @@ public class SecurityDTO implements ISecurityDTO
 
         LoginVO loginVO = new LoginVO();
 
+        loginVO.setRecordId(Constants.BUSINESS_COMMON_OPERATION_RECORD_DEFAULT_ID);
         loginVO.setLoginId(loginPO.getLoginId());
         loginVO.setRegistryId(loginPO.getRegistryId());
         loginVO.setPartyId(loginPO.getPartyId());
@@ -218,6 +221,55 @@ public class SecurityDTO implements ISecurityDTO
         loginPO.setDescription(loginVO.getDescription());
 
         return loginPO;
+    }
+
+    /**
+     * 方法：将登录信息PO转换成历史PO
+     *
+     * @param recordId    操作记录编号
+     * @param operateType 操作类型
+     * @param loginPO     登录信息持久化对象
+     * @return 登录信息历史持久化对象
+     */
+    @Override
+    public LoginHisPO convertToLoginHisPO(Integer recordId, String operateType, LoginPO loginPO) throws Exception
+    {
+        if(recordId <= 0)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE + "recordId:" + recordId);
+            throw new NumberScopeException(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION);
+        }
+
+        if(operateType == null || operateType.equals(""))
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "operateType");
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        if(loginPO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "loginPO");
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        LoginHisPO loginHisPO = new LoginHisPO();
+
+        loginHisPO.setRecordId(recordId);
+        loginHisPO.setOperateType(operateType);
+        loginHisPO.setLoginId(loginPO.getLoginId());
+        loginHisPO.setRegistryId(loginPO.getRegistryId());
+        loginHisPO.setPartyId(loginPO.getPartyId());
+        loginHisPO.setRoleId(loginPO.getRoleId());
+        loginHisPO.setOrganizationId(loginPO.getOrganizationId());
+        loginHisPO.setDomain(loginPO.getDomain());
+        loginHisPO.setCategory(loginPO.getCategory());
+        loginHisPO.setType(loginPO.getType());
+        loginHisPO.setStatus(loginPO.getStatus());
+        loginHisPO.setLoginTime(loginPO.getLoginTime());
+        loginHisPO.setLogoutTime(loginPO.getLogoutTime());
+        loginHisPO.setDescription(loginPO.getDescription());
+
+        return loginHisPO;
     }
 
     /**
@@ -282,5 +334,51 @@ public class SecurityDTO implements ISecurityDTO
         registryPO.setDescription(registryVO.getDescription());
 
         return registryPO;
+    }
+
+    /**
+     * 方法：将注册信息PO转换成历史PO
+     *
+     * @param recordId    操作记录编号
+     * @param operateType 操作类型
+     * @param registryPO  注册信息持久化对象
+     * @return 注册信息历史持久化对象
+     */
+    @Override
+    public RegistryHisPO convertToRegistryHisPO(Integer recordId, String operateType, RegistryPO registryPO) throws Exception
+    {
+        if(recordId <= 0)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE + "recordId:" + recordId);
+            throw new NumberScopeException(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION);
+        }
+
+        if(operateType == null || operateType.equals(""))
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "operateType");
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        if(registryPO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "registryPO");
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        RegistryHisPO registryHisPO = new RegistryHisPO();
+
+        registryHisPO.setRecordId(recordId);
+        registryHisPO.setOperateType(operateType);
+        registryHisPO.setRegistryId(registryPO.getRegistryId());
+        registryHisPO.setPartyId(registryPO.getPartyId());
+        registryHisPO.setDomain(registryPO.getDomain());
+        registryHisPO.setCategory(registryPO.getCategory());
+        registryHisPO.setType(registryPO.getType());
+        registryHisPO.setStatus(registryPO.getStatus());
+        registryHisPO.setCreateTime(registryPO.getCreateTime());
+        registryHisPO.setStatusTime(registryPO.getStatusTime());
+        registryHisPO.setDescription(registryPO.getDescription());
+
+        return registryHisPO;
     }
 }

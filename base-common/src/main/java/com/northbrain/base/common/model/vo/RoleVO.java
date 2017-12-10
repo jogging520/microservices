@@ -14,6 +14,9 @@ import com.northbrain.base.common.model.bo.Constants;
  */
 public class RoleVO
 {
+    //操作编号
+    private Integer recordId;
+
     private Integer roleId;
 
     private String name;
@@ -35,6 +38,14 @@ public class RoleVO
     private Date statusTime;
 
     private String description;
+
+    public Integer getRecordId() {
+        return recordId;
+    }
+
+    public void setRecordId(Integer recordId) {
+        this.recordId = recordId;
+    }
 
     public Integer getRoleId() {
         return roleId;

@@ -87,6 +87,106 @@ public class StrategyController
     }
 
     /**
+     * 方法：新增一条操作记录
+     * @return 以ServiceVO封装的课程列表
+     */
+    @RequestMapping(value = Constants.URI_ATOM_COMMON_STRATEGY_REQUEST_MAPPING, method = RequestMethod.POST, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS, consumes = Constants.BUSINESS_COMMON_HTTP_REQUEST_CONSUMERS)
+    @ResponseBody
+    public String updateStrategy(@RequestBody StrategyVO strategyVO)
+    {
+        logger.debug(Hints.HINT_SYSTEM_PROCESS_CALL_CONTROLLER + "updateStrategy");
+        ServiceVO serviceVO = new ServiceVO();
+
+        try
+        {
+            if(strategyVO == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "strategyVO");
+                serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+
+                return JSON.toJSONString(serviceVO);
+            }
+
+            if(strategyService == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "strategyService");
+                serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+
+                return JSON.toJSONString(serviceVO);
+            }
+
+            return JSON.toJSONString(strategyService.updateStrategy(strategyVO));
+        }
+        catch (IllegalStateException illegalStateException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(illegalStateException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_ILLEGAL_STATE_EXCEPTION);
+        }
+        catch (JSONException jSONException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(jSONException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_JSON_EXCEPTION);
+        }
+        catch (Exception exception)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(exception));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_OTHER_UNKNOW_EXCEPTION);
+        }
+
+        return JSON.toJSONString(serviceVO);
+    }
+
+    /**
+     * 方法：删除一条操作记录
+     * @return 以ServiceVO封装的课程列表
+     */
+    @RequestMapping(value = Constants.URI_ATOM_COMMON_STRATEGY_REQUEST_MAPPING, method = RequestMethod.DELETE, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS, consumes = Constants.BUSINESS_COMMON_HTTP_REQUEST_CONSUMERS)
+    @ResponseBody
+    public String deleteStrategy(@RequestBody StrategyVO strategyVO)
+    {
+        logger.debug(Hints.HINT_SYSTEM_PROCESS_CALL_CONTROLLER + "deleteStrategy");
+        ServiceVO serviceVO = new ServiceVO();
+
+        try
+        {
+            if(strategyVO == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "strategyVO");
+                serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+
+                return JSON.toJSONString(serviceVO);
+            }
+
+            if(strategyService == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "strategyService");
+                serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+
+                return JSON.toJSONString(serviceVO);
+            }
+
+            return JSON.toJSONString(strategyService.deleteStrategy(strategyVO));
+        }
+        catch (IllegalStateException illegalStateException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(illegalStateException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_ILLEGAL_STATE_EXCEPTION);
+        }
+        catch (JSONException jSONException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(jSONException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_JSON_EXCEPTION);
+        }
+        catch (Exception exception)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(exception));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_OTHER_UNKNOW_EXCEPTION);
+        }
+
+        return JSON.toJSONString(serviceVO);
+    }
+
+    /**
      * 方法 ：Json日期格式转换
      * @param servletRequestDataBinder 前端属性在后台封装成一个对象
      */

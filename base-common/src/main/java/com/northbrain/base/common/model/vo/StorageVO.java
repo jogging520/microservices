@@ -14,6 +14,9 @@ import com.northbrain.base.common.model.bo.Constants;
  */
 public class StorageVO
 {
+    //操作编号
+    private Integer recordId;
+
     private Integer storageId;
 
     private String category;
@@ -30,7 +33,15 @@ public class StorageVO
     @JSONField(format=Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
     private Date statusTime;
 
-    private String desciption;
+    private String description;
+
+    public Integer getRecordId() {
+        return recordId;
+    }
+
+    public void setRecordId(Integer recordId) {
+        this.recordId = recordId;
+    }
 
     public Integer getStorageId() {
         return storageId;
@@ -88,12 +99,12 @@ public class StorageVO
         this.statusTime = statusTime;
     }
 
-    public String getDesciption() {
-        return desciption;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesciption(String desciption) {
-        this.desciption = desciption == null ? null : desciption.trim();
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
     }
 
     public String toString()

@@ -8,6 +8,9 @@ import com.northbrain.base.common.model.bo.Constants;
 
 public class RegistryVO
 {
+    //操作编号
+    private Integer recordId;
+
     private Integer registryId;
 
     private Integer partyId;
@@ -27,6 +30,14 @@ public class RegistryVO
     private Date statusTime;
 
     private String description;
+
+    public Integer getRecordId() {
+        return recordId;
+    }
+
+    public void setRecordId(Integer recordId) {
+        this.recordId = recordId;
+    }
 
     public Integer getRegistryId() {
         return registryId;
