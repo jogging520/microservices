@@ -55,6 +55,7 @@ public class Constants
     public static final String BUSINESS_PARTY_ROLE_ATOM_MICROSERVICE                                    = "atom-party-role";                            //原子微服务：参与者-角色
     public static final String BUSINESS_PARTY_ORGANIZATION_ATOM_MICROSERVICE                            = "atom-party-organization";                    //原子微服务：参与者-组织架构
 
+    public static final String BUSINESS_FOUNDATION_AUTHENTICATION_ORCH_MICROSERVICE                     = "orch-foundation-authentication";             //编排微服务：基础-鉴权
     public static final String BUSINESS_LIST_COURSE_ORCH_MICROSERVICE                                   = "orch-list-course";                           //编排微服务：列表-课程
 
 
@@ -67,6 +68,7 @@ public class Constants
     public static final String STORAGE_ZOOKEEPER_PARTY_NAMESPACE										= "party";							            //后端：参与者域命名空间
     public static final String STORAGE_ZOOKEEPER_RELATION_NAMESPACE										= "relation";							        //后端：关系域命名空间
     public static final String STORAGE_ZOOKEEPER_COMMON_NAMESPACE										= "common";							            //后端：通用域命名空间
+    public static final String STORAGE_ZOOKEEPER_FOUNDATION_NAMESPACE									= "foundation";							        //前端：基础域命名空间
     public static final String STORAGE_ZOOKEEPER_LIST_NAMESPACE										    = "list";							            //前端：清单域命名空间
     public static final String STORAGE_ZOOKEEPER_CONFIG_NAMESPACE										= "config";								        //配置的命名空间
     public static final String STORAGE_ZOOKEEPER_STORAGE_NAMESPACE 										= "STORAGE";							        //存储大类常量命名空间（Parameter配置）

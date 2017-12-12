@@ -87,7 +87,7 @@ public class StrategyController
     }
 
     /**
-     * 方法：新增一条策略
+     * 方法：更新一条策略
      * @return 以ServiceVO封装的策略
      */
     @RequestMapping(value = Constants.URI_ATOM_COMMON_STRATEGY_REQUEST_MAPPING, method = RequestMethod.POST, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS, consumes = Constants.BUSINESS_COMMON_HTTP_REQUEST_CONSUMERS)

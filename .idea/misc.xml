@@ -11,6 +11,8 @@
         <option value="$PROJECT_DIR$/atom-common-parameter/pom.xml" />
         <option value="$PROJECT_DIR$/atom-config-sequence/pom.xml" />
         <option value="$PROJECT_DIR$/atom-product-operation/pom.xml" />
+        <option value="$PROJECT_DIR$/orch-public-security/pom.xml" />
+        <option value="$PROJECT_DIR$/orch-system-authentication/pom.xml" />
       </set>
     </option>
   </component>

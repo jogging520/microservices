@@ -20,8 +20,8 @@
         <module name="base-common" />
         <module name="base-gateway" />
         <module name="base-launcher" />
+        <module name="orch-foundation-authentication" />
         <module name="orch-list-course" />
-        <module name="orch-public-security" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -43,8 +43,10 @@
       <module name="base-gateway" target="1.8" />
       <module name="base-launcher" target="1.8" />
       <module name="microservices" target="1.8" />
+      <module name="orch-foundation-authentication" target="1.8" />
       <module name="orch-list-course" target="1.8" />
       <module name="orch-public-security" target="1.8" />
+      <module name="orch-system-authentication" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
