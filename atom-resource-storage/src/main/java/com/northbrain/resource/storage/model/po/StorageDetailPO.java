@@ -2,7 +2,8 @@ package com.northbrain.resource.storage.model.po;
 
 import java.util.Date;
 
-public class StorageDetailPO {
+public class StorageDetailPO
+{
     private Integer storageDetailId;
 
     private Integer storageId;

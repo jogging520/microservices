@@ -105,6 +105,12 @@ public class OrganizationDomain implements IOrganizationDomain
 
             OrganizationHisPO organizationHisPO = organizationDTO.convertToOrganizationHisPO(organizationVO.getRecordId(), BaseType.OPERATETYPE.CREATE.name(), organizationPO);
 
+            if(organizationHisPO == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "organizationHisPO");
+                throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+            }
+
             if(organizationHisPOMapper.insert(organizationHisPO) == 0)
             {
                 logger.error(Errors.ERROR_BUSINESS_PARTY_ORGANIZATION_INSERT + String.valueOf(organizationHisPO.getOrganizationId()));
@@ -171,9 +177,15 @@ public class OrganizationDomain implements IOrganizationDomain
 
             OrganizationHisPO organizationHisPO = organizationDTO.convertToOrganizationHisPO(organizationVO.getRecordId(), BaseType.OPERATETYPE.UPDATE.name(), organizationPO);
 
+            if(organizationHisPO == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "organizationHisPO");
+                throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+            }
+
             if(organizationHisPOMapper.insert(organizationHisPO) == 0)
             {
-                logger.error(Errors.ERROR_BUSINESS_PARTY_ORGANIZATION_UPDATE + String.valueOf(organizationHisPO.getOrganizationId()));
+                logger.error(Errors.ERROR_BUSINESS_PARTY_ORGANIZATION_INSERT + String.valueOf(organizationHisPO.getOrganizationId()));
                 throw new OrganizationException(Errors.ERROR_BUSINESS_PARTY_ORGANIZATION_EXCEPTION);
             }
 
@@ -237,9 +249,15 @@ public class OrganizationDomain implements IOrganizationDomain
 
             OrganizationHisPO organizationHisPO = organizationDTO.convertToOrganizationHisPO(organizationVO.getRecordId(), BaseType.OPERATETYPE.DELETE.name(), organizationPO);
 
+            if(organizationHisPO == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "organizationHisPO");
+                throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+            }
+
             if(organizationHisPOMapper.insert(organizationHisPO) == 0)
             {
-                logger.error(Errors.ERROR_BUSINESS_PARTY_ORGANIZATION_DELETE + String.valueOf(organizationHisPO.getOrganizationId()));
+                logger.error(Errors.ERROR_BUSINESS_PARTY_ORGANIZATION_INSERT + String.valueOf(organizationHisPO.getOrganizationId()));
                 throw new OrganizationException(Errors.ERROR_BUSINESS_PARTY_ORGANIZATION_EXCEPTION);
             }
 
@@ -302,6 +320,12 @@ public class OrganizationDomain implements IOrganizationDomain
             }
 
             SubjectionHisPO subjectionHisPO = organizationDTO.convertToSubjectionHisPO(subjectionVO.getRecordId(), BaseType.OPERATETYPE.CREATE.name(), subjectionPO);
+
+            if(subjectionHisPO == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "subjectionHisPO");
+                throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+            }
 
             if(subjectionHisPOMapper.insert(subjectionHisPO) == 0)
             {
@@ -369,9 +393,15 @@ public class OrganizationDomain implements IOrganizationDomain
 
             SubjectionHisPO subjectionHisPO = organizationDTO.convertToSubjectionHisPO(subjectionVO.getRecordId(), BaseType.OPERATETYPE.UPDATE.name(), subjectionPO);
 
+            if(subjectionHisPO == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "subjectionHisPO");
+                throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+            }
+
             if(subjectionHisPOMapper.insert(subjectionHisPO) == 0)
             {
-                logger.error(Errors.ERROR_BUSINESS_PARTY_SUBJECTION_UPDATE + String.valueOf(subjectionHisPO.getSubjectionId()));
+                logger.error(Errors.ERROR_BUSINESS_PARTY_SUBJECTION_INSERT + String.valueOf(subjectionHisPO.getSubjectionId()));
                 throw new SubjectionException(Errors.ERROR_BUSINESS_PARTY_SUBJECTION_EXCEPTION);
             }
 
@@ -435,9 +465,15 @@ public class OrganizationDomain implements IOrganizationDomain
 
             SubjectionHisPO subjectionHisPO = organizationDTO.convertToSubjectionHisPO(subjectionVO.getRecordId(), BaseType.OPERATETYPE.DELETE.name(), subjectionPO);
 
+            if(subjectionHisPO == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "subjectionHisPO");
+                throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+            }
+
             if(subjectionHisPOMapper.insert(subjectionHisPO) == 0)
             {
-                logger.error(Errors.ERROR_BUSINESS_PARTY_SUBJECTION_DELETE + String.valueOf(subjectionHisPO.getSubjectionId()));
+                logger.error(Errors.ERROR_BUSINESS_PARTY_SUBJECTION_INSERT + String.valueOf(subjectionHisPO.getSubjectionId()));
                 throw new SubjectionException(Errors.ERROR_BUSINESS_PARTY_SUBJECTION_EXCEPTION);
             }
 

@@ -257,6 +257,12 @@ public class SecurityDomain implements ISecurityDomain
 
             RegistryHisPO registryHisPO = securityDTO.convertToRegistryHisPO(registryVO.getRecordId(), BaseType.OPERATETYPE.CREATE.name(), registryPO);
 
+            if(registryHisPO == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "registryHisPO");
+                throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+            }
+
             if(registryHisPOMapper.insert(registryHisPO) == 0)
             {
                 logger.error(Errors.ERROR_BUSINESS_COMMON_SECURITY_REGISTRY_INSERT + String.valueOf(registryHisPO.getRegistryId()));
@@ -322,6 +328,12 @@ public class SecurityDomain implements ISecurityDomain
             }
 
             LoginHisPO loginHisPO = securityDTO.convertToLoginHisPO(loginVO.getRecordId(), BaseType.OPERATETYPE.CREATE.name(), loginPO);
+
+            if(loginHisPO == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "loginHisPO");
+                throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+            }
 
             if(loginHisPOMapper.insert(loginHisPO) == 0)
             {

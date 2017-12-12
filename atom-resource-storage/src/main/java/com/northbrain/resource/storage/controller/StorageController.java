@@ -6,6 +6,7 @@ import com.northbrain.base.common.model.bo.Constants;
 import com.northbrain.base.common.model.bo.Errors;
 import com.northbrain.base.common.model.bo.Hints;
 import com.northbrain.base.common.model.vo.ServiceVO;
+import com.northbrain.base.common.model.vo.StorageVO;
 import com.northbrain.base.common.util.StackTracerUtil;
 import com.northbrain.resource.storage.service.IStorageService;
 import org.apache.log4j.Logger;
@@ -127,6 +128,156 @@ public class StorageController
             serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_JSON_EXCEPTION);
         }
         catch(Exception exception)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(exception));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_OTHER_UNKNOW_EXCEPTION);
+        }
+
+        return JSON.toJSONString(serviceVO);
+    }
+
+    /**
+     * 方法：新增一条存储资源
+     * @return 以ServiceVO封装的存储资源
+     */
+    @RequestMapping(value = Constants.URI_ATOM_RESOURCE_STORAGE_REQUEST_MAPPING, method = RequestMethod.PUT, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS, consumes = Constants.BUSINESS_COMMON_HTTP_REQUEST_CONSUMERS)
+    @ResponseBody
+    public String createStorage(@RequestBody StorageVO storageVO)
+    {
+        logger.debug(Hints.HINT_SYSTEM_PROCESS_CALL_CONTROLLER + "createStorage");
+        ServiceVO serviceVO = new ServiceVO();
+
+        try
+        {
+            if(storageVO == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "storageVO");
+                serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+
+                return JSON.toJSONString(serviceVO);
+            }
+
+            if(storageService == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "storageService");
+                serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+
+                return JSON.toJSONString(serviceVO);
+            }
+
+            return JSON.toJSONString(storageService.createStorage(storageVO));
+        }
+        catch (IllegalStateException illegalStateException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(illegalStateException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_ILLEGAL_STATE_EXCEPTION);
+        }
+        catch (JSONException jSONException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(jSONException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_JSON_EXCEPTION);
+        }
+        catch (Exception exception)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(exception));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_OTHER_UNKNOW_EXCEPTION);
+        }
+
+        return JSON.toJSONString(serviceVO);
+    }
+
+    /**
+     * 方法：新增一条存储资源
+     * @return 以ServiceVO封装的存储资源
+     */
+    @RequestMapping(value = Constants.URI_ATOM_RESOURCE_STORAGE_REQUEST_MAPPING, method = RequestMethod.POST, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS, consumes = Constants.BUSINESS_COMMON_HTTP_REQUEST_CONSUMERS)
+    @ResponseBody
+    public String updateStorage(@RequestBody StorageVO storageVO)
+    {
+        logger.debug(Hints.HINT_SYSTEM_PROCESS_CALL_CONTROLLER + "updateStorage");
+        ServiceVO serviceVO = new ServiceVO();
+
+        try
+        {
+            if(storageVO == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "storageVO");
+                serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+
+                return JSON.toJSONString(serviceVO);
+            }
+
+            if(storageService == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "storageService");
+                serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+
+                return JSON.toJSONString(serviceVO);
+            }
+
+            return JSON.toJSONString(storageService.updateStorage(storageVO));
+        }
+        catch (IllegalStateException illegalStateException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(illegalStateException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_ILLEGAL_STATE_EXCEPTION);
+        }
+        catch (JSONException jSONException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(jSONException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_JSON_EXCEPTION);
+        }
+        catch (Exception exception)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(exception));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_OTHER_UNKNOW_EXCEPTION);
+        }
+
+        return JSON.toJSONString(serviceVO);
+    }
+
+    /**
+     * 方法：删除一条存储资源
+     * @return 以ServiceVO封装的存储资源
+     */
+    @RequestMapping(value = Constants.URI_ATOM_RESOURCE_STORAGE_REQUEST_MAPPING, method = RequestMethod.DELETE, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS, consumes = Constants.BUSINESS_COMMON_HTTP_REQUEST_CONSUMERS)
+    @ResponseBody
+    public String deleteStorage(@RequestBody StorageVO storageVO)
+    {
+        logger.debug(Hints.HINT_SYSTEM_PROCESS_CALL_CONTROLLER + "deleteStorage");
+        ServiceVO serviceVO = new ServiceVO();
+
+        try
+        {
+            if(storageVO == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "storageVO");
+                serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+
+                return JSON.toJSONString(serviceVO);
+            }
+
+            if(storageService == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "storageService");
+                serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+
+                return JSON.toJSONString(serviceVO);
+            }
+
+            return JSON.toJSONString(storageService.deleteStorage(storageVO));
+        }
+        catch (IllegalStateException illegalStateException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(illegalStateException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_ILLEGAL_STATE_EXCEPTION);
+        }
+        catch (JSONException jSONException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(jSONException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_JSON_EXCEPTION);
+        }
+        catch (Exception exception)
         {
             logger.error(StackTracerUtil.getExceptionInfo(exception));
             serviceVO.setResponseCodeAndDesc(Errors.ERROR_OTHER_UNKNOW_EXCEPTION);

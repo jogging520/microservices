@@ -78,17 +78,22 @@ public enum Errors
 
     ERROR_BUSINESS_RELATION_OPERATION_RECORD_EXCEPTION              ("3101", "操作业务记录时候发生异常。"),
     ERROR_BUSINESS_RELATION_OPERATION_RECORD_INSERT                 ("3102", "插入业务记录时候发生异常。"),
-    ERROR_BUSINESS_RELATION_OPERATION_RECORD_UPDATE                 ("3104", "更新业务记录时候发生异常。"),
-    ERROR_BUSINESS_RELATION_OPERATION_RECORD_DELETE                 ("3105", "删除业务记录时候发生异常。"),
+    ERROR_BUSINESS_RELATION_OPERATION_RECORD_UPDATE                 ("3103", "更新业务记录时候发生异常。"),
+    ERROR_BUSINESS_RELATION_OPERATION_RECORD_DELETE                 ("3104", "删除业务记录时候发生异常。"),
 
     ERROR_BUSINESS_PARTY_ORGANIZATION_EXCEPTION                     ("3111", "操作组织机构时候发生异常。"),
     ERROR_BUSINESS_PARTY_ORGANIZATION_INSERT                        ("3112", "插入组织机构时候发生异常。"),
-    ERROR_BUSINESS_PARTY_ORGANIZATION_UPDATE                        ("3114", "更新组织机构时候发生异常。"),
-    ERROR_BUSINESS_PARTY_ORGANIZATION_DELETE                        ("3115", "删除组织机构时候发生异常。"),
+    ERROR_BUSINESS_PARTY_ORGANIZATION_UPDATE                        ("3113", "更新组织机构时候发生异常。"),
+    ERROR_BUSINESS_PARTY_ORGANIZATION_DELETE                        ("3114", "删除组织机构时候发生异常。"),
     ERROR_BUSINESS_PARTY_SUBJECTION_EXCEPTION                       ("3121", "操作隶属关系时候发生异常。"),
     ERROR_BUSINESS_PARTY_SUBJECTION_INSERT                          ("3122", "插入隶属关系时候发生异常。"),
-    ERROR_BUSINESS_PARTY_SUBJECTION_UPDATE                          ("3124", "更新隶属关系时候发生异常。"),
-    ERROR_BUSINESS_PARTY_SUBJECTION_DELETE                          ("3125", "删除隶属关系时候发生异常。"),
+    ERROR_BUSINESS_PARTY_SUBJECTION_UPDATE                          ("3123", "更新隶属关系时候发生异常。"),
+    ERROR_BUSINESS_PARTY_SUBJECTION_DELETE                          ("3124", "删除隶属关系时候发生异常。"),
+
+    ERROR_BUSINESS_RESOURCE_STORAGE_EXCEPTION                       ("3131", "操作存储资源时候发生异常。"),
+    ERROR_BUSINESS_RESOURCE_STORAGE_INSERT                          ("3132", "插入存储资源时候发生异常。"),
+    ERROR_BUSINESS_RESOURCE_STORAGE_UPDATE                          ("3133", "更新存储资源时候发生异常。"),
+    ERROR_BUSINESS_RESOURCE_STORAGE_DELETE                          ("3134", "删除存储资源时候发生异常。"),
 
     /**
 	 * 4XXX:数据存储级级错误，ERROR_STORAGE_XXXX，XXXX主要有:REDIS、ZOOKEEPER、POSTGRESQL等

@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.io.FileNotFoundException;
@@ -46,6 +47,7 @@ public class OrganizationService implements IOrganizationService
      * @return 是否操作成功（用ServiceVO封装）
      */
     @Override
+    @Transactional
     public ServiceVO createOrganization(OrganizationVO organizationVO)
     {
         ServiceVO serviceVO = new ServiceVO();
@@ -210,6 +212,7 @@ public class OrganizationService implements IOrganizationService
      * @return 是否操作成功（用ServiceVO封装）
      */
     @Override
+    @Transactional
     public ServiceVO updateOrganization(OrganizationVO organizationVO)
     {
         ServiceVO serviceVO = new ServiceVO();
@@ -374,6 +377,7 @@ public class OrganizationService implements IOrganizationService
      * @return 是否操作成功（用ServiceVO封装）
      */
     @Override
+    @Transactional
     public ServiceVO deleteOrganization(OrganizationVO organizationVO)
     {
         ServiceVO serviceVO = new ServiceVO();
@@ -538,6 +542,7 @@ public class OrganizationService implements IOrganizationService
      * @return 是否操作成功（用ServiceVO封装）
      */
     @Override
+    @Transactional
     public ServiceVO createSubjection(SubjectionVO subjectionVO)
     {
         ServiceVO serviceVO = new ServiceVO();
@@ -702,6 +707,7 @@ public class OrganizationService implements IOrganizationService
      * @return 是否操作成功（用ServiceVO封装）
      */
     @Override
+    @Transactional
     public ServiceVO updateSubjection(SubjectionVO subjectionVO)
     {
         ServiceVO serviceVO = new ServiceVO();
@@ -866,6 +872,7 @@ public class OrganizationService implements IOrganizationService
      * @return 是否操作成功（用ServiceVO封装）
      */
     @Override
+    @Transactional
     public ServiceVO deleteSubjection(SubjectionVO subjectionVO)
     {
         ServiceVO serviceVO = new ServiceVO();

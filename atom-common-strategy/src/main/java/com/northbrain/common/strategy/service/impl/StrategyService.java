@@ -204,6 +204,7 @@ public class StrategyService implements IStrategyService
      * @return 是否操作成功（用ServiceVO封装）
      */
     @Override
+    @Transactional
     public ServiceVO updateStrategy(StrategyVO strategyVO)
     {
         ServiceVO serviceVO = new ServiceVO();
@@ -362,6 +363,7 @@ public class StrategyService implements IStrategyService
      * @return 是否操作成功（用ServiceVO封装）
      */
     @Override
+    @Transactional
     public ServiceVO deleteStrategy(StrategyVO strategyVO)
     {
         ServiceVO serviceVO = new ServiceVO();

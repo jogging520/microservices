@@ -198,6 +198,7 @@ public class OperationRecordService implements IOperationRecordService
      * @return 是否操作成功（用ServiceVO封装）
      */
     @Override
+    @Transactional
     public ServiceVO updateOperationRecord(OperationRecordVO operationRecordVO) {
         return null;
     }
