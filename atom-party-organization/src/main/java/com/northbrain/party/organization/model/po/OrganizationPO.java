@@ -2,27 +2,45 @@ package com.northbrain.party.organization.model.po;
 
 import java.util.Date;
 
-public class OrganizationPO {
+/**
+ * 类名：组织机构持久化对象类，该类定义了组织机构的层级关系、名称、类型等。
+ * 用途：用于组织机构数据库持久化对象增删改查。
+ * @author Jiakun
+ * @version 1.0
+ */
+public class OrganizationPO
+{
+    //组织机构编号
     private Integer organizationId;
 
+    //名称
     private String name;
 
+    //组织机构的编码（按一定的规则）
     private String code;
 
+    //归属域
     private String domain;
 
+    //类别
     private String category;
 
+    //类型
     private String type;
 
+    //父组织机构的编号（用于递归）
     private Integer parentOrganizationId;
 
+    //状态
     private Integer status;
 
+    //创建时间
     private Date createTime;
 
+    //状态时间
     private Date statusTime;
 
+    //描述
     private String description;
 
     public Integer getOrganizationId() {

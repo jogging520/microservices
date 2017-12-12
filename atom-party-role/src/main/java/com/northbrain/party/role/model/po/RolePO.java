@@ -2,6 +2,13 @@ package com.northbrain.party.role.model.po;
 
 import java.util.Date;
 
+/**
+ * 类名：角色持久化对象类。角色是对各类具象角色的抽象，引用方通过角色关联，而不是跟具体的某一类角色关联。
+ * 引用方-->参与者--角色和具体角色实体
+ * 用途：用于角色数据库持久化对象增删改查。
+ * @author Jiakun
+ * @version 1.0
+ */
 public class RolePO
 {
     //角色编号

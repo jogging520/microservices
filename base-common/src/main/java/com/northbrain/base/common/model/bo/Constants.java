@@ -118,6 +118,8 @@ public class Constants
     public static final String URI_ATOM_RELATION_OPERATION_RECORD_REQUEST_MAPPING                       = "/relation/operationrecord";                  //原子服务URI：操作记录
 
     public static final String URI_ATOM_PARTY_ROLE_SPECIFIED_REQUEST_MAPPING                            = "/party/role/{name}";                         //原子服务URI：指定的参与者角色
+    public static final String URI_ATOM_PARTY_ORGANIZATION_REQUEST_MAPPING                              = "/party/organization";                        //原子服务URI：组织机构
+    public static final String URI_ATOM_PARTY_SUBJECTION_REQUEST_MAPPING                                = "/party/subjection";                          //原子服务URI：隶属关系
 
     public static final String URI_ATOM_COMMON_GLOBAL_SEQUENCE_REQUEST_MAPPING                          = "/common/sequence";                           //原子服务URI：全局唯一的序列号
 

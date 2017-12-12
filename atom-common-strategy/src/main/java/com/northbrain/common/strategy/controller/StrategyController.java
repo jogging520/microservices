@@ -37,8 +37,8 @@ public class StrategyController
     }
 
     /**
-     * 方法：新增一条操作记录
-     * @return 以ServiceVO封装的课程列表
+     * 方法：新增一条策略
+     * @return 以ServiceVO封装的策略
      */
     @RequestMapping(value = Constants.URI_ATOM_COMMON_STRATEGY_REQUEST_MAPPING, method = RequestMethod.PUT, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS, consumes = Constants.BUSINESS_COMMON_HTTP_REQUEST_CONSUMERS)
     @ResponseBody
@@ -87,8 +87,8 @@ public class StrategyController
     }
 
     /**
-     * 方法：新增一条操作记录
-     * @return 以ServiceVO封装的课程列表
+     * 方法：新增一条策略
+     * @return 以ServiceVO封装的策略
      */
     @RequestMapping(value = Constants.URI_ATOM_COMMON_STRATEGY_REQUEST_MAPPING, method = RequestMethod.POST, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS, consumes = Constants.BUSINESS_COMMON_HTTP_REQUEST_CONSUMERS)
     @ResponseBody
@@ -137,8 +137,8 @@ public class StrategyController
     }
 
     /**
-     * 方法：删除一条操作记录
-     * @return 以ServiceVO封装的课程列表
+     * 方法：删除一条策略
+     * @return 以ServiceVO封装的策略
      */
     @RequestMapping(value = Constants.URI_ATOM_COMMON_STRATEGY_REQUEST_MAPPING, method = RequestMethod.DELETE, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS, consumes = Constants.BUSINESS_COMMON_HTTP_REQUEST_CONSUMERS)
     @ResponseBody

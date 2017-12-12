@@ -1,32 +1,30 @@
-package com.northbrain.party.organization.model.po;
+package com.northbrain.base.common.model.vo;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.annotation.JSONField;
+import com.northbrain.base.common.model.bo.Constants;
 
 import java.util.Date;
 
 /**
- * 类名：隶属关系历史数据持久化对象类，该类记录了参与者隶属于组织关系的所有历史操作记录。
- * 用途：用于隶属关系历史数据库持久化对象增删改查。
+ * 类名：组织机构值对象类，该类定义了组织机构的层级关系、名称、类型等。
+ * 用途：用于组织机构在domain层及以上数据传递。
  * @author Jiakun
  * @version 1.0
  */
-public class SubjectionHisPO
+public class OrganizationVO
 {
-    //操作流水号
+    //操作编号
     private Integer recordId;
-
-    //操作类型
-    private String operateType;
-
-    //隶属编号
-    private Integer subjectionId;
-
-    //参与者编号
-    private Integer partyId;
 
     //组织机构编号
     private Integer organizationId;
 
-    //具体的组织机构编号
-    private Integer entityId;
+    //名称
+    private String name;
+
+    //组织机构的编码（按一定的规则）
+    private String code;
 
     //归属域
     private String domain;
@@ -37,13 +35,18 @@ public class SubjectionHisPO
     //类型
     private String type;
 
+    //父组织机构的编号（用于递归）
+    private Integer parentOrganizationId;
+
     //状态
     private Integer status;
 
     //创建时间
+    @JSONField(format= Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
     private Date createTime;
 
     //状态时间
+    @JSONField(format=Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
     private Date statusTime;
 
     //描述
@@ -57,30 +60,6 @@ public class SubjectionHisPO
         this.recordId = recordId;
     }
 
-    public String getOperateType() {
-        return operateType;
-    }
-
-    public void setOperateType(String operateType) {
-        this.operateType = operateType == null ? null : operateType.trim();
-    }
-
-    public Integer getSubjectionId() {
-        return subjectionId;
-    }
-
-    public void setSubjectionId(Integer subjectionId) {
-        this.subjectionId = subjectionId;
-    }
-
-    public Integer getPartyId() {
-        return partyId;
-    }
-
-    public void setPartyId(Integer partyId) {
-        this.partyId = partyId;
-    }
-
     public Integer getOrganizationId() {
         return organizationId;
     }
@@ -89,12 +68,20 @@ public class SubjectionHisPO
         this.organizationId = organizationId;
     }
 
-    public Integer getEntityId() {
-        return entityId;
+    public String getName() {
+        return name;
     }
 
-    public void setEntityId(Integer entityId) {
-        this.entityId = entityId;
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code == null ? null : code.trim();
     }
 
     public String getDomain() {
@@ -119,6 +106,14 @@ public class SubjectionHisPO
 
     public void setType(String type) {
         this.type = type == null ? null : type.trim();
+    }
+
+    public Integer getParentOrganizationId() {
+        return parentOrganizationId;
+    }
+
+    public void setParentOrganizationId(Integer parentOrganizationId) {
+        this.parentOrganizationId = parentOrganizationId;
     }
 
     public Integer getStatus() {
@@ -151,5 +146,10 @@ public class SubjectionHisPO
 
     public void setDescription(String description) {
         this.description = description == null ? null : description.trim();
+    }
+
+    public String toString()
+    {
+        return JSON.toJSONString(this);
     }
 }
