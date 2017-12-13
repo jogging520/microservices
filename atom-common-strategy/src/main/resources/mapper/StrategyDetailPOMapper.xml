@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.northbrain.common.strategy.com.northbrain.resource.basic.dao.StrategyDetailPOMapper">
-  <resultMap id="BaseResultMap" type="com.northbrain.common.strategy.com.northbrain.resource.basic.po.StrategyDetailPO">
+<mapper namespace="com.northbrain.common.strategy.dao.StrategyDetailPOMapper">
+  <resultMap id="BaseResultMap" type="com.northbrain.common.strategy.po.StrategyDetailPO">
     <id column="strategy_detail_id" jdbcType="INTEGER" property="strategyDetailId" />
     <result column="strategy_id" jdbcType="INTEGER" property="strategyId" />
     <result column="attribute" jdbcType="VARCHAR" property="attribute" />
@@ -25,7 +25,7 @@
     delete from strategy_detail
     where strategy_detail_id = #{strategyDetailId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.northbrain.common.strategy.com.northbrain.resource.basic.po.StrategyDetailPO">
+  <insert id="insert" parameterType="com.northbrain.common.strategy.po.StrategyDetailPO">
     insert into strategy_detail (strategy_detail_id, strategy_id, attribute, 
       value, status, create_time, 
       status_time, description)
@@ -33,7 +33,7 @@
       #{value,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{statusTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.northbrain.common.strategy.com.northbrain.resource.basic.po.StrategyDetailPO">
+  <insert id="insertSelective" parameterType="com.northbrain.common.strategy.po.StrategyDetailPO">
     insert into strategy_detail
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="strategyDetailId != null">
@@ -88,7 +88,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.common.strategy.com.northbrain.resource.basic.po.StrategyDetailPO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.common.strategy.po.StrategyDetailPO">
     update strategy_detail
     <set>
       <if test="strategyId != null">
@@ -115,7 +115,7 @@
     </set>
     where strategy_detail_id = #{strategyDetailId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.northbrain.common.strategy.com.northbrain.resource.basic.po.StrategyDetailPO">
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.common.strategy.po.StrategyDetailPO">
     update strategy_detail
     set strategy_id = #{strategyId,jdbcType=INTEGER},
       attribute = #{attribute,jdbcType=VARCHAR},
