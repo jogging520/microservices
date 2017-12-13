@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.northbrain.party.organization.dao.OrganizationHisPOMapper">
-  <resultMap id="BaseResultMap" type="com.northbrain.party.organization.model.po.OrganizationHisPO">
+<mapper namespace="com.northbrain.party.organization.com.northbrain.resource.basic.dao.OrganizationHisPOMapper">
+  <resultMap id="BaseResultMap" type="com.northbrain.party.organization.com.northbrain.resource.basic.po.OrganizationHisPO">
     <id column="record_id" jdbcType="INTEGER" property="recordId" />
     <result column="operate_type" jdbcType="VARCHAR" property="operateType" />
     <result column="organization_id" jdbcType="INTEGER" property="organizationId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="code" jdbcType="VARCHAR" property="code" />
-    <result column="domain" jdbcType="VARCHAR" property="domain" />
+    <result column="com.northbrain.resource.basic.domain" jdbcType="VARCHAR" property="com.northbrain.resource.basic.domain" />
     <result column="category" jdbcType="VARCHAR" property="category" />
     <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="parent_organization_id" jdbcType="INTEGER" property="parentOrganizationId" />
@@ -17,7 +17,7 @@
     <result column="description" jdbcType="VARCHAR" property="description" />
   </resultMap>
   <sql id="Base_Column_List">
-    record_id, operate_type, organization_id, name, code, domain, category, type, parent_organization_id, 
+    record_id, operate_type, organization_id, name, code, com.northbrain.resource.basic.domain, category, type, parent_organization_id,
     status, create_time, status_time, description
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -30,19 +30,19 @@
     delete from organization_his
     where record_id = #{recordId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.northbrain.party.organization.model.po.OrganizationHisPO">
+  <insert id="insert" parameterType="com.northbrain.party.organization.com.northbrain.resource.basic.po.OrganizationHisPO">
     insert into organization_his (record_id, operate_type, organization_id, 
-      name, code, domain, 
+      name, code, com.northbrain.resource.basic.domain,
       category, type, parent_organization_id, 
       status, create_time, status_time, 
       description)
     values (#{recordId,jdbcType=INTEGER}, #{operateType,jdbcType=VARCHAR}, #{organizationId,jdbcType=INTEGER}, 
-      #{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{domain,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR},
       #{category,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{parentOrganizationId,jdbcType=INTEGER}, 
       #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{statusTime,jdbcType=TIMESTAMP}, 
       #{description,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.northbrain.party.organization.model.po.OrganizationHisPO">
+  <insert id="insertSelective" parameterType="com.northbrain.party.organization.com.northbrain.resource.basic.po.OrganizationHisPO">
     insert into organization_his
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="recordId != null">
@@ -60,8 +60,8 @@
       <if test="code != null">
         code,
       </if>
-      <if test="domain != null">
-        domain,
+      <if test="com.northbrain.resource.basic.domain != null">
+        com.northbrain.resource.basic.domain,
       </if>
       <if test="category != null">
         category,
@@ -101,8 +101,8 @@
       <if test="code != null">
         #{code,jdbcType=VARCHAR},
       </if>
-      <if test="domain != null">
-        #{domain,jdbcType=VARCHAR},
+      <if test="com.northbrain.resource.basic.domain != null">
+        #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR},
       </if>
       <if test="category != null">
         #{category,jdbcType=VARCHAR},
@@ -127,7 +127,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.party.organization.model.po.OrganizationHisPO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.party.organization.com.northbrain.resource.basic.po.OrganizationHisPO">
     update organization_his
     <set>
       <if test="operateType != null">
@@ -142,8 +142,8 @@
       <if test="code != null">
         code = #{code,jdbcType=VARCHAR},
       </if>
-      <if test="domain != null">
-        domain = #{domain,jdbcType=VARCHAR},
+      <if test="com.northbrain.resource.basic.domain != null">
+        com.northbrain.resource.basic.domain = #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR},
       </if>
       <if test="category != null">
         category = #{category,jdbcType=VARCHAR},
@@ -169,13 +169,13 @@
     </set>
     where record_id = #{recordId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.northbrain.party.organization.model.po.OrganizationHisPO">
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.party.organization.com.northbrain.resource.basic.po.OrganizationHisPO">
     update organization_his
     set operate_type = #{operateType,jdbcType=VARCHAR},
       organization_id = #{organizationId,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},
       code = #{code,jdbcType=VARCHAR},
-      domain = #{domain,jdbcType=VARCHAR},
+      com.northbrain.resource.basic.domain = #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR},
       category = #{category,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
       parent_organization_id = #{parentOrganizationId,jdbcType=INTEGER},

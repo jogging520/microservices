@@ -5,6 +5,8 @@ import java.util.Date;
 public class StoragePO {
     private Integer storageId;
 
+    private Integer resourceId;
+
     private String domain;
 
     private String category;
@@ -27,6 +29,14 @@ public class StoragePO {
 
     public void setStorageId(Integer storageId) {
         this.storageId = storageId;
+    }
+
+    public Integer getResourceId() {
+        return resourceId;
+    }
+
+    public void setResourceId(Integer resourceId) {
+        this.resourceId = resourceId;
     }
 
     public String getDomain() {

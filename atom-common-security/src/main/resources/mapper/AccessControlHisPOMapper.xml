@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.northbrain.common.security.com.northbrain.party.organization.dao.AccessControlHisPOMapper">
-  <resultMap id="BaseResultMap" type="com.northbrain.common.security.com.northbrain.party.organization.model.po.AccessControlHisPO">
+<mapper namespace="com.northbrain.common.security.com.northbrain.party.organization.com.northbrain.resource.basic.dao.AccessControlHisPOMapper">
+  <resultMap id="BaseResultMap" type="com.northbrain.common.security.com.northbrain.party.organization.com.northbrain.resource.basic.po.AccessControlHisPO">
     <id column="record_id" jdbcType="INTEGER" property="recordId" />
     <result column="operate_type" jdbcType="VARCHAR" property="operateType" />
     <result column="access_control_id" jdbcType="INTEGER" property="accessControlId" />
@@ -26,7 +26,7 @@
     delete from access_control_his
     where record_id = #{recordId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.northbrain.common.security.com.northbrain.party.organization.model.po.AccessControlHisPO">
+  <insert id="insert" parameterType="com.northbrain.common.security.com.northbrain.party.organization.com.northbrain.resource.basic.po.AccessControlHisPO">
     insert into access_control_his (record_id, operate_type, access_control_id, 
       role_id, organization_id, privilege_id, 
       status, create_time, status_time
@@ -36,7 +36,7 @@
       #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{statusTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.northbrain.common.security.com.northbrain.party.organization.model.po.AccessControlHisPO">
+  <insert id="insertSelective" parameterType="com.northbrain.common.security.com.northbrain.party.organization.com.northbrain.resource.basic.po.AccessControlHisPO">
     insert into access_control_his
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="recordId != null">
@@ -97,7 +97,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.common.security.com.northbrain.party.organization.model.po.AccessControlHisPO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.common.security.com.northbrain.party.organization.com.northbrain.resource.basic.po.AccessControlHisPO">
     update access_control_his
     <set>
       <if test="operateType != null">
@@ -127,7 +127,7 @@
     </set>
     where record_id = #{recordId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.northbrain.common.security.com.northbrain.party.organization.model.po.AccessControlHisPO">
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.common.security.com.northbrain.party.organization.com.northbrain.resource.basic.po.AccessControlHisPO">
     update access_control_his
     set operate_type = #{operateType,jdbcType=VARCHAR},
       access_control_id = #{accessControlId,jdbcType=INTEGER},
@@ -139,7 +139,7 @@
       status_time = #{statusTime,jdbcType=TIMESTAMP}
     where record_id = #{recordId,jdbcType=INTEGER}
   </update>
-  <resultMap id="BaseResultMap" type="com.northbrain.common.security.com.northbrain.party.organization.model.po.AccessControlHisPO">
+  <resultMap id="BaseResultMap" type="com.northbrain.common.security.com.northbrain.party.organization.com.northbrain.resource.basic.po.AccessControlHisPO">
     <id column="record_id" jdbcType="INTEGER" property="recordId" />
     <result column="operate_type" jdbcType="VARCHAR" property="operateType" />
     <result column="access_control_id" jdbcType="INTEGER" property="accessControlId" />
@@ -163,7 +163,7 @@
     delete from access_control_his
     where record_id = #{recordId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.northbrain.common.security.com.northbrain.party.organization.model.po.AccessControlHisPO">
+  <insert id="insert" parameterType="com.northbrain.common.security.com.northbrain.party.organization.com.northbrain.resource.basic.po.AccessControlHisPO">
     insert into access_control_his (record_id, operate_type, access_control_id, 
       role_id, privilege_id, status, 
       create_time, status_time)
@@ -171,7 +171,7 @@
       #{roleId,jdbcType=INTEGER}, #{privilegeId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
       #{createTime,jdbcType=TIMESTAMP}, #{statusTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.northbrain.common.security.com.northbrain.party.organization.model.po.AccessControlHisPO">
+  <insert id="insertSelective" parameterType="com.northbrain.common.security.com.northbrain.party.organization.com.northbrain.resource.basic.po.AccessControlHisPO">
     insert into access_control_his
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="recordId != null">
@@ -226,7 +226,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.common.security.com.northbrain.party.organization.model.po.AccessControlHisPO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.common.security.com.northbrain.party.organization.com.northbrain.resource.basic.po.AccessControlHisPO">
     update access_control_his
     <set>
       <if test="operateType != null">
@@ -253,7 +253,7 @@
     </set>
     where record_id = #{recordId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.northbrain.common.security.com.northbrain.party.organization.model.po.AccessControlHisPO">
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.common.security.com.northbrain.party.organization.com.northbrain.resource.basic.po.AccessControlHisPO">
     update access_control_his
     set operate_type = #{operateType,jdbcType=VARCHAR},
       access_control_id = #{accessControlId,jdbcType=INTEGER},

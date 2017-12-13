@@ -6,8 +6,6 @@
       <module fileurl="file://$PROJECT_DIR$/atom-common-sequence/atom-common-sequence.iml" filepath="$PROJECT_DIR$/atom-common-sequence/atom-common-sequence.iml" />
       <module fileurl="file://$PROJECT_DIR$/atom-common-strategy/atom-common-strategy.iml" filepath="$PROJECT_DIR$/atom-common-strategy/atom-common-strategy.iml" />
       <module fileurl="file://$PROJECT_DIR$/atom-party-basic/atom-party-basic.iml" filepath="$PROJECT_DIR$/atom-party-basic/atom-party-basic.iml" />
-      <module fileurl="file://$PROJECT_DIR$/atom-party-organization/atom-party-organization.iml" filepath="$PROJECT_DIR$/atom-party-organization/atom-party-organization.iml" />
-      <module fileurl="file://$PROJECT_DIR$/atom-party-role/atom-party-role.iml" filepath="$PROJECT_DIR$/atom-party-role/atom-party-role.iml" />
       <module fileurl="file://$PROJECT_DIR$/atom-party-school/atom-party-school.iml" filepath="$PROJECT_DIR$/atom-party-school/atom-party-school.iml" />
       <module fileurl="file://$PROJECT_DIR$/atom-party-student/atom-party-student.iml" filepath="$PROJECT_DIR$/atom-party-student/atom-party-student.iml" />
       <module fileurl="file://$PROJECT_DIR$/atom-party-teacher/atom-party-teacher.iml" filepath="$PROJECT_DIR$/atom-party-teacher/atom-party-teacher.iml" />

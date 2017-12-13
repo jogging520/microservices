@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.northbrain.common.security.dao.RegistryHisPOMapper">
-  <resultMap id="BaseResultMap" type="com.northbrain.common.security.model.po.RegistryHisPO">
+<mapper namespace="com.northbrain.common.security.com.northbrain.resource.basic.dao.RegistryHisPOMapper">
+  <resultMap id="BaseResultMap" type="com.northbrain.common.security.com.northbrain.resource.basic.po.RegistryHisPO">
     <id column="record_id" jdbcType="INTEGER" property="recordId" />
     <result column="operate_type" jdbcType="VARCHAR" property="operateType" />
     <result column="registry_id" jdbcType="INTEGER" property="registryId" />
     <result column="party_id" jdbcType="INTEGER" property="partyId" />
-    <result column="domain" jdbcType="VARCHAR" property="domain" />
+    <result column="com.northbrain.resource.basic.domain" jdbcType="VARCHAR" property="com.northbrain.resource.basic.domain" />
     <result column="category" jdbcType="VARCHAR" property="category" />
     <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="status" jdbcType="INTEGER" property="status" />
@@ -15,7 +15,7 @@
     <result column="description" jdbcType="VARCHAR" property="description" />
   </resultMap>
   <sql id="Base_Column_List">
-    record_id, operate_type, registry_id, party_id, domain, category, type, status, create_time,
+    record_id, operate_type, registry_id, party_id, com.northbrain.resource.basic.domain, category, type, status, create_time,
     status_time, description
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -28,17 +28,17 @@
     delete from registry_his
     where record_id = #{recordId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.northbrain.common.security.model.po.RegistryHisPO">
+  <insert id="insert" parameterType="com.northbrain.common.security.com.northbrain.resource.basic.po.RegistryHisPO">
     insert into registry_his (record_id, operate_type, registry_id, 
-      party_id, domain, category,
+      party_id, com.northbrain.resource.basic.domain, category,
       type, status, create_time, 
       status_time, description)
     values (#{recordId,jdbcType=INTEGER}, #{operateType,jdbcType=VARCHAR}, #{registryId,jdbcType=INTEGER}, 
-      #{partyId,jdbcType=INTEGER}, #{domain,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR},
+      #{partyId,jdbcType=INTEGER}, #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR},
       #{type,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{statusTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.northbrain.common.security.model.po.RegistryHisPO">
+  <insert id="insertSelective" parameterType="com.northbrain.common.security.com.northbrain.resource.basic.po.RegistryHisPO">
     insert into registry_his
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="recordId != null">
@@ -53,8 +53,8 @@
       <if test="partyId != null">
         party_id,
       </if>
-      <if test="domain != null">
-        domain,
+      <if test="com.northbrain.resource.basic.domain != null">
+        com.northbrain.resource.basic.domain,
       </if>
       <if test="category != null">
         category,
@@ -88,8 +88,8 @@
       <if test="partyId != null">
         #{partyId,jdbcType=INTEGER},
       </if>
-      <if test="domain != null">
-        #{domain,jdbcType=VARCHAR},
+      <if test="com.northbrain.resource.basic.domain != null">
+        #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR},
       </if>
       <if test="category != null">
         #{category,jdbcType=VARCHAR},
@@ -111,7 +111,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.common.security.model.po.RegistryHisPO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.common.security.com.northbrain.resource.basic.po.RegistryHisPO">
     update registry_his
     <set>
       <if test="operateType != null">
@@ -123,8 +123,8 @@
       <if test="partyId != null">
         party_id = #{partyId,jdbcType=INTEGER},
       </if>
-      <if test="domain != null">
-        domain = #{domain,jdbcType=VARCHAR},
+      <if test="com.northbrain.resource.basic.domain != null">
+        com.northbrain.resource.basic.domain = #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR},
       </if>
       <if test="category != null">
         category = #{category,jdbcType=VARCHAR},
@@ -147,12 +147,12 @@
     </set>
     where record_id = #{recordId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.northbrain.common.security.model.po.RegistryHisPO">
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.common.security.com.northbrain.resource.basic.po.RegistryHisPO">
     update registry_his
     set operate_type = #{operateType,jdbcType=VARCHAR},
       registry_id = #{registryId,jdbcType=INTEGER},
       party_id = #{partyId,jdbcType=INTEGER},
-      domain = #{domain,jdbcType=VARCHAR},
+      com.northbrain.resource.basic.domain = #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR},
       category = #{category,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
@@ -161,13 +161,13 @@
       description = #{description,jdbcType=VARCHAR}
     where record_id = #{recordId,jdbcType=INTEGER}
   </update>
-  <resultMap id="BaseResultMap" type="com.northbrain.common.security.model.po.RegistryHisPO">
+  <resultMap id="BaseResultMap" type="com.northbrain.common.security.com.northbrain.resource.basic.po.RegistryHisPO">
     <id column="record_id" jdbcType="INTEGER" property="recordId" />
     <result column="operate_type" jdbcType="VARCHAR" property="operateType" />
     <result column="registry_id" jdbcType="INTEGER" property="registryId" />
     <result column="party_id" jdbcType="INTEGER" property="partyId" />
     <result column="role_id" jdbcType="INTEGER" property="roleId" />
-    <result column="domain" jdbcType="VARCHAR" property="domain" />
+    <result column="com.northbrain.resource.basic.domain" jdbcType="VARCHAR" property="com.northbrain.resource.basic.domain" />
     <result column="category" jdbcType="VARCHAR" property="category" />
     <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="status" jdbcType="INTEGER" property="status" />
@@ -176,7 +176,7 @@
     <result column="description" jdbcType="VARCHAR" property="description" />
   </resultMap>
   <sql id="Base_Column_List">
-    record_id, operate_type, registry_id, party_id, role_id, domain, category, type,
+    record_id, operate_type, registry_id, party_id, role_id, com.northbrain.resource.basic.domain, category, type,
     status, create_time, status_time, description
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -189,19 +189,19 @@
     delete from registry_his
     where record_id = #{recordId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.northbrain.common.security.model.po.RegistryHisPO">
+  <insert id="insert" parameterType="com.northbrain.common.security.com.northbrain.resource.basic.po.RegistryHisPO">
     insert into registry_his (record_id, operate_type, registry_id, 
-      party_id, role_id, domain,
+      party_id, role_id, com.northbrain.resource.basic.domain,
       category, type, status, 
       create_time, status_time, description
       )
     values (#{recordId,jdbcType=INTEGER}, #{operateType,jdbcType=VARCHAR}, #{registryId,jdbcType=INTEGER}, 
-      #{partyId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{domain,jdbcType=VARCHAR},
+      #{partyId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR},
       #{category,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
       #{createTime,jdbcType=TIMESTAMP}, #{statusTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.northbrain.common.security.model.po.RegistryHisPO">
+  <insert id="insertSelective" parameterType="com.northbrain.common.security.com.northbrain.resource.basic.po.RegistryHisPO">
     insert into registry_his
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="recordId != null">
@@ -219,8 +219,8 @@
       <if test="roleId != null">
         role_id,
       </if>
-      <if test="domain != null">
-        domain,
+      <if test="com.northbrain.resource.basic.domain != null">
+        com.northbrain.resource.basic.domain,
       </if>
       <if test="category != null">
         category,
@@ -257,8 +257,8 @@
       <if test="roleId != null">
         #{roleId,jdbcType=INTEGER},
       </if>
-      <if test="domain != null">
-        #{domain,jdbcType=VARCHAR},
+      <if test="com.northbrain.resource.basic.domain != null">
+        #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR},
       </if>
       <if test="category != null">
         #{category,jdbcType=VARCHAR},
@@ -280,7 +280,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.common.security.model.po.RegistryHisPO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.common.security.com.northbrain.resource.basic.po.RegistryHisPO">
     update registry_his
     <set>
       <if test="operateType != null">
@@ -295,8 +295,8 @@
       <if test="roleId != null">
         role_id = #{roleId,jdbcType=INTEGER},
       </if>
-      <if test="domain != null">
-        domain = #{domain,jdbcType=VARCHAR},
+      <if test="com.northbrain.resource.basic.domain != null">
+        com.northbrain.resource.basic.domain = #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR},
       </if>
       <if test="category != null">
         category = #{category,jdbcType=VARCHAR},
@@ -319,13 +319,13 @@
     </set>
     where record_id = #{recordId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.northbrain.common.security.model.po.RegistryHisPO">
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.common.security.com.northbrain.resource.basic.po.RegistryHisPO">
     update registry_his
     set operate_type = #{operateType,jdbcType=VARCHAR},
       registry_id = #{registryId,jdbcType=INTEGER},
       party_id = #{partyId,jdbcType=INTEGER},
       role_id = #{roleId,jdbcType=INTEGER},
-      domain = #{domain,jdbcType=VARCHAR},
+      com.northbrain.resource.basic.domain = #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR},
       category = #{category,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},

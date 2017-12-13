@@ -13,11 +13,12 @@ import com.northbrain.base.common.model.vo.SubjectionVO;
 import com.northbrain.party.basic.dao.*;
 import com.northbrain.party.basic.domain.IPartyDomain;
 import com.northbrain.party.basic.dto.IPartyDTO;
+import com.northbrain.party.basic.exception.OrganizationException;
+import com.northbrain.party.basic.exception.PartyException;
 import com.northbrain.party.basic.exception.RoleException;
 import com.northbrain.party.basic.exception.SubjectionException;
-import com.northbrain.party.basic.model.po.RoleHisPO;
-import com.northbrain.party.basic.model.po.SubjectionHisPO;
-import com.northbrain.party.basic.model.po.SubjectionPO;
+import com.northbrain.party.basic.model.po.*;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -385,7 +386,7 @@ public class PartyDomain implements IPartyDomain
 
         logger.debug(partyVO);
 
-        StrategyPO partyPO = partyDTO.convertToStrategyPO(partyVO);
+        PartyPO partyPO = partyDTO.convertToPartyPO(partyVO);
 
         if(partyPO == null)
         {
@@ -394,15 +395,15 @@ public class PartyDomain implements IPartyDomain
         }
 
         //插入在用表的同时，插入历史表，以便后续业务统计、分析、恢复等操作。
-        if(partyPOMapper.selectByPrimaryKey(partyPO.getStrategyId()) == null)
+        if(partyPOMapper.selectByPrimaryKey(partyPO.getPartyId()) == null)
         {
             if(partyPOMapper.insert(partyPO) == 0)
             {
-                logger.error(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_INSERT + String.valueOf(partyPO.getStrategyId()));
-                throw new StrategyException(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_EXCEPTION);
+                logger.error(Errors.ERROR_BUSINESS_PARTY_BASIC_INSERT + String.valueOf(partyPO.getPartyId()));
+                throw new PartyException(Errors.ERROR_BUSINESS_PARTY_BASIC_EXCEPTION);
             }
 
-            StrategyHisPO partyHisPO = partyDTO.convertToStrategyHisPO(partyVO.getRecordId(), BaseType.OPERATETYPE.CREATE.name(), partyPO);
+            PartyHisPO partyHisPO = partyDTO.convertToPartyHisPO(partyVO.getRecordId(), BaseType.OPERATETYPE.CREATE.name(), partyPO);
 
             if(partyHisPO == null)
             {
@@ -412,14 +413,14 @@ public class PartyDomain implements IPartyDomain
 
             if(partyHisPOMapper.insert(partyHisPO) == 0)
             {
-                logger.error(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_INSERT + String.valueOf(partyHisPO.getStrategyId()));
-                throw new StrategyException(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_EXCEPTION);
+                logger.error(Errors.ERROR_BUSINESS_PARTY_BASIC_INSERT + String.valueOf(partyHisPO.getPartyId()));
+                throw new PartyException(Errors.ERROR_BUSINESS_PARTY_BASIC_EXCEPTION);
             }
         }
 
-        if(partyVO.getStrategyDetailVOS() != null && partyVO.getStrategyDetailVOS().size() > 0)
+        if(partyVO.getPartyDetailVOS() != null && partyVO.getPartyDetailVOS().size() > 0)
         {
-            List<StrategyDetailPO> partyDetailPOS = partyDTO.convertToStrategyDetailPOS(partyVO);
+            List<PartyDetailPO> partyDetailPOS = partyDTO.convertToPartyDetailPOS(partyVO);
 
             if (partyDetailPOS == null || partyDetailPOS.size() == 0)
             {
@@ -427,18 +428,18 @@ public class PartyDomain implements IPartyDomain
                 throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
             }
 
-            for(StrategyDetailPO partyDetailPO: partyDetailPOS)
+            for(PartyDetailPO partyDetailPO: partyDetailPOS)
             {
                 //插入在用表的同时，插入历史表，以便后续业务统计、分析、恢复等操作。
-                if(partyDetailPOMapper.selectByPrimaryKey(partyDetailPO.getStrategyDetailId()) == null)
+                if(partyDetailPOMapper.selectByPrimaryKey(partyDetailPO.getPartyDetailId()) == null)
                 {
                     if (partyDetailPOMapper.insert(partyDetailPO) == 0)
                     {
-                        logger.error(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_INSERT + String.valueOf(partyDetailPO.getStrategyDetailId()));
-                        throw new StrategyException(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_EXCEPTION);
+                        logger.error(Errors.ERROR_BUSINESS_PARTY_BASIC_INSERT + String.valueOf(partyDetailPO.getPartyDetailId()));
+                        throw new PartyException(Errors.ERROR_BUSINESS_PARTY_BASIC_EXCEPTION);
                     }
 
-                    StrategyDetailHisPO partyDetailHisPO = partyDTO.convertToStrategyDetailHisPO(partyVO.getRecordId(), BaseType.OPERATETYPE.CREATE.name(), partyDetailPO);
+                    PartyDetailHisPO partyDetailHisPO = partyDTO.convertToPartyDetailHisPO(partyVO.getRecordId(), BaseType.OPERATETYPE.CREATE.name(), partyDetailPO);
 
                     if(partyDetailHisPO == null)
                     {
@@ -448,8 +449,8 @@ public class PartyDomain implements IPartyDomain
 
                     if (partyDetailHisPOMapper.insert(partyDetailHisPO) == 0)
                     {
-                        logger.error(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_INSERT + String.valueOf(partyDetailHisPO.getStrategyDetailId()));
-                        throw new StrategyException(Errors.ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_EXCEPTION);
+                        logger.error(Errors.ERROR_BUSINESS_PARTY_BASIC_INSERT + String.valueOf(partyDetailHisPO.getPartyDetailId()));
+                        throw new PartyException(Errors.ERROR_BUSINESS_PARTY_BASIC_EXCEPTION);
                     }
                 }
             }
@@ -468,7 +469,115 @@ public class PartyDomain implements IPartyDomain
     @Override
     public boolean updateParty(PartyVO partyVO) throws Exception
     {
-        return false;
+        if(partyVO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "partyVO");
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        if(partyPOMapper == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "partyPOMapper");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        if(partyHisPOMapper == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "partyHisPOMapper");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        if(partyDetailPOMapper == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "partyDetailPOMapper");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        if(partyDetailHisPOMapper == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "partyDetailHisPOMapper");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        if(partyDTO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "partyDTO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        logger.debug(partyVO);
+
+        PartyPO partyPO = partyDTO.convertToPartyPO(partyVO);
+
+        if(partyPO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "partyPO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        //插入在用表的同时，插入历史表，以便后续业务统计、分析、恢复等操作。
+        if(partyPOMapper.selectByPrimaryKey(partyPO.getPartyId()) == null)
+        {
+            if(partyPOMapper.updateByPrimaryKey(partyPO) == 0)
+            {
+                logger.error(Errors.ERROR_BUSINESS_PARTY_BASIC_UPDATE + String.valueOf(partyPO.getPartyId()));
+                throw new PartyException(Errors.ERROR_BUSINESS_PARTY_BASIC_EXCEPTION);
+            }
+
+            PartyHisPO partyHisPO = partyDTO.convertToPartyHisPO(partyVO.getRecordId(), BaseType.OPERATETYPE.UPDATE.name(), partyPO);
+
+            if(partyHisPO == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "partyHisPO");
+                throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+            }
+
+            if(partyHisPOMapper.insert(partyHisPO) == 0)
+            {
+                logger.error(Errors.ERROR_BUSINESS_PARTY_BASIC_INSERT + String.valueOf(partyHisPO.getPartyId()));
+                throw new PartyException(Errors.ERROR_BUSINESS_PARTY_BASIC_EXCEPTION);
+            }
+        }
+
+        if(partyVO.getPartyDetailVOS() != null && partyVO.getPartyDetailVOS().size() > 0)
+        {
+            List<PartyDetailPO> partyDetailPOS = partyDTO.convertToPartyDetailPOS(partyVO);
+
+            if (partyDetailPOS == null || partyDetailPOS.size() == 0)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "partyDetailPOS");
+                throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+            }
+
+            for(PartyDetailPO partyDetailPO: partyDetailPOS)
+            {
+                //插入在用表的同时，插入历史表，以便后续业务统计、分析、恢复等操作。
+                if(partyDetailPOMapper.selectByPrimaryKey(partyDetailPO.getPartyDetailId()) == null)
+                {
+                    if (partyDetailPOMapper.updateByPrimaryKey(partyDetailPO) == 0)
+                    {
+                        logger.error(Errors.ERROR_BUSINESS_PARTY_BASIC_UPDATE + String.valueOf(partyDetailPO.getPartyDetailId()));
+                        throw new PartyException(Errors.ERROR_BUSINESS_PARTY_BASIC_EXCEPTION);
+                    }
+
+                    PartyDetailHisPO partyDetailHisPO = partyDTO.convertToPartyDetailHisPO(partyVO.getRecordId(), BaseType.OPERATETYPE.UPDATE.name(), partyDetailPO);
+
+                    if(partyDetailHisPO == null)
+                    {
+                        logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "partyDetailHisPO");
+                        throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+                    }
+
+                    if (partyDetailHisPOMapper.insert(partyDetailHisPO) == 0)
+                    {
+                        logger.error(Errors.ERROR_BUSINESS_PARTY_BASIC_INSERT + String.valueOf(partyDetailHisPO.getPartyDetailId()));
+                        throw new PartyException(Errors.ERROR_BUSINESS_PARTY_BASIC_EXCEPTION);
+                    }
+                }
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -481,7 +590,115 @@ public class PartyDomain implements IPartyDomain
     @Override
     public boolean deleteParty(PartyVO partyVO) throws Exception
     {
-        return false;
+        if(partyVO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "partyVO");
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        if(partyPOMapper == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "partyPOMapper");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        if(partyHisPOMapper == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "partyHisPOMapper");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        if(partyDetailPOMapper == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "partyDetailPOMapper");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        if(partyDetailHisPOMapper == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "partyDetailHisPOMapper");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        if(partyDTO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "partyDTO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        logger.debug(partyVO);
+
+        PartyPO partyPO = partyDTO.convertToPartyPO(partyVO);
+
+        if(partyPO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "partyPO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        //插入在用表的同时，插入历史表，以便后续业务统计、分析、恢复等操作。
+        if(partyPOMapper.selectByPrimaryKey(partyPO.getPartyId()) == null)
+        {
+            if(partyPOMapper.deleteByPrimaryKey(partyPO.getPartyId()) == 0)
+            {
+                logger.error(Errors.ERROR_BUSINESS_PARTY_BASIC_DELETE + String.valueOf(partyPO.getPartyId()));
+                throw new PartyException(Errors.ERROR_BUSINESS_PARTY_BASIC_EXCEPTION);
+            }
+
+            PartyHisPO partyHisPO = partyDTO.convertToPartyHisPO(partyVO.getRecordId(), BaseType.OPERATETYPE.DELETE.name(), partyPO);
+
+            if(partyHisPO == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "partyHisPO");
+                throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+            }
+
+            if(partyHisPOMapper.insert(partyHisPO) == 0)
+            {
+                logger.error(Errors.ERROR_BUSINESS_PARTY_BASIC_INSERT + String.valueOf(partyHisPO.getPartyId()));
+                throw new PartyException(Errors.ERROR_BUSINESS_PARTY_BASIC_EXCEPTION);
+            }
+        }
+
+        if(partyVO.getPartyDetailVOS() != null && partyVO.getPartyDetailVOS().size() > 0)
+        {
+            List<PartyDetailPO> partyDetailPOS = partyDTO.convertToPartyDetailPOS(partyVO);
+
+            if (partyDetailPOS == null || partyDetailPOS.size() == 0)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "partyDetailPOS");
+                throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+            }
+
+            for(PartyDetailPO partyDetailPO: partyDetailPOS)
+            {
+                //插入在用表的同时，插入历史表，以便后续业务统计、分析、恢复等操作。
+                if(partyDetailPOMapper.selectByPrimaryKey(partyDetailPO.getPartyDetailId()) == null)
+                {
+                    if (partyDetailPOMapper.deleteByPrimaryKey(partyDetailPO.getPartyDetailId()) == 0)
+                    {
+                        logger.error(Errors.ERROR_BUSINESS_PARTY_BASIC_DELETE + String.valueOf(partyDetailPO.getPartyDetailId()));
+                        throw new PartyException(Errors.ERROR_BUSINESS_PARTY_BASIC_EXCEPTION);
+                    }
+
+                    PartyDetailHisPO partyDetailHisPO = partyDTO.convertToPartyDetailHisPO(partyVO.getRecordId(), BaseType.OPERATETYPE.DELETE.name(), partyDetailPO);
+
+                    if(partyDetailHisPO == null)
+                    {
+                        logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "partyDetailHisPO");
+                        throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+                    }
+
+                    if (partyDetailHisPOMapper.insert(partyDetailHisPO) == 0)
+                    {
+                        logger.error(Errors.ERROR_BUSINESS_PARTY_BASIC_INSERT + String.valueOf(partyDetailHisPO.getPartyDetailId()));
+                        throw new PartyException(Errors.ERROR_BUSINESS_PARTY_BASIC_EXCEPTION);
+                    }
+                }
+            }
+        }
+
+        return true;
     }
 
     /**

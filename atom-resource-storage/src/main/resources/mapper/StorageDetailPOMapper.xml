@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.northbrain.resource.storage.dao.StorageDetailPOMapper">
-  <resultMap id="BaseResultMap" type="com.northbrain.resource.storage.model.po.StorageDetailPO">
+<mapper namespace="com.northbrain.resource.storage.com.northbrain.resource.basic.dao.StorageDetailPOMapper">
+  <resultMap id="BaseResultMap" type="com.northbrain.resource.storage.com.northbrain.resource.basic.po.StorageDetailPO">
     <id column="storage_detail_id" jdbcType="INTEGER" property="storageDetailId" />
     <result column="storage_id" jdbcType="INTEGER" property="storageId" />
     <result column="attribute" jdbcType="VARCHAR" property="attribute" />
@@ -25,7 +25,7 @@
     delete from storage_detail
     where storage_detail_id = #{storageDetailId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.northbrain.resource.storage.model.po.StorageDetailPO">
+  <insert id="insert" parameterType="com.northbrain.resource.storage.com.northbrain.resource.basic.po.StorageDetailPO">
     insert into storage_detail (storage_detail_id, storage_id, attribute, 
       value, status, create_time, 
       status_time, description)
@@ -33,7 +33,7 @@
       #{value,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{statusTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.northbrain.resource.storage.model.po.StorageDetailPO">
+  <insert id="insertSelective" parameterType="com.northbrain.resource.storage.com.northbrain.resource.basic.po.StorageDetailPO">
     insert into storage_detail
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="storageDetailId != null">
@@ -88,7 +88,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.resource.storage.model.po.StorageDetailPO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.resource.storage.com.northbrain.resource.basic.po.StorageDetailPO">
     update storage_detail
     <set>
       <if test="storageId != null">
@@ -115,7 +115,7 @@
     </set>
     where storage_detail_id = #{storageDetailId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.northbrain.resource.storage.model.po.StorageDetailPO">
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.resource.storage.com.northbrain.resource.basic.po.StorageDetailPO">
     update storage_detail
     set storage_id = #{storageId,jdbcType=INTEGER},
       attribute = #{attribute,jdbcType=VARCHAR},

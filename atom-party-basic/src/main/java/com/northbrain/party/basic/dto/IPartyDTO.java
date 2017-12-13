@@ -56,7 +56,7 @@ public interface IPartyDTO
      * @return 参与者持久化对象
      * @throws Exception 异常
      */
-    PartyPO convertToStrategyPO(PartyVO partyVO) throws Exception;
+    PartyPO convertToPartyPO(PartyVO partyVO) throws Exception;
 
     /**
      * 方法：将参与者值对象转换成参与者明细持久化对象列表

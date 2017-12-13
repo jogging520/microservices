@@ -50,6 +50,7 @@ public class Constants
     public static final String BUSINESS_COMMON_STRATEGY_ATOM_MICROSERVICE                               = "atom-common-strategy";                       //原子微服务：配置-策略
 
     public static final String BUSINESS_PRODUCT_COURSE_ATOM_MICROSERVICE                                = "atom-product-course";                        //原子微服务：产品-课程
+    public static final String BUSINESS_RESOURCE_BASIC_ATOM_MICROSERVICE                                = "atom-resource-basic";                      //原子微服务：资源-存储
     public static final String BUSINESS_RESOURCE_STORAGE_ATOM_MICROSERVICE                              = "atom-resource-storage";                      //原子微服务：资源-存储
     public static final String BUSINESS_RELATION_OPERATION_RECORD_ATOM_MICROSERVICE                     = "atom-relation-operation-record";             //原子微服务：关系-操作记录
     public static final String BUSINESS_PARTY_ROLE_ATOM_MICROSERVICE                                    = "atom-party-role";                            //原子微服务：参与者-角色
@@ -119,7 +120,9 @@ public class Constants
 
     public static final String URI_ATOM_RELATION_OPERATION_RECORD_REQUEST_MAPPING                       = "/relation/operationrecord";                  //原子服务URI：操作记录
 
+    public static final String URI_ATOM_PARTY_BASIC_REQUEST_MAPPING                                     = "/party/basic";                               //原子服务URI：参与者
     public static final String URI_ATOM_PARTY_ROLE_SPECIFIED_REQUEST_MAPPING                            = "/party/role/{name}";                         //原子服务URI：指定的参与者角色
+    public static final String URI_ATOM_PARTY_ROLE_REQUEST_MAPPING                                      = "/party/role";                                //原子服务URI：角色
     public static final String URI_ATOM_PARTY_ORGANIZATION_REQUEST_MAPPING                              = "/party/organization";                        //原子服务URI：组织机构
     public static final String URI_ATOM_PARTY_SUBJECTION_REQUEST_MAPPING                                = "/party/subjection";                          //原子服务URI：隶属关系
 

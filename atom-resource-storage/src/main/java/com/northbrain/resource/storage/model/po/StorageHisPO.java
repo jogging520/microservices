@@ -2,12 +2,15 @@ package com.northbrain.resource.storage.model.po;
 
 import java.util.Date;
 
-public class StorageHisPO {
+public class StorageHisPO
+{
     private Integer recordId;
 
     private String operateType;
 
     private Integer storageId;
+
+    private Integer resourceId;
 
     private String domain;
 
@@ -47,6 +50,14 @@ public class StorageHisPO {
 
     public void setStorageId(Integer storageId) {
         this.storageId = storageId;
+    }
+
+    public Integer getResourceId() {
+        return resourceId;
+    }
+
+    public void setResourceId(Integer resourceId) {
+        this.resourceId = resourceId;
     }
 
     public String getDomain() {

@@ -18,6 +18,9 @@ public class StorageVO extends BasicVO
     //存储编号
     private Integer storageId;
 
+    //资源编号
+    private Integer resourceId;
+
     //资源位置
     private String uri;
 
@@ -29,6 +32,14 @@ public class StorageVO extends BasicVO
 
     public void setStorageId(Integer storageId) {
         this.storageId = storageId;
+    }
+
+    public Integer getResourceId() {
+        return resourceId;
+    }
+
+    public void setResourceId(Integer resourceId) {
+        this.resourceId = resourceId;
     }
 
     public String getUri() {

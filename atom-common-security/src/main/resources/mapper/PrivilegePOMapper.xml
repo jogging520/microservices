@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.northbrain.common.security.dao.PrivilegePOMapper">
-  <resultMap id="BaseResultMap" type="com.northbrain.common.security.model.po.PrivilegePO">
+<mapper namespace="com.northbrain.common.security.com.northbrain.resource.basic.dao.PrivilegePOMapper">
+  <resultMap id="BaseResultMap" type="com.northbrain.common.security.com.northbrain.resource.basic.po.PrivilegePO">
     <id column="privilege_id" jdbcType="INTEGER" property="privilegeId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="domain" jdbcType="VARCHAR" property="domain" />
+    <result column="com.northbrain.resource.basic.domain" jdbcType="VARCHAR" property="com.northbrain.resource.basic.domain" />
     <result column="category" jdbcType="VARCHAR" property="category" />
     <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="status" jdbcType="INTEGER" property="status" />
@@ -13,7 +13,7 @@
     <result column="description" jdbcType="VARCHAR" property="description" />
   </resultMap>
   <sql id="Base_Column_List">
-    privilege_id, name, domain, category, type, status, create_time, status_time, description
+    privilege_id, name, com.northbrain.resource.basic.domain, category, type, status, create_time, status_time, description
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -25,17 +25,17 @@
     delete from privilege
     where privilege_id = #{privilegeId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.northbrain.common.security.model.po.PrivilegePO">
-    insert into privilege (privilege_id, name, domain,
+  <insert id="insert" parameterType="com.northbrain.common.security.com.northbrain.resource.basic.po.PrivilegePO">
+    insert into privilege (privilege_id, name, com.northbrain.resource.basic.domain,
       category, type, status, 
       create_time, status_time, description
       )
-    values (#{privilegeId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{domain,jdbcType=VARCHAR},
+    values (#{privilegeId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR},
       #{category,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
       #{createTime,jdbcType=TIMESTAMP}, #{statusTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.northbrain.common.security.model.po.PrivilegePO">
+  <insert id="insertSelective" parameterType="com.northbrain.common.security.com.northbrain.resource.basic.po.PrivilegePO">
     insert into privilege
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="privilegeId != null">
@@ -44,8 +44,8 @@
       <if test="name != null">
         name,
       </if>
-      <if test="domain != null">
-        domain,
+      <if test="com.northbrain.resource.basic.domain != null">
+        com.northbrain.resource.basic.domain,
       </if>
       <if test="category != null">
         category,
@@ -73,8 +73,8 @@
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="domain != null">
-        #{domain,jdbcType=VARCHAR},
+      <if test="com.northbrain.resource.basic.domain != null">
+        #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR},
       </if>
       <if test="category != null">
         #{category,jdbcType=VARCHAR},
@@ -96,14 +96,14 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.common.security.model.po.PrivilegePO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.common.security.com.northbrain.resource.basic.po.PrivilegePO">
     update privilege
     <set>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="domain != null">
-        domain = #{domain,jdbcType=VARCHAR},
+      <if test="com.northbrain.resource.basic.domain != null">
+        com.northbrain.resource.basic.domain = #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR},
       </if>
       <if test="category != null">
         category = #{category,jdbcType=VARCHAR},
@@ -126,10 +126,10 @@
     </set>
     where privilege_id = #{privilegeId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.northbrain.common.security.model.po.PrivilegePO">
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.common.security.com.northbrain.resource.basic.po.PrivilegePO">
     update privilege
     set name = #{name,jdbcType=VARCHAR},
-      domain = #{domain,jdbcType=VARCHAR},
+      com.northbrain.resource.basic.domain = #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR},
       category = #{category,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},

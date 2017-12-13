@@ -213,7 +213,7 @@ public class PartyDTO implements IPartyDTO
      * @throws Exception 异常
      */
     @Override
-    public PartyPO convertToStrategyPO(PartyVO partyVO) throws Exception
+    public PartyPO convertToPartyPO(PartyVO partyVO) throws Exception
     {
         if(partyVO == null)
         {

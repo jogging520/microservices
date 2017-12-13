@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.northbrain.common.security.dao.LoginPOMapper">
-  <resultMap id="BaseResultMap" type="com.northbrain.common.security.model.po.LoginPO">
+<mapper namespace="com.northbrain.common.security.com.northbrain.resource.basic.dao.LoginPOMapper">
+  <resultMap id="BaseResultMap" type="com.northbrain.common.security.com.northbrain.resource.basic.po.LoginPO">
     <id column="login_id" jdbcType="INTEGER" property="loginId" />
     <result column="registry_id" jdbcType="INTEGER" property="registryId" />
     <result column="party_id" jdbcType="INTEGER" property="partyId" />
     <result column="role_id" jdbcType="INTEGER" property="roleId" />
     <result column="organization_id" jdbcType="INTEGER" property="organizationId" />
-    <result column="domain" jdbcType="VARCHAR" property="domain" />
+    <result column="com.northbrain.resource.basic.domain" jdbcType="VARCHAR" property="com.northbrain.resource.basic.domain" />
     <result column="category" jdbcType="VARCHAR" property="category" />
     <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="status" jdbcType="INTEGER" property="status" />
@@ -16,7 +16,7 @@
     <result column="description" jdbcType="VARCHAR" property="description" />
   </resultMap>
   <sql id="Base_Column_List">
-    login_id, registry_id, party_id, role_id, organization_id, domain, category, type,
+    login_id, registry_id, party_id, role_id, organization_id, com.northbrain.resource.basic.domain, category, type,
     status, login_time, logout_time, description
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -35,19 +35,19 @@
     delete from login
     where login_id = #{loginId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.northbrain.common.security.model.po.LoginPO">
+  <insert id="insert" parameterType="com.northbrain.common.security.com.northbrain.resource.basic.po.LoginPO">
     insert into login (login_id, registry_id, party_id, 
-      role_id, organization_id, domain,
+      role_id, organization_id, com.northbrain.resource.basic.domain,
       category, type, status, 
       login_time, logout_time, description
       )
     values (#{loginId,jdbcType=INTEGER}, #{registryId,jdbcType=INTEGER}, #{partyId,jdbcType=INTEGER}, 
-      #{roleId,jdbcType=INTEGER}, #{organizationId,jdbcType=INTEGER}, #{domain,jdbcType=VARCHAR},
+      #{roleId,jdbcType=INTEGER}, #{organizationId,jdbcType=INTEGER}, #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR},
       #{category,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
       #{loginTime,jdbcType=TIMESTAMP}, #{logoutTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.northbrain.common.security.model.po.LoginPO">
+  <insert id="insertSelective" parameterType="com.northbrain.common.security.com.northbrain.resource.basic.po.LoginPO">
     insert into login
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="loginId != null">
@@ -65,8 +65,8 @@
       <if test="organizationId != null">
         organization_id,
       </if>
-      <if test="domain != null">
-        domain,
+      <if test="com.northbrain.resource.basic.domain != null">
+        com.northbrain.resource.basic.domain,
       </if>
       <if test="category != null">
         category,
@@ -103,8 +103,8 @@
       <if test="organizationId != null">
         #{organizationId,jdbcType=INTEGER},
       </if>
-      <if test="domain != null">
-        #{domain,jdbcType=VARCHAR},
+      <if test="com.northbrain.resource.basic.domain != null">
+        #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR},
       </if>
       <if test="category != null">
         #{category,jdbcType=VARCHAR},
@@ -126,7 +126,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.common.security.model.po.LoginPO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.common.security.com.northbrain.resource.basic.po.LoginPO">
     update login
     <set>
       <if test="registryId != null">
@@ -141,8 +141,8 @@
       <if test="organizationId != null">
         organization_id = #{organizationId,jdbcType=INTEGER},
       </if>
-      <if test="domain != null">
-        domain = #{domain,jdbcType=VARCHAR},
+      <if test="com.northbrain.resource.basic.domain != null">
+        com.northbrain.resource.basic.domain = #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR},
       </if>
       <if test="category != null">
         category = #{category,jdbcType=VARCHAR},
@@ -165,13 +165,13 @@
     </set>
     where login_id = #{loginId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.northbrain.common.security.model.po.LoginPO">
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.common.security.com.northbrain.resource.basic.po.LoginPO">
     update login
     set registry_id = #{registryId,jdbcType=INTEGER},
       party_id = #{partyId,jdbcType=INTEGER},
       role_id = #{roleId,jdbcType=INTEGER},
       organization_id = #{organizationId,jdbcType=INTEGER},
-      domain = #{domain,jdbcType=VARCHAR},
+      com.northbrain.resource.basic.domain = #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR},
       category = #{category,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
@@ -180,12 +180,12 @@
       description = #{description,jdbcType=VARCHAR}
     where login_id = #{loginId,jdbcType=INTEGER}
   </update>
-  <resultMap id="BaseResultMap" type="com.northbrain.common.security.model.po.LoginPO">
+  <resultMap id="BaseResultMap" type="com.northbrain.common.security.com.northbrain.resource.basic.po.LoginPO">
     <id column="login_id" jdbcType="INTEGER" property="loginId" />
     <result column="registry_id" jdbcType="INTEGER" property="registryId" />
     <result column="party_id" jdbcType="INTEGER" property="partyId" />
     <result column="role_id" jdbcType="INTEGER" property="roleId" />
-    <result column="domain" jdbcType="VARCHAR" property="domain" />
+    <result column="com.northbrain.resource.basic.domain" jdbcType="VARCHAR" property="com.northbrain.resource.basic.domain" />
     <result column="category" jdbcType="VARCHAR" property="category" />
     <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="status" jdbcType="INTEGER" property="status" />
@@ -194,7 +194,7 @@
     <result column="description" jdbcType="VARCHAR" property="description" />
   </resultMap>
   <sql id="Base_Column_List">
-    login_id, registry_id, party_id, role_id, domain, category, type, status, login_time,
+    login_id, registry_id, party_id, role_id, com.northbrain.resource.basic.domain, category, type, status, login_time,
     logout_time, description
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -207,17 +207,17 @@
     delete from login
     where login_id = #{loginId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.northbrain.common.security.model.po.LoginPO">
+  <insert id="insert" parameterType="com.northbrain.common.security.com.northbrain.resource.basic.po.LoginPO">
     insert into login (login_id, registry_id, party_id, 
-      role_id, domain, category,
+      role_id, com.northbrain.resource.basic.domain, category,
       type, status, login_time, 
       logout_time, description)
     values (#{loginId,jdbcType=INTEGER}, #{registryId,jdbcType=INTEGER}, #{partyId,jdbcType=INTEGER}, 
-      #{roleId,jdbcType=INTEGER}, #{domain,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR},
+      #{roleId,jdbcType=INTEGER}, #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR},
       #{type,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{loginTime,jdbcType=TIMESTAMP}, 
       #{logoutTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.northbrain.common.security.model.po.LoginPO">
+  <insert id="insertSelective" parameterType="com.northbrain.common.security.com.northbrain.resource.basic.po.LoginPO">
     insert into login
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="loginId != null">
@@ -232,8 +232,8 @@
       <if test="roleId != null">
         role_id,
       </if>
-      <if test="domain != null">
-        domain,
+      <if test="com.northbrain.resource.basic.domain != null">
+        com.northbrain.resource.basic.domain,
       </if>
       <if test="category != null">
         category,
@@ -267,8 +267,8 @@
       <if test="roleId != null">
         #{roleId,jdbcType=INTEGER},
       </if>
-      <if test="domain != null">
-        #{domain,jdbcType=VARCHAR},
+      <if test="com.northbrain.resource.basic.domain != null">
+        #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR},
       </if>
       <if test="category != null">
         #{category,jdbcType=VARCHAR},
@@ -290,7 +290,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.common.security.model.po.LoginPO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.common.security.com.northbrain.resource.basic.po.LoginPO">
     update login
     <set>
       <if test="registryId != null">
@@ -302,8 +302,8 @@
       <if test="roleId != null">
         role_id = #{roleId,jdbcType=INTEGER},
       </if>
-      <if test="domain != null">
-        domain = #{domain,jdbcType=VARCHAR},
+      <if test="com.northbrain.resource.basic.domain != null">
+        com.northbrain.resource.basic.domain = #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR},
       </if>
       <if test="category != null">
         category = #{category,jdbcType=VARCHAR},
@@ -326,12 +326,12 @@
     </set>
     where login_id = #{loginId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.northbrain.common.security.model.po.LoginPO">
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.common.security.com.northbrain.resource.basic.po.LoginPO">
     update login
     set registry_id = #{registryId,jdbcType=INTEGER},
       party_id = #{partyId,jdbcType=INTEGER},
       role_id = #{roleId,jdbcType=INTEGER},
-      domain = #{domain,jdbcType=VARCHAR},
+      com.northbrain.resource.basic.domain = #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR},
       category = #{category,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},

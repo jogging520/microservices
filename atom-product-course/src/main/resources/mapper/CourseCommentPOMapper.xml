@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.northbrain.product.course.dao.CourseCommentPOMapper">
-  <resultMap id="BaseResultMap" type="com.northbrain.product.course.model.po.CourseCommentPO">
+<mapper namespace="com.northbrain.product.course.com.northbrain.resource.basic.dao.CourseCommentPOMapper">
+  <resultMap id="BaseResultMap" type="com.northbrain.product.course.com.northbrain.resource.basic.po.CourseCommentPO">
     <id column="comment_id" jdbcType="INTEGER" property="commentId" />
     <result column="course_id" jdbcType="INTEGER" property="courseId" />
     <result column="status" jdbcType="INTEGER" property="status" />
@@ -22,7 +22,7 @@
     delete from course_comment
     where comment_id = #{commentId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.northbrain.product.course.model.po.CourseCommentPO">
+  <insert id="insert" parameterType="com.northbrain.product.course.com.northbrain.resource.basic.po.CourseCommentPO">
     insert into course_comment (comment_id, course_id, status, 
       create_time, status_time, description
       )
@@ -30,7 +30,7 @@
       #{createTime,jdbcType=TIMESTAMP}, #{statusTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.northbrain.product.course.model.po.CourseCommentPO">
+  <insert id="insertSelective" parameterType="com.northbrain.product.course.com.northbrain.resource.basic.po.CourseCommentPO">
     insert into course_comment
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="commentId != null">
@@ -73,7 +73,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.product.course.model.po.CourseCommentPO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.product.course.com.northbrain.resource.basic.po.CourseCommentPO">
     update course_comment
     <set>
       <if test="courseId != null">
@@ -94,7 +94,7 @@
     </set>
     where comment_id = #{commentId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.northbrain.product.course.model.po.CourseCommentPO">
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.product.course.com.northbrain.resource.basic.po.CourseCommentPO">
     update course_comment
     set course_id = #{courseId,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.northbrain.product.course.dao.CourseDetailHisPOMapper">
-  <resultMap id="BaseResultMap" type="com.northbrain.product.course.model.po.CourseDetailHisPO">
+<mapper namespace="com.northbrain.product.course.com.northbrain.resource.basic.dao.CourseDetailHisPOMapper">
+  <resultMap id="BaseResultMap" type="com.northbrain.product.course.com.northbrain.resource.basic.po.CourseDetailHisPO">
     <id column="record_id" jdbcType="INTEGER" property="recordId" />
     <result column="operate_type" jdbcType="VARCHAR" property="operateType" />
     <result column="course_detail_id" jdbcType="INTEGER" property="courseDetailId" />
@@ -27,7 +27,7 @@
     delete from course_detail_his
     where record_id = #{recordId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.northbrain.product.course.model.po.CourseDetailHisPO">
+  <insert id="insert" parameterType="com.northbrain.product.course.com.northbrain.resource.basic.po.CourseDetailHisPO">
     insert into course_detail_his (record_id, operate_type, course_detail_id, 
       course_id, attribute, value, 
       status, create_time, status_time, 
@@ -37,7 +37,7 @@
       #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{statusTime,jdbcType=TIMESTAMP}, 
       #{description,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.northbrain.product.course.model.po.CourseDetailHisPO">
+  <insert id="insertSelective" parameterType="com.northbrain.product.course.com.northbrain.resource.basic.po.CourseDetailHisPO">
     insert into course_detail_his
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="recordId != null">
@@ -104,7 +104,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.product.course.model.po.CourseDetailHisPO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.product.course.com.northbrain.resource.basic.po.CourseDetailHisPO">
     update course_detail_his
     <set>
       <if test="operateType != null">
@@ -137,7 +137,7 @@
     </set>
     where record_id = #{recordId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.northbrain.product.course.model.po.CourseDetailHisPO">
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.product.course.com.northbrain.resource.basic.po.CourseDetailHisPO">
     update course_detail_his
     set operate_type = #{operateType,jdbcType=VARCHAR},
       course_detail_id = #{courseDetailId,jdbcType=INTEGER},

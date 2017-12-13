@@ -10,8 +10,6 @@
         <module name="atom-common-sequence" />
         <module name="atom-common-strategy" />
         <module name="atom-party-basic" />
-        <module name="atom-party-organization" />
-        <module name="atom-party-role" />
         <module name="atom-party-school" />
         <module name="atom-party-student" />
         <module name="atom-party-teacher" />
