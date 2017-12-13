@@ -53,6 +53,7 @@ public class StorageDTO implements IStorageDTO
 
         storageVO.setRecordId(Constants.BUSINESS_COMMON_OPERATION_RECORD_DEFAULT_ID);
         storageVO.setStorageId(storagePO.getStorageId());
+        storageVO.setDomain(storagePO.getDomain());
         storageVO.setCategory(storagePO.getCategory());
         storageVO.setType(storagePO.getType());
         storageVO.setUri(storagePO.getUri());
@@ -109,6 +110,7 @@ public class StorageDTO implements IStorageDTO
         StoragePO storagePO = new StoragePO();
 
         storagePO.setStorageId(storageVO.getStorageId());
+        storagePO.setDomain(storageVO.getDomain());
         storagePO.setCategory(storageVO.getCategory());
         storagePO.setType(storageVO.getType());
         storagePO.setUri(storageVO.getUri());
@@ -202,6 +204,7 @@ public class StorageDTO implements IStorageDTO
         storageHisPO.setRecordId(recordId);
         storageHisPO.setOperateType(operateType);
         storageHisPO.setStorageId(storagePO.getStorageId());
+        storageHisPO.setDomain(storagePO.getDomain());
         storageHisPO.setCategory(storagePO.getCategory());
         storageHisPO.setType(storagePO.getType());
         storageHisPO.setUri(storagePO.getUri());

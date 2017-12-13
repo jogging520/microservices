@@ -5,13 +5,16 @@
       <module fileurl="file://$PROJECT_DIR$/atom-common-security/atom-common-security.iml" filepath="$PROJECT_DIR$/atom-common-security/atom-common-security.iml" />
       <module fileurl="file://$PROJECT_DIR$/atom-common-sequence/atom-common-sequence.iml" filepath="$PROJECT_DIR$/atom-common-sequence/atom-common-sequence.iml" />
       <module fileurl="file://$PROJECT_DIR$/atom-common-strategy/atom-common-strategy.iml" filepath="$PROJECT_DIR$/atom-common-strategy/atom-common-strategy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/atom-party-basic/atom-party-basic.iml" filepath="$PROJECT_DIR$/atom-party-basic/atom-party-basic.iml" />
       <module fileurl="file://$PROJECT_DIR$/atom-party-organization/atom-party-organization.iml" filepath="$PROJECT_DIR$/atom-party-organization/atom-party-organization.iml" />
       <module fileurl="file://$PROJECT_DIR$/atom-party-role/atom-party-role.iml" filepath="$PROJECT_DIR$/atom-party-role/atom-party-role.iml" />
       <module fileurl="file://$PROJECT_DIR$/atom-party-school/atom-party-school.iml" filepath="$PROJECT_DIR$/atom-party-school/atom-party-school.iml" />
       <module fileurl="file://$PROJECT_DIR$/atom-party-student/atom-party-student.iml" filepath="$PROJECT_DIR$/atom-party-student/atom-party-student.iml" />
       <module fileurl="file://$PROJECT_DIR$/atom-party-teacher/atom-party-teacher.iml" filepath="$PROJECT_DIR$/atom-party-teacher/atom-party-teacher.iml" />
+      <module fileurl="file://$PROJECT_DIR$/atom-product-basic/atom-product-basic.iml" filepath="$PROJECT_DIR$/atom-product-basic/atom-product-basic.iml" />
       <module fileurl="file://$PROJECT_DIR$/atom-product-course/atom-product-course.iml" filepath="$PROJECT_DIR$/atom-product-course/atom-product-course.iml" />
       <module fileurl="file://$PROJECT_DIR$/atom-relation-operation-record/atom-relation-operation-record.iml" filepath="$PROJECT_DIR$/atom-relation-operation-record/atom-relation-operation-record.iml" />
+      <module fileurl="file://$PROJECT_DIR$/atom-resource-basic/atom-resource-basic.iml" filepath="$PROJECT_DIR$/atom-resource-basic/atom-resource-basic.iml" />
       <module fileurl="file://$PROJECT_DIR$/atom-resource-storage/atom-resource-storage.iml" filepath="$PROJECT_DIR$/atom-resource-storage/atom-resource-storage.iml" />
       <module fileurl="file://$PROJECT_DIR$/base-common/base-common.iml" filepath="$PROJECT_DIR$/base-common/base-common.iml" />
       <module fileurl="file://$PROJECT_DIR$/base-gateway/base-gateway.iml" filepath="$PROJECT_DIR$/base-gateway/base-gateway.iml" />

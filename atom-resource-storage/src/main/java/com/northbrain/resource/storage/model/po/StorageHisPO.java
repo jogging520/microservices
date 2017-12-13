@@ -9,6 +9,8 @@ public class StorageHisPO {
 
     private Integer storageId;
 
+    private String domain;
+
     private String category;
 
     private String type;
@@ -45,6 +47,14 @@ public class StorageHisPO {
 
     public void setStorageId(Integer storageId) {
         this.storageId = storageId;
+    }
+
+    public String getDomain() {
+        return domain;
+    }
+
+    public void setDomain(String domain) {
+        this.domain = domain == null ? null : domain.trim();
     }
 
     public String getCategory() {

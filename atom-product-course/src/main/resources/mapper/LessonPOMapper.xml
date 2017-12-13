@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.northbrain.product.course.com.northbrain.party.organization.dao.LessonPOMapper">
-  <resultMap id="BaseResultMap" type="com.northbrain.product.course.com.northbrain.party.organization.model.po.LessonPO">
+<mapper namespace="com.northbrain.product.course.dao.LessonPOMapper">
+  <resultMap id="BaseResultMap" type="com.northbrain.product.course.model.po.LessonPO">
     <id column="lesson_id" jdbcType="INTEGER" property="lessonId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="chapter_id" jdbcType="INTEGER" property="chapterId" />
@@ -24,7 +24,7 @@
     delete from lesson
     where lesson_id = #{lessonId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.northbrain.product.course.com.northbrain.party.organization.model.po.LessonPO">
+  <insert id="insert" parameterType="com.northbrain.product.course.model.po.LessonPO">
     insert into lesson (lesson_id, name, chapter_id, 
       status, res_id, create_time, 
       status_time, description)
@@ -32,7 +32,7 @@
       #{status,jdbcType=INTEGER}, #{resId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{statusTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.northbrain.product.course.com.northbrain.party.organization.model.po.LessonPO">
+  <insert id="insertSelective" parameterType="com.northbrain.product.course.model.po.LessonPO">
     insert into lesson
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="lessonId != null">
@@ -87,7 +87,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.product.course.com.northbrain.party.organization.model.po.LessonPO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.product.course.model.po.LessonPO">
     update lesson
     <set>
       <if test="name != null">
@@ -114,7 +114,7 @@
     </set>
     where lesson_id = #{lessonId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.northbrain.product.course.com.northbrain.party.organization.model.po.LessonPO">
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.product.course.model.po.LessonPO">
     update lesson
     set name = #{name,jdbcType=VARCHAR},
       chapter_id = #{chapterId,jdbcType=INTEGER},

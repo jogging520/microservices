@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.northbrain.resource.storage.com.northbrain.party.organization.dao.StoragePOMapper">
-  <resultMap id="BaseResultMap" type="com.northbrain.resource.storage.com.northbrain.party.organization.model.po.StoragePO">
+<mapper namespace="com.northbrain.resource.storage.dao.StoragePOMapper">
+  <resultMap id="BaseResultMap" type="com.northbrain.resource.storage.model.po.StoragePO">
     <id column="storage_id" jdbcType="INTEGER" property="storageId" />
+    <result column="domain" jdbcType="VARCHAR" property="domain" />
     <result column="category" jdbcType="VARCHAR" property="category" />
     <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="uri" jdbcType="VARCHAR" property="uri" />
@@ -12,7 +13,7 @@
     <result column="description" jdbcType="VARCHAR" property="description" />
   </resultMap>
   <sql id="Base_Column_List">
-    storage_id, category, type, uri, status, create_time, status_time, description
+    storage_id, domain, category, type, uri, status, create_time, status_time, description
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -24,19 +25,24 @@
     delete from storage
     where storage_id = #{storageId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.northbrain.resource.storage.com.northbrain.party.organization.model.po.StoragePO">
-    insert into storage (storage_id, category, type, 
-      uri, status, create_time, 
-      status_time, description)
-    values (#{storageId,jdbcType=INTEGER}, #{category,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
-      #{uri,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{statusTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.northbrain.resource.storage.model.po.StoragePO">
+    insert into storage (storage_id, domain, category, 
+      type, uri, status, 
+      create_time, status_time, description
+      )
+    values (#{storageId,jdbcType=INTEGER}, #{domain,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{uri,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{statusTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.northbrain.resource.storage.com.northbrain.party.organization.model.po.StoragePO">
+  <insert id="insertSelective" parameterType="com.northbrain.resource.storage.model.po.StoragePO">
     insert into storage
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="storageId != null">
         storage_id,
+      </if>
+      <if test="domain != null">
+        domain,
       </if>
       <if test="category != null">
         category,
@@ -64,6 +70,9 @@
       <if test="storageId != null">
         #{storageId,jdbcType=INTEGER},
       </if>
+      <if test="domain != null">
+        #{domain,jdbcType=VARCHAR},
+      </if>
       <if test="category != null">
         #{category,jdbcType=VARCHAR},
       </if>
@@ -87,9 +96,12 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.resource.storage.com.northbrain.party.organization.model.po.StoragePO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.resource.storage.model.po.StoragePO">
     update storage
     <set>
+      <if test="domain != null">
+        domain = #{domain,jdbcType=VARCHAR},
+      </if>
       <if test="category != null">
         category = #{category,jdbcType=VARCHAR},
       </if>
@@ -114,9 +126,10 @@
     </set>
     where storage_id = #{storageId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.northbrain.resource.storage.com.northbrain.party.organization.model.po.StoragePO">
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.resource.storage.model.po.StoragePO">
     update storage
-    set category = #{category,jdbcType=VARCHAR},
+    set domain = #{domain,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
       uri = #{uri,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},

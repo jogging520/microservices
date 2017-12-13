@@ -53,7 +53,7 @@ public class Constants
     public static final String BUSINESS_RESOURCE_STORAGE_ATOM_MICROSERVICE                              = "atom-resource-storage";                      //原子微服务：资源-存储
     public static final String BUSINESS_RELATION_OPERATION_RECORD_ATOM_MICROSERVICE                     = "atom-relation-operation-record";             //原子微服务：关系-操作记录
     public static final String BUSINESS_PARTY_ROLE_ATOM_MICROSERVICE                                    = "atom-party-role";                            //原子微服务：参与者-角色
-    public static final String BUSINESS_PARTY_ORGANIZATION_ATOM_MICROSERVICE                            = "atom-party-organization";                    //原子微服务：参与者-组织架构
+    public static final String BUSINESS_PARTY_BASIC_ATOM_MICROSERVICE                                   = "atom-party-basic";                           //原子微服务：参与者-基础
 
     public static final String BUSINESS_FOUNDATION_AUTHENTICATION_ORCH_MICROSERVICE                     = "orch-foundation-authentication";             //编排微服务：基础-鉴权
     public static final String BUSINESS_LIST_COURSE_ORCH_MICROSERVICE                                   = "orch-list-course";                           //编排微服务：列表-课程

@@ -2,9 +2,10 @@ package com.northbrain.resource.storage.model.po;
 
 import java.util.Date;
 
-public class StoragePO
-{
+public class StoragePO {
     private Integer storageId;
+
+    private String domain;
 
     private String category;
 
@@ -26,6 +27,14 @@ public class StoragePO
 
     public void setStorageId(Integer storageId) {
         this.storageId = storageId;
+    }
+
+    public String getDomain() {
+        return domain;
+    }
+
+    public void setDomain(String domain) {
+        this.domain = domain == null ? null : domain.trim();
     }
 
     public String getCategory() {

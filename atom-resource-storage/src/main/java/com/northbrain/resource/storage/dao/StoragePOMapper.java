@@ -1,9 +1,8 @@
 package com.northbrain.resource.storage.dao;
 
+import com.northbrain.resource.storage.model.po.StoragePO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
-
-import com.northbrain.resource.storage.model.po.StoragePO;
 
 @Mapper
 @Component(value="storagePOMapper")

@@ -22,6 +22,9 @@
     <module>atom-party-student</module>
     <module>atom-common-strategy</module>
     <module>orch-foundation-authentication</module>
+      <module>atom-product-basic</module>
+    <module>atom-resource-basic</module>
+    <module>atom-party-basic</module>
   </modules>
   <packaging>pom</packaging>
 
