@@ -49,8 +49,9 @@ public class Constants
     public static final String BUSINESS_COMMON_SECURITY_ATOM_MICROSERVICE                               = "atom-common-security";                       //原子微服务：配置-安全
     public static final String BUSINESS_COMMON_STRATEGY_ATOM_MICROSERVICE                               = "atom-common-strategy";                       //原子微服务：配置-策略
 
+    public static final String BUSINESS_PRODUCT_BASIC_ATOM_MICROSERVICE                                 = "atom-product-basic";                         //原子微服务：产品-基础
     public static final String BUSINESS_PRODUCT_COURSE_ATOM_MICROSERVICE                                = "atom-product-course";                        //原子微服务：产品-课程
-    public static final String BUSINESS_RESOURCE_BASIC_ATOM_MICROSERVICE                                = "atom-resource-basic";                      //原子微服务：资源-存储
+    public static final String BUSINESS_RESOURCE_BASIC_ATOM_MICROSERVICE                                = "atom-resource-basic";                        //原子微服务：资源-基础
     public static final String BUSINESS_RESOURCE_STORAGE_ATOM_MICROSERVICE                              = "atom-resource-storage";                      //原子微服务：资源-存储
     public static final String BUSINESS_RELATION_OPERATION_RECORD_ATOM_MICROSERVICE                     = "atom-relation-operation-record";             //原子微服务：关系-操作记录
     public static final String BUSINESS_PARTY_ROLE_ATOM_MICROSERVICE                                    = "atom-party-role";                            //原子微服务：参与者-角色
@@ -115,6 +116,7 @@ public class Constants
     public static final String URI_ATOM_PRODUCT_COURSE_REQUEST_MAPPING                                  = "/product/course";					        //原子服务URI：课程清单（只有课程本身）
     public static final String URI_ATOM_PRODUCT_COURSE_SPECIFIED_REQUEST_MAPPING						= "/product/course/{courseId}";			        //原子服务URI：指定的课程（只有课程本身）
 
+    public static final String URI_ATOM_RESOURCE_BASIC_REQUEST_MAPPING                                  = "/resource/basic";                            //原子服务URI：资源
     public static final String URI_ATOM_RESOURCE_STORAGE_REQUEST_MAPPING                                = "/resource/storage";                          //原子服务URI：存储信息
     public static final String URI_ATOM_RESOURCE_STORAGE_SPECIFIED_REQUEST_MAPPING                      = "/resource/storage/{storageId}";              //原子服务URI：指定的存储信息
 

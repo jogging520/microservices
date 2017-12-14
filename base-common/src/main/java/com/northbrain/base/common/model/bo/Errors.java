@@ -98,10 +98,14 @@ public enum Errors
     ERROR_BUSINESS_PARTY_BASIC_UPDATE                               ("3143", "更新参与者时候发生异常。"),
     ERROR_BUSINESS_PARTY_BASIC_DELETE                               ("3144", "删除参与者时候发生异常。"),
 
-    ERROR_BUSINESS_RESOURCE_STORAGE_EXCEPTION                       ("3131", "操作存储资源时候发生异常。"),
-    ERROR_BUSINESS_RESOURCE_STORAGE_INSERT                          ("3132", "插入存储资源时候发生异常。"),
-    ERROR_BUSINESS_RESOURCE_STORAGE_UPDATE                          ("3133", "更新存储资源时候发生异常。"),
-    ERROR_BUSINESS_RESOURCE_STORAGE_DELETE                          ("3134", "删除存储资源时候发生异常。"),
+    ERROR_BUSINESS_RESOURCE_BASIC_EXCEPTION                         ("3151", "操作资源时候发生异常。"),
+    ERROR_BUSINESS_RESOURCE_BASIC_INSERT                            ("3152", "插入资源时候发生异常。"),
+    ERROR_BUSINESS_RESOURCE_BASIC_UPDATE                            ("3153", "更新资源时候发生异常。"),
+    ERROR_BUSINESS_RESOURCE_BASIC_DELETE                            ("3154", "删除资源时候发生异常。"),
+    ERROR_BUSINESS_RESOURCE_STORAGE_EXCEPTION                       ("3161", "操作存储资源时候发生异常。"),
+    ERROR_BUSINESS_RESOURCE_STORAGE_INSERT                          ("3162", "插入存储资源时候发生异常。"),
+    ERROR_BUSINESS_RESOURCE_STORAGE_UPDATE                          ("3163", "更新存储资源时候发生异常。"),
+    ERROR_BUSINESS_RESOURCE_STORAGE_DELETE                          ("3164", "删除存储资源时候发生异常。"),
 
     /**
 	 * 4XXX:数据存储级级错误，ERROR_STORAGE_XXXX，XXXX主要有:REDIS、ZOOKEEPER、POSTGRESQL等
