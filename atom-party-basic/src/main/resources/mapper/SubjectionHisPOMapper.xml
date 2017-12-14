@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.northbrain.party.basic.com.northbrain.resource.basic.dao.SubjectionHisPOMapper">
-  <resultMap id="BaseResultMap" type="com.northbrain.party.basic.com.northbrain.resource.basic.po.SubjectionHisPO">
+<mapper namespace="com.northbrain.party.basic.dao.SubjectionHisPOMapper">
+  <resultMap id="BaseResultMap" type="com.northbrain.party.basic.model.po.SubjectionHisPO">
     <id column="record_id" jdbcType="INTEGER" property="recordId" />
     <result column="operate_type" jdbcType="VARCHAR" property="operateType" />
     <result column="subjection_id" jdbcType="INTEGER" property="subjectionId" />
     <result column="party_id" jdbcType="INTEGER" property="partyId" />
     <result column="organization_id" jdbcType="INTEGER" property="organizationId" />
     <result column="entity_id" jdbcType="INTEGER" property="entityId" />
-    <result column="com.northbrain.resource.basic.domain" jdbcType="VARCHAR" property="com.northbrain.resource.basic.domain" />
+    <result column="domain" jdbcType="VARCHAR" property="domain" />
     <result column="category" jdbcType="VARCHAR" property="category" />
     <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="status" jdbcType="INTEGER" property="status" />
@@ -17,7 +17,7 @@
     <result column="description" jdbcType="VARCHAR" property="description" />
   </resultMap>
   <sql id="Base_Column_List">
-    record_id, operate_type, subjection_id, party_id, organization_id, entity_id, com.northbrain.resource.basic.domain,
+    record_id, operate_type, subjection_id, party_id, organization_id, entity_id, domain,
     category, type, status, create_time, status_time, description
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -30,19 +30,19 @@
     delete from subjection_his
     where record_id = #{recordId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.northbrain.party.basic.com.northbrain.resource.basic.po.SubjectionHisPO">
+  <insert id="insert" parameterType="com.northbrain.party.basic.model.po.SubjectionHisPO">
     insert into subjection_his (record_id, operate_type, subjection_id, 
       party_id, organization_id, entity_id, 
-      com.northbrain.resource.basic.domain, category, type,
+      domain, category, type,
       status, create_time, status_time, 
       description)
     values (#{recordId,jdbcType=INTEGER}, #{operateType,jdbcType=VARCHAR}, #{subjectionId,jdbcType=INTEGER}, 
       #{partyId,jdbcType=INTEGER}, #{organizationId,jdbcType=INTEGER}, #{entityId,jdbcType=INTEGER}, 
-      #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR},
+      #{domain,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR},
       #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{statusTime,jdbcType=TIMESTAMP}, 
       #{description,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.northbrain.party.basic.com.northbrain.resource.basic.po.SubjectionHisPO">
+  <insert id="insertSelective" parameterType="com.northbrain.party.basic.model.po.SubjectionHisPO">
     insert into subjection_his
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="recordId != null">
@@ -63,8 +63,8 @@
       <if test="entityId != null">
         entity_id,
       </if>
-      <if test="com.northbrain.resource.basic.domain != null">
-        com.northbrain.resource.basic.domain,
+      <if test="domain != null">
+        domain,
       </if>
       <if test="category != null">
         category,
@@ -104,8 +104,8 @@
       <if test="entityId != null">
         #{entityId,jdbcType=INTEGER},
       </if>
-      <if test="com.northbrain.resource.basic.domain != null">
-        #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR},
+      <if test="domain != null">
+        #{domain,jdbcType=VARCHAR},
       </if>
       <if test="category != null">
         #{category,jdbcType=VARCHAR},
@@ -127,7 +127,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.party.basic.com.northbrain.resource.basic.po.SubjectionHisPO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.party.basic.model.po.SubjectionHisPO">
     update subjection_his
     <set>
       <if test="operateType != null">
@@ -145,8 +145,8 @@
       <if test="entityId != null">
         entity_id = #{entityId,jdbcType=INTEGER},
       </if>
-      <if test="com.northbrain.resource.basic.domain != null">
-        com.northbrain.resource.basic.domain = #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR},
+      <if test="domain != null">
+        domain = #{domain,jdbcType=VARCHAR},
       </if>
       <if test="category != null">
         category = #{category,jdbcType=VARCHAR},
@@ -169,14 +169,14 @@
     </set>
     where record_id = #{recordId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.northbrain.party.basic.com.northbrain.resource.basic.po.SubjectionHisPO">
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.party.basic.model.po.SubjectionHisPO">
     update subjection_his
     set operate_type = #{operateType,jdbcType=VARCHAR},
       subjection_id = #{subjectionId,jdbcType=INTEGER},
       party_id = #{partyId,jdbcType=INTEGER},
       organization_id = #{organizationId,jdbcType=INTEGER},
       entity_id = #{entityId,jdbcType=INTEGER},
-      com.northbrain.resource.basic.domain = #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR},
+      domain = #{domain,jdbcType=VARCHAR},
       category = #{category,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
@@ -185,13 +185,13 @@
       description = #{description,jdbcType=VARCHAR}
     where record_id = #{recordId,jdbcType=INTEGER}
   </update>
-  <resultMap id="BaseResultMap" type="com.northbrain.party.basic.com.northbrain.resource.basic.po.SubjectionHisPO">
+  <resultMap id="BaseResultMap" type="com.northbrain.party.basic.model.po.SubjectionHisPO">
     <id column="record_id" jdbcType="INTEGER" property="recordId" />
     <result column="operate_type" jdbcType="VARCHAR" property="operateType" />
     <result column="subjection_id" jdbcType="INTEGER" property="subjectionId" />
     <result column="party_id" jdbcType="INTEGER" property="partyId" />
     <result column="entity_id" jdbcType="INTEGER" property="entityId" />
-    <result column="com.northbrain.resource.basic.domain" jdbcType="VARCHAR" property="com.northbrain.resource.basic.domain" />
+    <result column="domain" jdbcType="VARCHAR" property="domain" />
     <result column="category" jdbcType="VARCHAR" property="category" />
     <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="status" jdbcType="INTEGER" property="status" />
@@ -200,7 +200,7 @@
     <result column="description" jdbcType="VARCHAR" property="description" />
   </resultMap>
   <sql id="Base_Column_List">
-    record_id, operate_type, subjection_id, party_id, entity_id, com.northbrain.resource.basic.domain, category, type,
+    record_id, operate_type, subjection_id, party_id, entity_id, domain, category, type,
     status, create_time, status_time, description
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -213,19 +213,19 @@
     delete from subjection_his
     where record_id = #{recordId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.northbrain.party.basic.com.northbrain.resource.basic.po.SubjectionHisPO">
+  <insert id="insert" parameterType="com.northbrain.party.basic.model.po.SubjectionHisPO">
     insert into subjection_his (record_id, operate_type, subjection_id, 
-      party_id, entity_id, com.northbrain.resource.basic.domain,
+      party_id, entity_id, domain,
       category, type, status, 
       create_time, status_time, description
       )
     values (#{recordId,jdbcType=INTEGER}, #{operateType,jdbcType=VARCHAR}, #{subjectionId,jdbcType=INTEGER}, 
-      #{partyId,jdbcType=INTEGER}, #{entityId,jdbcType=INTEGER}, #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR},
+      #{partyId,jdbcType=INTEGER}, #{entityId,jdbcType=INTEGER}, #{domain,jdbcType=VARCHAR},
       #{category,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
       #{createTime,jdbcType=TIMESTAMP}, #{statusTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.northbrain.party.basic.com.northbrain.resource.basic.po.SubjectionHisPO">
+  <insert id="insertSelective" parameterType="com.northbrain.party.basic.model.po.SubjectionHisPO">
     insert into subjection_his
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="recordId != null">
@@ -243,8 +243,8 @@
       <if test="entityId != null">
         entity_id,
       </if>
-      <if test="com.northbrain.resource.basic.domain != null">
-        com.northbrain.resource.basic.domain,
+      <if test="domain != null">
+        domain,
       </if>
       <if test="category != null">
         category,
@@ -281,8 +281,8 @@
       <if test="entityId != null">
         #{entityId,jdbcType=INTEGER},
       </if>
-      <if test="com.northbrain.resource.basic.domain != null">
-        #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR},
+      <if test="domain != null">
+        #{domain,jdbcType=VARCHAR},
       </if>
       <if test="category != null">
         #{category,jdbcType=VARCHAR},
@@ -304,7 +304,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.party.basic.com.northbrain.resource.basic.po.SubjectionHisPO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.party.basic.model.po.SubjectionHisPO">
     update subjection_his
     <set>
       <if test="operateType != null">
@@ -319,8 +319,8 @@
       <if test="entityId != null">
         entity_id = #{entityId,jdbcType=INTEGER},
       </if>
-      <if test="com.northbrain.resource.basic.domain != null">
-        com.northbrain.resource.basic.domain = #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR},
+      <if test="domain != null">
+        domain = #{domain,jdbcType=VARCHAR},
       </if>
       <if test="category != null">
         category = #{category,jdbcType=VARCHAR},
@@ -343,13 +343,13 @@
     </set>
     where record_id = #{recordId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.northbrain.party.basic.com.northbrain.resource.basic.po.SubjectionHisPO">
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.party.basic.model.po.SubjectionHisPO">
     update subjection_his
     set operate_type = #{operateType,jdbcType=VARCHAR},
       subjection_id = #{subjectionId,jdbcType=INTEGER},
       party_id = #{partyId,jdbcType=INTEGER},
       entity_id = #{entityId,jdbcType=INTEGER},
-      com.northbrain.resource.basic.domain = #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR},
+      domain = #{domain,jdbcType=VARCHAR},
       category = #{category,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.northbrain.party.basic.dao.RoleHisPOMapper">
-  <resultMap id="BaseResultMap" type="com.northbrain.party.basic.model.po.RoleHisPO">
+<mapper namespace="com.northbrain.resource.basic.dao.ResourceHisPOMapper">
+  <resultMap id="BaseResultMap" type="com.northbrain.resource.basic.model.po.ResourceHisPO">
     <id column="record_id" jdbcType="INTEGER" property="recordId" />
     <result column="operate_type" jdbcType="VARCHAR" property="operateType" />
-    <result column="role_id" jdbcType="INTEGER" property="roleId" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="alias" jdbcType="VARCHAR" property="alias" />
+    <result column="resource_id" jdbcType="INTEGER" property="resourceId" />
+    <result column="organization_id" jdbcType="INTEGER" property="organizationId" />
+    <result column="entity_id" jdbcType="INTEGER" property="entityId" />
     <result column="domain" jdbcType="VARCHAR" property="domain" />
     <result column="category" jdbcType="VARCHAR" property="category" />
     <result column="type" jdbcType="VARCHAR" property="type" />
@@ -16,33 +16,33 @@
     <result column="description" jdbcType="VARCHAR" property="description" />
   </resultMap>
   <sql id="Base_Column_List">
-    record_id, operate_type, role_id, name, alias, domain, category, type, status, create_time,
-    status_time, description
+    record_id, operate_type, resource_id, organization_id, entity_id, domain, category, 
+    type, status, create_time, status_time, description
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from role_his
+    from resource_his
     where record_id = #{recordId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from role_his
+    delete from resource_his
     where record_id = #{recordId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.northbrain.party.basic.model.po.RoleHisPO">
-    insert into role_his (record_id, operate_type, role_id, 
-      name, alias, domain,
+  <insert id="insert" parameterType="com.northbrain.resource.basic.model.po.ResourceHisPO">
+    insert into resource_his (record_id, operate_type, resource_id, 
+      organization_id, entity_id, domain, 
       category, type, status, 
       create_time, status_time, description
       )
-    values (#{recordId,jdbcType=INTEGER}, #{operateType,jdbcType=VARCHAR}, #{roleId,jdbcType=INTEGER}, 
-      #{name,jdbcType=VARCHAR}, #{alias,jdbcType=VARCHAR}, #{domain,jdbcType=VARCHAR},
+    values (#{recordId,jdbcType=INTEGER}, #{operateType,jdbcType=VARCHAR}, #{resourceId,jdbcType=INTEGER}, 
+      #{organizationId,jdbcType=INTEGER}, #{entityId,jdbcType=INTEGER}, #{domain,jdbcType=VARCHAR}, 
       #{category,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
       #{createTime,jdbcType=TIMESTAMP}, #{statusTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.northbrain.party.basic.model.po.RoleHisPO">
-    insert into role_his
+  <insert id="insertSelective" parameterType="com.northbrain.resource.basic.model.po.ResourceHisPO">
+    insert into resource_his
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="recordId != null">
         record_id,
@@ -50,14 +50,14 @@
       <if test="operateType != null">
         operate_type,
       </if>
-      <if test="roleId != null">
-        role_id,
+      <if test="resourceId != null">
+        resource_id,
       </if>
-      <if test="name != null">
-        name,
+      <if test="organizationId != null">
+        organization_id,
       </if>
-      <if test="alias != null">
-        alias,
+      <if test="entityId != null">
+        entity_id,
       </if>
       <if test="domain != null">
         domain,
@@ -88,14 +88,14 @@
       <if test="operateType != null">
         #{operateType,jdbcType=VARCHAR},
       </if>
-      <if test="roleId != null">
-        #{roleId,jdbcType=INTEGER},
+      <if test="resourceId != null">
+        #{resourceId,jdbcType=INTEGER},
       </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
+      <if test="organizationId != null">
+        #{organizationId,jdbcType=INTEGER},
       </if>
-      <if test="alias != null">
-        #{alias,jdbcType=VARCHAR},
+      <if test="entityId != null">
+        #{entityId,jdbcType=INTEGER},
       </if>
       <if test="domain != null">
         #{domain,jdbcType=VARCHAR},
@@ -120,20 +120,20 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.party.basic.model.po.RoleHisPO">
-    update role_his
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.resource.basic.model.po.ResourceHisPO">
+    update resource_his
     <set>
       <if test="operateType != null">
         operate_type = #{operateType,jdbcType=VARCHAR},
       </if>
-      <if test="roleId != null">
-        role_id = #{roleId,jdbcType=INTEGER},
+      <if test="resourceId != null">
+        resource_id = #{resourceId,jdbcType=INTEGER},
       </if>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
+      <if test="organizationId != null">
+        organization_id = #{organizationId,jdbcType=INTEGER},
       </if>
-      <if test="alias != null">
-        alias = #{alias,jdbcType=VARCHAR},
+      <if test="entityId != null">
+        entity_id = #{entityId,jdbcType=INTEGER},
       </if>
       <if test="domain != null">
         domain = #{domain,jdbcType=VARCHAR},
@@ -159,12 +159,12 @@
     </set>
     where record_id = #{recordId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.northbrain.party.basic.model.po.RoleHisPO">
-    update role_his
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.resource.basic.model.po.ResourceHisPO">
+    update resource_his
     set operate_type = #{operateType,jdbcType=VARCHAR},
-      role_id = #{roleId,jdbcType=INTEGER},
-      name = #{name,jdbcType=VARCHAR},
-      alias = #{alias,jdbcType=VARCHAR},
+      resource_id = #{resourceId,jdbcType=INTEGER},
+      organization_id = #{organizationId,jdbcType=INTEGER},
+      entity_id = #{entityId,jdbcType=INTEGER},
       domain = #{domain,jdbcType=VARCHAR},
       category = #{category,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},

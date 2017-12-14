@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.northbrain.common.security.dao.PrivilegePOMapper">
-  <resultMap id="BaseResultMap" type="com.northbrain.common.security.po.PrivilegePO">
+  <resultMap id="BaseResultMap" type="com.northbrain.common.security.model.po.PrivilegePO">
     <id column="privilege_id" jdbcType="INTEGER" property="privilegeId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="domain" jdbcType="VARCHAR" property="domain" />
@@ -25,7 +25,7 @@
     delete from privilege
     where privilege_id = #{privilegeId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.northbrain.common.security.po.PrivilegePO">
+  <insert id="insert" parameterType="com.northbrain.common.security.model.po.PrivilegePO">
     insert into privilege (privilege_id, name, domain,
       category, type, status, 
       create_time, status_time, description
@@ -35,7 +35,7 @@
       #{createTime,jdbcType=TIMESTAMP}, #{statusTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.northbrain.common.security.po.PrivilegePO">
+  <insert id="insertSelective" parameterType="com.northbrain.common.security.model.po.PrivilegePO">
     insert into privilege
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="privilegeId != null">
@@ -96,7 +96,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.common.security.po.PrivilegePO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.common.security.model.po.PrivilegePO">
     update privilege
     <set>
       <if test="name != null">
@@ -126,7 +126,7 @@
     </set>
     where privilege_id = #{privilegeId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.northbrain.common.security.po.PrivilegePO">
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.common.security.model.po.PrivilegePO">
     update privilege
     set name = #{name,jdbcType=VARCHAR},
       domain = #{domain,jdbcType=VARCHAR},

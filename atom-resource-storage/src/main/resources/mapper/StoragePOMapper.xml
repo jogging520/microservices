@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.northbrain.resource.storage.com.northbrain.resource.basic.dao.StoragePOMapper">
-  <resultMap id="BaseResultMap" type="com.northbrain.resource.storage.com.northbrain.resource.basic.po.StoragePO">
+<mapper namespace="com.northbrain.resource.storage.dao.StoragePOMapper">
+  <resultMap id="BaseResultMap" type="com.northbrain.resource.storage.model.po.StoragePO">
     <id column="storage_id" jdbcType="INTEGER" property="storageId" />
     <result column="resource_id" jdbcType="INTEGER" property="resourceId" />
-    <result column="com.northbrain.resource.basic.domain" jdbcType="VARCHAR" property="com.northbrain.resource.basic.domain" />
+    <result column="domain" jdbcType="VARCHAR" property="domain" />
     <result column="category" jdbcType="VARCHAR" property="category" />
     <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="uri" jdbcType="VARCHAR" property="uri" />
@@ -14,7 +14,7 @@
     <result column="description" jdbcType="VARCHAR" property="description" />
   </resultMap>
   <sql id="Base_Column_List">
-    storage_id, resource_id, com.northbrain.resource.basic.domain, category, type, uri, status, create_time, status_time,
+    storage_id, resource_id, domain, category, type, uri, status, create_time, status_time,
     description
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -27,17 +27,17 @@
     delete from storage
     where storage_id = #{storageId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.northbrain.resource.storage.com.northbrain.resource.basic.po.StoragePO">
-    insert into storage (storage_id, resource_id, com.northbrain.resource.basic.domain,
+  <insert id="insert" parameterType="com.northbrain.resource.storage.model.po.StoragePO">
+    insert into storage (storage_id, resource_id, domain,
       category, type, uri, 
       status, create_time, status_time, 
       description)
-    values (#{storageId,jdbcType=INTEGER}, #{resourceId,jdbcType=INTEGER}, #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR},
+    values (#{storageId,jdbcType=INTEGER}, #{resourceId,jdbcType=INTEGER}, #{domain,jdbcType=VARCHAR},
       #{category,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{uri,jdbcType=VARCHAR}, 
       #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{statusTime,jdbcType=TIMESTAMP}, 
       #{description,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.northbrain.resource.storage.com.northbrain.resource.basic.po.StoragePO">
+  <insert id="insertSelective" parameterType="com.northbrain.resource.storage.model.po.StoragePO">
     insert into storage
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="storageId != null">
@@ -46,8 +46,8 @@
       <if test="resourceId != null">
         resource_id,
       </if>
-      <if test="com.northbrain.resource.basic.domain != null">
-        com.northbrain.resource.basic.domain,
+      <if test="domain != null">
+        domain,
       </if>
       <if test="category != null">
         category,
@@ -78,8 +78,8 @@
       <if test="resourceId != null">
         #{resourceId,jdbcType=INTEGER},
       </if>
-      <if test="com.northbrain.resource.basic.domain != null">
-        #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR},
+      <if test="domain != null">
+        #{domain,jdbcType=VARCHAR},
       </if>
       <if test="category != null">
         #{category,jdbcType=VARCHAR},
@@ -104,14 +104,14 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.resource.storage.com.northbrain.resource.basic.po.StoragePO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.resource.storage.model.po.StoragePO">
     update storage
     <set>
       <if test="resourceId != null">
         resource_id = #{resourceId,jdbcType=INTEGER},
       </if>
-      <if test="com.northbrain.resource.basic.domain != null">
-        com.northbrain.resource.basic.domain = #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR},
+      <if test="domain != null">
+        domain = #{domain,jdbcType=VARCHAR},
       </if>
       <if test="category != null">
         category = #{category,jdbcType=VARCHAR},
@@ -137,10 +137,10 @@
     </set>
     where storage_id = #{storageId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.northbrain.resource.storage.com.northbrain.resource.basic.po.StoragePO">
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.resource.storage.model.po.StoragePO">
     update storage
     set resource_id = #{resourceId,jdbcType=INTEGER},
-      com.northbrain.resource.basic.domain = #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR},
+      domain = #{domain,jdbcType=VARCHAR},
       category = #{category,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
       uri = #{uri,jdbcType=VARCHAR},

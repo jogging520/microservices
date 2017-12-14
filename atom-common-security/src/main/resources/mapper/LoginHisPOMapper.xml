@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.northbrain.common.security.dao.LoginHisPOMapper">
-  <resultMap id="BaseResultMap" type="com.northbrain.common.security.po.LoginHisPO">
+  <resultMap id="BaseResultMap" type="com.northbrain.common.security.model.po.LoginHisPO">
     <id column="record_id" jdbcType="INTEGER" property="recordId" />
     <result column="operate_type" jdbcType="VARCHAR" property="operateType" />
     <result column="login_id" jdbcType="INTEGER" property="loginId" />
@@ -31,7 +31,7 @@
     delete from login_his
     where record_id = #{recordId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.northbrain.common.security.po.LoginHisPO">
+  <insert id="insert" parameterType="com.northbrain.common.security.model.po.LoginHisPO">
     insert into login_his (record_id, operate_type, login_id, 
       registry_id, party_id, role_id, 
       organization_id, domain, category,
@@ -43,7 +43,7 @@
       #{type,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{loginTime,jdbcType=TIMESTAMP}, 
       #{logoutTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.northbrain.common.security.po.LoginHisPO">
+  <insert id="insertSelective" parameterType="com.northbrain.common.security.model.po.LoginHisPO">
     insert into login_his
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="recordId != null">
@@ -134,7 +134,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.common.security.po.LoginHisPO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.common.security.model.po.LoginHisPO">
     update login_his
     <set>
       <if test="operateType != null">
@@ -179,7 +179,7 @@
     </set>
     where record_id = #{recordId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.northbrain.common.security.po.LoginHisPO">
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.common.security.model.po.LoginHisPO">
     update login_his
     set operate_type = #{operateType,jdbcType=VARCHAR},
       login_id = #{loginId,jdbcType=INTEGER},
@@ -196,7 +196,7 @@
       description = #{description,jdbcType=VARCHAR}
     where record_id = #{recordId,jdbcType=INTEGER}
   </update>
-  <resultMap id="BaseResultMap" type="com.northbrain.common.security.po.LoginHisPO">
+  <resultMap id="BaseResultMap" type="com.northbrain.common.security.model.po.LoginHisPO">
     <id column="record_id" jdbcType="INTEGER" property="recordId" />
     <result column="operate_type" jdbcType="VARCHAR" property="operateType" />
     <result column="login_id" jdbcType="INTEGER" property="loginId" />
@@ -225,7 +225,7 @@
     delete from login_his
     where record_id = #{recordId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.northbrain.common.security.po.LoginHisPO">
+  <insert id="insert" parameterType="com.northbrain.common.security.model.po.LoginHisPO">
     insert into login_his (record_id, operate_type, login_id, 
       registry_id, party_id, role_id, 
       domain, category, type,
@@ -237,7 +237,7 @@
       #{status,jdbcType=INTEGER}, #{loginTime,jdbcType=TIMESTAMP}, #{logoutTime,jdbcType=TIMESTAMP}, 
       #{description,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.northbrain.common.security.po.LoginHisPO">
+  <insert id="insertSelective" parameterType="com.northbrain.common.security.model.po.LoginHisPO">
     insert into login_his
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="recordId != null">
@@ -322,7 +322,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.common.security.po.LoginHisPO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.common.security.model.po.LoginHisPO">
     update login_his
     <set>
       <if test="operateType != null">
@@ -364,7 +364,7 @@
     </set>
     where record_id = #{recordId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.northbrain.common.security.po.LoginHisPO">
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.common.security.model.po.LoginHisPO">
     update login_his
     set operate_type = #{operateType,jdbcType=VARCHAR},
       login_id = #{loginId,jdbcType=INTEGER},

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.northbrain.common.security.dao.LoginPOMapper">
-  <resultMap id="BaseResultMap" type="com.northbrain.common.security.po.LoginPO">
+  <resultMap id="BaseResultMap" type="com.northbrain.common.security.model.po.LoginPO">
     <id column="login_id" jdbcType="INTEGER" property="loginId" />
     <result column="registry_id" jdbcType="INTEGER" property="registryId" />
     <result column="party_id" jdbcType="INTEGER" property="partyId" />
@@ -35,7 +35,7 @@
     delete from login
     where login_id = #{loginId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.northbrain.common.security.po.LoginPO">
+  <insert id="insert" parameterType="com.northbrain.common.security.model.po.LoginPO">
     insert into login (login_id, registry_id, party_id, 
       role_id, organization_id, domain,
       category, type, status, 
@@ -47,7 +47,7 @@
       #{loginTime,jdbcType=TIMESTAMP}, #{logoutTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.northbrain.common.security.po.LoginPO">
+  <insert id="insertSelective" parameterType="com.northbrain.common.security.model.po.LoginPO">
     insert into login
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="loginId != null">
@@ -126,7 +126,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.common.security.po.LoginPO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.common.security.model.po.LoginPO">
     update login
     <set>
       <if test="registryId != null">
@@ -165,7 +165,7 @@
     </set>
     where login_id = #{loginId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.northbrain.common.security.po.LoginPO">
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.common.security.model.po.LoginPO">
     update login
     set registry_id = #{registryId,jdbcType=INTEGER},
       party_id = #{partyId,jdbcType=INTEGER},
@@ -180,7 +180,7 @@
       description = #{description,jdbcType=VARCHAR}
     where login_id = #{loginId,jdbcType=INTEGER}
   </update>
-  <resultMap id="BaseResultMap" type="com.northbrain.common.security.po.LoginPO">
+  <resultMap id="BaseResultMap" type="com.northbrain.common.security.model.po.LoginPO">
     <id column="login_id" jdbcType="INTEGER" property="loginId" />
     <result column="registry_id" jdbcType="INTEGER" property="registryId" />
     <result column="party_id" jdbcType="INTEGER" property="partyId" />
@@ -207,7 +207,7 @@
     delete from login
     where login_id = #{loginId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.northbrain.common.security.po.LoginPO">
+  <insert id="insert" parameterType="com.northbrain.common.security.model.po.LoginPO">
     insert into login (login_id, registry_id, party_id, 
       role_id, domain, category,
       type, status, login_time, 
@@ -217,7 +217,7 @@
       #{type,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{loginTime,jdbcType=TIMESTAMP}, 
       #{logoutTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.northbrain.common.security.po.LoginPO">
+  <insert id="insertSelective" parameterType="com.northbrain.common.security.model.po.LoginPO">
     insert into login
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="loginId != null">
@@ -290,7 +290,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.common.security.po.LoginPO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.common.security.model.po.LoginPO">
     update login
     <set>
       <if test="registryId != null">
@@ -326,7 +326,7 @@
     </set>
     where login_id = #{loginId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.northbrain.common.security.po.LoginPO">
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.common.security.model.po.LoginPO">
     update login
     set registry_id = #{registryId,jdbcType=INTEGER},
       party_id = #{partyId,jdbcType=INTEGER},

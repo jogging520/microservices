@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.northbrain.relation.operationrecord.com.northbrain.resource.basic.dao.OperationRecordDetailPOMapper">
-  <resultMap id="BaseResultMap" type="com.northbrain.relation.operationrecord.com.northbrain.resource.basic.po.OperationRecordDetailPO">
+<mapper namespace="com.northbrain.relation.operationrecord.dao.OperationRecordDetailPOMapper">
+  <resultMap id="BaseResultMap" type="com.northbrain.relation.operationrecord.model.po.OperationRecordDetailPO">
     <id column="record_detail_id" jdbcType="BIGINT" property="recordDetailId" />
     <result column="record_id" jdbcType="INTEGER" property="recordId" />
     <result column="rank" jdbcType="INTEGER" property="rank" />
     <result column="operate_type" jdbcType="VARCHAR" property="operateType" />
-    <result column="com.northbrain.resource.basic.domain" jdbcType="VARCHAR" property="com.northbrain.resource.basic.domain" />
+    <result column="domain" jdbcType="VARCHAR" property="domain" />
     <result column="service_name" jdbcType="VARCHAR" property="serviceName" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
     <result column="finish_time" jdbcType="TIMESTAMP" property="finishTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    record_detail_id, record_id, rank, operate_type, com.northbrain.resource.basic.domain, service_name, status, start_time,
+    record_detail_id, record_id, rank, operate_type, domain, service_name, status, start_time,
     finish_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
@@ -26,17 +26,17 @@
     delete from operation_record_detail
     where record_detail_id = #{recordDetailId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.northbrain.relation.operationrecord.com.northbrain.resource.basic.po.OperationRecordDetailPO">
+  <insert id="insert" parameterType="com.northbrain.relation.operationrecord.model.po.OperationRecordDetailPO">
     insert into operation_record_detail (record_detail_id, record_id, rank, 
-      operate_type, com.northbrain.resource.basic.domain, service_name,
+      operate_type, domain, service_name,
       status, start_time, finish_time
       )
     values (#{recordDetailId,jdbcType=BIGINT}, #{recordId,jdbcType=INTEGER}, #{rank,jdbcType=INTEGER}, 
-      #{operateType,jdbcType=VARCHAR}, #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR}, #{serviceName,jdbcType=VARCHAR},
+      #{operateType,jdbcType=VARCHAR}, #{domain,jdbcType=VARCHAR}, #{serviceName,jdbcType=VARCHAR},
       #{status,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, #{finishTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.northbrain.relation.operationrecord.com.northbrain.resource.basic.po.OperationRecordDetailPO">
+  <insert id="insertSelective" parameterType="com.northbrain.relation.operationrecord.model.po.OperationRecordDetailPO">
     insert into operation_record_detail
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="recordDetailId != null">
@@ -51,8 +51,8 @@
       <if test="operateType != null">
         operate_type,
       </if>
-      <if test="com.northbrain.resource.basic.domain != null">
-        com.northbrain.resource.basic.domain,
+      <if test="domain != null">
+        domain,
       </if>
       <if test="serviceName != null">
         service_name,
@@ -80,8 +80,8 @@
       <if test="operateType != null">
         #{operateType,jdbcType=VARCHAR},
       </if>
-      <if test="com.northbrain.resource.basic.domain != null">
-        #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR},
+      <if test="domain != null">
+        #{domain,jdbcType=VARCHAR},
       </if>
       <if test="serviceName != null">
         #{serviceName,jdbcType=VARCHAR},
@@ -97,7 +97,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.relation.operationrecord.com.northbrain.resource.basic.po.OperationRecordDetailPO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.relation.operationrecord.model.po.OperationRecordDetailPO">
     update operation_record_detail
     <set>
       <if test="recordId != null">
@@ -109,8 +109,8 @@
       <if test="operateType != null">
         operate_type = #{operateType,jdbcType=VARCHAR},
       </if>
-      <if test="com.northbrain.resource.basic.domain != null">
-        com.northbrain.resource.basic.domain = #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR},
+      <if test="domain != null">
+        domain = #{domain,jdbcType=VARCHAR},
       </if>
       <if test="serviceName != null">
         service_name = #{serviceName,jdbcType=VARCHAR},
@@ -127,12 +127,12 @@
     </set>
     where record_detail_id = #{recordDetailId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.northbrain.relation.operationrecord.com.northbrain.resource.basic.po.OperationRecordDetailPO">
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.relation.operationrecord.model.po.OperationRecordDetailPO">
     update operation_record_detail
     set record_id = #{recordId,jdbcType=INTEGER},
       rank = #{rank,jdbcType=INTEGER},
       operate_type = #{operateType,jdbcType=VARCHAR},
-      com.northbrain.resource.basic.domain = #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR},
+      domain = #{domain,jdbcType=VARCHAR},
       service_name = #{serviceName,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
       start_time = #{startTime,jdbcType=TIMESTAMP},

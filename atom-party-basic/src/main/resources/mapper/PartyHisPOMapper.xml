@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.northbrain.party.basic.com.northbrain.resource.basic.dao.PartyHisPOMapper">
-  <resultMap id="BaseResultMap" type="com.northbrain.party.basic.com.northbrain.resource.basic.po.PartyHisPO">
+<mapper namespace="com.northbrain.party.basic.dao.PartyHisPOMapper">
+  <resultMap id="BaseResultMap" type="com.northbrain.party.basic.model.po.PartyHisPO">
     <id column="record_id" jdbcType="INTEGER" property="recordId" />
     <result column="operate_type" jdbcType="VARCHAR" property="operateType" />
     <result column="party_id" jdbcType="INTEGER" property="partyId" />
@@ -9,7 +9,7 @@
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="entity_id" jdbcType="INTEGER" property="entityId" />
     <result column="role_id" jdbcType="INTEGER" property="roleId" />
-    <result column="com.northbrain.resource.basic.domain" jdbcType="VARCHAR" property="com.northbrain.resource.basic.domain" />
+    <result column="domain" jdbcType="VARCHAR" property="domain" />
     <result column="category" jdbcType="VARCHAR" property="category" />
     <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="status" jdbcType="INTEGER" property="status" />
@@ -18,7 +18,7 @@
     <result column="description" jdbcType="VARCHAR" property="description" />
   </resultMap>
   <sql id="Base_Column_List">
-    record_id, operate_type, party_id, alias, password, entity_id, role_id, com.northbrain.resource.basic.domain, category,
+    record_id, operate_type, party_id, alias, password, entity_id, role_id, domain, category,
     type, status, create_time, status_time, description
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -31,19 +31,19 @@
     delete from party_his
     where record_id = #{recordId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.northbrain.party.basic.com.northbrain.resource.basic.po.PartyHisPO">
+  <insert id="insert" parameterType="com.northbrain.party.basic.model.po.PartyHisPO">
     insert into party_his (record_id, operate_type, party_id, 
       alias, password, entity_id, 
-      role_id, com.northbrain.resource.basic.domain, category,
+      role_id, domain, category,
       type, status, create_time, 
       status_time, description)
     values (#{recordId,jdbcType=INTEGER}, #{operateType,jdbcType=VARCHAR}, #{partyId,jdbcType=INTEGER}, 
       #{alias,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{entityId,jdbcType=INTEGER}, 
-      #{roleId,jdbcType=INTEGER}, #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR},
+      #{roleId,jdbcType=INTEGER}, #{domain,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR},
       #{type,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{statusTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.northbrain.party.basic.com.northbrain.resource.basic.po.PartyHisPO">
+  <insert id="insertSelective" parameterType="com.northbrain.party.basic.model.po.PartyHisPO">
     insert into party_his
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="recordId != null">
@@ -67,8 +67,8 @@
       <if test="roleId != null">
         role_id,
       </if>
-      <if test="com.northbrain.resource.basic.domain != null">
-        com.northbrain.resource.basic.domain,
+      <if test="domain != null">
+        domain,
       </if>
       <if test="category != null">
         category,
@@ -111,8 +111,8 @@
       <if test="roleId != null">
         #{roleId,jdbcType=INTEGER},
       </if>
-      <if test="com.northbrain.resource.basic.domain != null">
-        #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR},
+      <if test="domain != null">
+        #{domain,jdbcType=VARCHAR},
       </if>
       <if test="category != null">
         #{category,jdbcType=VARCHAR},
@@ -134,7 +134,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.party.basic.com.northbrain.resource.basic.po.PartyHisPO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.party.basic.model.po.PartyHisPO">
     update party_his
     <set>
       <if test="operateType != null">
@@ -155,8 +155,8 @@
       <if test="roleId != null">
         role_id = #{roleId,jdbcType=INTEGER},
       </if>
-      <if test="com.northbrain.resource.basic.domain != null">
-        com.northbrain.resource.basic.domain = #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR},
+      <if test="domain != null">
+        domain = #{domain,jdbcType=VARCHAR},
       </if>
       <if test="category != null">
         category = #{category,jdbcType=VARCHAR},
@@ -179,7 +179,7 @@
     </set>
     where record_id = #{recordId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.northbrain.party.basic.com.northbrain.resource.basic.po.PartyHisPO">
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.party.basic.model.po.PartyHisPO">
     update party_his
     set operate_type = #{operateType,jdbcType=VARCHAR},
       party_id = #{partyId,jdbcType=INTEGER},
@@ -187,7 +187,7 @@
       password = #{password,jdbcType=VARCHAR},
       entity_id = #{entityId,jdbcType=INTEGER},
       role_id = #{roleId,jdbcType=INTEGER},
-      com.northbrain.resource.basic.domain = #{com.northbrain.resource.basic.domain,jdbcType=VARCHAR},
+      domain = #{domain,jdbcType=VARCHAR},
       category = #{category,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
@@ -196,7 +196,7 @@
       description = #{description,jdbcType=VARCHAR}
     where record_id = #{recordId,jdbcType=INTEGER}
   </update>
-  <resultMap id="BaseResultMap" type="com.northbrain.party.basic.com.northbrain.resource.basic.po.PartyHisPO">
+  <resultMap id="BaseResultMap" type="com.northbrain.party.basic.model.po.PartyHisPO">
     <id column="record_id" jdbcType="INTEGER" property="recordId" />
     <result column="operate_type" jdbcType="VARCHAR" property="operateType" />
     <result column="party_id" jdbcType="INTEGER" property="partyId" />
@@ -223,7 +223,7 @@
     delete from party_his
     where record_id = #{recordId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.northbrain.party.basic.com.northbrain.resource.basic.po.PartyHisPO">
+  <insert id="insert" parameterType="com.northbrain.party.basic.model.po.PartyHisPO">
     insert into party_his (record_id, operate_type, party_id, 
       category, type, entity_id, 
       role_id, status, create_time, 
@@ -233,7 +233,7 @@
       #{roleId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{statusTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.northbrain.party.basic.com.northbrain.resource.basic.po.PartyHisPO">
+  <insert id="insertSelective" parameterType="com.northbrain.party.basic.model.po.PartyHisPO">
     insert into party_his
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="recordId != null">
@@ -306,7 +306,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.party.basic.com.northbrain.resource.basic.po.PartyHisPO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.party.basic.model.po.PartyHisPO">
     update party_his
     <set>
       <if test="operateType != null">
@@ -342,7 +342,7 @@
     </set>
     where record_id = #{recordId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.northbrain.party.basic.com.northbrain.resource.basic.po.PartyHisPO">
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.party.basic.model.po.PartyHisPO">
     update party_his
     set operate_type = #{operateType,jdbcType=VARCHAR},
       party_id = #{partyId,jdbcType=INTEGER},

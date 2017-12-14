@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.northbrain.common.strategy.dao.StrategyPOMapper">
-  <resultMap id="BaseResultMap" type="com.northbrain.common.strategy.po.StrategyPO">
+  <resultMap id="BaseResultMap" type="com.northbrain.common.strategy.model.po.StrategyPO">
     <id column="strategy_id" jdbcType="INTEGER" property="strategyId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="domain" jdbcType="VARCHAR" property="domain" />
@@ -25,7 +25,7 @@
     delete from strategy
     where strategy_id = #{strategyId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.northbrain.common.strategy.po.StrategyPO">
+  <insert id="insert" parameterType="com.northbrain.common.strategy.model.po.StrategyPO">
     insert into strategy (strategy_id, name, domain,
       category, type, status, 
       create_time, status_time, description
@@ -35,7 +35,7 @@
       #{createTime,jdbcType=TIMESTAMP}, #{statusTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.northbrain.common.strategy.po.StrategyPO">
+  <insert id="insertSelective" parameterType="com.northbrain.common.strategy.model.po.StrategyPO">
     insert into strategy
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="strategyId != null">
@@ -96,7 +96,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.common.strategy.po.StrategyPO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.northbrain.common.strategy.model.po.StrategyPO">
     update strategy
     <set>
       <if test="name != null">
@@ -126,7 +126,7 @@
     </set>
     where strategy_id = #{strategyId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.northbrain.common.strategy.po.StrategyPO">
+  <update id="updateByPrimaryKey" parameterType="com.northbrain.common.strategy.model.po.StrategyPO">
     update strategy
     set name = #{name,jdbcType=VARCHAR},
       domain = #{domain,jdbcType=VARCHAR},
