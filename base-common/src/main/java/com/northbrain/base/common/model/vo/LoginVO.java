@@ -1,11 +1,5 @@
 package com.northbrain.base.common.model.vo;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.annotation.JSONField;
-import com.northbrain.base.common.model.bo.Constants;
-
-import java.util.Date;
-
 public class LoginVO extends BasicVO
 {
     private Integer loginId;

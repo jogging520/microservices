@@ -1,11 +1,5 @@
 package com.northbrain.base.common.model.vo;
 
-import java.util.Date;
-
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.annotation.JSONField;
-import com.northbrain.base.common.model.bo.Constants;
-
 /**
  * 类名：角色值对象类
  * 用途：用于持久层以上的角色对象传递

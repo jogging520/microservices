@@ -1,11 +1,5 @@
 package com.northbrain.base.common.model.vo;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.annotation.JSONField;
-import com.northbrain.base.common.model.bo.Constants;
-
-import java.util.Date;
-
 /**
  * 类名：隶属关系值对象类，该类记录了参与者隶属于组织的关系记录。
  * 引用方-->隶属关系-->组织及具体的组织机构

@@ -1,11 +1,6 @@
 package com.northbrain.base.common.model.vo;
 
-import java.util.Date;
 import java.util.List;
-
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.annotation.JSONField;
-import com.northbrain.base.common.model.bo.Constants;
 
 /**
  * 类名：存储值对象类

@@ -1,11 +1,5 @@
 package com.northbrain.base.common.model.vo;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.annotation.JSONField;
-import com.northbrain.base.common.model.bo.Constants;
-
-import java.util.Date;
-
 /**
  * 类名：组织机构值对象类，该类定义了组织机构的层级关系、名称、类型等。
  * 用途：用于组织机构在domain层及以上数据传递。

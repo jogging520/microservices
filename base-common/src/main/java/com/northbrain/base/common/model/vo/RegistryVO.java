@@ -1,11 +1,5 @@
 package com.northbrain.base.common.model.vo;
 
-import java.util.Date;
-
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.annotation.JSONField;
-import com.northbrain.base.common.model.bo.Constants;
-
 public class RegistryVO extends BasicVO
 {
     private Integer registryId;

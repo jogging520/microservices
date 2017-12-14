@@ -1,13 +1,8 @@
 package com.northbrain.base.common.model.vo;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.annotation.JSONField;
-import com.northbrain.base.common.model.bo.Constants;
 
 /**
  * 类名：策略值对象类
