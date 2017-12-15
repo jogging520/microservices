@@ -6,7 +6,7 @@ import com.northbrain.base.common.exception.ArgumentInputException;
 import com.northbrain.base.common.exception.ObjectNullException;
 import com.northbrain.base.common.model.bo.BaseType;
 import com.northbrain.base.common.model.bo.Errors;
-import com.northbrain.base.common.model.vo.ResourceVO;
+import com.northbrain.base.common.model.vo.atom.ResourceVO;
 import com.northbrain.resource.basic.dao.ResourceDetailHisPOMapper;
 import com.northbrain.resource.basic.dao.ResourceDetailPOMapper;
 import com.northbrain.resource.basic.dao.ResourceHisPOMapper;

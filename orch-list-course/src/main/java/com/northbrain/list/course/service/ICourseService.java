@@ -1,6 +1,6 @@
 package com.northbrain.list.course.service;
 
-import com.northbrain.base.common.model.vo.ServiceVO;
+import com.northbrain.base.common.model.vo.basic.ServiceVO;
 
 /**
  * 类名：课程服务接口

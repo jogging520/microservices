@@ -2,7 +2,7 @@ package com.northbrain.common.strategy.dto;
 
 import java.util.List;
 
-import com.northbrain.base.common.model.vo.StrategyVO;
+import com.northbrain.base.common.model.vo.atom.StrategyVO;
 import com.northbrain.common.strategy.model.po.StrategyDetailHisPO;
 import com.northbrain.common.strategy.model.po.StrategyDetailPO;
 import com.northbrain.common.strategy.model.po.StrategyHisPO;

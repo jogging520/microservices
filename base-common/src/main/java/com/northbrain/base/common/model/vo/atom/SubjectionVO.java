@@ -1,4 +1,6 @@
-package com.northbrain.base.common.model.vo;
+package com.northbrain.base.common.model.vo.atom;
+
+import com.northbrain.base.common.model.vo.basic.BasicVO;
 
 /**
  * 类名：隶属关系值对象类，该类记录了参与者隶属于组织的关系记录。

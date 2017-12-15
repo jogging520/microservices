@@ -1,7 +1,7 @@
 package com.northbrain.product.basic.service;
 
-import com.northbrain.base.common.model.vo.ServiceVO;
-import com.northbrain.base.common.model.vo.ProductVO;
+import com.northbrain.base.common.model.vo.basic.ServiceVO;
+import com.northbrain.base.common.model.vo.atom.ProductVO;
 
 /**
  * 类名：产品服务接口

@@ -13,8 +13,8 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.northbrain.base.common.exception.*;
 import com.northbrain.base.common.model.bo.Errors;
-import com.northbrain.base.common.model.vo.ServiceVO;
-import com.northbrain.base.common.model.vo.StrategyVO;
+import com.northbrain.base.common.model.vo.basic.ServiceVO;
+import com.northbrain.base.common.model.vo.atom.StrategyVO;
 import com.northbrain.base.common.util.StackTracerUtil;
 import com.northbrain.common.strategy.domain.IStrategyDomain;
 import com.northbrain.common.strategy.exception.StrategyException;

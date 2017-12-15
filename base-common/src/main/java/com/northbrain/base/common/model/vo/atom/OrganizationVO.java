@@ -1,4 +1,6 @@
-package com.northbrain.base.common.model.vo;
+package com.northbrain.base.common.model.vo.atom;
+
+import com.northbrain.base.common.model.vo.basic.BasicVO;
 
 /**
  * 类名：组织机构值对象类，该类定义了组织机构的层级关系、名称、类型等。

@@ -1,4 +1,6 @@
-package com.northbrain.base.common.model.vo;
+package com.northbrain.base.common.model.vo.atom;
+
+import com.northbrain.base.common.model.vo.basic.BasicVO;
 
 public class RegistryVO extends BasicVO
 {

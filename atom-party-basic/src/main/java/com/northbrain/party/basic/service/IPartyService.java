@@ -1,6 +1,10 @@
 package com.northbrain.party.basic.service;
 
-import com.northbrain.base.common.model.vo.*;
+import com.northbrain.base.common.model.vo.atom.OrganizationVO;
+import com.northbrain.base.common.model.vo.atom.PartyVO;
+import com.northbrain.base.common.model.vo.atom.RoleVO;
+import com.northbrain.base.common.model.vo.atom.SubjectionVO;
+import com.northbrain.base.common.model.vo.basic.ServiceVO;
 
 /**
  * 类名：参与者服务接口

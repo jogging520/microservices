@@ -1,6 +1,6 @@
 package com.northbrain.common.strategy.domain;
 
-import com.northbrain.base.common.model.vo.StrategyVO;
+import com.northbrain.base.common.model.vo.atom.StrategyVO;
 
 /**
  * 类名：策略DOMAIN接口

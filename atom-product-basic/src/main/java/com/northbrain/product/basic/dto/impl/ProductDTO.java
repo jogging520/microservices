@@ -5,7 +5,7 @@ import com.northbrain.base.common.exception.NumberScopeException;
 import com.northbrain.base.common.model.bo.Constants;
 import com.northbrain.base.common.model.bo.Errors;
 import com.northbrain.base.common.model.bo.Hints;
-import com.northbrain.base.common.model.vo.ProductVO;
+import com.northbrain.base.common.model.vo.atom.ProductVO;
 import com.northbrain.product.basic.dto.IProductDTO;
 import com.northbrain.product.basic.model.po.ProductDetailHisPO;
 import com.northbrain.product.basic.model.po.ProductDetailPO;

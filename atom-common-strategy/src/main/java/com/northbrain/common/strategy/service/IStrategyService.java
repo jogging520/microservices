@@ -1,7 +1,7 @@
 package com.northbrain.common.strategy.service;
 
-import com.northbrain.base.common.model.vo.ServiceVO;
-import com.northbrain.base.common.model.vo.StrategyVO;
+import com.northbrain.base.common.model.vo.basic.ServiceVO;
+import com.northbrain.base.common.model.vo.atom.StrategyVO;
 
 /**
  * 类名：策略服务接口

@@ -12,8 +12,8 @@ import com.alibaba.fastjson.JSON;
 import com.northbrain.base.common.model.bo.Constants;
 import com.northbrain.base.common.model.bo.Errors;
 import com.northbrain.base.common.model.bo.Hints;
-import com.northbrain.base.common.model.vo.OperationRecordVO;
-import com.northbrain.base.common.model.vo.ServiceVO;
+import com.northbrain.base.common.model.vo.atom.OperationRecordVO;
+import com.northbrain.base.common.model.vo.basic.ServiceVO;
 
 /**
  * 类名：产品域操作记录DAO接口

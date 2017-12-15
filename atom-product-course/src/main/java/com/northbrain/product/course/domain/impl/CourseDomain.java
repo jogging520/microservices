@@ -11,7 +11,7 @@ import com.northbrain.base.common.exception.CollectionEmptyException;
 import com.northbrain.base.common.exception.ObjectNullException;
 import com.northbrain.base.common.model.bo.BaseType;
 import com.northbrain.base.common.model.bo.Errors;
-import com.northbrain.base.common.model.vo.CourseVO;
+import com.northbrain.base.common.model.vo.atom.CourseVO;
 import com.northbrain.product.course.dao.CoursePOMapper;
 import com.northbrain.product.course.domain.ICourseDomain;
 import com.northbrain.product.course.dto.ICourseDTO;

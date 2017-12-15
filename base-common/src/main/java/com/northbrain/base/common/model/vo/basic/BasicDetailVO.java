@@ -1,4 +1,4 @@
-package com.northbrain.base.common.model.vo;
+package com.northbrain.base.common.model.vo.basic;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.annotation.JSONField;

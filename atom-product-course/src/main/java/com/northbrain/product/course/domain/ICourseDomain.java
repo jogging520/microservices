@@ -2,7 +2,7 @@ package com.northbrain.product.course.domain;
 
 import java.util.List;
 
-import com.northbrain.base.common.model.vo.CourseVO;
+import com.northbrain.base.common.model.vo.atom.CourseVO;
 
 /**
  * 类名：课程域接口

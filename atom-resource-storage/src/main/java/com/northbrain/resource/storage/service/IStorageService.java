@@ -2,9 +2,8 @@ package com.northbrain.resource.storage.service;
 
 import java.util.List;
 
-import com.northbrain.base.common.model.vo.ServiceVO;
-import com.northbrain.base.common.model.vo.StorageVO;
-import com.northbrain.base.common.model.vo.StorageVO;
+import com.northbrain.base.common.model.vo.basic.ServiceVO;
+import com.northbrain.base.common.model.vo.atom.StorageVO;
 
 /**
  * 类名：存储服务接口

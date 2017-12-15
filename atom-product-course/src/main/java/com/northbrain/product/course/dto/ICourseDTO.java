@@ -1,6 +1,6 @@
 package com.northbrain.product.course.dto;
 
-import com.northbrain.base.common.model.vo.CourseVO;
+import com.northbrain.base.common.model.vo.atom.CourseVO;
 import com.northbrain.product.course.model.po.CoursePO;
 
 /**

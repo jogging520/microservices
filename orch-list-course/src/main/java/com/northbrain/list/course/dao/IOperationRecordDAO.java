@@ -3,7 +3,7 @@ package com.northbrain.list.course.dao;
 import com.alibaba.fastjson.JSON;
 import com.northbrain.base.common.model.bo.Errors;
 import com.northbrain.base.common.model.bo.Hints;
-import com.northbrain.base.common.model.vo.ServiceVO;
+import com.northbrain.base.common.model.vo.basic.ServiceVO;
 import org.apache.log4j.Logger;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.stereotype.Component;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.northbrain.base.common.model.bo.Constants;
-import com.northbrain.base.common.model.vo.OperationRecordVO;
+import com.northbrain.base.common.model.vo.atom.OperationRecordVO;
 
 /**
  * 类名：产品域操作记录DAO接口

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.northbrain.base.common.exception.ArgumentInputException;
 import com.northbrain.base.common.model.bo.Errors;
-import com.northbrain.base.common.model.vo.OperationRecordVO;
+import com.northbrain.base.common.model.vo.atom.OperationRecordVO;
 import com.northbrain.relation.operationrecord.dto.IOperationRecordDTO;
 import com.northbrain.relation.operationrecord.model.po.OperationRecordDetailPO;
 import com.northbrain.relation.operationrecord.model.po.OperationRecordPO;

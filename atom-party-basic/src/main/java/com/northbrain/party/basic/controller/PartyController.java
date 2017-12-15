@@ -14,7 +14,11 @@ import com.alibaba.fastjson.JSONException;
 import com.northbrain.base.common.model.bo.Constants;
 import com.northbrain.base.common.model.bo.Errors;
 import com.northbrain.base.common.model.bo.Hints;
-import com.northbrain.base.common.model.vo.*;
+import com.northbrain.base.common.model.vo.atom.OrganizationVO;
+import com.northbrain.base.common.model.vo.atom.PartyVO;
+import com.northbrain.base.common.model.vo.atom.RoleVO;
+import com.northbrain.base.common.model.vo.atom.SubjectionVO;
+import com.northbrain.base.common.model.vo.basic.ServiceVO;
 import com.northbrain.base.common.util.StackTracerUtil;
 import com.northbrain.party.basic.service.IPartyService;
 
@@ -443,7 +447,7 @@ public class PartyController
     }
 
     /**
-     * 方法：新增一条组织架构
+     * 方法：更新一条组织架构
      * @param  organizationVO 组织架构值对象
      * @return 操作组织架构实体是否成功的JSON串
      */

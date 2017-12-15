@@ -8,4 +8,5 @@ package com.northbrain.foundation.authentication.domain;
  */
 public interface IAuthenticationDomain
 {
+    String createLogin();
 }

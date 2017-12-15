@@ -1,8 +1,8 @@
 package com.northbrain.common.security.service;
 
-import com.northbrain.base.common.model.vo.LoginVO;
-import com.northbrain.base.common.model.vo.RegistryVO;
-import com.northbrain.base.common.model.vo.ServiceVO;
+import com.northbrain.base.common.model.vo.atom.LoginVO;
+import com.northbrain.base.common.model.vo.atom.RegistryVO;
+import com.northbrain.base.common.model.vo.basic.ServiceVO;
 
 /**
  * 类名：安全服务接口

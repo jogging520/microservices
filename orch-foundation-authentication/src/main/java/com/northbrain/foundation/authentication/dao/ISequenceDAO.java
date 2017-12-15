@@ -11,7 +11,7 @@ import com.alibaba.fastjson.JSON;
 import com.northbrain.base.common.model.bo.Constants;
 import com.northbrain.base.common.model.bo.Errors;
 import com.northbrain.base.common.model.bo.Hints;
-import com.northbrain.base.common.model.vo.ServiceVO;
+import com.northbrain.base.common.model.vo.basic.ServiceVO;
 
 /**
  * 类名：序列号DAO接口
@@ -45,7 +45,7 @@ public interface ISequenceDAO
         @Override
         public String readAtomNextGlobalValue() throws Exception
         {
-            logger.info(Hints.HINT_SYSTEM_PROCESS_CALL_HYSTRIX_DAO + "readNextGlobalValue");
+            logger.info(Hints.HINT_SYSTEM_PROCESS_CALL_HYSTRIX_DAO + "readAtomNextGlobalValue");
 
             ServiceVO serviceVO = new ServiceVO();
             serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_SERVICE_HYSTRIX_EXCEPTION);

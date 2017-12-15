@@ -1,6 +1,6 @@
 package com.northbrain.relation.operationrecord.domain;
 
-import com.northbrain.base.common.model.vo.OperationRecordVO;
+import com.northbrain.base.common.model.vo.atom.OperationRecordVO;
 
 /**
  * 类名：操作记录DOMAIN接口

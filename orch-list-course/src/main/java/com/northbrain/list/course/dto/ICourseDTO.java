@@ -1,9 +1,8 @@
 package com.northbrain.list.course.dto;
 
 import com.alibaba.fastjson.JSONArray;
-import com.northbrain.base.common.model.vo.CourseVO;
-import com.northbrain.base.common.model.vo.OperationRecordVO;
-import com.northbrain.base.common.model.vo.StorageVO;
+import com.northbrain.base.common.model.vo.atom.CourseVO;
+import com.northbrain.base.common.model.vo.atom.StorageVO;
 
 /**
  * 类名：课程数据转换对象接口

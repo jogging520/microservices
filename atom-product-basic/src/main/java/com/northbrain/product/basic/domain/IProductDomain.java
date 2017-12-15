@@ -1,6 +1,6 @@
 package com.northbrain.product.basic.domain;
 
-import com.northbrain.base.common.model.vo.ProductVO;
+import com.northbrain.base.common.model.vo.atom.ProductVO;
 
 /**
  * 类名：产品DOMAIN接口

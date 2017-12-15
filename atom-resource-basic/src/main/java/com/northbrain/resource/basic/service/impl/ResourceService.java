@@ -13,8 +13,8 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.northbrain.base.common.exception.*;
 import com.northbrain.base.common.model.bo.Errors;
-import com.northbrain.base.common.model.vo.ResourceVO;
-import com.northbrain.base.common.model.vo.ServiceVO;
+import com.northbrain.base.common.model.vo.atom.ResourceVO;
+import com.northbrain.base.common.model.vo.basic.ServiceVO;
 import com.northbrain.base.common.util.StackTracerUtil;
 import com.northbrain.resource.basic.domain.IResourceDomain;
 import com.northbrain.resource.basic.exception.ResourceException;

@@ -1,9 +1,9 @@
 package com.northbrain.common.security.domain;
 
-import com.northbrain.base.common.model.vo.AccessControlVO;
-import com.northbrain.base.common.model.vo.LoginVO;
-import com.northbrain.base.common.model.vo.PrivilegeVO;
-import com.northbrain.base.common.model.vo.RegistryVO;
+import com.northbrain.base.common.model.vo.atom.AccessControlVO;
+import com.northbrain.base.common.model.vo.atom.LoginVO;
+import com.northbrain.base.common.model.vo.atom.PrivilegeVO;
+import com.northbrain.base.common.model.vo.atom.RegistryVO;
 
 import java.util.List;
 

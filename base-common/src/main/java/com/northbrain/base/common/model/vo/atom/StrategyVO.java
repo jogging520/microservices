@@ -1,8 +1,11 @@
-package com.northbrain.base.common.model.vo;
+package com.northbrain.base.common.model.vo.atom;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import com.northbrain.base.common.model.vo.basic.BasicDetailVO;
+import com.northbrain.base.common.model.vo.basic.BasicVO;
 
 /**
  * 类名：策略值对象类

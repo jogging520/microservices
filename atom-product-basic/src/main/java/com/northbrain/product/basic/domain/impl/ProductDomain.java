@@ -10,7 +10,7 @@ import com.northbrain.base.common.exception.ArgumentInputException;
 import com.northbrain.base.common.exception.ObjectNullException;
 import com.northbrain.base.common.model.bo.BaseType;
 import com.northbrain.base.common.model.bo.Errors;
-import com.northbrain.base.common.model.vo.ProductVO;
+import com.northbrain.base.common.model.vo.atom.ProductVO;
 import com.northbrain.product.basic.dao.ProductDetailHisPOMapper;
 import com.northbrain.product.basic.dao.ProductDetailPOMapper;
 import com.northbrain.product.basic.dao.ProductHisPOMapper;

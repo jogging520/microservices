@@ -5,7 +5,7 @@ import java.util.List;
 import com.alibaba.fastjson.JSON;
 import com.northbrain.base.common.model.bo.Errors;
 import com.northbrain.base.common.model.bo.Hints;
-import com.northbrain.base.common.model.vo.ServiceVO;
+import com.northbrain.base.common.model.vo.basic.ServiceVO;
 import org.apache.log4j.Logger;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.stereotype.Component;

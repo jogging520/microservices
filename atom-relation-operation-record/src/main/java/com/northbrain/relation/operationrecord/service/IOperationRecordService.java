@@ -1,7 +1,7 @@
 package com.northbrain.relation.operationrecord.service;
 
-import com.northbrain.base.common.model.vo.OperationRecordVO;
-import com.northbrain.base.common.model.vo.ServiceVO;
+import com.northbrain.base.common.model.vo.atom.OperationRecordVO;
+import com.northbrain.base.common.model.vo.basic.ServiceVO;
 
 /**
  * 类名：操作记录服务接口

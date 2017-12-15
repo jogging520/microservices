@@ -1,7 +1,7 @@
 package com.northbrain.resource.basic.service;
 
-import com.northbrain.base.common.model.vo.ServiceVO;
-import com.northbrain.base.common.model.vo.ResourceVO;
+import com.northbrain.base.common.model.vo.basic.ServiceVO;
+import com.northbrain.base.common.model.vo.atom.ResourceVO;
 
 /**
  * 类名：资源服务接口

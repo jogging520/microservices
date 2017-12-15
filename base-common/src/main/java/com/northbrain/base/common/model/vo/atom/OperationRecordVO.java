@@ -1,4 +1,4 @@
-package com.northbrain.base.common.model.vo;
+package com.northbrain.base.common.model.vo.atom;
 
 import java.util.ArrayList;
 import java.util.Date;

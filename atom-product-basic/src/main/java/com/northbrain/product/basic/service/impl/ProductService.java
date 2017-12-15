@@ -2,8 +2,8 @@ package com.northbrain.product.basic.service.impl;
 
 import com.northbrain.base.common.exception.*;
 import com.northbrain.base.common.model.bo.Errors;
-import com.northbrain.base.common.model.vo.ServiceVO;
-import com.northbrain.base.common.model.vo.ProductVO;
+import com.northbrain.base.common.model.vo.basic.ServiceVO;
+import com.northbrain.base.common.model.vo.atom.ProductVO;
 import com.northbrain.base.common.util.StackTracerUtil;
 import com.northbrain.product.basic.domain.IProductDomain;
 import com.northbrain.product.basic.exception.ProductException;

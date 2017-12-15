@@ -1,6 +1,9 @@
-package com.northbrain.base.common.model.vo;
+package com.northbrain.base.common.model.vo.atom;
 
 import java.util.List;
+
+import com.northbrain.base.common.model.vo.basic.BasicDetailVO;
+import com.northbrain.base.common.model.vo.basic.BasicVO;
 
 /**
  * 类名：产品值对象类

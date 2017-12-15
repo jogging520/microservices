@@ -2,8 +2,7 @@ package com.northbrain.resource.storage.domain;
 
 import java.util.List;
 
-import com.northbrain.base.common.model.vo.StorageVO;
-import com.northbrain.base.common.model.vo.StorageVO;
+import com.northbrain.base.common.model.vo.atom.StorageVO;
 
 /**
  * 类名：存储域接口

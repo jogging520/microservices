@@ -11,10 +11,9 @@ import com.northbrain.base.common.exception.ArgumentInputException;
 import com.northbrain.base.common.exception.AtomicServiceResponseException;
 import com.northbrain.base.common.exception.ObjectNullException;
 import com.northbrain.base.common.model.bo.Errors;
-import com.northbrain.base.common.model.vo.CourseVO;
-import com.northbrain.base.common.model.vo.OperationRecordVO;
-import com.northbrain.base.common.model.vo.ServiceVO;
-import com.northbrain.base.common.model.vo.StorageVO;
+import com.northbrain.base.common.model.vo.atom.CourseVO;
+import com.northbrain.base.common.model.vo.basic.ServiceVO;
+import com.northbrain.base.common.model.vo.atom.StorageVO;
 import com.northbrain.list.course.dto.ICourseDTO;
 
 /**

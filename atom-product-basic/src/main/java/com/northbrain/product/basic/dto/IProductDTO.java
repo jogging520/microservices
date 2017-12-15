@@ -1,6 +1,6 @@
 package com.northbrain.product.basic.dto;
 
-import com.northbrain.base.common.model.vo.ProductVO;
+import com.northbrain.base.common.model.vo.atom.ProductVO;
 import com.northbrain.product.basic.model.po.ProductDetailHisPO;
 import com.northbrain.product.basic.model.po.ProductDetailPO;
 import com.northbrain.product.basic.model.po.ProductHisPO;

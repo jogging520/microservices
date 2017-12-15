@@ -1,9 +1,9 @@
 package com.northbrain.party.basic.domain;
 
-import com.northbrain.base.common.model.vo.OrganizationVO;
-import com.northbrain.base.common.model.vo.PartyVO;
-import com.northbrain.base.common.model.vo.RoleVO;
-import com.northbrain.base.common.model.vo.SubjectionVO;
+import com.northbrain.base.common.model.vo.atom.OrganizationVO;
+import com.northbrain.base.common.model.vo.atom.PartyVO;
+import com.northbrain.base.common.model.vo.atom.RoleVO;
+import com.northbrain.base.common.model.vo.atom.SubjectionVO;
 
 import java.util.List;
 

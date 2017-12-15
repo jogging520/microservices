@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.northbrain.base.common.exception.ArgumentInputException;
 import com.northbrain.base.common.model.bo.Errors;
-import com.northbrain.base.common.model.vo.CourseVO;
+import com.northbrain.base.common.model.vo.atom.CourseVO;
 import com.northbrain.product.course.dto.ICourseDTO;
 import com.northbrain.product.course.model.po.CoursePO;
 

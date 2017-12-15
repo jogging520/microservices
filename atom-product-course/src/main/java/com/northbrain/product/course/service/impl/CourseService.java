@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Service;
@@ -21,8 +20,8 @@ import com.northbrain.base.common.exception.RedisSessionException;
 import com.northbrain.base.common.exception.ThreadPoolExecutorException;
 import com.northbrain.base.common.exception.ZooKeeperSessionException;
 import com.northbrain.base.common.model.bo.Errors;
-import com.northbrain.base.common.model.vo.CourseVO;
-import com.northbrain.base.common.model.vo.ServiceVO;
+import com.northbrain.base.common.model.vo.atom.CourseVO;
+import com.northbrain.base.common.model.vo.basic.ServiceVO;
 import com.northbrain.base.common.util.StackTracerUtil;
 import com.northbrain.product.course.domain.ICourseDomain;
 import com.northbrain.product.course.service.ICourseService;

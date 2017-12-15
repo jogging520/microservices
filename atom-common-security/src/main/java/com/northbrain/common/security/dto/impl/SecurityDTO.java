@@ -5,10 +5,10 @@ import com.northbrain.base.common.exception.NumberScopeException;
 import com.northbrain.base.common.model.bo.Constants;
 import com.northbrain.base.common.model.bo.Errors;
 import com.northbrain.base.common.model.bo.Hints;
-import com.northbrain.base.common.model.vo.AccessControlVO;
-import com.northbrain.base.common.model.vo.LoginVO;
-import com.northbrain.base.common.model.vo.PrivilegeVO;
-import com.northbrain.base.common.model.vo.RegistryVO;
+import com.northbrain.base.common.model.vo.atom.AccessControlVO;
+import com.northbrain.base.common.model.vo.atom.LoginVO;
+import com.northbrain.base.common.model.vo.atom.PrivilegeVO;
+import com.northbrain.base.common.model.vo.atom.RegistryVO;
 import com.northbrain.common.security.dto.ISecurityDTO;
 import com.northbrain.common.security.model.po.*;
 

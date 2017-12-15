@@ -2,7 +2,7 @@ package com.northbrain.relation.operationrecord.dto;
 
 import java.util.List;
 
-import com.northbrain.base.common.model.vo.OperationRecordVO;
+import com.northbrain.base.common.model.vo.atom.OperationRecordVO;
 import com.northbrain.relation.operationrecord.model.po.OperationRecordDetailPO;
 import com.northbrain.relation.operationrecord.model.po.OperationRecordPO;
 

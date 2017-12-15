@@ -1,6 +1,6 @@
 package com.northbrain.resource.storage.dto;
 
-import com.northbrain.base.common.model.vo.StorageVO;
+import com.northbrain.base.common.model.vo.atom.StorageVO;
 import com.northbrain.resource.storage.model.po.StorageDetailHisPO;
 import com.northbrain.resource.storage.model.po.StorageDetailPO;
 import com.northbrain.resource.storage.model.po.StorageHisPO;

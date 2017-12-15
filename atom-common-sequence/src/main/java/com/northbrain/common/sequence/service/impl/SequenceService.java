@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.northbrain.base.common.exception.*;
 import com.northbrain.base.common.model.bo.Errors;
-import com.northbrain.base.common.model.vo.ServiceVO;
+import com.northbrain.base.common.model.vo.basic.ServiceVO;
 import com.northbrain.base.common.util.StackTracerUtil;
 import com.northbrain.common.sequence.domain.ISequenceDomain;
 import com.northbrain.common.sequence.service.ISequenceService;

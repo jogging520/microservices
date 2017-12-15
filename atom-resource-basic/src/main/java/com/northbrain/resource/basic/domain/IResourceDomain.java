@@ -1,6 +1,6 @@
 package com.northbrain.resource.basic.domain;
 
-import com.northbrain.base.common.model.vo.ResourceVO;
+import com.northbrain.base.common.model.vo.atom.ResourceVO;
 
 /**
  * 类名：资源DOMAIN接口

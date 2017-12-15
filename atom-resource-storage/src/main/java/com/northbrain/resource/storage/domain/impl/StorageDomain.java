@@ -20,7 +20,7 @@ import com.northbrain.base.common.exception.CollectionEmptyException;
 import com.northbrain.base.common.exception.NumberScopeException;
 import com.northbrain.base.common.exception.ObjectNullException;
 import com.northbrain.base.common.model.bo.Errors;
-import com.northbrain.base.common.model.vo.StorageVO;
+import com.northbrain.base.common.model.vo.atom.StorageVO;
 import com.northbrain.resource.storage.dao.StoragePOMapper;
 import com.northbrain.resource.storage.domain.IStorageDomain;
 import com.northbrain.resource.storage.dto.IStorageDTO;

@@ -11,7 +11,7 @@ import com.northbrain.base.common.exception.NumberScopeException;
 import com.northbrain.base.common.model.bo.Constants;
 import com.northbrain.base.common.model.bo.Errors;
 import com.northbrain.base.common.model.bo.Hints;
-import com.northbrain.base.common.model.vo.StrategyVO;
+import com.northbrain.base.common.model.vo.atom.StrategyVO;
 import com.northbrain.common.strategy.dto.IStrategyDTO;
 import com.northbrain.common.strategy.model.po.StrategyDetailHisPO;
 import com.northbrain.common.strategy.model.po.StrategyDetailPO;

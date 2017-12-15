@@ -9,9 +9,9 @@ import com.alibaba.fastjson.JSON;
 import com.northbrain.base.common.model.bo.Constants;
 import com.northbrain.base.common.model.bo.Errors;
 import com.northbrain.base.common.model.bo.Hints;
-import com.northbrain.base.common.model.vo.LoginVO;
-import com.northbrain.base.common.model.vo.RegistryVO;
-import com.northbrain.base.common.model.vo.ServiceVO;
+import com.northbrain.base.common.model.vo.atom.LoginVO;
+import com.northbrain.base.common.model.vo.atom.RegistryVO;
+import com.northbrain.base.common.model.vo.basic.ServiceVO;
 
 /**
  * 类名：安全DAO接口
@@ -109,7 +109,7 @@ public interface ISecurityDAO
         @Override
         public String readAtomAccessControlsByRole(int roleId)
         {
-            logger.info(Hints.HINT_SYSTEM_PROCESS_CALL_HYSTRIX_DAO + "readAccessControlsByRole");
+            logger.info(Hints.HINT_SYSTEM_PROCESS_CALL_HYSTRIX_DAO + "readAtomAccessControlsByRole");
 
             ServiceVO serviceVO = new ServiceVO();
             serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_SERVICE_HYSTRIX_EXCEPTION);
@@ -126,7 +126,7 @@ public interface ISecurityDAO
         @Override
         public String readAtomLoginsByParty(int partyId)
         {
-            logger.info(Hints.HINT_SYSTEM_PROCESS_CALL_HYSTRIX_DAO + "readLoginsByParty");
+            logger.info(Hints.HINT_SYSTEM_PROCESS_CALL_HYSTRIX_DAO + "readAtomLoginsByParty");
 
             ServiceVO serviceVO = new ServiceVO();
             serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_SERVICE_HYSTRIX_EXCEPTION);
@@ -143,7 +143,7 @@ public interface ISecurityDAO
         @Override
         public String createAtomRegistry(RegistryVO registryVO)
         {
-            logger.info(Hints.HINT_SYSTEM_PROCESS_CALL_HYSTRIX_DAO + "createRegistry");
+            logger.info(Hints.HINT_SYSTEM_PROCESS_CALL_HYSTRIX_DAO + "createAtomRegistry");
 
             ServiceVO serviceVO = new ServiceVO();
             serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_SERVICE_HYSTRIX_EXCEPTION);
@@ -160,7 +160,7 @@ public interface ISecurityDAO
         @Override
         public String createAtomLogin(LoginVO loginVO)
         {
-            logger.info(Hints.HINT_SYSTEM_PROCESS_CALL_HYSTRIX_DAO + "createLogin");
+            logger.info(Hints.HINT_SYSTEM_PROCESS_CALL_HYSTRIX_DAO + "createAtomLogin");
 
             ServiceVO serviceVO = new ServiceVO();
             serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_SERVICE_HYSTRIX_EXCEPTION);
@@ -177,7 +177,7 @@ public interface ISecurityDAO
         @Override
         public String updateAtomLogin(LoginVO loginVO)
         {
-            logger.info(Hints.HINT_SYSTEM_PROCESS_CALL_HYSTRIX_DAO + "updateLogin");
+            logger.info(Hints.HINT_SYSTEM_PROCESS_CALL_HYSTRIX_DAO + "updateAtomLogin");
 
             ServiceVO serviceVO = new ServiceVO();
             serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_SERVICE_HYSTRIX_EXCEPTION);

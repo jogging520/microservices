@@ -10,7 +10,7 @@ import com.northbrain.base.common.exception.ArgumentInputException;
 import com.northbrain.base.common.exception.ObjectNullException;
 import com.northbrain.base.common.model.bo.BaseType;
 import com.northbrain.base.common.model.bo.Errors;
-import com.northbrain.base.common.model.vo.StrategyVO;
+import com.northbrain.base.common.model.vo.atom.StrategyVO;
 import com.northbrain.common.strategy.dao.StrategyDetailHisPOMapper;
 import com.northbrain.common.strategy.dao.StrategyDetailPOMapper;
 import com.northbrain.common.strategy.dao.StrategyHisPOMapper;

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 import com.northbrain.base.common.exception.ArgumentInputException;
 import com.northbrain.base.common.model.bo.Errors;
-import com.northbrain.base.common.model.vo.StorageVO;
+import com.northbrain.base.common.model.vo.atom.StorageVO;
 import com.northbrain.resource.storage.dto.IStorageDTO;
 import com.northbrain.resource.storage.model.po.StoragePO;
 
