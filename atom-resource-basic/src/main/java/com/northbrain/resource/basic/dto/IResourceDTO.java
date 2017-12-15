@@ -2,6 +2,8 @@ package com.northbrain.resource.basic.dto;
 
 
 import com.northbrain.base.common.model.vo.ResourceVO;
+import com.northbrain.resource.basic.model.po.ResourceDetailHisPO;
+import com.northbrain.resource.basic.model.po.ResourceDetailPO;
 import com.northbrain.resource.basic.model.po.ResourceHisPO;
 import com.northbrain.resource.basic.model.po.ResourcePO;
 
