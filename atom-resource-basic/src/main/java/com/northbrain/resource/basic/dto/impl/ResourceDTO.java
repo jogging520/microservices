@@ -7,8 +7,6 @@ import com.northbrain.base.common.model.bo.Errors;
 import com.northbrain.base.common.model.bo.Hints;
 import com.northbrain.base.common.model.vo.ResourceVO;
 import com.northbrain.resource.basic.dto.IResourceDTO;
-import com.northbrain.resource.basic.model.po.ResourceDetailHisPO;
-import com.northbrain.resource.basic.model.po.ResourceDetailPO;
 import com.northbrain.resource.basic.model.po.ResourceHisPO;
 import com.northbrain.resource.basic.model.po.ResourcePO;
 import org.apache.log4j.Logger;
