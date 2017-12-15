@@ -113,6 +113,7 @@ public class Constants
      * 分别是：产品、资源、服务、关系、参与者、计费、通用、安全、报表、统计、搜索、配置（参数）、第三方
      * 编排服务域名包括：LIST、DETAIL、HOTSPOT等
      */
+    public static final String URI_ATOM_PRODUCT_BASIC_REQUEST_MAPPING                                   = "/product/basic";					            //原子服务URI：产品-基础
     public static final String URI_ATOM_PRODUCT_COURSE_REQUEST_MAPPING                                  = "/product/course";					        //原子服务URI：课程清单（只有课程本身）
     public static final String URI_ATOM_PRODUCT_COURSE_SPECIFIED_REQUEST_MAPPING						= "/product/course/{courseId}";			        //原子服务URI：指定的课程（只有课程本身）
 
