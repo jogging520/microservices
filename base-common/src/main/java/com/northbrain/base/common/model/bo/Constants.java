@@ -16,6 +16,7 @@ public class Constants
     public static final int    BUSINESS_COMMON_BASIC_SEQUENCE                                           = 1000000000;                                   //基础的序列号
     public static final int    BUSINESS_COMMON_OPERATION_RECORD_DETAIL_ID_MULTIPLE                      = 100;                                          //操作记录明细ID号的倍数关系，明细记录由操作记录的ID乘以该值得到
     public static final int    BUSINESS_COMMON_OPERATION_RECORD_DEFAULT_ID                              = -1;                                           //操作记录默认编号
+    public static final int    BUSINESS_COMMON_OPERATOR_CODE                                            = 99999999;                                     //系统默认工号
     public static final String BUSINESS_COMMON_TRUE 													= "TRUE";
     public static final String BUSINESS_COMMON_NODE_SEPARATOR 											= "/";									        //Zookeeper的分隔符
     public static final String BUSINESS_COMMON_JSON_REQUEST_DATE_FORMART                                = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";                 //Json请求报文日期格式
@@ -128,7 +129,9 @@ public class Constants
     public static final String URI_ATOM_PARTY_ORGANIZATION_REQUEST_MAPPING                              = "/party/organization";                        //原子服务URI：组织机构
     public static final String URI_ATOM_PARTY_SUBJECTION_REQUEST_MAPPING                                = "/party/subjection";                          //原子服务URI：隶属关系
 
-    public static final String URI_ATOM_COMMON_GLOBAL_SEQUENCE_REQUEST_MAPPING                          = "/common/sequence";                           //原子服务URI：全局唯一的序列号
+    public static final String URI_ATOM_COMMON_OPERATION_RECORD_SEQUENCE_REQUEST_MAPPING                = "/common/sequence/operationrecord";           //原子服务URI：全局唯一的操作记录序列号
+    public static final String URI_ATOM_COMMON_REGISTRY_SEQUENCE_REQUEST_MAPPING                        = "/common/sequence/registry";                  //原子服务URI：全局唯一的注册序列号
+    public static final String URI_ATOM_COMMON_PARTY_SEQUENCE_REQUEST_MAPPING                           = "/common/sequence/party";                     //原子服务URI：全局唯一的参与者序列号
 
     public static final String URI_ATOM_COMMON_SECURITY_PRIVILEGE_SPECIFIED_REQUEST_MAPPING             = "/common/security/privilege/{privilegeId}";   //原子服务URI：指定的权限
     public static final String URI_ATOM_COMMON_SECURITY_ACCESS_CONTROL_SPECIFIED_REQUEST_MAPPING        = "/common/security/accesscontrol/{roleId}";    //原子服务URI：指定的访问控制
@@ -137,6 +140,7 @@ public class Constants
     public static final String URI_ATOM_COMMON_SECURITY_LOGIN_REQUEST_MAPPING                           = "/common/security/login";                     //原子服务URI：登录
     public static final String URI_ATOM_COMMON_STRATEGY_REQUEST_MAPPING                                 = "/common/strategy";                           //原子服务URI：策略
 
+    public static final String URI_ORCH_FOUNDATION_AUTHENTICATION_REQUEST_MAPPING                       = "/foundation/authentication";						        //编排服务URI：全量在用的课程清单（只有课程本身）
     public static final String URI_ORCH_LIST_COURSE_REQUEST_MAPPING                                     = "/list/course";						        //编排服务URI：全量在用的课程清单（只有课程本身）
     public static final String URI_ORCH_LIST_COURSE_SPECIFIED_REQUEST_MAPPING                           = "/list/course/{courseId}";			        //编排服务URI：全量在用的课程清单（只有课程本身）
 

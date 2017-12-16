@@ -22,6 +22,7 @@ import com.northbrain.base.common.model.vo.atom.CourseVO;
 import com.northbrain.base.common.model.vo.atom.OperationRecordVO;
 import com.northbrain.base.common.model.vo.orch.OrchCourseVO;
 import com.northbrain.base.common.model.vo.atom.StorageVO;
+import com.northbrain.base.common.util.JsonTransformationUtil;
 import com.northbrain.list.course.dao.ICourseDAO;
 import com.northbrain.list.course.dao.IOperationRecordDAO;
 import com.northbrain.list.course.dao.ISequenceDAO;
@@ -77,7 +78,7 @@ public class CourseDomain implements ICourseDomain
 
         //2、新生成一条操作记录，并作为分布式事务（最终一致性）的开始。状态为初始状态。
         OperationRecordVO operationRecordVO = createOperationRecord(operationRecordId, BaseType.OPERATETYPE.READ,
-                8888, BaseType.DOMAIN.LIST, Constants.BUSINESS_LIST_COURSE_ORCH_MICROSERVICE,
+                Constants.BUSINESS_COMMON_OPERATOR_CODE, BaseType.DOMAIN.LIST, Constants.BUSINESS_LIST_COURSE_ORCH_MICROSERVICE,
                 BaseType.STATUS.INITIAL, "TEST");
 
         if (operationRecordVO == null)
@@ -194,13 +195,7 @@ public class CourseDomain implements ICourseDomain
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
 
-        if (courseDTO == null)
-        {
-            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "courseDTO");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
-        }
-
-        Integer nextGlobalValue = courseDTO.convertToInteger(sequenceDAO.readAtomNextGlobalValue());
+        Integer nextGlobalValue = JsonTransformationUtil.transformJSONStringIntoInteger(sequenceDAO.readAtomNextGlobalValue());
 
         logger.info(Hints.HINT_BUSINESS_COMMON_SEQUENCE_NEXT_VALUE + String.valueOf(nextGlobalValue));
 
@@ -274,13 +269,7 @@ public class CourseDomain implements ICourseDomain
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
 
-        if (courseDTO == null)
-        {
-            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "courseDTO");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
-        }
-
-        boolean isCreated = courseDTO.convertToBoolean(operationRecordDAO.createAtomOperationRecord(operationRecordVO));
+        boolean isCreated = JsonTransformationUtil.transformJSONStringIntoBoolean(operationRecordDAO.createAtomOperationRecord(operationRecordVO));
 
         if(!isCreated)
         {
@@ -327,12 +316,6 @@ public class CourseDomain implements ICourseDomain
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
 
-        if (courseDTO == null)
-        {
-            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "courseDTO");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
-        }
-
         OperationRecordVO.OperationRecordDetailVO operationRecordDetailVO = new OperationRecordVO.OperationRecordDetailVO();
         operationRecordDetailVO.setRecordDetailId((long) (operationRecordVO.getRecordId() * Constants.BUSINESS_COMMON_OPERATION_RECORD_DETAIL_ID_MULTIPLE + rank));
         operationRecordDetailVO.setRank(rank);
@@ -367,13 +350,7 @@ public class CourseDomain implements ICourseDomain
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
 
-        if (courseDTO == null)
-        {
-            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "courseDTO");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
-        }
-
-        JSONArray atomCourseVOS = courseDTO.convertToCourseVOArray(this.courseDAO.readAtomInUsedCourses());
+        JSONArray atomCourseVOS = JsonTransformationUtil.transformJSONStringIntoVOArray(this.courseDAO.readAtomInUsedCourses());
 
         if (atomCourseVOS == null)
         {
@@ -385,7 +362,7 @@ public class CourseDomain implements ICourseDomain
 
         for (Object atomCourseVOObject: atomCourseVOS)
         {
-            CourseVO courseVO = courseDTO.convertToCourseVO(atomCourseVOObject);
+            CourseVO courseVO = (CourseVO) JsonTransformationUtil.transformPlainObjectIntoValueObject(atomCourseVOObject, CourseVO.class);
 
             if(courseVO == null)
                 continue;
@@ -409,12 +386,6 @@ public class CourseDomain implements ICourseDomain
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
-        if (courseDTO == null)
-        {
-            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "courseDTO");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
-        }
-
         if (storageDAO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "storageDAO");
@@ -434,7 +405,7 @@ public class CourseDomain implements ICourseDomain
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
 
-        JSONArray atomStorageVOS = courseDTO.convertToStorageVOArray(this.storageDAO.readAtomStorages(storageIds));
+        JSONArray atomStorageVOS = JsonTransformationUtil.transformJSONStringIntoVOArray(this.storageDAO.readAtomStorages(storageIds));
 
         if (atomStorageVOS == null || atomStorageVOS.size() == 0)
         {
@@ -446,7 +417,7 @@ public class CourseDomain implements ICourseDomain
 
         for (Object atomStorageVOObject: atomStorageVOS)
         {
-            StorageVO storageVO = courseDTO.convertToStorageVO(atomStorageVOObject);
+            StorageVO storageVO = (StorageVO) JsonTransformationUtil.transformPlainObjectIntoValueObject(atomStorageVOObject, StorageVO.class);
 
             if(storageVO == null)
                 continue;

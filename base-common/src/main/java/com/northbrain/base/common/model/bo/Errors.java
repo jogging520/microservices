@@ -76,6 +76,11 @@ public enum Errors
     ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_UPDATE                  ("3011", "更新策略信息时候发生异常。"),
     ERROR_BUSINESS_COMMON_SECURITY_STRATEGY_DELETE                  ("3012", "删除策略信息时候发生异常。"),
 
+    ERROR_BUSINESS_COMMON_VALUE_OBJECT_PROPERTY_ENUM_EXCEPTION      ("3013", "发生值对象的属性取值不在枚举范围内异常。"),
+    ERROR_BUSINESS_COMMON_VALUE_OBJECT_PROPERTY_DOMAIN_ENUM         ("3014", "值对象的域属性domain取值不在枚举范围内。"),
+    ERROR_BUSINESS_COMMON_VALUE_OBJECT_PROPERTY_CATEGORY_ENUM       ("3015", "值对象的类别属性category取值不在枚举范围内。"),
+    ERROR_BUSINESS_COMMON_VALUE_OBJECT_PROPERTY_TYPE_ENUM           ("3016", "值对象的类型属性type取值不在枚举范围内。"),
+
     ERROR_BUSINESS_RELATION_OPERATION_RECORD_EXCEPTION              ("3101", "操作业务记录时候发生异常。"),
     ERROR_BUSINESS_RELATION_OPERATION_RECORD_INSERT                 ("3102", "插入业务记录时候发生异常。"),
     ERROR_BUSINESS_RELATION_OPERATION_RECORD_UPDATE                 ("3103", "更新业务记录时候发生异常。"),

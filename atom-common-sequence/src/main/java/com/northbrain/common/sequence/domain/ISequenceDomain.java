@@ -10,8 +10,20 @@ package com.northbrain.common.sequence.domain;
 public interface ISequenceDomain
 {
     /**
-     * 方法：获取全局唯一序列号
-     * @return 全局唯一序列号
+     * 方法：获取全局唯一操作记录序列号
+     * @return 全局唯一操作记录序列号
      */
-    int readNextGlobalValue() throws Exception;
+    int readOperationRecordId() throws Exception;
+
+    /**
+     * 方法：获取全局唯一注册序列号
+     * @return 全局唯一注册序列号
+     */
+    int readRegistryId() throws Exception;
+
+    /**
+     * 方法：获取全局唯一参与者序列号
+     * @return 全局唯一参与者序列号
+     */
+    int readPartyId() throws Exception;
 }

@@ -48,7 +48,9 @@ public enum Names
     STORAGE_ZOOKEEPER_CONNECT_MAX_RETRIES							("STORAGE",		"STORAGE_ZOOKEEPER_CONNECT_MAX_RETRIES"                     ), //连接ZooKeeper重试次数
     STORAGE_ZOOKEEPER_SESSION_TIMEOUT_MS                            ("STORAGE",     "STORAGE_ZOOKEEPER_SESSION_TIMEOUT_MS"                      ), //ZooKeeper会话超时时间
     STORAGE_ZOOKEEPER_CACHE_THREAD_POOL_NUMBER                      ("STORAGE",     "STORAGE_ZOOKEEPER_CACHE_THREAD_POOL_NUMBER"                ), //ZooKeeper服务器缓存数据的线程数
-    STORAGE_ZOOKEEPER_GLOBAL_SEQUENCE                               ("STORAGE",     "STORAGE_ZOOKEEPER_GLOBAL_SEQUENCE"                         ), //ZooKeeper全局唯一序列号
+    STORAGE_ZOOKEEPER_GLOBAL_OPERATION_RECORD_SEQUENCE              ("STORAGE",     "STORAGE_ZOOKEEPER_GLOBAL_OPERATION_RECORD_SEQUENCE"        ), //ZooKeeper全局唯一操作记录序列号
+    STORAGE_ZOOKEEPER_GLOBAL_REGISTRY_SEQUENCE                      ("STORAGE",     "STORAGE_ZOOKEEPER_GLOBAL_REGISTRY_SEQUENCE"                ), //ZooKeeper全局唯一注册序列号
+    STORAGE_ZOOKEEPER_GLOBAL_PARTY_SEQUENCE                         ("STORAGE",     "STORAGE_ZOOKEEPER_GLOBAL_PARTY_SEQUENCE"                   ), //ZooKeeper全局唯一参与者序列号
 
 
     STORAGE_DATABASE_JDBC_DRIVER_CLASS_NAME                         ("STORAGE",     "STORAGE_DATABASE_JDBC_DRIVER_CLASS_NAME"                   ), //数据库驱动

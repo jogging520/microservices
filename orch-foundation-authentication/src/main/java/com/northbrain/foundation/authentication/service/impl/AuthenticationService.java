@@ -1,59 +1,63 @@
-package com.northbrain.list.course.service.impl;
+package com.northbrain.foundation.authentication.service.impl;
 
 import java.util.Date;
 
-import com.netflix.client.ClientException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONException;
+import com.netflix.client.ClientException;
 import com.northbrain.base.common.exception.PropertyEnumerationException;
 import com.northbrain.base.common.model.bo.Errors;
 import com.northbrain.base.common.model.vo.basic.ServiceVO;
+import com.northbrain.base.common.model.vo.orch.OrchRegistryVO;
 import com.northbrain.base.common.util.StackTracerUtil;
-import com.northbrain.list.course.domain.ICourseDomain;
-import com.northbrain.list.course.service.ICourseService;
+import com.northbrain.foundation.authentication.domain.IAuthenticationDomain;
+import com.northbrain.foundation.authentication.service.IAuthenticationService;
 
 import feign.FeignException;
 
 /**
- * 类名：课程服务接口的实现类
- * 用途：读取课程相关信息
+ * 类名：鉴权服务接口的实现类
+ * 用途：操作鉴权、权限、注册、登录等相关操作。
  * @author Jiakun
  * @version 1.0
  */
 @Service
-public class CourseService implements ICourseService
+public class AuthenticationService implements IAuthenticationService
 {
-    private static Logger logger = Logger.getLogger(CourseService.class);
-    private final ICourseDomain courseDomain;
+    private static Logger logger = Logger.getLogger(AuthenticationService.class);
+    private final IAuthenticationDomain authenticationDomain;
 
     @Autowired
-    public CourseService(ICourseDomain courseDomain)
+    public AuthenticationService(IAuthenticationDomain authenticationDomain)
     {
-        this.courseDomain = courseDomain;
+        this.authenticationDomain = authenticationDomain;
     }
 
     /**
-     * 方法：读取在用的课程列表
-     * @return 在用的课程列表，用ServiceVO封装
+     * 方法：注册
+     *
+     * @param orchRegistryVO 编排层注册值对象
+     * @return 是否注册成功的ServiceVO封装对象
      */
-    public ServiceVO readInUsedCourses()
+    @Override
+    public ServiceVO createRegistry(OrchRegistryVO orchRegistryVO)
     {
         ServiceVO serviceVO = new ServiceVO();
 
         try
         {
-            if (courseDomain == null)
+            if (authenticationDomain == null)
             {
-                logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "courseDomain");
+                logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "authenticationDomain");
                 serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
 
                 return serviceVO;
             }
 
-            serviceVO.setResponse(courseDomain.readInUsedCourses());
+            serviceVO.setResponse(authenticationDomain.createRegistry(orchRegistryVO));
             serviceVO.setResponseCodeAndDesc(Errors.SUCCESS_EXECUTE);
         }
         catch (PropertyEnumerationException propertyEnumerationException)

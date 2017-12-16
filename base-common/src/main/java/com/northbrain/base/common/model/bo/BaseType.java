@@ -9,6 +9,9 @@ package com.northbrain.base.common.model.bo;
 public class BaseType
 {
     /**
+     *************************全局部分**********************
+     */
+    /**
      * 操作系统类型
      */
     public enum OPERATINGSYSTEM {LINUX, UNIX, WINDOWS, ZOOKEEPER}
@@ -21,11 +24,8 @@ public class BaseType
     /**
      * 域
      */
-    public enum DOMAIN {PRODUCT, RESOURCE, CHARGE, SERVICE, PARTY, RELATION, LIST, GATEWAY, COMMON}
+    public enum DOMAIN {COMMON, PRODUCT, RESOURCE, CHARGE, SERVICE, PARTY, RELATION, FOUNDATION, LIST, GATEWAY}
 
-    /**
-     * 服务类型：原子服务、编排服务、进程
-     */
     public enum SERVICETYPE {ATOM, ORCH, PROC}
 
     /**
@@ -52,6 +52,41 @@ public class BaseType
      */
     public enum FILTERTYPE {pre, route, post, error}
 
+    /**
+     *************************业务部分**********************
+     */
+    /**
+     * 注册属性域
+     */
+    public enum REGISTRYDOMAIN {WEB, CAS, WEIXIN, APP}
+
+    /**
+     * 注册属性类别
+     */
+    public enum REGISTRYCATEGORY {WEB, CAS, WEIXIN, APP}
+
+    /**
+     * 注册属性类型
+     */
+    public enum REGISTRYTYPE {WEB, CAS, WEIXIN, APP}
+
+    /**
+     * 参与者属性域
+     */
+    public enum PARTYDOMAIN {WEB, CAS, WEIXIN, APP}
+    /**
+     * 服务类型：原子服务、编排服务、进程
+     */
+
+    /**
+     * 参与者属性类别
+     */
+    public enum PARTYCATEGORY {WEB, CAS, WEIXIN, APP}
+
+    /**
+     * 参与者属性类型
+     */
+    public enum PARTYTYPE {WEB, CAS, WEIXIN, APP}
 
     /**
      * 匹配操作系统类型
