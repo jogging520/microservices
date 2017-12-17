@@ -137,29 +137,15 @@ public class AuthenticationDomain implements IAuthenticationDomain
         if (roleResponseVO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "roleResponseVO");
-            operationRecordDetailVO.setStatus(BaseType.STATUS.FAILURE.ordinal());
-            operationRecordDetailVO.setFinishTime(new Date());
-            operationRecordDetailVO.setDescription(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
-            logger.info(operationRecordVO);
-            operationRecordVO.addOperationRecordDetail(operationRecordDetailVO);
-            createAtomOperationRecord(operationRecordVO);
-
-            responseVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
-            return responseVO;
+            return createOperationRecordDetail(operationRecordVO, operationRecordDetailVO, BaseType.STATUS.FAILURE,
+                    Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION, responseVO);
         }
 
         if(!roleResponseVO.getResponseCode().equals(Errors.SUCCESS_EXECUTE.getCode()))
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_CALL_ATOM_SERVICE);
-            operationRecordDetailVO.setStatus(BaseType.STATUS.FAILURE.ordinal());
-            operationRecordDetailVO.setFinishTime(new Date());
-            operationRecordDetailVO.setDescription(roleResponseVO.getResponseCodeAndDesc());
-            logger.info(operationRecordVO);
-            operationRecordVO.addOperationRecordDetail(operationRecordDetailVO);
-            createAtomOperationRecord(operationRecordVO);
-
-            responseVO.setResponseCodeAndDesc(roleResponseVO.getResponseCode(), roleResponseVO.getResponseDesc());
-            return responseVO;
+            return createOperationRecordDetail(operationRecordVO, operationRecordDetailVO, BaseType.STATUS.FAILURE,
+                    roleResponseVO.getResponseCode(), roleResponseVO.getResponseDesc(), responseVO);
         }
 
         List<PartyVO> partyVOS = roleResponseVO.getResponse();
@@ -167,35 +153,20 @@ public class AuthenticationDomain implements IAuthenticationDomain
         if (partyVOS == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "partyVOS");
-            operationRecordDetailVO.setStatus(BaseType.STATUS.FAILURE.ordinal());
-            operationRecordDetailVO.setFinishTime(new Date());
-            operationRecordDetailVO.setDescription(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
-            logger.info(operationRecordVO);
-            operationRecordVO.addOperationRecordDetail(operationRecordDetailVO);
-            createAtomOperationRecord(operationRecordVO);
-
-            responseVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
-            return responseVO;
+            return createOperationRecordDetail(operationRecordVO, operationRecordDetailVO, BaseType.STATUS.FAILURE,
+                    Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION, responseVO);
         }
 
-        operationRecordDetailVO.setStatus(BaseType.STATUS.SUCCESS.ordinal());
-        operationRecordDetailVO.setFinishTime(new Date());
-        operationRecordDetailVO.setDescription(Errors.SUCCESS_EXECUTE);
-        operationRecordVO.addOperationRecordDetail(operationRecordDetailVO);
-
+        operationRecordVO = createOperationRecordDetail(operationRecordVO, operationRecordDetailVO,
+                BaseType.STATUS.SUCCESS, Errors.SUCCESS_EXECUTE);
         logger.info(operationRecordVO);
 
         //如果已经存在，那么直接返回。
         if(partyVOS.size() > 0)
         {
-            operationRecordVO.setStatus(BaseType.STATUS.SUCCESS.ordinal());
-            operationRecordVO.setFinishTime(new Date());
-            operationRecordVO.setDescription(Errors.ERROR_BUSINESS_PARTY_BASIC_EXCEPTION);
-            logger.info(operationRecordVO);
-            createAtomOperationRecord(operationRecordVO);
-
-            responseVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_PARTY_BASIC_EXCEPTION);
-            return responseVO;
+            logger.error(Errors.ERROR_BUSINESS_PARTY_BASIC_EXCEPTION);
+            return createOperationRecordDetail(operationRecordVO, operationRecordDetailVO, BaseType.STATUS.SUCCESS,
+                    Errors.ERROR_BUSINESS_PARTY_BASIC_EXCEPTION, responseVO);
         }
 
         //4.获取全局唯一的序列号，作为注册编号
@@ -207,13 +178,6 @@ public class AuthenticationDomain implements IAuthenticationDomain
         if (operationRecordDetailVO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "operationRecordDetailVO");
-            operationRecordDetailVO.setStatus(BaseType.STATUS.FAILURE.ordinal());
-            operationRecordDetailVO.setFinishTime(new Date());
-            operationRecordDetailVO.setDescription(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
-            logger.info(operationRecordVO);
-            operationRecordVO.addOperationRecordDetail(operationRecordDetailVO);
-            createAtomOperationRecord(operationRecordVO);
-
             responseVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
             return responseVO;
         }
@@ -223,29 +187,15 @@ public class AuthenticationDomain implements IAuthenticationDomain
         if (registryIdResponseVO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "registryIdResponseVO");
-            operationRecordDetailVO.setStatus(BaseType.STATUS.FAILURE.ordinal());
-            operationRecordDetailVO.setFinishTime(new Date());
-            operationRecordDetailVO.setDescription(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
-            logger.info(operationRecordVO);
-            operationRecordVO.addOperationRecordDetail(operationRecordDetailVO);
-            createAtomOperationRecord(operationRecordVO);
-
-            responseVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
-            return responseVO;
+            return createOperationRecordDetail(operationRecordVO, operationRecordDetailVO, BaseType.STATUS.FAILURE,
+                    Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION, responseVO);
         }
 
         if(!registryIdResponseVO.getResponseCode().equals(Errors.SUCCESS_EXECUTE.getCode()))
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_CALL_ATOM_SERVICE);
-            operationRecordDetailVO.setStatus(BaseType.STATUS.FAILURE.ordinal());
-            operationRecordDetailVO.setFinishTime(new Date());
-            operationRecordDetailVO.setDescription(registryIdResponseVO.getResponseCodeAndDesc());
-            logger.info(operationRecordVO);
-            operationRecordVO.addOperationRecordDetail(operationRecordDetailVO);
-            createAtomOperationRecord(operationRecordVO);
-
-            responseVO.setResponseCodeAndDesc(registryIdResponseVO.getResponseCode(), registryIdResponseVO.getResponseDesc());
-            return responseVO;
+            return createOperationRecordDetail(operationRecordVO, operationRecordDetailVO, BaseType.STATUS.FAILURE,
+                    registryIdResponseVO.getResponseCode(), registryIdResponseVO.getResponseDesc(), responseVO);
         }
 
         int registryId = registryIdResponseVO.getResponse();
@@ -253,22 +203,12 @@ public class AuthenticationDomain implements IAuthenticationDomain
         if(registryId <= 0)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE + "registryId" + String.valueOf(registryId));
-            operationRecordDetailVO.setStatus(BaseType.STATUS.FAILURE.ordinal());
-            operationRecordDetailVO.setFinishTime(new Date());
-            operationRecordDetailVO.setDescription(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION);
-            logger.info(operationRecordVO);
-            operationRecordVO.addOperationRecordDetail(operationRecordDetailVO);
-            createAtomOperationRecord(operationRecordVO);
-
-            responseVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION);
-            return responseVO;
+            return createOperationRecordDetail(operationRecordVO, operationRecordDetailVO, BaseType.STATUS.SUCCESS,
+                    Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION, responseVO);
         }
 
-        operationRecordDetailVO.setStatus(BaseType.STATUS.SUCCESS.ordinal());
-        operationRecordDetailVO.setFinishTime(new Date());
-        operationRecordDetailVO.setDescription(Errors.SUCCESS_EXECUTE);
-        operationRecordVO.addOperationRecordDetail(operationRecordDetailVO);
-
+        operationRecordVO = createOperationRecordDetail(operationRecordVO, operationRecordDetailVO,
+                BaseType.STATUS.SUCCESS, Errors.SUCCESS_EXECUTE);
         logger.info(operationRecordVO);
 
         //5.获取全局唯一的序列号，作为参与者编号
@@ -280,13 +220,6 @@ public class AuthenticationDomain implements IAuthenticationDomain
         if (operationRecordDetailVO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "operationRecordDetailVO");
-            operationRecordDetailVO.setStatus(BaseType.STATUS.FAILURE.ordinal());
-            operationRecordDetailVO.setFinishTime(new Date());
-            operationRecordDetailVO.setDescription(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
-            logger.info(operationRecordVO);
-            operationRecordVO.addOperationRecordDetail(operationRecordDetailVO);
-            createAtomOperationRecord(operationRecordVO);
-
             responseVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
             return responseVO;
         }
@@ -296,29 +229,15 @@ public class AuthenticationDomain implements IAuthenticationDomain
         if (partyIdResponseVO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "partyIdResponseVO");
-            operationRecordDetailVO.setStatus(BaseType.STATUS.FAILURE.ordinal());
-            operationRecordDetailVO.setFinishTime(new Date());
-            operationRecordDetailVO.setDescription(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
-            logger.info(operationRecordVO);
-            operationRecordVO.addOperationRecordDetail(operationRecordDetailVO);
-            createAtomOperationRecord(operationRecordVO);
-
-            responseVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
-            return responseVO;
+            return createOperationRecordDetail(operationRecordVO, operationRecordDetailVO, BaseType.STATUS.FAILURE,
+                    Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION, responseVO);
         }
 
         if(!partyIdResponseVO.getResponseCode().equals(Errors.SUCCESS_EXECUTE.getCode()))
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_CALL_ATOM_SERVICE);
-            operationRecordDetailVO.setStatus(BaseType.STATUS.FAILURE.ordinal());
-            operationRecordDetailVO.setFinishTime(new Date());
-            operationRecordDetailVO.setDescription(partyIdResponseVO.getResponseCodeAndDesc());
-            logger.info(operationRecordVO);
-            operationRecordVO.addOperationRecordDetail(operationRecordDetailVO);
-            createAtomOperationRecord(operationRecordVO);
-
-            responseVO.setResponseCodeAndDesc(partyIdResponseVO.getResponseCode(), partyIdResponseVO.getResponseDesc());
-            return responseVO;
+            return createOperationRecordDetail(operationRecordVO, operationRecordDetailVO, BaseType.STATUS.FAILURE,
+                    partyIdResponseVO.getResponseCode(), partyIdResponseVO.getResponseDesc(), responseVO);
         }
 
         int partyId = partyIdResponseVO.getResponse();
@@ -326,22 +245,12 @@ public class AuthenticationDomain implements IAuthenticationDomain
         if(partyId <= 0)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE + "partyId" + String.valueOf(partyId));
-            operationRecordDetailVO.setStatus(BaseType.STATUS.FAILURE.ordinal());
-            operationRecordDetailVO.setFinishTime(new Date());
-            operationRecordDetailVO.setDescription(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION);
-            logger.info(operationRecordVO);
-            operationRecordVO.addOperationRecordDetail(operationRecordDetailVO);
-            createAtomOperationRecord(operationRecordVO);
-
-            responseVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION);
-            return responseVO;
+            return createOperationRecordDetail(operationRecordVO, operationRecordDetailVO, BaseType.STATUS.SUCCESS,
+                    Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION, responseVO);
         }
 
-        operationRecordDetailVO.setStatus(BaseType.STATUS.SUCCESS.ordinal());
-        operationRecordDetailVO.setFinishTime(new Date());
-        operationRecordDetailVO.setDescription(Errors.SUCCESS_EXECUTE);
-        operationRecordVO.addOperationRecordDetail(operationRecordDetailVO);
-
+        operationRecordVO = createOperationRecordDetail(operationRecordVO, operationRecordDetailVO,
+                BaseType.STATUS.SUCCESS, Errors.SUCCESS_EXECUTE);
         logger.info(operationRecordVO);
 
         //6.调用安全原子微服务进行注册
@@ -353,13 +262,6 @@ public class AuthenticationDomain implements IAuthenticationDomain
         if (operationRecordDetailVO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "operationRecordDetailVO");
-            operationRecordDetailVO.setStatus(BaseType.STATUS.FAILURE.ordinal());
-            operationRecordDetailVO.setFinishTime(new Date());
-            operationRecordDetailVO.setDescription(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
-            logger.info(operationRecordVO);
-            operationRecordVO.addOperationRecordDetail(operationRecordDetailVO);
-            createAtomOperationRecord(operationRecordVO);
-
             responseVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
             return responseVO;
         }
@@ -369,15 +271,8 @@ public class AuthenticationDomain implements IAuthenticationDomain
         if(registryVO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "registryVO");
-            operationRecordDetailVO.setStatus(BaseType.STATUS.FAILURE.ordinal());
-            operationRecordDetailVO.setFinishTime(new Date());
-            operationRecordDetailVO.setDescription(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
-            logger.info(operationRecordVO);
-            operationRecordVO.addOperationRecordDetail(operationRecordDetailVO);
-            createAtomOperationRecord(operationRecordVO);
-
-            responseVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
-            return responseVO;
+            return createOperationRecordDetail(operationRecordVO, operationRecordDetailVO, BaseType.STATUS.FAILURE,
+                    Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION, responseVO);
         }
 
         ResponseVO<Boolean> registryResponseVO = createAtomRegistry(registryVO);
@@ -385,36 +280,19 @@ public class AuthenticationDomain implements IAuthenticationDomain
         if (registryResponseVO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "registryResponseVO");
-            operationRecordDetailVO.setStatus(BaseType.STATUS.FAILURE.ordinal());
-            operationRecordDetailVO.setFinishTime(new Date());
-            operationRecordDetailVO.setDescription(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
-            logger.info(operationRecordVO);
-            operationRecordVO.addOperationRecordDetail(operationRecordDetailVO);
-            createAtomOperationRecord(operationRecordVO);
-
-            responseVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
-            return responseVO;
+            return createOperationRecordDetail(operationRecordVO, operationRecordDetailVO, BaseType.STATUS.FAILURE,
+                    Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION, responseVO);
         }
 
         if(!registryResponseVO.getResponseCode().equals(Errors.SUCCESS_EXECUTE.getCode()))
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_CALL_ATOM_SERVICE);
-            operationRecordDetailVO.setStatus(BaseType.STATUS.FAILURE.ordinal());
-            operationRecordDetailVO.setFinishTime(new Date());
-            operationRecordDetailVO.setDescription(registryResponseVO.getResponseCodeAndDesc());
-            logger.info(operationRecordVO);
-            operationRecordVO.addOperationRecordDetail(operationRecordDetailVO);
-            createAtomOperationRecord(operationRecordVO);
-
-            responseVO.setResponseCodeAndDesc(partyIdResponseVO.getResponseCode(), partyIdResponseVO.getResponseDesc());
-            return responseVO;
+            return createOperationRecordDetail(operationRecordVO, operationRecordDetailVO, BaseType.STATUS.FAILURE,
+                    registryResponseVO.getResponseCode(), registryResponseVO.getResponseDesc(), responseVO);
         }
 
-        operationRecordDetailVO.setStatus(BaseType.STATUS.SUCCESS.ordinal());
-        operationRecordDetailVO.setFinishTime(new Date());
-        operationRecordDetailVO.setDescription(Errors.SUCCESS_EXECUTE);
-        operationRecordVO.addOperationRecordDetail(operationRecordDetailVO);
-
+        operationRecordVO = createOperationRecordDetail(operationRecordVO, operationRecordDetailVO,
+                BaseType.STATUS.SUCCESS, Errors.SUCCESS_EXECUTE);
         logger.info(operationRecordVO);
 
         //7.调用参与者基础原子微服务进行参与者登记
@@ -426,13 +304,6 @@ public class AuthenticationDomain implements IAuthenticationDomain
         if (operationRecordDetailVO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "operationRecordDetailVO");
-            operationRecordDetailVO.setStatus(BaseType.STATUS.FAILURE.ordinal());
-            operationRecordDetailVO.setFinishTime(new Date());
-            operationRecordDetailVO.setDescription(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
-            logger.info(operationRecordVO);
-            operationRecordVO.addOperationRecordDetail(operationRecordDetailVO);
-            createAtomOperationRecord(operationRecordVO);
-
             responseVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
             return responseVO;
         }
@@ -442,15 +313,8 @@ public class AuthenticationDomain implements IAuthenticationDomain
         if (partyVO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "partyVO");
-            operationRecordDetailVO.setStatus(BaseType.STATUS.FAILURE.ordinal());
-            operationRecordDetailVO.setFinishTime(new Date());
-            operationRecordDetailVO.setDescription(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
-            logger.info(operationRecordVO);
-            operationRecordVO.addOperationRecordDetail(operationRecordDetailVO);
-            createAtomOperationRecord(operationRecordVO);
-
-            responseVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
-            return responseVO;
+            return createOperationRecordDetail(operationRecordVO, operationRecordDetailVO, BaseType.STATUS.FAILURE,
+                    Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION, responseVO);
         }
 
         ResponseVO<Boolean> partyResponseVO = createAtomParty(partyVO);
@@ -458,36 +322,19 @@ public class AuthenticationDomain implements IAuthenticationDomain
         if (partyResponseVO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "partyResponseVO");
-            operationRecordDetailVO.setStatus(BaseType.STATUS.FAILURE.ordinal());
-            operationRecordDetailVO.setFinishTime(new Date());
-            operationRecordDetailVO.setDescription(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
-            logger.info(operationRecordVO);
-            operationRecordVO.addOperationRecordDetail(operationRecordDetailVO);
-            createAtomOperationRecord(operationRecordVO);
-
-            responseVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
-            return responseVO;
+            return createOperationRecordDetail(operationRecordVO, operationRecordDetailVO, BaseType.STATUS.FAILURE,
+                    Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION, responseVO);
         }
 
         if(!partyResponseVO.getResponseCode().equals(Errors.SUCCESS_EXECUTE.getCode()))
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_CALL_ATOM_SERVICE);
-            operationRecordDetailVO.setStatus(BaseType.STATUS.FAILURE.ordinal());
-            operationRecordDetailVO.setFinishTime(new Date());
-            operationRecordDetailVO.setDescription(partyResponseVO.getResponseCodeAndDesc());
-            logger.info(operationRecordVO);
-            operationRecordVO.addOperationRecordDetail(operationRecordDetailVO);
-            createAtomOperationRecord(operationRecordVO);
-
-            responseVO.setResponseCodeAndDesc(partyIdResponseVO.getResponseCode(), partyIdResponseVO.getResponseDesc());
-            return responseVO;
+            return createOperationRecordDetail(operationRecordVO, operationRecordDetailVO, BaseType.STATUS.FAILURE,
+                    partyResponseVO.getResponseCode(), partyResponseVO.getResponseDesc(), responseVO);
         }
 
-        operationRecordDetailVO.setStatus(BaseType.STATUS.SUCCESS.ordinal());
-        operationRecordDetailVO.setFinishTime(new Date());
-        operationRecordDetailVO.setDescription(Errors.SUCCESS_EXECUTE);
-        operationRecordVO.addOperationRecordDetail(operationRecordDetailVO);
-
+        operationRecordVO = createOperationRecordDetail(operationRecordVO, operationRecordDetailVO,
+                BaseType.STATUS.SUCCESS, Errors.SUCCESS_EXECUTE);
         logger.info(operationRecordVO);
 
 
@@ -498,6 +345,7 @@ public class AuthenticationDomain implements IAuthenticationDomain
         operationRecordVO.setFinishTime(new Date());
         logger.info(operationRecordVO);
         createAtomOperationRecord(operationRecordVO);
+        responseVO.setResponse(true);
 
         return responseVO;
     }
@@ -624,6 +472,7 @@ public class AuthenticationDomain implements IAuthenticationDomain
             partyVOS.add(partyVO);
         }
 
+        responseVO.setResponse(partyVOS);
         return responseVO;
     }
 
@@ -671,5 +520,176 @@ public class AuthenticationDomain implements IAuthenticationDomain
         }
 
         return JsonTransformationUtil.transformJSONStringIntoBoolean(this.partyDAO.createAtomParty(partyVO));
+    }
+
+    /**
+     * 方法：提交操作明细记录（按应答码和应答描述设置相应明细并提交）
+     * @param operationRecordVO 操作记录值对象
+     * @param operationRecordDetailVO 操作记录明细值对象
+     * @param status 状态
+     * @param responseCode 响应码
+     * @param responseDesc 响应描述
+     * @param responseVO 原始响应体
+     * @return 响应体
+     * @throws Exception 异常
+     */
+    private ResponseVO<Boolean> createOperationRecordDetail(OperationRecordVO operationRecordVO,
+                                                            OperationRecordVO.OperationRecordDetailVO operationRecordDetailVO,
+                                                            BaseType.STATUS status,
+                                                            String responseCode,
+                                                            String responseDesc,
+                                                            ResponseVO<Boolean> responseVO)
+            throws Exception
+    {
+        if (operationRecordVO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "operationRecordVO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        if (operationRecordDetailVO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "operationRecordDetailVO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        if (status == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "status");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        if (responseCode == null || responseCode.equals(""))
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "responseCode");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        if (responseDesc == null || responseDesc.equals(""))
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "responseDesc");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        if (responseVO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "responseVO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        operationRecordDetailVO.setStatus(status.ordinal());
+        operationRecordDetailVO.setFinishTime(new Date());
+        operationRecordDetailVO.setDescription(responseCode+responseDesc);
+        logger.info(operationRecordVO);
+        operationRecordVO.addOperationRecordDetail(operationRecordDetailVO);
+        createAtomOperationRecord(operationRecordVO);
+
+        responseVO.setResponseCodeAndDesc(responseCode, responseDesc);
+        return responseVO;
+    }
+
+    /**
+     * 方法：提交操作明细记录（按错误体设置相应明细并提交）
+     * @param operationRecordVO 操作记录值对象
+     * @param operationRecordDetailVO 操作记录明细值对象
+     * @param status 状态
+     * @param errors 错误体
+     * @param responseVO 原始响应体
+     * @return 响应体
+     * @throws Exception 异常
+     */
+    private ResponseVO<Boolean> createOperationRecordDetail(OperationRecordVO operationRecordVO,
+                                                            OperationRecordVO.OperationRecordDetailVO operationRecordDetailVO,
+                                                            BaseType.STATUS status,
+                                                            Errors errors,
+                                                            ResponseVO<Boolean> responseVO)
+            throws Exception
+    {
+        if (operationRecordVO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "operationRecordVO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        if (operationRecordDetailVO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "operationRecordDetailVO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        if (status == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "status");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        if (errors == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "errors");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        if (responseVO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "responseVO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        operationRecordDetailVO.setStatus(status.ordinal());
+        operationRecordDetailVO.setFinishTime(new Date());
+        operationRecordDetailVO.setDescription(errors);
+        logger.info(operationRecordVO);
+        operationRecordVO.addOperationRecordDetail(operationRecordDetailVO);
+        createAtomOperationRecord(operationRecordVO);
+
+        responseVO.setResponseCodeAndDesc(errors);
+        return responseVO;
+    }
+
+    /**
+     * 方法：提交操作明细记录（增加明显并返回）
+     * @param operationRecordVO 操作记录值对象
+     * @param operationRecordDetailVO 操作记录明细值对象
+     * @param status 状态
+     * @param errors 错误体
+     * @return 添加明细后的操作记录
+     * @throws Exception 异常
+     */
+    private OperationRecordVO createOperationRecordDetail(OperationRecordVO operationRecordVO,
+                                                          OperationRecordVO.OperationRecordDetailVO operationRecordDetailVO,
+                                                          BaseType.STATUS status,
+                                                          Errors errors)
+            throws Exception
+    {
+        if (operationRecordVO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "operationRecordVO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        if (operationRecordDetailVO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "operationRecordDetailVO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        if (status == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "status");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        if (errors == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "errors");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        operationRecordDetailVO.setStatus(status.ordinal());
+        operationRecordDetailVO.setFinishTime(new Date());
+        operationRecordDetailVO.setDescription(errors);
+        operationRecordVO.addOperationRecordDetail(operationRecordDetailVO);
+
+        return operationRecordVO;
     }
 }
