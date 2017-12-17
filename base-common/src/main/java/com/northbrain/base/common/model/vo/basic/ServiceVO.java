@@ -8,7 +8,7 @@ import com.northbrain.base.common.model.bo.Errors;
 import java.util.Date;
 
 /**
- * 类名：Service值对象
+ * 类名：Service值对象类
  * 用途：公共报文类，用于service对请求和响应报文进行封装，包含请求和响应的流水号、时间、域等信息，以便溯源、统计、分析。
  * 微服务层的响应代码为细粒度（未映射）的代码，由编排层统一封装并暴露给展现层。
  * @author Jiakun

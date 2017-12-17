@@ -22,6 +22,8 @@ public class OperationRecordDetailPO
 
     private Date finishTime;
 
+    private String description;
+
     public Long getRecordDetailId() {
         return recordDetailId;
     }
@@ -92,5 +94,13 @@ public class OperationRecordDetailPO
 
     public void setFinishTime(Date finishTime) {
         this.finishTime = finishTime;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
     }
 }

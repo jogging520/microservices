@@ -55,7 +55,7 @@ public class AuthenticationController
 
             return JSON.toJSONString(this.authenticationService.createRegistry(orchRegistryVO));
         }
-        catch(IllegalStateException illegalStateException)
+        catch (IllegalStateException illegalStateException)
         {
             logger.error(StackTracerUtil.getExceptionInfo(illegalStateException));
             serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_ILLEGAL_STATE_EXCEPTION);
@@ -70,9 +70,14 @@ public class AuthenticationController
             logger.error(StackTracerUtil.getExceptionInfo(feignException));
             serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_FEIGN_EXCEPTION);
         }
-        catch(Exception exception)
+        catch (Exception exception)
         {
             logger.error(StackTracerUtil.getExceptionInfo(exception));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_OTHER_UNKNOW_EXCEPTION);
+        }
+        catch (Throwable throwable)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(throwable));
             serviceVO.setResponseCodeAndDesc(Errors.ERROR_OTHER_UNKNOW_EXCEPTION);
         }
 

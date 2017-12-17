@@ -6,11 +6,12 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSONArray;
-import com.northbrain.base.common.exception.ArgumentInputException;
-import com.northbrain.base.common.exception.PropertyEnumerationException;
+import com.northbrain.base.common.exception.*;
 import com.northbrain.base.common.model.bo.BaseType;
+import com.northbrain.base.common.model.bo.Constants;
 import com.northbrain.base.common.model.bo.Errors;
 import com.northbrain.base.common.model.bo.Hints;
+import com.northbrain.base.common.model.vo.atom.OperationRecordVO;
 import com.northbrain.base.common.model.vo.atom.PartyVO;
 import com.northbrain.base.common.model.vo.atom.RegistryVO;
 import com.northbrain.base.common.model.vo.orch.OrchRegistryVO;
@@ -181,5 +182,108 @@ public class AuthenticationDTO implements IAuthenticationDTO
         //TODO 根据类型设置roleid（这个应该在外面一层）
 
         return partyVO;
+    }
+
+    /**
+     * 方法：创建一条操作记录
+     * @param operationRecordId 操作记录流水号
+     * @param operationType 操作类型
+     * @param operatorId 操作工号
+     * @param domain 服务归属域
+     * @param serviceName 编排服务名称
+     * @param status 状态
+     * @param description 描述（如A/B环境等）
+     * @return 操作记录对象
+     * @throws Exception 异常
+     */
+    @Override
+    public OperationRecordVO createOperationRecord(int operationRecordId, BaseType.OPERATETYPE operationType, int operatorId,
+                                                    BaseType.DOMAIN domain, String serviceName, BaseType.STATUS status,
+                                                    String description) throws Exception
+    {
+        if(operationRecordId <= 0)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE + "operationRecordId:" + String.valueOf(operationRecordId));
+            throw new NumberScopeException(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION);
+        }
+
+        if(operatorId <= 0)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE + "operatorId:" + String.valueOf(operatorId));
+            throw new NumberScopeException(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION);
+        }
+
+        if(serviceName == null || serviceName.equals(""))
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "serviceName");
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        OperationRecordVO operationRecordVO = new OperationRecordVO();
+        operationRecordVO.setRecordId(operationRecordId);
+        operationRecordVO.setOperateType(operationType.name());
+        operationRecordVO.setOperatorId(operatorId);
+        operationRecordVO.setDomain(domain.name());
+        operationRecordVO.setServiceName(serviceName);
+        operationRecordVO.setStatus(status.ordinal());
+        operationRecordVO.setStartTime(new Date());
+        operationRecordVO.setFinishTime(new Date());
+        operationRecordVO.setDescription(description);
+
+        return operationRecordVO;
+    }
+
+    /**
+     * 方法：新增一条操作明细记录
+     * @param operationRecordVO 操作记录值对象
+     * @param rank 序号
+     * @param operationType 操作类型
+     * @param domain 域
+     * @param serviceName 服务名称
+     * @param status 状态
+     * @return 操作明细对象
+     * @throws Exception 异常
+     */
+    @Override
+    public OperationRecordVO.OperationRecordDetailVO createOperationRecordDetail(OperationRecordVO operationRecordVO, int rank, BaseType.OPERATETYPE operationType,
+                                                                                  BaseType.DOMAIN domain, String serviceName, BaseType.STATUS status) throws Exception
+    {
+        if (operationRecordVO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "operationRecordVO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        if(rank <= 0)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE + "rank:" + String.valueOf(rank));
+            throw new NumberScopeException(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION);
+        }
+
+        if(serviceName == null || serviceName.equals(""))
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "serviceName");
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        OperationRecordVO.OperationRecordDetailVO operationRecordDetailVO = new OperationRecordVO.OperationRecordDetailVO();
+        operationRecordDetailVO.setRecordDetailId((long) (operationRecordVO.getRecordId() * Constants.BUSINESS_COMMON_OPERATION_RECORD_DETAIL_ID_MULTIPLE + rank));
+        operationRecordDetailVO.setRank(rank);
+        operationRecordDetailVO.setOperateType(operationType.name());
+        operationRecordDetailVO.setDomain(domain.name());
+        operationRecordDetailVO.setServiceName(serviceName);
+        operationRecordDetailVO.setStatus(status.ordinal());
+        operationRecordDetailVO.setStartTime(new Date());
+        operationRecordDetailVO.setFinishTime(new Date());
+
+        if(operationRecordVO.addOperationRecordDetail(operationRecordDetailVO))
+        {
+            return operationRecordDetailVO;
+        }
+        else
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OPERATION_RECORD);
+            throw new OperationRecordException(Errors.ERROR_BUSINESS_COMMON_OPERATION_RECORD_EXCEPTION);
+        }
     }
 }

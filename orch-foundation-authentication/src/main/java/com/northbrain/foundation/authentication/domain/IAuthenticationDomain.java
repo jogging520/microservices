@@ -1,5 +1,6 @@
 package com.northbrain.foundation.authentication.domain;
 
+import com.northbrain.base.common.model.vo.basic.ResponseVO;
 import com.northbrain.base.common.model.vo.orch.OrchRegistryVO;
 
 /**
@@ -15,5 +16,5 @@ public interface IAuthenticationDomain
      * @param orchRegistryVO 编排层注册值对象
      * @return 是否注册成功
      */
-    boolean createRegistry(OrchRegistryVO orchRegistryVO) throws Exception;
+    ResponseVO<Boolean> createRegistry(OrchRegistryVO orchRegistryVO) throws Exception;
 }

@@ -8,8 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONException;
 import com.netflix.client.ClientException;
-import com.northbrain.base.common.exception.PropertyEnumerationException;
+import com.northbrain.base.common.exception.*;
 import com.northbrain.base.common.model.bo.Errors;
+import com.northbrain.base.common.model.vo.basic.ResponseVO;
 import com.northbrain.base.common.model.vo.basic.ServiceVO;
 import com.northbrain.base.common.model.vo.orch.OrchRegistryVO;
 import com.northbrain.base.common.util.StackTracerUtil;
@@ -57,8 +58,19 @@ public class AuthenticationService implements IAuthenticationService
                 return serviceVO;
             }
 
-            serviceVO.setResponse(authenticationDomain.createRegistry(orchRegistryVO));
-            serviceVO.setResponseCodeAndDesc(Errors.SUCCESS_EXECUTE);
+            ResponseVO<Boolean> responseVO = authenticationDomain.createRegistry(orchRegistryVO);
+
+            if (responseVO == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "responseVO");
+                serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+
+                return serviceVO;
+            }
+
+            serviceVO.setResponse(responseVO.getResponse());
+            serviceVO.setResponseCode(responseVO.getResponseCode());
+            serviceVO.setResponseDesc(responseVO.getResponseDesc());
         }
         catch (PropertyEnumerationException propertyEnumerationException)
         {
@@ -70,10 +82,15 @@ public class AuthenticationService implements IAuthenticationService
             logger.error(StackTracerUtil.getExceptionInfo(classCastException));
             serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_CLASS_CAST_EXCEPTION);
         }
-        catch(IllegalStateException illegalStateException)
+        catch (IllegalStateException illegalStateException)
         {
             logger.error(StackTracerUtil.getExceptionInfo(illegalStateException));
             serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_ILLEGAL_STATE_EXCEPTION);
+        }
+        catch (InstantiationException instantiationException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(instantiationException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_INSTANTIATION_EXCEPTION);
         }
         catch (JSONException jSONException)
         {
@@ -89,6 +106,31 @@ public class AuthenticationService implements IAuthenticationService
         {
             logger.error(StackTracerUtil.getExceptionInfo(clientException));
             serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_CLIENT_EXCEPTION);
+        }
+        catch (ArgumentInputException argumentInputException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(argumentInputException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+        catch (CollectionEmptyException collectionEmptyException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(collectionEmptyException));
+            serviceVO.setResponseCodeAndDesc(Errors.EROOR_BUSINESS_COMMON_COLLECTION_EMPTY_EXCEPTION);
+        }
+        catch (NumberScopeException numberScopeException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(numberScopeException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION);
+        }
+        catch (ObjectNullException objectNullException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(objectNullException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+        catch (OperationRecordException operationRecordException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(operationRecordException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_OPERATION_RECORD_EXCEPTION);
         }
         catch (Exception exception)
         {

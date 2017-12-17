@@ -11,10 +11,11 @@
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
     <result column="finish_time" jdbcType="TIMESTAMP" property="finishTime" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
   </resultMap>
   <sql id="Base_Column_List">
     record_detail_id, record_id, rank, operate_type, domain, service_name, status, start_time,
-    finish_time
+    finish_time, description
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -29,11 +30,12 @@
   <insert id="insert" parameterType="com.northbrain.relation.operationrecord.model.po.OperationRecordDetailPO">
     insert into operation_record_detail (record_detail_id, record_id, rank, 
       operate_type, domain, service_name,
-      status, start_time, finish_time
+      status, start_time, finish_time, description
       )
     values (#{recordDetailId,jdbcType=BIGINT}, #{recordId,jdbcType=INTEGER}, #{rank,jdbcType=INTEGER}, 
       #{operateType,jdbcType=VARCHAR}, #{domain,jdbcType=VARCHAR}, #{serviceName,jdbcType=VARCHAR},
-      #{status,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, #{finishTime,jdbcType=TIMESTAMP}
+      #{status,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, #{finishTime,jdbcType=TIMESTAMP},
+      #{description,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.northbrain.relation.operationrecord.model.po.OperationRecordDetailPO">
@@ -66,6 +68,9 @@
       <if test="finishTime != null">
         finish_time,
       </if>
+      <if test="description != null">
+        description,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="recordDetailId != null">
@@ -94,6 +99,9 @@
       </if>
       <if test="finishTime != null">
         #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -124,6 +132,9 @@
       <if test="finishTime != null">
         finish_time = #{finishTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
     </set>
     where record_detail_id = #{recordDetailId,jdbcType=BIGINT}
   </update>
@@ -136,7 +147,8 @@
       service_name = #{serviceName,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
       start_time = #{startTime,jdbcType=TIMESTAMP},
-      finish_time = #{finishTime,jdbcType=TIMESTAMP}
+      finish_time = #{finishTime,jdbcType=TIMESTAMP},
+      description = #{description,jdbcType=VARCHAR}
     where record_detail_id = #{recordDetailId,jdbcType=BIGINT}
   </update>
 </mapper>

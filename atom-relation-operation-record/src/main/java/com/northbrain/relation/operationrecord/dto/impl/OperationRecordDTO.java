@@ -75,6 +75,7 @@ public class OperationRecordDTO implements IOperationRecordDTO
             operationRecordDetailVO.setStatus(operationRecordDetailPO.getStatus());
             operationRecordDetailVO.setStartTime(operationRecordDetailPO.getStartTime());
             operationRecordDetailVO.setFinishTime(operationRecordDetailPO.getFinishTime());
+            operationRecordDetailVO.setDescription(operationRecordDetailPO.getDescription());
 
             operationRecordDetailVOS.add(operationRecordDetailVO);
         }
@@ -154,6 +155,7 @@ public class OperationRecordDTO implements IOperationRecordDTO
             operationRecordDetailPO.setStatus(operationRecordDetailVO.getStatus());
             operationRecordDetailPO.setStartTime(operationRecordDetailVO.getStartTime());
             operationRecordDetailPO.setFinishTime(operationRecordDetailVO.getFinishTime());
+            operationRecordDetailPO.setDescription(operationRecordDetailVO.getDescription());
 
             operationRecordDetailPOS.add(operationRecordDetailPO);
         }

@@ -8,6 +8,7 @@ import java.util.Objects;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.northbrain.base.common.model.bo.Constants;
+import com.northbrain.base.common.model.bo.Errors;
 
 /**
  * 类名：操作记录值对象类
@@ -126,6 +127,10 @@ public class OperationRecordVO
         this.description = description == null ? null : description.trim();
     }
 
+    public void setDescription(Errors errors) {
+        this.description = errors.getCode() + errors.getDesc();
+    }
+
     public List<OperationRecordDetailVO> getOperationRecordDetailVOS() {
         return operationRecordDetailVOS;
     }
@@ -178,6 +183,9 @@ public class OperationRecordVO
 
         @JSONField(format=Constants.BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART)
         private Date finishTime;
+
+        //描述
+        private String description;
 
         public Long getRecordDetailId() {
             return recordDetailId;
@@ -241,6 +249,18 @@ public class OperationRecordVO
 
         public void setFinishTime(Date finishTime) {
             this.finishTime = finishTime;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description == null ? null : description.trim();
+        }
+
+        public void setDescription(Errors errors) {
+            this.description = errors.getCode() + errors.getDesc();
         }
     }
 }
