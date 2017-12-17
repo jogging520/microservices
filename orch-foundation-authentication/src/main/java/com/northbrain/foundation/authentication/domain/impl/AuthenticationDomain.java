@@ -55,7 +55,7 @@ public class AuthenticationDomain implements IAuthenticationDomain
 
     /**
      * 方法：注册
-     *
+     * TODO 代码有点长，后续要优化。
      * @param orchRegistryVO 编排层注册值对象
      * @return 是否注册成功
      */
