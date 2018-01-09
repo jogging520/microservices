@@ -29,7 +29,6 @@ public class Constants
     public static final String BUSINESS_COMMON_LOG_DATE_PATTERN											= "'.'yyyyMMdd";						        //日志的日期切断模式，每日一个日志文件
     public static final String BUSINESS_COMMON_LAUNCHER_PREFIX 											= "launcher.";							        //launcher配置的前缀
     public static final String BUSINESS_COMMON_COMMAND_LINE_ASSIGN_SYMBOL								= "=";									        //命令行:赋值符号
-    public static final String BUSINESS_COMMON_COMMAND_LINE_END_SYMBOL								    = ";";									        //命令行:结束符号
     public static final String BUSINESS_COMMON_COMMAND_LINE_PROJECT_NAME								= "projectName";						        //命令行:项目名称
     public static final String BUSINESS_COMMON_COMMAND_LINE_SERVER_PORT									= "server.port";						        //命令行:服务端口号（tomcat）
     public static final String BUSINESS_COMMON_COMMAND_LINE_SPRING_CONFIG_LOCATION						= "spring.config.location";				        //命令行:配置文件位置
