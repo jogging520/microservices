@@ -17,6 +17,15 @@ import java.util.List;
 public interface IPartyDomain
 {
     /**
+     * 方法：根据属性组合获取参与者信息
+     * @param idType id类型
+     * @param idValue id取值
+     * @return 参与者值对象
+     * @throws Exception 异常
+     */
+    List<PartyVO> readPartyByProperties(String idType, String idValue) throws Exception;
+
+    /**
      * 方法：根据名称获取角色信息
      * @param name 名称
      * @return 角色值对象

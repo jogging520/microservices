@@ -38,6 +38,14 @@ public interface ISequenceDAO
     String readAtomRegistryId() throws Exception;
 
     /**
+     * 方法：读取全局注册序列号
+     * @return 以ServiceVO封装的全局注册序列号
+     */
+    @RequestMapping(value = Constants.URI_ATOM_COMMON_LOGIN_SEQUENCE_REQUEST_MAPPING, method = RequestMethod.GET, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS)
+    @ResponseBody
+    String readAtomLoginId() throws Exception;
+
+    /**
      * 方法：读取全局参与者序列号
      * @return 以ServiceVO封装的全局参与者序列号
      */
@@ -62,7 +70,7 @@ public interface ISequenceDAO
         @Override
         public String readAtomOperationRecordId() throws Exception
         {
-            logger.info(Hints.HINT_SYSTEM_PROCESS_CALL_HYSTRIX_DAO + "readAtomNextGlobalValue");
+            logger.info(Hints.HINT_SYSTEM_PROCESS_CALL_HYSTRIX_DAO + "readAtomOperationRecordId");
 
             ServiceVO serviceVO = new ServiceVO();
             serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_SERVICE_HYSTRIX_EXCEPTION);
@@ -78,7 +86,23 @@ public interface ISequenceDAO
         @Override
         public String readAtomRegistryId() throws Exception
         {
-            logger.info(Hints.HINT_SYSTEM_PROCESS_CALL_HYSTRIX_DAO + "readAtomNextGlobalValue");
+            logger.info(Hints.HINT_SYSTEM_PROCESS_CALL_HYSTRIX_DAO + "readAtomRegistryId");
+
+            ServiceVO serviceVO = new ServiceVO();
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_SERVICE_HYSTRIX_EXCEPTION);
+
+            return JSON.toJSONString(serviceVO);
+        }
+
+        /**
+         * 方法：读取全局注册序列号
+         *
+         * @return 以ServiceVO封装的全局注册序列号
+         */
+        @Override
+        public String readAtomLoginId() throws Exception
+        {
+            logger.info(Hints.HINT_SYSTEM_PROCESS_CALL_HYSTRIX_DAO + "readAtomLoginId");
 
             ServiceVO serviceVO = new ServiceVO();
             serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_SERVICE_HYSTRIX_EXCEPTION);
@@ -94,7 +118,7 @@ public interface ISequenceDAO
         @Override
         public String readAtomPartyId() throws Exception
         {
-            logger.info(Hints.HINT_SYSTEM_PROCESS_CALL_HYSTRIX_DAO + "readAtomNextGlobalValue");
+            logger.info(Hints.HINT_SYSTEM_PROCESS_CALL_HYSTRIX_DAO + "readAtomPartyId");
 
             ServiceVO serviceVO = new ServiceVO();
             serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_SERVICE_HYSTRIX_EXCEPTION);

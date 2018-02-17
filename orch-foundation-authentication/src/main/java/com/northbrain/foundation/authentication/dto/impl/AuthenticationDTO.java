@@ -11,9 +11,8 @@ import com.northbrain.base.common.model.bo.BaseType;
 import com.northbrain.base.common.model.bo.Constants;
 import com.northbrain.base.common.model.bo.Errors;
 import com.northbrain.base.common.model.bo.Hints;
-import com.northbrain.base.common.model.vo.atom.OperationRecordVO;
-import com.northbrain.base.common.model.vo.atom.PartyVO;
-import com.northbrain.base.common.model.vo.atom.RegistryVO;
+import com.northbrain.base.common.model.vo.atom.*;
+import com.northbrain.base.common.model.vo.orch.OrchLoginVO;
 import com.northbrain.base.common.model.vo.orch.OrchRegistryVO;
 import com.northbrain.foundation.authentication.dto.IAuthenticationDTO;
 
@@ -38,7 +37,7 @@ public class AuthenticationDTO implements IAuthenticationDTO
      * @throws Exception 异常
      */
     @Override
-    public RegistryVO ConvertOrchRegistryVOToRegistryVO(OrchRegistryVO orchRegistryVO, int recordId, int registryId, int partyId)
+    public RegistryVO convertOrchRegistryVOToRegistryVO(OrchRegistryVO orchRegistryVO, int recordId, int registryId, int partyId)
             throws Exception
     {
         if(orchRegistryVO == null)
@@ -111,11 +110,11 @@ public class AuthenticationDTO implements IAuthenticationDTO
      * @param recordId       操作流水记录
      * @param registryId     注册编码
      * @param partyId        参与者编码
-     * @return 微服务层参与者值对象
+     * @return 微服务层注册值对象
      * @throws Exception 异常
      */
     @Override
-    public PartyVO ConvertOrchRegistryVOToPartyVO(OrchRegistryVO orchRegistryVO, int recordId, int registryId, int partyId)
+    public PartyVO convertOrchRegistryVOToPartyVO(OrchRegistryVO orchRegistryVO, int recordId, int registryId, int partyId)
             throws Exception
     {
         if(orchRegistryVO == null)
@@ -182,6 +181,79 @@ public class AuthenticationDTO implements IAuthenticationDTO
         //TODO 根据类型设置roleid（这个应该在外面一层）
 
         return partyVO;
+    }
+
+    /**
+     * 方法：将编排层OrchLoginVO对象转换成原子服务的LoginVO值对象
+     *
+     * @param orchLoginVO 编排层登录值对象
+     * @param recordId 操作流水记录
+     * @param loginId 登录编号
+     * @param registryId 注册编码
+     * @param partyId 参与者编码
+     * @param roleId 角色编码
+     * @return 微服务层登录值对象
+     * @throws Exception 异常
+     */
+    @Override
+    public LoginVO convertOrchLoginVOToLoginVO(OrchLoginVO orchLoginVO, int recordId, int loginId, int registryId,
+                                               int partyId, int roleId) throws Exception
+    {
+        if(orchLoginVO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "orchLoginVO");
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        if(recordId <= 0)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE + "recordId");
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION);
+        }
+
+        if(registryId <= 0)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE + "registryId");
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION);
+        }
+
+        if(partyId <= 0)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE + "partyId");
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION);
+        }
+
+        if(roleId <= 0)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE + "roleId");
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION);
+        }
+
+        if(loginId <= 0)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE + "loginId");
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION);
+        }
+
+        logger.debug(Hints.HINT_BUSINESS_COMMON_ORCH_VO_ATOM_VO_CONVERTION);
+
+        LoginVO loginVO = new LoginVO();
+        loginVO.setRecordId(recordId);
+        loginVO.setLoginId(loginId);
+        loginVO.setRegistryId(registryId);
+        loginVO.setPartyId(partyId);
+        loginVO.setRoleId(roleId);
+        loginVO.setOrganizationId(orchLoginVO.getOrganizationId());
+        loginVO.setStatus(BaseType.STATUS.INUSED.ordinal());
+
+        // TODO 设置type、category和domain
+
+        Date now = new Date();
+        loginVO.setLoginTime(now);
+        loginVO.setLogoutTime(now);
+        loginVO.setDescription(orchLoginVO.getDescription());
+
+        return loginVO;
     }
 
     /**
@@ -285,5 +357,23 @@ public class AuthenticationDTO implements IAuthenticationDTO
             logger.error(Errors.ERROR_BUSINESS_COMMON_OPERATION_RECORD);
             throw new OperationRecordException(Errors.ERROR_BUSINESS_COMMON_OPERATION_RECORD_EXCEPTION);
         }
+    }
+
+    /**
+     * 将登录参与者VO转换成令牌VO
+     *
+     * @param orchLoginVO 登录信息VO
+     * @param partyId 参与者编码
+     * @return 令牌VO
+     * @throws Exception 异常
+     */
+    @Override
+    public TokenVO convertOrchLoginVOToTokenVO(OrchLoginVO orchLoginVO, int partyId) throws Exception
+    {
+        TokenVO tokenVO = new TokenVO();
+        tokenVO.setPartyId(partyId);
+        tokenVO.setOrganizationId(orchLoginVO.getOrganizationId());
+
+        return tokenVO;
     }
 }

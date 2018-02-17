@@ -3,7 +3,8 @@ package com.northbrain.base.gateway.filter;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.northbrain.base.common.model.bo.BaseType;
-import com.northbrain.base.common.util.JsonWebTokenUtil;
+import com.northbrain.base.common.model.bo.Constants;
+
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,7 +37,7 @@ public class JsonWebTokenFilter extends ZuulFilter
     @Override
     public boolean shouldFilter()
     {
-        return false;
+        return true;
     }
 
     @Override
@@ -44,58 +45,64 @@ public class JsonWebTokenFilter extends ZuulFilter
     {
         RequestContext requestContext = RequestContext.getCurrentContext();
         HttpServletRequest httpServletRequest = requestContext.getRequest();
-/*
 
-        if (!httpServletRequest.getRequestURI().contains("login"))
+        logger.debug("");
+        //如果请求的URI中包含登入、注册的服务，直接通过。
+        for(String filter: Constants.BUSINESS_COMMON_JWT_REQUEST_URI_FILTER)
         {
-            String accessToken = httpServletRequest.getHeader("Authorization");
-
-            if (accessToken == null || accessToken.isEmpty()) {
-                Cookie[] cookies = httpServletRequest.getCookies();
-                if (cookies != null) {
-                    for (Cookie cookie : cookies) {
-                        if (CoreConstants.X_TOKEN.equals(cookie.getName())) {
-                            accessToken = cookie.getValue();
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-
-
-            String authorization = httpServletRequest.getHeader("Authorization");
-
-        if ((authorization != null) && (authorization.length() > 7))
-        {
-            String header = authorization.substring(0, 6).toLowerCase();
-
-            if (header.compareTo("bearer") == 0)
+            if(httpServletRequest.getRequestURI().contains(filter))
             {
-                authorization = authorization.substring(7, authorization.length());
-
-                if (JsonWebTokenUtil.parseJWT(authorization, "ThisIsASecret") != null)
-                {
-                    // 对该请求进行路由
-                    requestContext.setSendZuulResponse(true);
-                    requestContext.setResponseStatusCode(200);
-                    // 设值，让下一个Filter看到上一个Filter的状态
-                    requestContext.set("isSuccess", true);
-                    return null;
-                }
-                else
-                {
-                    requestContext.setSendZuulResponse(false);// 过滤该请求，不对其进行路由
-                    requestContext.setResponseStatusCode(401);// 返回错误码
-                    requestContext.setResponseBody("{\"result\":\"username is not correct!\"}");// 返回错误内容
-                    requestContext.set("isSuccess", false);
-                    return null;
-                }
+                requestContext = setSuccessRequestContext(requestContext);
+                return null;
             }
-
         }
-        */
 
-return null;
+        //获取认证信息
+        String authorization = httpServletRequest.getHeader(Constants.BUSINESS_COMMON_JWT_HEADER_PARAM_AUTHORIZATION);
+
+        if(authorization == null || authorization.equals("") ||
+                !authorization.startsWith(Constants.BUSINESS_COMMON_JWT_HEADER_PARAM_AUTHORIZATION_STARTER))
+        {
+            requestContext = setUnauthorizedRequestContext(requestContext);
+            return null;
+        }
+
+        //调用编排服务对token进行校验
+
+        return null;
+    }
+
+    /**
+     * 方法：设置成功应答上下文
+     * @param requestContext 请求上下文
+     * @return 设置后的请求上下文
+     */
+    private RequestContext setSuccessRequestContext(RequestContext requestContext)
+    {
+        // 对该请求进行路由
+        requestContext.setSendZuulResponse(true);
+        // 应答码设置为成功
+        requestContext.setResponseStatusCode(Constants.BUSINESS_COMMON_JWT_RESPONSE_SUCCESS);
+        // 设值，让下一个Filter看到上一个Filter的状态
+        requestContext.set(Constants.BUSINESS_COMMON_JWT_RESPONSE_FILTER_RESULT, true);
+
+        return requestContext;
+    }
+
+    /**
+     * 方法：设置未鉴权成功上下文
+     * @param requestContext 请求上下文
+     * @return 设置后的请求上下文
+     */
+    private RequestContext setUnauthorizedRequestContext(RequestContext requestContext)
+    {
+        // 对该请求进行路由
+        requestContext.setSendZuulResponse(false);
+        // 应答码设置为成功
+        requestContext.setResponseStatusCode(Constants.BUSINESS_COMMON_JWT_RESPONSE_UNAUTHORIZED);
+        // 设值，让下一个Filter看到上一个Filter的状态
+        requestContext.set(Constants.BUSINESS_COMMON_JWT_RESPONSE_FILTER_RESULT, false);
+
+        return requestContext;
     }
 }

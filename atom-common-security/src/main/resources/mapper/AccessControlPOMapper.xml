@@ -23,7 +23,9 @@
     select
     <include refid="Base_Column_List" />
     from access_control
-    where role_id = ${roleId}
+    where role_id = ${roleId} and
+          domain = ${domain} and
+          privilege_id = ${privilegeId}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from access_control

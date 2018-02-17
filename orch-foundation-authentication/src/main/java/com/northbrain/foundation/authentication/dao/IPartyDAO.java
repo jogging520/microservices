@@ -24,6 +24,17 @@ import com.northbrain.base.common.model.vo.basic.ServiceVO;
 public interface IPartyDAO
 {
     /**
+     * 方法：根据名称、EMAIL等属性获取角色信息列表
+     * @param idType id类型
+     * @param idValue id取值
+     * @return 参与者实体的JSON串
+     */
+    @RequestMapping(value = Constants.URI_ATOM_PARTY_BASIC_REQUEST_MAPPING, method = RequestMethod.GET, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS)
+    @ResponseBody
+    String readAtomPartyByProperties(@RequestParam(value="idType")String idType,
+                                     @RequestParam(value="idValue")String idValue);
+
+    /**
      * 方法：根据名称获取角色信息列表
      * @param name 角色
      * @return 角色实体列表的JSON串
@@ -148,6 +159,26 @@ public interface IPartyDAO
     class HystrixParty implements IPartyDAO
     {
         private static Logger logger = Logger.getLogger(IPartyDAO.HystrixParty.class);
+
+        /**
+         * 方法：根据名称、EMAIL等属性获取角色信息列表
+         *
+         * @param idType id类型
+         * @param idValue id取值
+         * @return 参与者实体的JSON串
+         */
+        @Override
+        public String readAtomPartyByProperties(@RequestParam(value="idType")String idType,
+                                                @RequestParam(value="idValue")String idValue)
+        {
+            logger.info(Hints.HINT_SYSTEM_PROCESS_CALL_HYSTRIX_DAO + "readAtomPartyByProperties");
+
+            ServiceVO serviceVO = new ServiceVO();
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_SERVICE_HYSTRIX_EXCEPTION);
+
+            return JSON.toJSONString(serviceVO);
+        }
+
         /**
          * 方法：根据名称获取角色信息列表
          *

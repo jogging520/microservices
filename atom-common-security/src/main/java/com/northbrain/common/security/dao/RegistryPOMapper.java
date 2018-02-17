@@ -1,6 +1,9 @@
 package com.northbrain.common.security.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import com.northbrain.common.security.model.po.RegistryPO;
@@ -16,6 +19,8 @@ public interface RegistryPOMapper
     int insertSelective(RegistryPO record) throws Exception;
 
     RegistryPO selectByPrimaryKey(Integer registryId) throws Exception;
+
+    List<RegistryPO> selectByPartyId(@Param("partyId") Integer partyId) throws Exception;
 
     int updateByPrimaryKeySelective(RegistryPO record) throws Exception;
 

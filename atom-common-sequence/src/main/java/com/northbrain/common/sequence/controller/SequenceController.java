@@ -41,7 +41,7 @@ public class SequenceController
     @ResponseBody
     public String readOperationRecordId()
     {
-        logger.debug(Hints.HINT_SYSTEM_PROCESS_CALL_CONTROLLER + "readNextGlobalValue");
+        logger.debug(Hints.HINT_SYSTEM_PROCESS_CALL_CONTROLLER + "readOperationRecordId");
         ServiceVO serviceVO = new ServiceVO();
 
         try
@@ -76,14 +76,14 @@ public class SequenceController
     }
 
     /**
-     * 方法：读取全局操作记录序列号
-     * @return 以ServiceVO封装的全局操作记录序列号
+     * 方法：读取注册序列号
+     * @return 以ServiceVO封装的注册序列号
      */
     @RequestMapping(value = Constants.URI_ATOM_COMMON_REGISTRY_SEQUENCE_REQUEST_MAPPING, method = RequestMethod.GET, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS)
     @ResponseBody
     public String readRegistryId()
     {
-        logger.debug(Hints.HINT_SYSTEM_PROCESS_CALL_CONTROLLER + "readNextGlobalValue");
+        logger.debug(Hints.HINT_SYSTEM_PROCESS_CALL_CONTROLLER + "readRegistryId");
         ServiceVO serviceVO = new ServiceVO();
 
         try
@@ -118,14 +118,56 @@ public class SequenceController
     }
 
     /**
-     * 方法：读取全局操作记录序列号
-     * @return 以ServiceVO封装的全局操作记录序列号
+     * 方法：读取登录序列号
+     * @return 以ServiceVO封装的登录序列号
+     */
+    @RequestMapping(value = Constants.URI_ATOM_COMMON_LOGIN_SEQUENCE_REQUEST_MAPPING, method = RequestMethod.GET, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS)
+    @ResponseBody
+    public String readLoginId()
+    {
+        logger.debug(Hints.HINT_SYSTEM_PROCESS_CALL_CONTROLLER + "readLoginId");
+        ServiceVO serviceVO = new ServiceVO();
+
+        try
+        {
+            if(sequenceService == null)
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "sequenceService");
+                serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+
+                return JSON.toJSONString(serviceVO);
+            }
+
+            return JSON.toJSONString(sequenceService.readRegistryId());
+        }
+        catch (IllegalStateException illegalStateException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(illegalStateException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_ILLEGAL_STATE_EXCEPTION);
+        }
+        catch (JSONException jSONException)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(jSONException));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_JSON_EXCEPTION);
+        }
+        catch (Exception exception)
+        {
+            logger.error(StackTracerUtil.getExceptionInfo(exception));
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_OTHER_UNKNOW_EXCEPTION);
+        }
+
+        return JSON.toJSONString(serviceVO);
+    }
+
+    /**
+     * 方法：读取参与者序列号
+     * @return 以ServiceVO封装的参与者序列号
      */
     @RequestMapping(value = Constants.URI_ATOM_COMMON_PARTY_SEQUENCE_REQUEST_MAPPING, method = RequestMethod.GET, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS)
     @ResponseBody
     public String readPartyId()
     {
-        logger.debug(Hints.HINT_SYSTEM_PROCESS_CALL_CONTROLLER + "readNextGlobalValue");
+        logger.debug(Hints.HINT_SYSTEM_PROCESS_CALL_CONTROLLER + "readPartyId");
         ServiceVO serviceVO = new ServiceVO();
 
         try

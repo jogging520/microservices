@@ -59,6 +59,8 @@ public enum Errors
     ERROR_BUSINESS_COMMON_OPERATION_RECORD                          ("2400", "创建或更新操作记录失败。"),
     ERROR_BUSINESS_COMMON_OPERATION_RECORD_EXCEPTION                ("2401", "创建或更新操作记录失败。"),
     ERROR_BUSINESS_COMMON_CALL_ATOM_SERVICE                         ("2501", "调用原子服务时候发生系统级或者业务级异常。"),
+    ERROR_BUSINESS_COMMON_JWT_TOKEN_VERIFICATION                    ("2601", "校验Json Web Token时发生异常。"),
+    ERROR_BUSINESS_COMMON_JWT_TOKEN_VERIFICATION_EXCEPTION          ("2602", "校验Json Web Token时发生异常。"),
 
     /**
 	 * 3XXX:专用业务级错误，ERROR_BUSINESS_XXXX_，XXXX如ONLINEEDU等

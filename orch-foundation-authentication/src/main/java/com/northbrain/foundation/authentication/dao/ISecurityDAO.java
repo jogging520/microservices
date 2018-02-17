@@ -11,6 +11,7 @@ import com.northbrain.base.common.model.bo.Errors;
 import com.northbrain.base.common.model.bo.Hints;
 import com.northbrain.base.common.model.vo.atom.LoginVO;
 import com.northbrain.base.common.model.vo.atom.RegistryVO;
+import com.northbrain.base.common.model.vo.atom.TokenVO;
 import com.northbrain.base.common.model.vo.basic.ServiceVO;
 
 /**
@@ -31,13 +32,30 @@ public interface ISecurityDAO
     String readAtomPrivilege(@PathVariable("privilegeId")int privilegeId);
 
     /**
-     * 方法：获取特定的权限实体列表
-     * @param roleId 权限编号
+     * 方法：获取特定的权限实体
+     * @param domain 权限归属域
+     * @param name 权限名称
      * @return 权限实体的JSON串
      */
-    @RequestMapping(value = Constants.URI_ATOM_COMMON_SECURITY_ACCESS_CONTROL_SPECIFIED_REQUEST_MAPPING, method = RequestMethod.GET, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS)
+    @RequestMapping(value = Constants.URI_ATOM_COMMON_SECURITY_PRIVILEGE_REQUEST_MAPPING, method = RequestMethod.GET, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS)
     @ResponseBody
-    String readAtomAccessControlsByRole(@PathVariable("roleId")int roleId);
+    public String readAtomPrivilegeByName(@RequestParam("domain") String domain,
+                                          @RequestParam("name") String name);
+
+    /**
+     * 方法：获取特定的权限实体列表
+     * @param roleId 角色编号
+     * @param organizationId 组织机构编码
+     * @param domain 角色归属域
+     * @param privilegeId 权限编号
+     * @return 权限实体的JSON串
+     */
+    @RequestMapping(value = Constants.URI_ATOM_COMMON_SECURITY_ACCESS_CONTROL_REQUEST_MAPPING, method = RequestMethod.GET, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS)
+    @ResponseBody
+    String readAtomAccessControlsByRole(@RequestParam("roleId") int roleId,
+                                        @RequestParam("organizationId") int organizationId,
+                                        @RequestParam("domain") String domain,
+                                        @RequestParam("privilegeId") int privilegeId);
 
     /**
      * 方法：获取特定的参与者登录信息列表
@@ -47,6 +65,15 @@ public interface ISecurityDAO
     @RequestMapping(value = Constants.URI_ATOM_COMMON_SECURITY_LOGIN_SPECIFIED_REQUEST_MAPPING, method = RequestMethod.GET, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS)
     @ResponseBody
     String readAtomLoginsByParty(@PathVariable("partyId")int partyId);
+
+    /**
+     * 方法：获取特定的参与者注册信息列表
+     * @param partyIdS 参与者编号列表
+     * @return 参与者列表的JSON串
+     */
+    @RequestMapping(value = Constants.URI_ATOM_COMMON_SECURITY_REGISTRY_REQUEST_MAPPING, method = RequestMethod.GET, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS, consumes = Constants.BUSINESS_COMMON_HTTP_REQUEST_CONSUMERS)
+    @ResponseBody
+    public String readAtomRegistryByParty(@RequestBody Integer[] partyIdS);
 
     /**
      * 方法：新增一条注册信息（注册）
@@ -76,6 +103,24 @@ public interface ISecurityDAO
     String updateAtomLogin(@RequestBody LoginVO loginVO);
 
     /**
+     * 方法：根据ID创建一条Token
+     * @param tokenVO 令牌值对象
+     * @return JWT的JSON串
+     */
+    @RequestMapping(value = Constants.URI_ATOM_COMMON_SECURITY_TOKEN_REQUEST_MAPPING, method = RequestMethod.PUT, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS, consumes = Constants.BUSINESS_COMMON_HTTP_REQUEST_CONSUMERS)
+    @ResponseBody
+    public String createAtomToken(@RequestBody TokenVO tokenVO);
+
+    /**
+     * 方法：通过token信息解析并返回partyId
+     * @param jsonWebToken 参与者编码
+     * @return Token的JSON串
+     */
+    @RequestMapping(value = Constants.URI_ATOM_COMMON_SECURITY_TOKEN_REQUEST_MAPPING, method = RequestMethod.GET, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS)
+    @ResponseBody
+    public String readAtomToken(@PathVariable("jsonWebToken")String jsonWebToken);
+
+    /**
      * 类名：安全DAO接口的熔断器实现类
      * 用途：用于Hystrix熔断时fallback调用
      */
@@ -101,13 +146,34 @@ public interface ISecurityDAO
         }
 
         /**
-         * 方法：获取特定的权限实体列表
+         * 方法：获取特定的权限实体
          *
-         * @param roleId 权限编号
+         * @param domain 权限归属域
+         * @param name   权限名称
          * @return 权限实体的JSON串
          */
         @Override
-        public String readAtomAccessControlsByRole(int roleId)
+        public String readAtomPrivilegeByName(String domain, String name)
+        {
+            logger.info(Hints.HINT_SYSTEM_PROCESS_CALL_HYSTRIX_DAO + "readAtomPrivilegeByName");
+
+            ServiceVO serviceVO = new ServiceVO();
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_SERVICE_HYSTRIX_EXCEPTION);
+
+            return JSON.toJSONString(serviceVO);
+        }
+
+        /**
+         * 方法：获取特定的权限实体列表
+         *
+         * @param roleId 角色编号
+         * @param organizationId 组织机构编码
+         * @param domain 角色归属域
+         * @param privilegeId 权限编号
+         * @return 权限实体的JSON串
+         */
+        @Override
+        public String readAtomAccessControlsByRole(int roleId, int organizationId, String domain, int privilegeId)
         {
             logger.info(Hints.HINT_SYSTEM_PROCESS_CALL_HYSTRIX_DAO + "readAtomAccessControlsByRole");
 
@@ -127,6 +193,23 @@ public interface ISecurityDAO
         public String readAtomLoginsByParty(int partyId)
         {
             logger.info(Hints.HINT_SYSTEM_PROCESS_CALL_HYSTRIX_DAO + "readAtomLoginsByParty");
+
+            ServiceVO serviceVO = new ServiceVO();
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_SERVICE_HYSTRIX_EXCEPTION);
+
+            return JSON.toJSONString(serviceVO);
+        }
+
+        /**
+         * 方法：获取特定的参与者注册信息列表
+         *
+         * @param partyIdS 参与者编号列表
+         * @return 参与者注册信息列表的JSON串
+         */
+        @Override
+        public String readAtomRegistryByParty(Integer[] partyIdS)
+        {
+            logger.info(Hints.HINT_SYSTEM_PROCESS_CALL_HYSTRIX_DAO + "readAtomRegistryByParty");
 
             ServiceVO serviceVO = new ServiceVO();
             serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_SERVICE_HYSTRIX_EXCEPTION);
@@ -178,6 +261,40 @@ public interface ISecurityDAO
         public String updateAtomLogin(LoginVO loginVO)
         {
             logger.info(Hints.HINT_SYSTEM_PROCESS_CALL_HYSTRIX_DAO + "updateAtomLogin");
+
+            ServiceVO serviceVO = new ServiceVO();
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_SERVICE_HYSTRIX_EXCEPTION);
+
+            return JSON.toJSONString(serviceVO);
+        }
+
+        /**
+         * 方法：根据ID创建一条Token
+         *
+         * @param tokenVO 令牌值对象
+         * @return JWT的JSON串
+         */
+        @Override
+        public String createAtomToken(TokenVO tokenVO)
+        {
+            logger.info(Hints.HINT_SYSTEM_PROCESS_CALL_HYSTRIX_DAO + "createAtomToken");
+
+            ServiceVO serviceVO = new ServiceVO();
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_SERVICE_HYSTRIX_EXCEPTION);
+
+            return JSON.toJSONString(serviceVO);
+        }
+
+        /**
+         * 方法：通过token信息解析并返回partyId
+         *
+         * @param jsonWebToken 参与者编码
+         * @return Token的JSON串
+         */
+        @Override
+        public String readAtomToken(String jsonWebToken)
+        {
+            logger.info(Hints.HINT_SYSTEM_PROCESS_CALL_HYSTRIX_DAO + "readAtomToken");
 
             ServiceVO serviceVO = new ServiceVO();
             serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_SERVICE_HYSTRIX_EXCEPTION);

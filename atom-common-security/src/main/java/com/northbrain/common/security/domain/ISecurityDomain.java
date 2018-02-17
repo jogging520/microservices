@@ -1,11 +1,9 @@
 package com.northbrain.common.security.domain;
 
-import com.northbrain.base.common.model.vo.atom.AccessControlVO;
-import com.northbrain.base.common.model.vo.atom.LoginVO;
-import com.northbrain.base.common.model.vo.atom.PrivilegeVO;
-import com.northbrain.base.common.model.vo.atom.RegistryVO;
+import com.northbrain.base.common.model.vo.atom.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 类名：安全域接口
@@ -25,12 +23,22 @@ public interface ISecurityDomain
     PrivilegeVO readPrivilege(Integer privilegeId) throws Exception;
 
     /**
+     * 方法：获取特定的权限
+     * @param domain 权限归属域
+     * @param name 权限名称
+     * @return ServiceVO封装类
+     */
+    List<PrivilegeVO> readPrivilegeByName(String domain, String name) throws Exception;
+
+    /**
      * 方法：获取特定的访问控制
      * @param roleId 角色编号
+     * @param domain 角色归属域
+     * @param privilegeId 权限编号
      * @return 访问控制值对象列表
      * @throws Exception 异常
      */
-    List<AccessControlVO> readAccessControlsByRole(Integer roleId) throws Exception;
+    List<AccessControlVO> readAccessControlsByRole(Integer roleId, String domain, int privilegeId) throws Exception;
 
     /**
      * 方法：获取登录信息
@@ -39,6 +47,14 @@ public interface ISecurityDomain
      * @throws Exception 异常
      */
     List<LoginVO> readLoginsByParty(Integer partyId) throws Exception;
+
+    /**
+     * 方法：获取注册信息
+     * @param partyIdS 参与者编号列表
+     * @return 注册信息的值对象列表
+     * @throws Exception 异常
+     */
+    List<RegistryVO> readRegistryByParty(Integer[] partyIdS) throws Exception;
 
     /**
      * 方法：新增一条注册信息（注册）
@@ -63,4 +79,20 @@ public interface ISecurityDomain
      * @throws Exception 异常
      */
     boolean updateLogin(LoginVO loginVO) throws Exception;
+
+    /**
+     * 方法：根据ID创建一条Token
+     * @param tokenVO 令牌值对象
+     * @return Token
+     * @throws Exception 异常
+     */
+    String createToken(TokenVO tokenVO) throws Exception;
+
+    /**
+     * 方法：通过token信息解析并返回partyId
+     * @param jsonWebToken 令牌
+     * @return token令牌值对象
+     * @throws Exception
+     */
+    TokenVO readToken(String jsonWebToken) throws Exception;
 }

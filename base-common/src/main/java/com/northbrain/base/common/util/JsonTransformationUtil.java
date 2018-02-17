@@ -23,57 +23,13 @@ public class JsonTransformationUtil
     private static Logger logger = Logger.getLogger(JsonTransformationUtil.class);
 
     /**
-     * 方法：将原子服务返回的ServiceVO的JSON串转换成INTEGER
+     * 方法：将原子服务返回的ServiceVO的JSON串转换成具体的泛型值
      *
      * @param serviceVOJSONString 调用课程原子服务返回的JSON串
-     * @return ResponseVO封装的响应体及INTEGER
-     */
-    public static ResponseVO<Integer> transformJSONStringIntoInteger(String serviceVOJSONString) throws Exception
-    {
-        if(serviceVOJSONString == null || serviceVOJSONString.equals(""))
-        {
-            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "serviceVOJSONString");
-            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
-        }
-
-        logger.debug(Hints.HINT_BUSINESS_COMMON_JSON_VO_CONVERTION);
-
-        ServiceVO atomServiceVO = JSON.parseObject(serviceVOJSONString, ServiceVO.class);
-
-        if (atomServiceVO == null)
-        {
-            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "atomServiceVO");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
-        }
-
-        Object atomServiceVOResponse = atomServiceVO.getResponse();
-
-        if (atomServiceVOResponse == null)
-        {
-            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "atomServiceVOResponse");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
-        }
-
-        ResponseVO<Integer> responseVO = new ResponseVO<>();
-        responseVO.setResponseCode(atomServiceVO.getResponseCode());
-        responseVO.setResponseDesc(atomServiceVO.getResponseDesc());
-
-        if(atomServiceVOResponse.getClass() == Boolean.class)
-            responseVO.setResponse(Integer.class.cast(atomServiceVOResponse));
-        else
-            throw new ClassCastException();
-
-        return responseVO;
-    }
-
-    /**
-     * 方法：将原子服务返回的ServiceVO的JSON串转换成boolean值
-     *
-     * @param serviceVOJSONString 调用课程原子服务返回的JSON串
-     * @return ResponseVO封装的响应体及boolean值
+     * @return ResponseVO封装的响应体及泛型值
      * @throws Exception 异常
      */
-    public static ResponseVO<Boolean> transformJSONStringIntoBoolean(String serviceVOJSONString) throws Exception
+    public static<T> ResponseVO<T> transformJSONString(String serviceVOJSONString) throws Exception
     {
         if(serviceVOJSONString == null || serviceVOJSONString.equals(""))
         {
@@ -99,12 +55,12 @@ public class JsonTransformationUtil
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
 
-        ResponseVO<Boolean> responseVO = new ResponseVO<>();
+        ResponseVO<T> responseVO = new ResponseVO<>();
         responseVO.setResponseCode(atomServiceVO.getResponseCode());
         responseVO.setResponseDesc(atomServiceVO.getResponseDesc());
 
         if(atomServiceVOResponse.getClass() == Boolean.class)
-            responseVO.setResponse(Boolean.class.cast(atomServiceVOResponse));
+            responseVO.setResponse((T) (atomServiceVOResponse));
         else
             throw new ClassCastException();
 

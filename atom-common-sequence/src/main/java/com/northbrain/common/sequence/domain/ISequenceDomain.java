@@ -22,6 +22,12 @@ public interface ISequenceDomain
     int readRegistryId() throws Exception;
 
     /**
+     * 方法：获取全局唯一登录序列号
+     * @return 全局唯一登录序列号
+     */
+    int readLoginId() throws Exception;
+
+    /**
      * 方法：获取全局唯一参与者序列号
      * @return 全局唯一参与者序列号
      */

@@ -33,6 +33,11 @@ public enum Names
     BUSINESS_COMMON_MANAGE_INTERVAL_MS                              ("BUSINESS",    "BUSINESS_COMMON_MANAGE_INTERVAL_MS"                        ), //任务处理时间间隔
     BUSINESS_COMMON_CACHE_THREAD_POOL_NUMBER                        ("BUSINESS",    "BUSINESS_COMMON_CACHE_THREAD_POOL_NUMBER"                  ), //用作ZooKeeper缓存的线程池数量
     BUSINESS_COMMON_TASK_THREAD_POOL_NUMBER                         ("BUSINESS",    "BUSINESS_COMMON_TASK_THREAD_POOL_NUMBER"                   ), //用生产任务的线程池数量
+    BUSINESS_COMMON_JWT_TOKEN_KEY                                   ("BUSINESS",    "BUSINESS_COMMON_JWT_TOKEN_KEY"                             ), //用于后端服务进行JWT加解密的key
+    BUSINESS_COMMON_JWT_TOKEN_COMPANY_ID                            ("BUSINESS",    "BUSINESS_COMMON_JWT_TOKEN_COMPANY_ID"                      ), //用于后端服务生产JWT Token的公司ID
+    BUSINESS_COMMON_JWT_TOKEN_ISSUER                                ("BUSINESS",    "BUSINESS_COMMON_JWT_TOKEN_ISSUER"                          ), //用于后端服务生产JWT Token的发行者
+    BUSINESS_COMMON_JWT_TOKEN_AUDIENCE                              ("BUSINESS",    "BUSINESS_COMMON_JWT_TOKEN_AUDIENCE"                        ), //用于后端服务生产JWT Token的接收者
+    BUSINESS_COMMON_JWT_TOKEN_EXPIRE_TTL                            ("BUSINESS",    "BUSINESS_COMMON_JWT_TOKEN_EXPIRE_TTL"                      ), //用于后端服务生产JWT Token的过期时长（毫秒）
 
     /**
      * 专用业务级参数命名BUSINESS_XXXX_， XXXX为域名称
@@ -50,6 +55,7 @@ public enum Names
     STORAGE_ZOOKEEPER_CACHE_THREAD_POOL_NUMBER                      ("STORAGE",     "STORAGE_ZOOKEEPER_CACHE_THREAD_POOL_NUMBER"                ), //ZooKeeper服务器缓存数据的线程数
     STORAGE_ZOOKEEPER_GLOBAL_OPERATION_RECORD_SEQUENCE              ("STORAGE",     "STORAGE_ZOOKEEPER_GLOBAL_OPERATION_RECORD_SEQUENCE"        ), //ZooKeeper全局唯一操作记录序列号
     STORAGE_ZOOKEEPER_GLOBAL_REGISTRY_SEQUENCE                      ("STORAGE",     "STORAGE_ZOOKEEPER_GLOBAL_REGISTRY_SEQUENCE"                ), //ZooKeeper全局唯一注册序列号
+    STORAGE_ZOOKEEPER_GLOBAL_LOGIN_SEQUENCE                         ("STORAGE",     "STORAGE_ZOOKEEPER_GLOBAL_LOGIN_SEQUENCE"                   ), //ZooKeeper全局唯一登录序列号
     STORAGE_ZOOKEEPER_GLOBAL_PARTY_SEQUENCE                         ("STORAGE",     "STORAGE_ZOOKEEPER_GLOBAL_PARTY_SEQUENCE"                   ), //ZooKeeper全局唯一参与者序列号
 
 

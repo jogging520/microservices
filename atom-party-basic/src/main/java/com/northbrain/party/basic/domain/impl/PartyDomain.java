@@ -1,9 +1,6 @@
 package com.northbrain.party.basic.domain.impl;
 
-import com.northbrain.base.common.exception.ArgumentInputException;
-import com.northbrain.base.common.exception.CollectionEmptyException;
-import com.northbrain.base.common.exception.NumberScopeException;
-import com.northbrain.base.common.exception.ObjectNullException;
+import com.northbrain.base.common.exception.*;
 import com.northbrain.base.common.model.bo.BaseType;
 import com.northbrain.base.common.model.bo.Errors;
 import com.northbrain.base.common.model.vo.atom.OrganizationVO;
@@ -24,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -68,6 +66,79 @@ public class PartyDomain implements IPartyDomain
         this.subjectionPOMapper = subjectionPOMapper;
         this.subjectionHisPOMapper = subjectionHisPOMapper;
         this.partyDTO = partyDTO;
+    }
+
+    /**
+     * 方法：根据属性组合获取参与者信息
+     *
+     * @param idType id类型
+     * @param idValue id取值
+     * @return 参与者值对象
+     * @throws Exception 异常
+     */
+    @Override
+    public List<PartyVO> readPartyByProperties(String idType, String idValue) throws Exception
+    {
+        if(idType == null || idType.equals(""))
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + idType);
+            throw new NumberScopeException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        if(idValue == null || idValue.equals(""))
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + idValue);
+            throw new NumberScopeException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        if(partyPOMapper == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "partyPOMapper");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        if(partyDetailPOMapper == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "partyDetailPOMapper");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        if(partyDTO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "partyDTO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        //校验是否在可查询的范围之内，避免过渡查询。
+        if(!BaseType.matchIdType(idType))
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_VALUE_OBJECT_PROPERTY_TYPE_ENUM + "partyDTO");
+            throw new PropertyEnumerationException(Errors.ERROR_BUSINESS_COMMON_VALUE_OBJECT_PROPERTY_ENUM_EXCEPTION);
+        }
+
+        List<Integer> partyIds = partyDetailPOMapper.selectByAttribute(idType, idValue);
+
+        if(partyIds == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_EMPTY + "partyIds");
+            throw new CollectionEmptyException(Errors.EROOR_BUSINESS_COMMON_COLLECTION_EMPTY_EXCEPTION);
+        }
+
+        List<PartyVO> partyVOS = new ArrayList<>();
+        PartyVO partyVO;
+        PartyPO partyPO;
+
+        for(Integer partyId: partyIds)
+        {
+            List<PartyDetailPO> partyDetailPOS = partyDetailPOMapper.selectByPartyId(partyId);
+            partyPO = partyPOMapper.selectByPrimaryKey(partyId);
+
+            partyVO = partyDTO.convertToPartyVO(partyPO, partyDetailPOS);
+
+            partyVOS.add(partyVO);
+        }
+
+        return partyVOS;
     }
 
     /**

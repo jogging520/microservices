@@ -1,6 +1,8 @@
 package com.northbrain.foundation.authentication.service;
 
 import com.northbrain.base.common.model.vo.basic.ServiceVO;
+import com.northbrain.base.common.model.vo.orch.OrchAccessControlVO;
+import com.northbrain.base.common.model.vo.orch.OrchLoginVO;
 import com.northbrain.base.common.model.vo.orch.OrchRegistryVO;
 
 /**
@@ -18,4 +20,20 @@ public interface IAuthenticationService
      * @return 是否注册成功的ServiceVO封装对象
      */
     ServiceVO createRegistry(OrchRegistryVO orchRegistryVO);
+
+    /**
+     * 方法：登录
+     *
+     * @param orchLoginVO 编排层登录值对象
+     * @return token的ServiceVO封装对象
+     */
+    ServiceVO createLogin(OrchLoginVO orchLoginVO);
+
+    /**
+     * 方法：访问控制
+     *
+     * @param orchAccessControlVO 编排层访问控制值对象
+     * @return 是否允许访问的ServiceVO封装对象
+     */
+    ServiceVO readAccessControl(OrchAccessControlVO orchAccessControlVO);
 }

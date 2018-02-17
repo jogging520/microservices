@@ -22,6 +22,12 @@
     from registry
     where registry_id = #{registryId,jdbcType=INTEGER}
   </select>
+  <select id="selectByPartyId" resultMap="BaseResultMap" statementType="STATEMENT">
+    select
+    <include refid="Base_Column_List" />
+    from registry
+    where party_id = ${partyId}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from registry
     where registry_id = #{registryId,jdbcType=INTEGER}

@@ -23,6 +23,12 @@ public interface ISequenceService
     ServiceVO readRegistryId();
 
     /**
+     * 方法：获取下一个全局登录序列号
+     * @return 下一个全局登录序列号的ServiceVO封装对象
+     */
+    ServiceVO readLoginId();
+
+    /**
      * 方法：获取下一个全局参与者序列号
      * @return 下一个全局参与者序列号的ServiceVO封装对象
      */

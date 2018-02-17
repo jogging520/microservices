@@ -1,9 +1,8 @@
 package com.northbrain.foundation.authentication.dto;
 
 import com.northbrain.base.common.model.bo.BaseType;
-import com.northbrain.base.common.model.vo.atom.OperationRecordVO;
-import com.northbrain.base.common.model.vo.atom.PartyVO;
-import com.northbrain.base.common.model.vo.atom.RegistryVO;
+import com.northbrain.base.common.model.vo.atom.*;
+import com.northbrain.base.common.model.vo.orch.OrchLoginVO;
 import com.northbrain.base.common.model.vo.orch.OrchRegistryVO;
 
 /**
@@ -23,7 +22,7 @@ public interface IAuthenticationDTO
      * @return 微服务层注册值对象
      * @throws Exception 异常
      */
-    RegistryVO ConvertOrchRegistryVOToRegistryVO(OrchRegistryVO orchRegistryVO, int recordId, int registryId, int partyId) throws Exception;
+    RegistryVO convertOrchRegistryVOToRegistryVO(OrchRegistryVO orchRegistryVO, int recordId, int registryId, int partyId) throws Exception;
 
     /**
      * 方法：将OrchRegistryVO值对象转换成PartyVO值对象
@@ -31,10 +30,24 @@ public interface IAuthenticationDTO
      * @param recordId 操作流水记录
      * @param registryId 注册编码
      * @param partyId 参与者编码
-     * @return 微服务层参与者值对象
+     * @return 微服务层注册值对象
      * @throws Exception 异常
      */
-    PartyVO ConvertOrchRegistryVOToPartyVO(OrchRegistryVO orchRegistryVO, int recordId, int registryId, int partyId) throws Exception;
+    PartyVO convertOrchRegistryVOToPartyVO(OrchRegistryVO orchRegistryVO, int recordId, int registryId, int partyId) throws Exception;
+
+    /**
+     * 方法：将编排层OrchLoginVO对象转换成原子服务的LoginVO值对象
+     * @param orchLoginVO 编排层登录值对象
+     * @param recordId 操作流水记录
+     * @param loginId 登录编号
+     * @param registryId 注册编码
+     * @param partyId 参与者编码
+     * @param roleId 角色编码
+     * @return 微服务层登录值对象
+     * @throws Exception 异常
+     */
+    LoginVO convertOrchLoginVOToLoginVO(OrchLoginVO orchLoginVO, int recordId, int loginId, int registryId,
+                                        int partyId, int roleId) throws Exception;
 
     /**
      * 方法：创建一条操作记录
@@ -66,4 +79,13 @@ public interface IAuthenticationDTO
     OperationRecordVO.OperationRecordDetailVO createOperationRecordDetail(OperationRecordVO operationRecordVO, int rank, BaseType.OPERATETYPE operationType,
                                                                           BaseType.DOMAIN domain, String serviceName, BaseType.STATUS status)
             throws Exception;
+
+    /**
+     * 将登录参与者VO转换成令牌VO
+     * @param orchLoginVO 登录信息VO
+     * @param partyId 参与者编码
+     * @return 令牌VO
+     * @throws Exception 异常
+     */
+    TokenVO convertOrchLoginVOToTokenVO(OrchLoginVO orchLoginVO, int partyId) throws Exception;
 }

@@ -20,6 +20,17 @@
     from party_detail
     where party_detail_id = #{partyDetailId,jdbcType=INTEGER}
   </select>
+  <select id="selectByAttribute" resultMap="BaseResultMap" statementType="STATEMENT">
+    select distinct party_id
+    from party_detail
+    where attribute = ${idType} and value = ${idValue}
+  </select>
+  <select id="selectByPartyId" resultMap="BaseResultMap" statementType="STATEMENT">
+    select
+    <include refid="Base_Column_List" />
+    from party_detail
+    where party_id = ${partyId}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from party_detail
     where party_detail_id = #{partyDetailId,jdbcType=INTEGER}

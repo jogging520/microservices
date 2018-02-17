@@ -24,8 +24,11 @@ public class BaseType
     /**
      * 域
      */
-    public enum DOMAIN {COMMON, PRODUCT, RESOURCE, CHARGE, SERVICE, PARTY, RELATION, FOUNDATION, LIST, GATEWAY}
+    public enum DOMAIN {COMMON, PRODUCT, RESOURCE, CHARGE, SERVICE, PARTY, RELATION, SECURITY, FOUNDATION, LIST, GATEWAY}
 
+    /**
+     * 服务类型
+     */
     public enum SERVICETYPE {ATOM, ORCH, PROC}
 
     /**
@@ -37,6 +40,11 @@ public class BaseType
      * 阶段：有效、失效、同步
      */
     public enum STATE {VALID, INVALID, SYNCHING}
+
+    /**
+     * 可登录的ID类型
+     */
+    public enum IDTYPE {NAME, EMAIL}
 
     /**
      * 存储结果
@@ -89,6 +97,11 @@ public class BaseType
     public enum PARTYTYPE {WEB, CAS, WEIXIN, APP}
 
     /**
+     * 权限域
+     */
+    public enum PRIVILEGEDOMAIN {ORCHSERVICE, ATOMSERVICE}
+
+    /**
      * 匹配操作系统类型
      * @param operatingSystem
      * @return 操作系统枚举类型
@@ -105,5 +118,24 @@ public class BaseType
         }
 
         return null;
+    }
+
+    /**
+     * 方法：匹配ID类型，校验所查询的ID类型是否在定义的范围之内。
+     * @param idType id类型
+     * @return 是否在定义范围之内
+     */
+    public static boolean matchIdType(String idType)
+    {
+        if(idType == null || idType.equals(""))
+            return false;
+
+        for(IDTYPE id: IDTYPE.values())
+        {
+            if(id.name().equalsIgnoreCase(idType))
+                return true;
+        }
+
+        return false;
     }
 }

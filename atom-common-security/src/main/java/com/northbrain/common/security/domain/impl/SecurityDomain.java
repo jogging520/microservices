@@ -4,11 +4,10 @@ import com.northbrain.base.common.exception.CollectionEmptyException;
 import com.northbrain.base.common.exception.NumberScopeException;
 import com.northbrain.base.common.exception.ObjectNullException;
 import com.northbrain.base.common.model.bo.BaseType;
+import com.northbrain.base.common.model.bo.Constants;
 import com.northbrain.base.common.model.bo.Errors;
-import com.northbrain.base.common.model.vo.atom.AccessControlVO;
-import com.northbrain.base.common.model.vo.atom.LoginVO;
-import com.northbrain.base.common.model.vo.atom.PrivilegeVO;
-import com.northbrain.base.common.model.vo.atom.RegistryVO;
+import com.northbrain.base.common.model.vo.atom.*;
+import com.northbrain.base.common.util.JsonWebTokenUtil;
 import com.northbrain.common.security.dao.*;
 import com.northbrain.common.security.domain.ISecurityDomain;
 import com.northbrain.common.security.dto.ISecurityDTO;
@@ -22,6 +21,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import io.jsonwebtoken.Claims;
 
 /**
  * 类名：安全域接口的实现类
@@ -101,17 +103,83 @@ public class SecurityDomain implements ISecurityDomain
     }
 
     /**
+     * 方法：获取特定的权限
+     *
+     * @param domain 权限归属域
+     * @param name   权限名称
+     * @return ServiceVO封装类
+     */
+    @Override
+    public List<PrivilegeVO> readPrivilegeByName(String domain, String name) throws Exception
+    {
+        if(domain == null || domain.equals(""))
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "domain");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        if(name == null || name.equals(""))
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "name");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        if(privilegePOMapper == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "privilegePOMapper");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        if(securityDTO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "securityDTO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        List<PrivilegePO> privilegePOS = privilegePOMapper.selectByName(domain, name);
+
+        List<PrivilegeVO> privilegeVOS = new ArrayList<>();
+        PrivilegeVO privilegeVO;
+
+        for(PrivilegePO privilegePO: privilegePOS)
+        {
+            privilegeVO = securityDTO.convertToPrivilegeVO(privilegePO);
+
+            if(privilegePO == null)
+                continue;
+
+            privilegeVOS.add(privilegeVO);
+        }
+
+        return privilegeVOS;
+    }
+
+    /**
      * 方法：获取特定的访问控制
      * @param roleId 角色编号
+     * @param domain 角色归属域
+     * @param privilegeId 权限编号
      * @return 访问控制值对象列表
      * @throws Exception 异常
      */
     @Override
-    public List<AccessControlVO> readAccessControlsByRole(Integer roleId) throws Exception
+    public List<AccessControlVO> readAccessControlsByRole(Integer roleId, String domain, int privilegeId) throws Exception
     {
         if(roleId <= 0)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE + "roleId:" + roleId);
+            throw new NumberScopeException(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION);
+        }
+
+        if(domain == null || domain.equals(""))
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "domain");
+            throw new NumberScopeException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        if(privilegeId <= 0)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE + "privilegeId:" + privilegeId);
             throw new NumberScopeException(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION);
         }
 
@@ -127,13 +195,7 @@ public class SecurityDomain implements ISecurityDomain
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
 
-        List<AccessControlPO> accessControlPOS = accessControlPOMapper.selectByRole(roleId);
-
-        if(accessControlPOS == null || accessControlPOS.size() == 0)
-        {
-            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_EMPTY + "accessControlPOs");
-            throw new CollectionEmptyException(Errors.EROOR_BUSINESS_COMMON_COLLECTION_EMPTY_EXCEPTION);
-        }
+        List<AccessControlPO> accessControlPOS = accessControlPOMapper.selectByRole(roleId, domain, privilegeId);
 
         List<AccessControlVO> accessControlVOS = new ArrayList<>();
         AccessControlVO accessControlVO;
@@ -181,12 +243,6 @@ public class SecurityDomain implements ISecurityDomain
 
         List<LoginPO> loginPOS = loginPOMapper.selectByParty(partyId);
 
-        if(loginPOS == null || loginPOS.size() == 0)
-        {
-            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_EMPTY + "loginPOS");
-            throw new CollectionEmptyException(Errors.EROOR_BUSINESS_COMMON_COLLECTION_EMPTY_EXCEPTION);
-        }
-
         List<LoginVO> loginVOS = new ArrayList<>();
         LoginVO loginVO;
 
@@ -201,6 +257,55 @@ public class SecurityDomain implements ISecurityDomain
         }
 
         return loginVOS;
+    }
+
+    /**
+     * 方法：获取注册信息
+     *
+     * @param partyIdS 参与者编号列表
+     * @return 注册信息的值对象列表
+     * @throws Exception 异常
+     */
+    @Override
+    public List<RegistryVO> readRegistryByParty(Integer[] partyIdS) throws Exception
+    {
+        if(partyIdS == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "partyIdS");
+            throw new NumberScopeException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        if(registryPOMapper == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "registryPOMapper");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        if(securityDTO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "securityDTO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        List<RegistryVO> registryVOS = new ArrayList<>();
+        RegistryVO registryVO;
+
+        for(Integer partyId: partyIdS)
+        {
+            List<RegistryPO> registryPOS = registryPOMapper.selectByPartyId(partyId);
+
+            for(RegistryPO registryPO: registryPOS)
+            {
+                registryVO = securityDTO.convertToRegistryVO(registryPO);
+
+                if(registryVO == null)
+                    continue;
+
+                registryVOS.add(registryVO);
+            }
+        }
+
+        return registryVOS;
     }
 
     /**
@@ -405,5 +510,62 @@ public class SecurityDomain implements ISecurityDomain
         }
 
         return false;
+    }
+
+    /**
+     * 方法：根据ID创建一条Token
+     * @param tokenVO 令牌值对象
+     * @return Token
+     * @throws Exception 异常
+     */
+    public String createToken(TokenVO tokenVO) throws Exception
+    {
+        if(tokenVO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "tokenVO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        return JsonWebTokenUtil.generateJsonWebToken(tokenVO.getPartyId(), tokenVO.getRoleId(), tokenVO.getOrganizationId());
+    }
+
+    /**
+     * 方法：通过token信息判断是否已经注册并登录，如果已经登录，则返回partyId
+     *
+     * @param jsonWebToken 令牌
+     * @return token令牌值对象
+     * @throws Exception
+     */
+    @Override
+    public TokenVO readToken(String jsonWebToken) throws Exception
+    {
+        if(jsonWebToken == null || jsonWebToken.equals(""))
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "jsonWebToken:" + jsonWebToken);
+            throw new NumberScopeException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        TokenVO tokenVO = new TokenVO();
+        Map<String, Object> claims = JsonWebTokenUtil.parseJsonWebToken(jsonWebToken);
+
+        //参与者编号
+        if(claims.get(Constants.BUSINESS_COMMON_JWT_PAYLOAD_PARAM_PARTY_ID) == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + Constants.BUSINESS_COMMON_JWT_PAYLOAD_PARAM_PARTY_ID);
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        tokenVO.setPartyId((int) claims.get(Constants.BUSINESS_COMMON_JWT_PAYLOAD_PARAM_PARTY_ID));
+
+        //组织机构编号
+        if(claims.get(Constants.BUSINESS_COMMON_JWT_PAYLOAD_PARAM_ORGANIZATION_ID) == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + Constants.BUSINESS_COMMON_JWT_PAYLOAD_PARAM_ORGANIZATION_ID);
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        tokenVO.setPartyId((int) claims.get(Constants.BUSINESS_COMMON_JWT_PAYLOAD_PARAM_ORGANIZATION_ID));
+
+        return tokenVO;
     }
 }

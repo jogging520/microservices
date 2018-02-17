@@ -20,7 +20,9 @@ public interface AccessControlPOMapper
 
     AccessControlPO selectByPrimaryKey(Integer accessControlId) throws Exception;
 
-    List<AccessControlPO> selectByRole(@Param("roleId") Integer roleId) throws Exception;
+    List<AccessControlPO> selectByRole(@Param("roleId") Integer roleId,
+                                       @Param("domain") String domain,
+                                       @Param("privilegeId") Integer privilegeId) throws Exception;
 
     int updateByPrimaryKeySelective(AccessControlPO record) throws Exception;
 

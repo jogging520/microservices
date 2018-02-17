@@ -69,6 +69,25 @@ public class SequenceDomain implements ISequenceDomain
     }
 
     /**
+     * 方法：获取全局唯一登录序列号
+     *
+     * @return 全局唯一登录序列号
+     */
+    @Override
+    public int readLoginId() throws Exception
+    {
+        if(sequenceDAO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "sequenceDAO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        return Constants.BUSINESS_COMMON_BASIC_SEQUENCE +
+                sequenceDAO.getNextValue(Constants.BUSINESS_COMMON_NODE_SEPARATOR + Constants.STORAGE_ZOOKEEPER_SEQUENCE_NAMESPACE,
+                        Names.STORAGE_ZOOKEEPER_GLOBAL_LOGIN_SEQUENCE.getName());
+    }
+
+    /**
      * 方法：获取全局唯一参与者序列号
      * 利用zk来生成，但有最大值的限制，不能超过INTEGER的最大值，大概在20亿左右
      * @return 全局唯一参与者序列号

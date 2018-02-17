@@ -15,6 +15,14 @@ import com.northbrain.base.common.model.vo.basic.ServiceVO;
 public interface IPartyService
 {
     /**
+     * 方法：根据属性组合获取参与者
+     * @param idType id类型
+     * @param idValue id取值
+     * @return ServiceVO封装类
+     */
+    ServiceVO readPartyByProperties(String idType, String idValue);
+
+    /**
      * 方法：根据名称获取权限清单
      * @param name 角色名称
      * @return ServiceVO封装类
