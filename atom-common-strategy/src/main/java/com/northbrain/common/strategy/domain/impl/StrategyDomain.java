@@ -1,5 +1,6 @@
 package com.northbrain.common.strategy.domain.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -11,6 +12,7 @@ import com.northbrain.base.common.exception.ObjectNullException;
 import com.northbrain.base.common.model.bo.BaseType;
 import com.northbrain.base.common.model.bo.Errors;
 import com.northbrain.base.common.model.vo.atom.StrategyVO;
+import com.northbrain.base.common.model.vo.orch.OrchStrategyVO;
 import com.northbrain.common.strategy.dao.StrategyDetailHisPOMapper;
 import com.northbrain.common.strategy.dao.StrategyDetailPOMapper;
 import com.northbrain.common.strategy.dao.StrategyHisPOMapper;
@@ -51,6 +53,62 @@ public class StrategyDomain implements IStrategyDomain
         this.strategyDetailPOMapper = strategyDetailPOMapper;
         this.strategyDetailHisPOMapper = strategyDetailHisPOMapper;
         this.strategyDTO = strategyDTO;
+    }
+
+    /**
+     * 方法：根据名称选取策略
+     * @param orchStrategyVO 编排层策略值对象
+     * @return 策略清单
+     */
+    @Override
+    public List<StrategyVO> readStrategiesByName(OrchStrategyVO orchStrategyVO) throws Exception
+    {
+        if(orchStrategyVO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "orchStrategyVO");
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        if(strategyPOMapper == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "strategyPOMapper");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        if(strategyDetailPOMapper == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "strategyDetailPOMapper");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        if(strategyDTO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "strategyDTO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        List<StrategyPO> strategyPOS = strategyPOMapper.selectByName(orchStrategyVO.getDomain(), orchStrategyVO.getCategory(),
+                orchStrategyVO.getType(), orchStrategyVO.getName(), BaseType.STATUS.INUSED.ordinal());
+
+        if(strategyPOS == null)
+            return null;
+
+        List<StrategyVO> strategyVOS = new ArrayList<>();
+
+        for(StrategyPO strategyPO: strategyPOS)
+        {
+            List<StrategyDetailPO> strategyDetailPOS = strategyDetailPOMapper.selectByStrategy(
+                    strategyPO.getStrategyId(), BaseType.STATUS.INUSED.ordinal());
+
+            StrategyVO strategyVO = strategyDTO.convertToStrategyVO(strategyPO, strategyDetailPOS);
+
+            if(strategyVO == null)
+                continue;
+
+            strategyVOS.add(strategyVO);
+        }
+
+        return strategyVOS;
     }
 
     /**

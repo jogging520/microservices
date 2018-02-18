@@ -28,7 +28,7 @@ import java.util.Enumeration;
 public class WebTracerUtil
 {
     private Logger logger = Logger.getLogger(getClass());
-    private ThreadLocal<Long> startTimeThreadLocal = new ThreadLocal<Long>();
+    private ThreadLocal<Long> startTimeThreadLocal = new ThreadLocal<>();
 
     @Pointcut("execution(* com.northbrain..*Controller.*(..)) && @annotation(org.springframework.web.bind.annotation.RequestMapping)")
     public void invokeLog(){}

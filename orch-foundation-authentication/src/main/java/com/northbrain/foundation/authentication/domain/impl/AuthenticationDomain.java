@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSONArray;
+import com.northbrain.base.common.exception.ArgumentInputException;
+import com.northbrain.base.common.exception.NumberScopeException;
 import com.northbrain.base.common.exception.ObjectNullException;
 import com.northbrain.base.common.exception.OperationRecordException;
 import com.northbrain.base.common.model.bo.BaseType;
@@ -19,12 +21,11 @@ import com.northbrain.base.common.model.vo.basic.ResponseVO;
 import com.northbrain.base.common.model.vo.orch.OrchAccessControlVO;
 import com.northbrain.base.common.model.vo.orch.OrchLoginVO;
 import com.northbrain.base.common.model.vo.orch.OrchRegistryVO;
+import com.northbrain.base.common.model.vo.orch.OrchStrategyVO;
 import com.northbrain.base.common.util.JsonTransformationUtil;
 import com.northbrain.foundation.authentication.dao.*;
 import com.northbrain.foundation.authentication.domain.IAuthenticationDomain;
 import com.northbrain.foundation.authentication.dto.IAuthenticationDTO;
-
-import jdk.nashorn.internal.parser.Token;
 
 /**
  * 类名：鉴权DOMAIN接口的实现类
@@ -65,7 +66,6 @@ public class AuthenticationDomain implements IAuthenticationDomain
      * 6、调用安全原子微服务进行注册。
      * 7、调用参与者基础原子微服务进行参与者登记。
      * 8、记录日志，并返回。
-     * TODO 代码有点长，后续要优化。
      * @param orchRegistryVO 编排层注册值对象
      * @return 是否注册成功
      */
@@ -315,7 +315,7 @@ public class AuthenticationDomain implements IAuthenticationDomain
         if (orchLoginVO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "orchLoginVO");
-            throw new ObjectNullException(Errors.ERROR_SYSTEM_INSTANTIATION_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_SYSTEM_INSTANTIATION_EXCEPTION);
         }
 
         if (authenticationDTO == null)
@@ -561,7 +561,7 @@ public class AuthenticationDomain implements IAuthenticationDomain
         if (orchAccessControlVO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "orchAccessControlVO");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         if (authenticationDTO == null)
@@ -682,7 +682,7 @@ public class AuthenticationDomain implements IAuthenticationDomain
 
         //权限名为restful的rui的前缀
         ResponseVO<List<PrivilegeVO>> privilegeResponseVO = readAtomPrivilegeByName(
-                BaseType.PRIVILEGEDOMAIN.ORCHSERVICE.name(), orchAccessControlVO.getUri());
+                BaseType.PRIVILEGEDOMAIN.ORCHSERVICE.name(), orchAccessControlVO.getHttpMethod(), orchAccessControlVO.getUri());
 
         if (privilegeResponseVO == null)
             return createOperationRecordDetail(operationRecordVO, operationRecordDetailVO, BaseType.STATUS.FAILURE,
@@ -761,6 +761,107 @@ public class AuthenticationDomain implements IAuthenticationDomain
     }
 
     /**
+     * 方法：读取策略
+     * 1、获取全局唯一的序列号，作为操作记录、事务的流水号
+     * 2、新生成一条操作记录，并作为分布式事务（最终一致性）的开始。状态为初始状态。
+     * 3、调用策略原子服务，获取指定条件的策略清单
+     * 4、记录日志，并返回。
+     * @param orchStrategyVO 编排层策略值对象
+     * @return 策略清单
+     * @throws Exception 异常
+     */
+    @Override
+    public ResponseVO<List<StrategyVO>> readStrategiesByName(OrchStrategyVO orchStrategyVO) throws Exception
+    {
+        if (orchStrategyVO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "orchStrategyVO");
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        if (authenticationDTO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "authenticationDTO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        int rank = 0;
+        ResponseVO<List<StrategyVO>> responseVO = new ResponseVO<>();
+        responseVO.setResponse(null);
+
+        //1、获取全局唯一的序列号，作为操作记录、事务的流水号
+        ResponseVO<Integer> operationRecordIdResponseVO = readAtomOperationRecordId();
+
+        if(operationRecordIdResponseVO == null)
+            return updateFailureResponseVO(responseVO, Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL,
+                    Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION, "operationRecordIdResponseVO");
+
+        if(!operationRecordIdResponseVO.getResponseCode().equals(Errors.SUCCESS_EXECUTE.getCode()))
+            return updateFailureResponseVO(responseVO, Errors.ERROR_BUSINESS_COMMON_CALL_ATOM_SERVICE,
+                    operationRecordIdResponseVO.getResponseCode(), operationRecordIdResponseVO.getResponseDesc(), "readAtomOperationRecordId");
+
+        int operationRecordId = operationRecordIdResponseVO.getResponse();
+
+        if(operationRecordId <= 0)
+            return updateFailureResponseVO(responseVO, Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE,
+                    Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION, "operationRecordId:" + String.valueOf(operationRecordId));
+
+        //2、新生成一条操作记录，并作为分布式事务（最终一致性）的开始。状态为初始状态。
+        OperationRecordVO operationRecordVO = authenticationDTO.createOperationRecord(operationRecordId, BaseType.OPERATETYPE.CREATE,
+                Constants.BUSINESS_COMMON_OPERATOR_CODE, BaseType.DOMAIN.FOUNDATION, Constants.BUSINESS_FOUNDATION_AUTHENTICATION_ORCH_MICROSERVICE,
+                BaseType.STATUS.INITIAL, orchStrategyVO.getDescription());
+
+        if (operationRecordVO == null)
+            return updateFailureResponseVO(responseVO, Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL,
+                    Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION, "operationRecordVO");
+
+        logger.info(operationRecordVO);
+
+        //3、调用策略原子服务，获取指定条件的策略清单
+        rank++;
+        OperationRecordVO.OperationRecordDetailVO operationRecordDetailVO =
+                authenticationDTO.createOperationRecordDetail(operationRecordVO, rank,
+                        BaseType.OPERATETYPE.READ, BaseType.DOMAIN.PARTY,
+                        Constants.BUSINESS_COMMON_STRATEGY_ATOM_MICROSERVICE, BaseType.STATUS.INITIAL);
+
+        if (operationRecordDetailVO == null)
+            return updateFailureResponseVO(responseVO, Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL,
+                    Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION, "operationRecordDetailVO");
+
+        ResponseVO<List<StrategyVO>> strategyResponseVO = readAtomStrategiesByName(orchStrategyVO);
+
+        if (strategyResponseVO == null)
+            return createOperationRecordDetail(operationRecordVO, operationRecordDetailVO, BaseType.STATUS.FAILURE,
+                    Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION,
+                    Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "strategyResponseVO", responseVO);
+
+        if(!strategyResponseVO.getResponseCode().equals(Errors.SUCCESS_EXECUTE.getCode()))
+            return createOperationRecordDetail(operationRecordVO, operationRecordDetailVO, BaseType.STATUS.FAILURE,
+                    strategyResponseVO.getResponseCode(), strategyResponseVO.getResponseDesc(),
+                    Errors.ERROR_BUSINESS_COMMON_CALL_ATOM_SERVICE + "readAtomStrategiesByName", responseVO);
+
+        List<StrategyVO> strategyVOS = strategyResponseVO.getResponse();
+
+        if (strategyVOS == null)
+            return createOperationRecordDetail(operationRecordVO, operationRecordDetailVO, BaseType.STATUS.FAILURE,
+                    Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION,
+                    Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "strategyVOS", responseVO);
+
+        operationRecordVO = createOperationRecordDetail(operationRecordVO, operationRecordDetailVO,
+                BaseType.STATUS.SUCCESS, Errors.SUCCESS_EXECUTE);
+        logger.info(operationRecordVO);
+
+        //4、记录日志，并返回。
+        operationRecordVO.setStatus(BaseType.STATUS.SUCCESS.ordinal());
+        operationRecordVO.setFinishTime(new Date());
+        logger.info(operationRecordVO);
+        createAtomOperationRecord(operationRecordVO);
+        responseVO.setResponse(strategyVOS);
+
+        return responseVO;
+    }
+
+    /**
      * 方法：通过微服务读取全局操作记录序列号
      * @return 全局唯一操作记录序列号的ResponseVO封装类对象
      * @throws Exception 异常
@@ -773,7 +874,7 @@ public class AuthenticationDomain implements IAuthenticationDomain
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
 
-        return JsonTransformationUtil.<Integer>transformJSONString(sequenceDAO.readAtomOperationRecordId());
+        return JsonTransformationUtil.transformJSONString(sequenceDAO.readAtomOperationRecordId());
     }
 
     /**
@@ -789,7 +890,7 @@ public class AuthenticationDomain implements IAuthenticationDomain
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
 
-        return JsonTransformationUtil.<Integer>transformJSONString(sequenceDAO.readAtomRegistryId());
+        return JsonTransformationUtil.transformJSONString(sequenceDAO.readAtomRegistryId());
     }
 
     /**
@@ -805,7 +906,7 @@ public class AuthenticationDomain implements IAuthenticationDomain
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
 
-        return JsonTransformationUtil.<Integer>transformJSONString(sequenceDAO.readAtomLoginId());
+        return JsonTransformationUtil.transformJSONString(sequenceDAO.readAtomLoginId());
     }
 
     /**
@@ -821,7 +922,7 @@ public class AuthenticationDomain implements IAuthenticationDomain
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
 
-        return JsonTransformationUtil.<Integer>transformJSONString(sequenceDAO.readAtomPartyId());
+        return JsonTransformationUtil.transformJSONString(sequenceDAO.readAtomPartyId());
     }
 
     /**
@@ -834,7 +935,7 @@ public class AuthenticationDomain implements IAuthenticationDomain
         if (operationRecordVO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "operationRecordVO");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         if (operationRecordDAO == null)
@@ -843,7 +944,7 @@ public class AuthenticationDomain implements IAuthenticationDomain
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
 
-        ResponseVO<Boolean> responseVO = JsonTransformationUtil.<Boolean>transformJSONString(operationRecordDAO.createAtomOperationRecord(operationRecordVO));
+        ResponseVO<Boolean> responseVO = JsonTransformationUtil.transformJSONString(operationRecordDAO.createAtomOperationRecord(operationRecordVO));
 
         if (responseVO == null)
         {
@@ -870,13 +971,13 @@ public class AuthenticationDomain implements IAuthenticationDomain
         if (idType == null || idType.equals(""))
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "idType");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         if (idValue == null || idValue.equals(""))
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "idValue");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         if (partyDAO == null)
@@ -915,6 +1016,55 @@ public class AuthenticationDomain implements IAuthenticationDomain
     }
 
     /**
+     * 方法：调用原子服务获取特定条件的策略清单
+     * @param orchStrategyVO 编排层策略值对象
+     * @return 策略清单
+     * @throws Exception 异常
+     */
+    private ResponseVO<List<StrategyVO>> readAtomStrategiesByName(OrchStrategyVO orchStrategyVO) throws Exception
+    {
+        if (orchStrategyVO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "orchStrategyVO");
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        if (strategyDAO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "strategyDAO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        ResponseVO<List<StrategyVO>> responseVO = new ResponseVO<>();
+        responseVO.setResponseCodeAndDesc(Errors.ERROR_OTHER_UNKNOW_EXCEPTION);
+
+        ResponseVO<JSONArray> strategyResponseVO = JsonTransformationUtil.transformJSONStringIntoVOArray(this.strategyDAO.readAtomStrategiesByName(orchStrategyVO));
+        responseVO.setResponseCodeAndDesc(strategyResponseVO.getResponseCode(), strategyResponseVO.getResponseDesc());
+        JSONArray atomStrategyVOS = strategyResponseVO.getResponse();
+
+        if (atomStrategyVOS == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_EMPTY + "atomStrategyVOS");
+            return responseVO;
+        }
+
+        List<StrategyVO> strategyVOS = new ArrayList<>();
+
+        for (Object atomStrategyVOObject: atomStrategyVOS)
+        {
+            StrategyVO strategyVO = JsonTransformationUtil.transformPlainObjectIntoValueObject(atomStrategyVOObject, StrategyVO.class);
+
+            if(strategyVO == null)
+                continue;
+
+            strategyVOS.add(strategyVO);
+        }
+
+        responseVO.setResponse(strategyVOS);
+        return responseVO;
+    }
+
+    /**
      * 方法：通过安全原子服务按名称读取注册列表
      * @param partyVOS 参与者列表
      * @return 注册列表的ResponseVO封装对象
@@ -925,7 +1075,7 @@ public class AuthenticationDomain implements IAuthenticationDomain
         if (partyVOS == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "partyVOS");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         if (securityDAO == null)
@@ -980,7 +1130,7 @@ public class AuthenticationDomain implements IAuthenticationDomain
         if (partyId <= 0)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE + "partyId");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION);
+            throw new NumberScopeException(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION);
         }
 
         if (securityDAO == null)
@@ -1030,7 +1180,7 @@ public class AuthenticationDomain implements IAuthenticationDomain
         if (tokenVO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "tokenVO");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         if (securityDAO == null)
@@ -1055,7 +1205,7 @@ public class AuthenticationDomain implements IAuthenticationDomain
         if (registryVO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "registryVO");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         if (securityDAO == null)
@@ -1064,7 +1214,7 @@ public class AuthenticationDomain implements IAuthenticationDomain
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
 
-        return JsonTransformationUtil.<Boolean>transformJSONString(this.securityDAO.createAtomRegistry(registryVO));
+        return JsonTransformationUtil.transformJSONString(this.securityDAO.createAtomRegistry(registryVO));
     }
 
     /**
@@ -1078,7 +1228,7 @@ public class AuthenticationDomain implements IAuthenticationDomain
         if (loginVO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "loginVO");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         if (securityDAO == null)
@@ -1087,7 +1237,7 @@ public class AuthenticationDomain implements IAuthenticationDomain
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
 
-        return JsonTransformationUtil.<Boolean>transformJSONString(this.securityDAO.createAtomLogin(loginVO));
+        return JsonTransformationUtil.transformJSONString(this.securityDAO.createAtomLogin(loginVO));
     }
 
     /**
@@ -1101,7 +1251,7 @@ public class AuthenticationDomain implements IAuthenticationDomain
         if (partyVO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "registryVO");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         if (partyDAO == null)
@@ -1110,7 +1260,7 @@ public class AuthenticationDomain implements IAuthenticationDomain
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
 
-        return JsonTransformationUtil.<Boolean>transformJSONString(this.partyDAO.createAtomParty(partyVO));
+        return JsonTransformationUtil.transformJSONString(this.partyDAO.createAtomParty(partyVO));
     }
 
     /**
@@ -1128,25 +1278,25 @@ public class AuthenticationDomain implements IAuthenticationDomain
         if (roleId <= 0)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE + "roleId");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION);
+            throw new NumberScopeException(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION);
         }
 
         if (organizationId <= 0)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE + "organizationId");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION);
+            throw new NumberScopeException(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION);
         }
 
         if (domain == null || domain.equals(""))
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "domain");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         if (privilegeId <= 0)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE + "privilegeId");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION);
+            throw new NumberScopeException(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION);
         }
 
         if (securityDAO == null)
@@ -1188,22 +1338,29 @@ public class AuthenticationDomain implements IAuthenticationDomain
     /**
      * 方法：调用原子服务获取按归属域和名称筛选的权限列表
      * @param domain 权限归属域
+     * @param category 权限类别
      * @param name 权限名称
      * @return 权限列表
      * @throws Exception 异常
      */
-    private ResponseVO<List<PrivilegeVO>> readAtomPrivilegeByName(String domain, String name) throws Exception
+    private ResponseVO<List<PrivilegeVO>> readAtomPrivilegeByName(String domain, String category, String name) throws Exception
     {
         if (domain == null || domain.equals(""))
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "domain");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        if (category == null || category.equals(""))
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "category");
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         if (name == null || name.equals(""))
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "name");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         if (securityDAO == null)
@@ -1216,7 +1373,7 @@ public class AuthenticationDomain implements IAuthenticationDomain
         responseVO.setResponseCodeAndDesc(Errors.ERROR_OTHER_UNKNOW_EXCEPTION);
 
         ResponseVO<JSONArray> privilegeResponseVO = JsonTransformationUtil.transformJSONStringIntoVOArray(
-                this.securityDAO.readAtomPrivilegeByName(domain, name));
+                this.securityDAO.readAtomPrivilegeByName(domain, category, name));
         responseVO.setResponseCodeAndDesc(privilegeResponseVO.getResponseCode(), privilegeResponseVO.getResponseDesc());
         JSONArray atomPrivilegeResponseVOS = privilegeResponseVO.getResponse();
 
@@ -1253,7 +1410,7 @@ public class AuthenticationDomain implements IAuthenticationDomain
         if (tokenVO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "tokenVO");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         if (securityDAO == null)
@@ -1262,7 +1419,7 @@ public class AuthenticationDomain implements IAuthenticationDomain
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
 
-        return JsonTransformationUtil.<String>transformJSONString(this.securityDAO.createAtomToken(tokenVO));
+        return JsonTransformationUtil.transformJSONString(this.securityDAO.createAtomToken(tokenVO));
     }
 
     /**
@@ -1276,7 +1433,7 @@ public class AuthenticationDomain implements IAuthenticationDomain
         if (jsonWebToken == null || jsonWebToken.equals(""))
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "jsonWebToken");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         if (securityDAO == null)
@@ -1285,7 +1442,7 @@ public class AuthenticationDomain implements IAuthenticationDomain
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
 
-        return JsonTransformationUtil.<TokenVO>transformJSONStringIntoValueObject(this.securityDAO.readAtomToken(jsonWebToken), TokenVO.class);
+        return JsonTransformationUtil.transformJSONStringIntoValueObject(this.securityDAO.readAtomToken(jsonWebToken), TokenVO.class);
     }
 
     /**
@@ -1312,37 +1469,37 @@ public class AuthenticationDomain implements IAuthenticationDomain
         if (operationRecordVO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "operationRecordVO");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         if (operationRecordDetailVO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "operationRecordDetailVO");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         if (status == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "status");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         if (responseCode == null || responseCode.equals(""))
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "responseCode");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         if (responseDesc == null || responseDesc.equals(""))
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "responseDesc");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         if (responseVO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "responseVO");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         //先打印错误描述
@@ -1380,13 +1537,13 @@ public class AuthenticationDomain implements IAuthenticationDomain
         if (operationRecordVO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "operationRecordVO");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         if (operationRecordDetailVO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "operationRecordDetailVO");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         if (status == null)
@@ -1398,13 +1555,13 @@ public class AuthenticationDomain implements IAuthenticationDomain
         if (operationErrors == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "operationErrors");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         if (responseVO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "responseVO");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         //先打印错误信息
@@ -1439,25 +1596,25 @@ public class AuthenticationDomain implements IAuthenticationDomain
         if (operationRecordVO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "operationRecordVO");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         if (operationRecordDetailVO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "operationRecordDetailVO");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         if (status == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "status");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         if (errors == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "errors");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         operationRecordDetailVO.setStatus(status.ordinal());
@@ -1486,19 +1643,19 @@ public class AuthenticationDomain implements IAuthenticationDomain
         if (responseVO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "responseVO");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         if (logErrors == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "logErrors");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         if (responseErrors == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "responseErrors");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         logger.error(logErrors + attachment);
@@ -1523,25 +1680,25 @@ public class AuthenticationDomain implements IAuthenticationDomain
         if (responseVO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "responseVO");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         if (logErrors == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "logErrors");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         if (responseCode == null || responseCode.equals(""))
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "responseCode");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         if (responseDesc == null || responseDesc.equals(""))
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "responseDesc");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         logger.error(logErrors + attachment);

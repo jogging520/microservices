@@ -91,15 +91,17 @@ public class SecurityController
     /**
      * 方法：获取特定的权限实体
      * @param domain 权限归属域
+     * @param category 权限类别
      * @param name 权限名称
      * @return 权限实体的JSON串
      */
     @RequestMapping(value = Constants.URI_ATOM_COMMON_SECURITY_PRIVILEGE_REQUEST_MAPPING, method = RequestMethod.GET, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS)
     @ResponseBody
     public String readPrivilegeByName(@RequestParam("domain") String domain,
+                                      @RequestParam("category") String category,
                                       @RequestParam("name") String name)
     {
-        logger.debug(Hints.HINT_SYSTEM_PROCESS_CALL_CONTROLLER + "readPrivilege");
+        logger.debug(Hints.HINT_SYSTEM_PROCESS_CALL_CONTROLLER + "readPrivilegeByName");
         ServiceVO serviceVO = new ServiceVO();
 
         try
@@ -107,6 +109,14 @@ public class SecurityController
             if(domain == null || domain.equals(""))
             {
                 logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "domain");
+                serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+
+                return JSON.toJSONString(serviceVO);
+            }
+
+            if(category == null || category.equals(""))
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "category");
                 serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
 
                 return JSON.toJSONString(serviceVO);
@@ -128,7 +138,7 @@ public class SecurityController
                 return JSON.toJSONString(serviceVO);
             }
 
-            return JSON.toJSONString(securityService.readPrivilegeByName(domain, name));
+            return JSON.toJSONString(securityService.readPrivilegeByName(domain, category, name));
         }
         catch (IllegalStateException illegalStateException)
         {
@@ -164,7 +174,7 @@ public class SecurityController
                                            @RequestParam("domain") String domain,
                                            @RequestParam("privilegeId") int privilegeId)
     {
-        logger.debug(Hints.HINT_SYSTEM_PROCESS_CALL_CONTROLLER + "readAccessControl");
+        logger.debug(Hints.HINT_SYSTEM_PROCESS_CALL_CONTROLLER + "readAccessControlsByRole");
         ServiceVO serviceVO = new ServiceVO();
 
         try

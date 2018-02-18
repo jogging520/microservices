@@ -5,7 +5,6 @@ import java.util.Date;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
-import com.alibaba.fastjson.JSONArray;
 import com.northbrain.base.common.exception.*;
 import com.northbrain.base.common.model.bo.BaseType;
 import com.northbrain.base.common.model.bo.Constants;

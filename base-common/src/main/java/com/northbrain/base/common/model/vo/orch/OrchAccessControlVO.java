@@ -14,6 +14,9 @@ public class OrchAccessControlVO
     //要调用的restful服务的uri
     private String uri;
 
+    //http方法
+    private String httpMethod;
+
     //描述
     private String description;
 
@@ -31,6 +34,14 @@ public class OrchAccessControlVO
 
     public void setUri(String uri) {
         this.uri = uri;
+    }
+
+    public String getHttpMethod() {
+        return httpMethod;
+    }
+
+    public void setHttpMethod(String httpMethod) {
+        this.httpMethod = httpMethod;
     }
 
     public String getDescription() {

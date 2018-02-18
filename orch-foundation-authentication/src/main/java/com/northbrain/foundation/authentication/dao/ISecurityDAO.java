@@ -34,13 +34,15 @@ public interface ISecurityDAO
     /**
      * 方法：获取特定的权限实体
      * @param domain 权限归属域
+     * @param category 权限类别
      * @param name 权限名称
      * @return 权限实体的JSON串
      */
     @RequestMapping(value = Constants.URI_ATOM_COMMON_SECURITY_PRIVILEGE_REQUEST_MAPPING, method = RequestMethod.GET, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS)
     @ResponseBody
-    public String readAtomPrivilegeByName(@RequestParam("domain") String domain,
-                                          @RequestParam("name") String name);
+    String readAtomPrivilegeByName(@RequestParam("domain") String domain,
+                                   @RequestParam("category") String category,
+                                   @RequestParam("name") String name);
 
     /**
      * 方法：获取特定的权限实体列表
@@ -82,7 +84,7 @@ public interface ISecurityDAO
      */
     @RequestMapping(value = Constants.URI_ATOM_COMMON_SECURITY_REGISTRY_REQUEST_MAPPING, method = RequestMethod.GET, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS, consumes = Constants.BUSINESS_COMMON_HTTP_REQUEST_CONSUMERS)
     @ResponseBody
-    public String readAtomRegistryByParty(@RequestBody Integer[] partyIdS);
+    String readAtomRegistryByParty(@RequestBody Integer[] partyIdS);
 
     /**
      * 方法：新增一条注册信息（注册）
@@ -118,7 +120,7 @@ public interface ISecurityDAO
      */
     @RequestMapping(value = Constants.URI_ATOM_COMMON_SECURITY_TOKEN_REQUEST_MAPPING, method = RequestMethod.PUT, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS, consumes = Constants.BUSINESS_COMMON_HTTP_REQUEST_CONSUMERS)
     @ResponseBody
-    public String createAtomToken(@RequestBody TokenVO tokenVO);
+    String createAtomToken(@RequestBody TokenVO tokenVO);
 
     /**
      * 方法：通过token信息解析并返回partyId
@@ -127,7 +129,7 @@ public interface ISecurityDAO
      */
     @RequestMapping(value = Constants.URI_ATOM_COMMON_SECURITY_TOKEN_REQUEST_MAPPING, method = RequestMethod.GET, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS)
     @ResponseBody
-    public String readAtomToken(@PathVariable("jsonWebToken")String jsonWebToken);
+    String readAtomToken(@PathVariable("jsonWebToken")String jsonWebToken);
 
     /**
      * 类名：安全DAO接口的熔断器实现类
@@ -158,11 +160,12 @@ public interface ISecurityDAO
          * 方法：获取特定的权限实体
          *
          * @param domain 权限归属域
+         * @param category 权限类别
          * @param name   权限名称
          * @return 权限实体的JSON串
          */
         @Override
-        public String readAtomPrivilegeByName(String domain, String name)
+        public String readAtomPrivilegeByName(String domain, String category, String name)
         {
             logger.info(Hints.HINT_SYSTEM_PROCESS_CALL_HYSTRIX_DAO + "readAtomPrivilegeByName");
 

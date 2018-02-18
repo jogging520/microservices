@@ -1,9 +1,13 @@
 package com.northbrain.foundation.authentication.domain;
 
+import java.util.List;
+
+import com.northbrain.base.common.model.vo.atom.StrategyVO;
 import com.northbrain.base.common.model.vo.basic.ResponseVO;
 import com.northbrain.base.common.model.vo.orch.OrchAccessControlVO;
 import com.northbrain.base.common.model.vo.orch.OrchLoginVO;
 import com.northbrain.base.common.model.vo.orch.OrchRegistryVO;
+import com.northbrain.base.common.model.vo.orch.OrchStrategyVO;
 
 /**
  * 类名：鉴权DOMAIN接口
@@ -32,6 +36,15 @@ public interface IAuthenticationDomain
      * 方法：访问控制
      * @param orchAccessControlVO 编排层访问控制值对象
      * @return 是否运行访问控制
+     * @throws Exception 异常
      */
     ResponseVO<Boolean> readAccessControl(OrchAccessControlVO orchAccessControlVO) throws Exception;
+
+    /**
+     * 方法：读取策略
+     * @param orchStrategyVO 编排层策略值对象
+     * @return 策略清单
+     * @throws Exception 异常
+     */
+    ResponseVO<List<StrategyVO>> readStrategiesByName(OrchStrategyVO orchStrategyVO) throws Exception;
 }

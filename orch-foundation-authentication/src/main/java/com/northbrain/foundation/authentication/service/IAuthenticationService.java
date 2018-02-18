@@ -4,6 +4,7 @@ import com.northbrain.base.common.model.vo.basic.ServiceVO;
 import com.northbrain.base.common.model.vo.orch.OrchAccessControlVO;
 import com.northbrain.base.common.model.vo.orch.OrchLoginVO;
 import com.northbrain.base.common.model.vo.orch.OrchRegistryVO;
+import com.northbrain.base.common.model.vo.orch.OrchStrategyVO;
 
 /**
  * 类名：鉴权服务接口
@@ -36,4 +37,11 @@ public interface IAuthenticationService
      * @return 是否允许访问的ServiceVO封装对象
      */
     ServiceVO readAccessControl(OrchAccessControlVO orchAccessControlVO);
+
+    /**
+     * 方法：读取策略
+     * @param orchStrategyVO 编排层策略值对象
+     * @return 策略清单的ServiceVO封装对象
+     */
+    ServiceVO readStrategiesByName(OrchStrategyVO orchStrategyVO);
 }

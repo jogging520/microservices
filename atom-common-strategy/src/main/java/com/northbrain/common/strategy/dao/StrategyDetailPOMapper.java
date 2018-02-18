@@ -1,6 +1,9 @@
 package com.northbrain.common.strategy.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import com.northbrain.common.strategy.model.po.StrategyDetailPO;
@@ -22,6 +25,9 @@ public interface StrategyDetailPOMapper
     int insertSelective(StrategyDetailPO record) throws Exception;
 
     StrategyDetailPO selectByPrimaryKey(Integer strategyDetailId) throws Exception;
+
+    List<StrategyDetailPO> selectByStrategy(@Param("strategyId") Integer strategyId,
+                                            @Param("status") Integer status) throws Exception;
 
     int updateByPrimaryKeySelective(StrategyDetailPO record) throws Exception;
 

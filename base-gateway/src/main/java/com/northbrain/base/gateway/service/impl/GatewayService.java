@@ -2,19 +2,13 @@ package com.northbrain.base.gateway.service.impl;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import com.alibaba.fastjson.JSONException;
-import com.netflix.client.ClientException;
-import com.northbrain.base.common.exception.*;
 import com.northbrain.base.common.model.bo.Errors;
-import com.northbrain.base.common.model.vo.basic.ResponseVO;
-import com.northbrain.base.common.model.vo.basic.ServiceVO;
 import com.northbrain.base.common.model.vo.orch.OrchAccessControlVO;
 import com.northbrain.base.common.util.StackTracerUtil;
 import com.northbrain.base.gateway.domain.IGatewayDomain;
 import com.northbrain.base.gateway.service.IGatewayService;
-
-import feign.FeignException;
 
 /**
  * 类名：网关服务接口的实现类
@@ -22,6 +16,7 @@ import feign.FeignException;
  * @author Jiakun
  * @version 1.0
  */
+@Service
 public class GatewayService implements IGatewayService
 {
     private static Logger logger = Logger.getLogger(GatewayService.class);
@@ -38,7 +33,6 @@ public class GatewayService implements IGatewayService
      *
      * @param orchAccessControlVO 编排层访问控制值对象
      * @return 是否允许访问
-     * @throws Exception 异常
      */
     @Override
     public Boolean readAccessControl(OrchAccessControlVO orchAccessControlVO)
@@ -58,46 +52,6 @@ public class GatewayService implements IGatewayService
             }
 
             return gatewayDomain.readAccessControl(orchAccessControlVO);
-        }
-        catch (PropertyEnumerationException propertyEnumerationException)
-        {
-            logger.error(StackTracerUtil.getExceptionInfo(propertyEnumerationException));
-        }
-        catch (ClassCastException classCastException)
-        {
-            logger.error(StackTracerUtil.getExceptionInfo(classCastException));
-        }
-        catch (IllegalStateException illegalStateException)
-        {
-            logger.error(StackTracerUtil.getExceptionInfo(illegalStateException));
-        }
-        catch (InstantiationException instantiationException)
-        {
-            logger.error(StackTracerUtil.getExceptionInfo(instantiationException));
-        }
-        catch (JSONException jSONException)
-        {
-            logger.error(StackTracerUtil.getExceptionInfo(jSONException));
-        }
-        catch (FeignException feignException)
-        {
-            logger.error(StackTracerUtil.getExceptionInfo(feignException));
-        }
-        catch (ClientException clientException)
-        {
-            logger.error(StackTracerUtil.getExceptionInfo(clientException));
-        }
-        catch (ArgumentInputException argumentInputException)
-        {
-            logger.error(StackTracerUtil.getExceptionInfo(argumentInputException));
-        }
-        catch (NumberScopeException numberScopeException)
-        {
-            logger.error(StackTracerUtil.getExceptionInfo(numberScopeException));
-        }
-        catch (ObjectNullException objectNullException)
-        {
-            logger.error(StackTracerUtil.getExceptionInfo(objectNullException));
         }
         catch (Exception exception)
         {

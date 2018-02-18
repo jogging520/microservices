@@ -1,5 +1,7 @@
 package com.northbrain.base.common.util;
 
+import java.lang.reflect.ParameterizedType;
+
 import org.apache.log4j.Logger;
 
 import com.alibaba.fastjson.JSON;
@@ -39,27 +41,28 @@ public class JsonTransformationUtil
 
         logger.debug(Hints.HINT_BUSINESS_COMMON_JSON_VO_CONVERTION);
 
-        ServiceVO atomServiceVO = JSON.parseObject(serviceVOJSONString, ServiceVO.class);
+        ServiceVO serviceVO = JSON.parseObject(serviceVOJSONString, ServiceVO.class);
 
-        if (atomServiceVO == null)
+        if (serviceVO == null)
         {
-            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "atomServiceVO");
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "serviceVO");
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
 
-        Object atomServiceVOResponse = atomServiceVO.getResponse();
+        Object serviceVOResponse = serviceVO.getResponse();
 
-        if (atomServiceVOResponse == null)
+        if (serviceVOResponse == null)
         {
-            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "atomServiceVOResponse");
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "serviceVOResponse");
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
+
 
         ResponseVO<T> responseVO = new ResponseVO<>();
-        responseVO.setResponseCode(atomServiceVO.getResponseCode());
-        responseVO.setResponseDesc(atomServiceVO.getResponseDesc());
+        responseVO.setResponseCode(serviceVO.getResponseCode());
+        responseVO.setResponseDesc(serviceVO.getResponseDesc());
 
-        responseVO.setResponse((T) (atomServiceVOResponse));
+        responseVO.setResponse((T) (serviceVOResponse));
 
         return responseVO;
     }
@@ -80,28 +83,28 @@ public class JsonTransformationUtil
 
         logger.debug(Hints.HINT_BUSINESS_COMMON_JSON_VO_CONVERTION);
 
-        ServiceVO atomServiceVO = JSON.parseObject(serviceVOJSONString, ServiceVO.class);
+        ServiceVO serviceVO = JSON.parseObject(serviceVOJSONString, ServiceVO.class);
 
-        if (atomServiceVO == null)
+        if (serviceVO == null)
         {
-            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "atomServiceVO");
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "serviceVO");
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
 
-        Object atomServiceVOResponse = atomServiceVO.getResponse();
+        Object serviceVOResponse = serviceVO.getResponse();
 
-        if (atomServiceVOResponse == null)
+        if (serviceVOResponse == null)
         {
-            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "atomServiceVOResponse");
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "serviceVOResponse");
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
 
         ResponseVO<JSONArray> responseVO = new ResponseVO<>();
-        responseVO.setResponseCode(atomServiceVO.getResponseCode());
-        responseVO.setResponseDesc(atomServiceVO.getResponseDesc());
+        responseVO.setResponseCode(serviceVO.getResponseCode());
+        responseVO.setResponseDesc(serviceVO.getResponseDesc());
 
-        if(atomServiceVOResponse.getClass() == Boolean.class)
-            responseVO.setResponse(JSONArray.class.cast(atomServiceVOResponse));
+        if(serviceVOResponse.getClass() == JSONArray.class)
+            responseVO.setResponse(JSONArray.class.cast(serviceVOResponse));
         else
             throw new ClassCastException();
 
@@ -126,30 +129,27 @@ public class JsonTransformationUtil
 
         logger.debug(Hints.HINT_BUSINESS_COMMON_JSON_VO_CONVERTION);
 
-        ServiceVO atomServiceVO = JSON.parseObject(serviceVOJSONString, ServiceVO.class);
+        ServiceVO serviceVO = JSON.parseObject(serviceVOJSONString, ServiceVO.class);
 
-        if (atomServiceVO == null)
+        if (serviceVO == null)
         {
-            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "atomServiceVO");
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "serviceVO");
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
 
-        Object atomServiceVOResponse = atomServiceVO.getResponse();
+        Object serviceVOResponse = serviceVO.getResponse();
 
-        if (atomServiceVOResponse == null)
+        if (serviceVOResponse == null)
         {
-            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "atomServiceVOResponse");
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "serviceVOResponse");
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
 
         ResponseVO<Object> responseVO = new ResponseVO<>();
-        responseVO.setResponseCode(atomServiceVO.getResponseCode());
-        responseVO.setResponseDesc(atomServiceVO.getResponseDesc());
+        responseVO.setResponseCode(serviceVO.getResponseCode());
+        responseVO.setResponseDesc(serviceVO.getResponseDesc());
 
-        if(atomServiceVOResponse.getClass() == Boolean.class)
-            responseVO.setResponse(JSONObject.toJavaObject((JSON) atomServiceVOResponse, clazz.getClass()));
-        else
-            throw new ClassCastException();
+        responseVO.setResponse(JSONObject.toJavaObject((JSON) serviceVOResponse, clazz.getClass()));
 
         return (ResponseVO<T>) responseVO;
     }

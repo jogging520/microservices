@@ -21,6 +21,16 @@
     from strategy
     where strategy_id = #{strategyId,jdbcType=INTEGER}
   </select>
+  <select id="selectByName" resultMap="BaseResultMap" statementType="STATEMENT">
+    select
+    <include refid="Base_Column_List" />
+    from strategy
+    where domain = ${domain} and
+          category = ${category} and
+          type = ${type} and
+          name = ${name} and
+          status = ${status}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from strategy
     where strategy_id = #{strategyId,jdbcType=INTEGER}

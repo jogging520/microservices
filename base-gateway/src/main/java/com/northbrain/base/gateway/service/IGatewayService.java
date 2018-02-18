@@ -14,7 +14,6 @@ public interface IGatewayService
      * 方法：访问控制
      * @param orchAccessControlVO 编排层访问控制值对象
      * @return 是否允许访问
-     * @throws Exception 异常
      */
     Boolean readAccessControl(OrchAccessControlVO orchAccessControlVO);
 }

@@ -17,7 +17,7 @@ public class Constants
     public static final int      BUSINESS_COMMON_OPERATION_RECORD_DETAIL_ID_MULTIPLE                        = 100;                                          //操作记录明细ID号的倍数关系，明细记录由操作记录的ID乘以该值得到
     public static final int      BUSINESS_COMMON_OPERATION_RECORD_DEFAULT_ID                                = -1;                                           //操作记录默认编号
     public static final int      BUSINESS_COMMON_OPERATOR_CODE                                              = 99999999;                                     //系统默认工号
-    public static final String   BUSINESS_COMMON_TRUE 													    = "TRUE";
+    private static final String  BUSINESS_COMMON_TRUE 													    = "TRUE";
     public static final String   BUSINESS_COMMON_NODE_SEPARATOR 											= "/";									        //Zookeeper的分隔符
     public static final String   BUSINESS_COMMON_JSON_REQUEST_DATE_FORMART                                  = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";                 //Json请求报文日期格式
     public static final String   BUSINESS_COMMON_JSON_RESPONSE_DATE_FORMART                                 = "yyyy-MM-dd HH:mm:ss.SSS";                    //Json响应报文日期格式
@@ -154,6 +154,7 @@ public class Constants
     public static final String   URI_ORCH_FOUNDATION_AUTHENTICATION_REGISTRY_REQUEST_MAPPING                = "/foundation/authentication/registry";        //编排服务URI：基础鉴权认证-注册						        //编排服务URI：全量在用的课程清单（只有课程本身）
     public static final String   URI_ORCH_FOUNDATION_AUTHENTICATION_LOGIN_REQUEST_MAPPING                   = "/foundation/authentication/login";           //编排服务URI：基础鉴权认证-登录						        //编排服务URI：全量在用的课程清单（只有课程本身）
     public static final String   URI_ORCH_FOUNDATION_AUTHENTICATION_ACCESS_CONTROL_REQUEST_MAPPING          = "/foundation/authentication/accesscontrol";   //编排服务URI：基础鉴权认证-访问控制						        //编排服务URI：全量在用的课程清单（只有课程本身）
+    public static final String   URI_ORCH_FOUNDATION_AUTHENTICATION_STRATEGY_REQUEST_MAPPING                = "/foundation/authentication/strategy";        //编排服务URI：基础鉴权认证-策略（业务级）					        //编排服务URI：全量在用的课程清单（只有课程本身）
     public static final String   URI_ORCH_LIST_COURSE_REQUEST_MAPPING                                       = "/list/course";						        //编排服务URI：全量在用的课程清单（只有课程本身）
     public static final String   URI_ORCH_LIST_COURSE_SPECIFIED_REQUEST_MAPPING                             = "/list/course/{courseId}";			        //编排服务URI：全量在用的课程清单（只有课程本身）
 

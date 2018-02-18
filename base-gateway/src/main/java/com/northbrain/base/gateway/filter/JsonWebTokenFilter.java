@@ -9,6 +9,7 @@ import com.northbrain.base.gateway.service.IGatewayService;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,12 +19,21 @@ import javax.servlet.http.HttpServletRequest;
  * @author Jiakun
  * @version 1.0
  */
+@Component
 public class JsonWebTokenFilter extends ZuulFilter
 {
     private static Logger logger = Logger.getLogger(JsonWebTokenFilter.class);
-    @Autowired
-    private IGatewayService gatewayService;
+    private final IGatewayService gatewayService;
 
+    @Autowired
+    public JsonWebTokenFilter(IGatewayService gatewayService) {
+        this.gatewayService = gatewayService;
+    }
+
+    /**
+     * 方法：设置过滤类型为事前过滤
+     * @return 过滤类型
+     */
     @Override
     public String filterType()
     {
@@ -82,7 +92,7 @@ public class JsonWebTokenFilter extends ZuulFilter
         {
             // 对该请求进行路由
             requestContext.setSendZuulResponse(false);
-            // 应答码设置为成功
+            // 应答码设置为未认证
             requestContext.setResponseStatusCode(Constants.BUSINESS_COMMON_JWT_RESPONSE_UNAUTHORIZED);
             // 设值，让下一个Filter看到上一个Filter的状态
             requestContext.set(Constants.BUSINESS_COMMON_JWT_RESPONSE_FILTER_RESULT, false);
@@ -93,25 +103,21 @@ public class JsonWebTokenFilter extends ZuulFilter
         OrchAccessControlVO orchAccessControlVO = new OrchAccessControlVO();
         orchAccessControlVO.setJsonWebToken(authorization);
         orchAccessControlVO.setUri(httpServletRequest.getRequestURI());
+        orchAccessControlVO.setHttpMethod(httpServletRequest.getMethod());
         orchAccessControlVO.setDescription(Constants.BUSINESS_COMMON_SERVICE_GATEWAY_DESCRIPTION);
 
         if(gatewayService.readAccessControl(orchAccessControlVO))
         {
-            // 对该请求进行路由
-            requestContext.setSendZuulResponse(false);
-            // 应答码设置为成功
-            requestContext.setResponseStatusCode(Constants.BUSINESS_COMMON_JWT_RESPONSE_UNAUTHORIZED);
-            // 设值，让下一个Filter看到上一个Filter的状态
-            requestContext.set(Constants.BUSINESS_COMMON_JWT_RESPONSE_FILTER_RESULT, false);
+            requestContext.setSendZuulResponse(true);
+            requestContext.setResponseStatusCode(Constants.BUSINESS_COMMON_JWT_RESPONSE_SUCCESS);
+            requestContext.set(Constants.BUSINESS_COMMON_JWT_RESPONSE_FILTER_RESULT, true);
             return null;
         }
 
-        // 对该请求进行路由
-        requestContext.setSendZuulResponse(true);
-        // 应答码设置为成功
-        requestContext.setResponseStatusCode(Constants.BUSINESS_COMMON_JWT_RESPONSE_SUCCESS);
-        // 设值，让下一个Filter看到上一个Filter的状态
-        requestContext.set(Constants.BUSINESS_COMMON_JWT_RESPONSE_FILTER_RESULT, true);
+        // 默认情况下拒绝
+        requestContext.setSendZuulResponse(false);
+        requestContext.setResponseStatusCode(Constants.BUSINESS_COMMON_JWT_RESPONSE_UNAUTHORIZED);
+        requestContext.set(Constants.BUSINESS_COMMON_JWT_RESPONSE_FILTER_RESULT, false);
         return null;
     }
 }

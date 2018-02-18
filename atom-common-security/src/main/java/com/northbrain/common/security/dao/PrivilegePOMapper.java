@@ -20,6 +20,7 @@ public interface PrivilegePOMapper
     PrivilegePO selectByPrimaryKey(Integer privilegeId) throws Exception;
 
     List<PrivilegePO> selectByName(@Param("domain") String domain,
+                                   @Param("category") String category,
                                    @Param("name") String name) throws Exception;
 
     int updateByPrimaryKeySelective(PrivilegePO record) throws Exception;

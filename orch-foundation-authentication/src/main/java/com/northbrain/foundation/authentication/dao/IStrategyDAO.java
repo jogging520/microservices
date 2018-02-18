@@ -3,10 +3,7 @@ package com.northbrain.foundation.authentication.dao;
 import org.apache.log4j.Logger;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.alibaba.fastjson.JSON;
 import com.northbrain.base.common.model.bo.Constants;
@@ -14,6 +11,7 @@ import com.northbrain.base.common.model.bo.Errors;
 import com.northbrain.base.common.model.bo.Hints;
 import com.northbrain.base.common.model.vo.basic.ServiceVO;
 import com.northbrain.base.common.model.vo.atom.StrategyVO;
+import com.northbrain.base.common.model.vo.orch.OrchStrategyVO;
 
 /**
  * 类名：策略DAO接口
@@ -23,6 +21,15 @@ import com.northbrain.base.common.model.vo.atom.StrategyVO;
 @FeignClient(name = Constants.BUSINESS_COMMON_STRATEGY_ATOM_MICROSERVICE, fallback = IStrategyDAO.HystrixStrategy.class)
 public interface IStrategyDAO
 {
+    /**
+     * 方法：根据名称选取策略
+     * @param orchStrategyVO 编排层策略值对象
+     * @return 策略清单
+     */
+    @RequestMapping(value = Constants.URI_ATOM_COMMON_STRATEGY_REQUEST_MAPPING, method = RequestMethod.GET, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS, consumes = Constants.BUSINESS_COMMON_HTTP_REQUEST_CONSUMERS)
+    @ResponseBody
+    String readAtomStrategiesByName(@RequestBody OrchStrategyVO orchStrategyVO);
+
     /**
      * 方法：新增一条策略
      * @return 以ServiceVO封装的策略
@@ -57,9 +64,26 @@ public interface IStrategyDAO
         private static Logger logger = Logger.getLogger(IStrategyDAO.HystrixStrategy.class);
 
         /**
+         * 方法：根据名称选取策略
+         *
+         * @param orchStrategyVO 编排层策略值对象
+         * @return 策略清单
+         */
+        @Override
+        public String readAtomStrategiesByName(@RequestBody OrchStrategyVO orchStrategyVO)
+        {
+            logger.info(Hints.HINT_SYSTEM_PROCESS_CALL_HYSTRIX_DAO + "readAtomStrategiesByName");
+
+            ServiceVO serviceVO = new ServiceVO();
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_SERVICE_HYSTRIX_EXCEPTION);
+
+            return JSON.toJSONString(serviceVO);
+        }
+
+        /**
          * 方法：新增一条策略
          *
-         * @param strategyVO
+         * @param strategyVO 策略值对象
          * @return 以ServiceVO封装的策略
          */
         @Override
@@ -76,7 +100,7 @@ public interface IStrategyDAO
         /**
          * 方法：更新一条策略
          *
-         * @param strategyVO
+         * @param strategyVO 策略值对象
          * @return 以ServiceVO封装的策略
          */
         @Override
@@ -93,7 +117,7 @@ public interface IStrategyDAO
         /**
          * 方法：删除一条策略
          *
-         * @param strategyVO
+         * @param strategyVO 策略值对象
          * @return 以ServiceVO封装的策略
          */
         @Override

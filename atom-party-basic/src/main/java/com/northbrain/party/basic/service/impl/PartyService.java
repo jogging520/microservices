@@ -57,7 +57,6 @@ public class PartyService implements IPartyService
     public ServiceVO readPartyByProperties(String idType, String idValue)
     {
         ServiceVO serviceVO = new ServiceVO();
-        List<PartyVO> partyVOS;
 
         try
         {
@@ -85,8 +84,7 @@ public class PartyService implements IPartyService
                 return serviceVO;
             }
 
-            partyVOS = partyDomain.readPartyByProperties(idType, idValue);
-            serviceVO.setResponse(partyVOS);
+            serviceVO.setResponse(partyDomain.readPartyByProperties(idType, idValue));
             serviceVO.setResponseCodeAndDesc(Errors.SUCCESS_EXECUTE);
         }
         catch (NumberFormatException numberFormatException)
@@ -215,7 +213,6 @@ public class PartyService implements IPartyService
     public ServiceVO readRolesByName(String name)
     {
         ServiceVO serviceVO = new ServiceVO();
-        List<RoleVO> roleVOS;
 
         try
         {
@@ -235,8 +232,7 @@ public class PartyService implements IPartyService
                 return serviceVO;
             }
 
-            roleVOS = partyDomain.readRolesByName(name);
-            serviceVO.setResponse(roleVOS);
+            serviceVO.setResponse(partyDomain.readRolesByName(name));
             serviceVO.setResponseCodeAndDesc(Errors.SUCCESS_EXECUTE);
         }
         catch (NumberFormatException numberFormatException)

@@ -1,6 +1,6 @@
 package com.northbrain.common.security.domain.impl;
 
-import com.northbrain.base.common.exception.CollectionEmptyException;
+import com.northbrain.base.common.exception.ArgumentInputException;
 import com.northbrain.base.common.exception.NumberScopeException;
 import com.northbrain.base.common.exception.ObjectNullException;
 import com.northbrain.base.common.model.bo.BaseType;
@@ -22,8 +22,6 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import io.jsonwebtoken.Claims;
 
 /**
  * 类名：安全域接口的实现类
@@ -106,22 +104,29 @@ public class SecurityDomain implements ISecurityDomain
      * 方法：获取特定的权限
      *
      * @param domain 权限归属域
+     * @param category 权限类别
      * @param name   权限名称
      * @return ServiceVO封装类
      */
     @Override
-    public List<PrivilegeVO> readPrivilegeByName(String domain, String name) throws Exception
+    public List<PrivilegeVO> readPrivilegeByName(String domain, String category, String name) throws Exception
     {
         if(domain == null || domain.equals(""))
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "domain");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        if(category == null || category.equals(""))
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "category");
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         if(name == null || name.equals(""))
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "name");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         if(privilegePOMapper == null)
@@ -136,7 +141,7 @@ public class SecurityDomain implements ISecurityDomain
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
 
-        List<PrivilegePO> privilegePOS = privilegePOMapper.selectByName(domain, name);
+        List<PrivilegePO> privilegePOS = privilegePOMapper.selectByName(domain, category, name);
 
         List<PrivilegeVO> privilegeVOS = new ArrayList<>();
         PrivilegeVO privilegeVO;
@@ -182,7 +187,7 @@ public class SecurityDomain implements ISecurityDomain
         if(domain == null || domain.equals(""))
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "domain");
-            throw new NumberScopeException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         if(privilegeId <= 0)
@@ -280,7 +285,7 @@ public class SecurityDomain implements ISecurityDomain
         if(tokenVO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "tokenVO");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         if(loginPOMapper == null)
@@ -318,7 +323,7 @@ public class SecurityDomain implements ISecurityDomain
         if(partyIdS == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "partyIdS");
-            throw new NumberScopeException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         if(registryPOMapper == null)
@@ -367,7 +372,7 @@ public class SecurityDomain implements ISecurityDomain
         if(registryVO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "registryVO");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         if(registryPOMapper == null)
@@ -439,7 +444,7 @@ public class SecurityDomain implements ISecurityDomain
         if(loginVO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "loginVO");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         if(loginPOMapper == null)
@@ -511,7 +516,7 @@ public class SecurityDomain implements ISecurityDomain
         if(loginVO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "loginVO");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         if(loginPOMapper == null)
@@ -569,7 +574,7 @@ public class SecurityDomain implements ISecurityDomain
         if(tokenVO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "tokenVO");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         return JsonWebTokenUtil.generateJsonWebToken(tokenVO.getLoginId(), tokenVO.getPartyId(),
@@ -581,7 +586,7 @@ public class SecurityDomain implements ISecurityDomain
      *
      * @param jsonWebToken 令牌
      * @return token令牌值对象
-     * @throws Exception
+     * @throws Exception 异常
      */
     @Override
     public TokenVO readToken(String jsonWebToken) throws Exception

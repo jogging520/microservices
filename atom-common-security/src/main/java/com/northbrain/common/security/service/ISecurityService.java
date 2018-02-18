@@ -23,10 +23,11 @@ public interface ISecurityService
     /**
      * 方法：获取特定的权限
      * @param domain 权限归属域
+     * @param category 权限类别
      * @param name 权限名称
      * @return ServiceVO封装类
      */
-    ServiceVO readPrivilegeByName(String domain, String name);
+    ServiceVO readPrivilegeByName(String domain, String category, String name);
 
     /**
      * 方法：获取特定的访问控制列表

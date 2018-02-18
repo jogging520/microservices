@@ -3,7 +3,6 @@ package com.northbrain.common.security.domain;
 import com.northbrain.base.common.model.vo.atom.*;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * 类名：安全域接口
@@ -25,10 +24,11 @@ public interface ISecurityDomain
     /**
      * 方法：获取特定的权限
      * @param domain 权限归属域
+     * @param category 权限类别
      * @param name 权限名称
      * @return ServiceVO封装类
      */
-    List<PrivilegeVO> readPrivilegeByName(String domain, String name) throws Exception;
+    List<PrivilegeVO> readPrivilegeByName(String domain, String category, String name) throws Exception;
 
     /**
      * 方法：获取特定的访问控制
@@ -101,7 +101,7 @@ public interface ISecurityDomain
      * 方法：通过token信息解析并返回partyId
      * @param jsonWebToken 令牌
      * @return token令牌值对象
-     * @throws Exception
+     * @throws Exception 异常
      */
     TokenVO readToken(String jsonWebToken) throws Exception;
 }

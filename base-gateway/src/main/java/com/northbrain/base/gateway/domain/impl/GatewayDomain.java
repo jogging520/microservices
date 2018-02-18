@@ -2,6 +2,7 @@ package com.northbrain.base.gateway.domain.impl;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.northbrain.base.common.exception.AccessControlException;
 import com.northbrain.base.common.exception.ArgumentInputException;
@@ -19,6 +20,7 @@ import com.northbrain.base.gateway.domain.IGatewayDomain;
  * @author Jiakun
  * @version 1.0
  */
+@Component
 public class GatewayDomain implements IGatewayDomain
 {
     private static Logger logger = Logger.getLogger(GatewayDomain.class);
@@ -82,6 +84,6 @@ public class GatewayDomain implements IGatewayDomain
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
 
-        return JsonTransformationUtil.<Boolean>transformJSONString(this.authenticationDAO.readOrchAccessControl(orchAccessControlVO));
+        return JsonTransformationUtil.transformJSONString(this.authenticationDAO.readOrchAccessControl(orchAccessControlVO));
     }
 }

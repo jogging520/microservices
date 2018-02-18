@@ -2,7 +2,6 @@ package com.northbrain.base.common.util;
 
 import com.northbrain.base.common.model.bo.Constants;
 import com.northbrain.base.common.model.bo.Parameters;
-import com.northbrain.base.common.exception.ArgumentInputException;
 import com.northbrain.base.common.exception.ParameterConfigException;
 import com.northbrain.base.common.model.bo.Errors;
 import com.northbrain.base.common.model.bo.Hints;
@@ -31,7 +30,6 @@ public class CommonUtil
 
     /**
      * 方法：休眠当前线程
-     * @param name 间隔时长名称
      */
     public static void sleeping() throws Exception
     {

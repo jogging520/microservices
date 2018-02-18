@@ -53,7 +53,6 @@ public class SecurityService implements ISecurityService
     public ServiceVO readPrivilege(Integer privilegeId)
     {
         ServiceVO serviceVO = new ServiceVO();
-        PrivilegeVO privilegeVO;
 
         try
         {
@@ -73,8 +72,7 @@ public class SecurityService implements ISecurityService
                 return serviceVO;
             }
 
-            privilegeVO = securityDomain.readPrivilege(privilegeId);
-            serviceVO.setResponse(privilegeVO);
+            serviceVO.setResponse(securityDomain.readPrivilege(privilegeId));
             serviceVO.setResponseCodeAndDesc(Errors.SUCCESS_EXECUTE);
         }
         catch (NumberFormatException numberFormatException)
@@ -187,20 +185,28 @@ public class SecurityService implements ISecurityService
      * 方法：获取特定的权限
      *
      * @param domain 权限归属域
+     * @param category 权限类别
      * @param name   权限名称
      * @return ServiceVO封装类
      */
     @Override
-    public ServiceVO readPrivilegeByName(String domain, String name)
+    public ServiceVO readPrivilegeByName(String domain, String category, String name)
     {
         ServiceVO serviceVO = new ServiceVO();
-        List<PrivilegeVO> privilegeVOS;
 
         try
         {
             if(domain == null || domain.equals(""))
             {
                 logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "domain");
+                serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+
+                return serviceVO;
+            }
+
+            if(category == null || category.equals(""))
+            {
+                logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "category");
                 serviceVO.setResponseCodeAndDesc(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
 
                 return serviceVO;
@@ -222,8 +228,7 @@ public class SecurityService implements ISecurityService
                 return serviceVO;
             }
 
-            privilegeVOS = securityDomain.readPrivilegeByName(domain, name);
-            serviceVO.setResponse(privilegeVOS);
+            serviceVO.setResponse(securityDomain.readPrivilegeByName(domain, category, name));
             serviceVO.setResponseCodeAndDesc(Errors.SUCCESS_EXECUTE);
         }
         catch (NumberFormatException numberFormatException)
@@ -345,7 +350,6 @@ public class SecurityService implements ISecurityService
     public ServiceVO readAccessControlsByRole(Integer roleId, Integer organizationId, String domain, int privilegeId)
     {
         ServiceVO serviceVO = new ServiceVO();
-        List<AccessControlVO> accessControlVOS;
 
         try
         {
@@ -389,8 +393,7 @@ public class SecurityService implements ISecurityService
                 return serviceVO;
             }
 
-            accessControlVOS = securityDomain.readAccessControlsByRole(roleId, organizationId, domain, privilegeId);
-            serviceVO.setResponse(accessControlVOS);
+            serviceVO.setResponse(securityDomain.readAccessControlsByRole(roleId, organizationId, domain, privilegeId));
             serviceVO.setResponseCodeAndDesc(Errors.SUCCESS_EXECUTE);
         }
         catch (NumberFormatException numberFormatException)
@@ -509,7 +512,6 @@ public class SecurityService implements ISecurityService
     public ServiceVO readLoginsByParty(Integer partyId)
     {
         ServiceVO serviceVO = new ServiceVO();
-        List<LoginVO> loginVOS;
 
         try
         {
@@ -529,8 +531,7 @@ public class SecurityService implements ISecurityService
                 return serviceVO;
             }
 
-            loginVOS = securityDomain.readLoginsByParty(partyId);
-            serviceVO.setResponse(loginVOS);
+            serviceVO.setResponse(securityDomain.readLoginsByParty(partyId));
             serviceVO.setResponseCodeAndDesc(Errors.SUCCESS_EXECUTE);
         }
         catch (NumberFormatException numberFormatException)
@@ -649,7 +650,6 @@ public class SecurityService implements ISecurityService
     public ServiceVO readLoginByToken(TokenVO tokenVO)
     {
         ServiceVO serviceVO = new ServiceVO();
-        LoginVO loginVO;
 
         try
         {
@@ -669,8 +669,7 @@ public class SecurityService implements ISecurityService
                 return serviceVO;
             }
 
-            loginVO = securityDomain.readLoginByToken(tokenVO);
-            serviceVO.setResponse(loginVO);
+            serviceVO.setResponse(securityDomain.readLoginByToken(tokenVO));
             serviceVO.setResponseCodeAndDesc(Errors.SUCCESS_EXECUTE);
         }
         catch (NumberFormatException numberFormatException)
@@ -789,7 +788,6 @@ public class SecurityService implements ISecurityService
     public ServiceVO readRegistryByParty(Integer[] partyIdS)
     {
         ServiceVO serviceVO = new ServiceVO();
-        List<RegistryVO> registryVOS;
 
         try
         {
@@ -809,8 +807,7 @@ public class SecurityService implements ISecurityService
                 return serviceVO;
             }
 
-            registryVOS = securityDomain.readRegistryByParty(partyIdS);
-            serviceVO.setResponse(registryVOS);
+            serviceVO.setResponse(securityDomain.readRegistryByParty(partyIdS));
             serviceVO.setResponseCodeAndDesc(Errors.SUCCESS_EXECUTE);
         }
         catch (NumberFormatException numberFormatException)
