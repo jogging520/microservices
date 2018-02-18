@@ -31,11 +31,12 @@ public interface ISecurityService
     /**
      * 方法：获取特定的访问控制列表
      * @param roleId 角色编号
+     * @param organizationId 组织机构编码
      * @param domain 角色归属域
      * @param privilegeId 权限编号
      * @return ServiceVO封装类
      */
-    ServiceVO readAccessControlsByRole(Integer roleId, String domain, int privilegeId);
+    ServiceVO readAccessControlsByRole(Integer roleId, Integer organizationId, String domain, int privilegeId);
 
     /**
      * 方法：获取特定的参与者登录信息列表
@@ -43,6 +44,13 @@ public interface ISecurityService
      * @return ServiceVO封装类
      */
     ServiceVO readLoginsByParty(Integer partyId);
+
+    /**
+     * 方法：根据token中的属性判断当前的登录状态
+     * @param tokenVO 令牌值对象
+     * @return ServiceVO封装类
+     */
+    ServiceVO readLoginByToken(TokenVO tokenVO);
 
     /**
      * 方法：获取特定的参与者注册信息列表

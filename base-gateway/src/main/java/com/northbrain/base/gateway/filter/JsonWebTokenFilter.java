@@ -4,14 +4,25 @@ import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.northbrain.base.common.model.bo.BaseType;
 import com.northbrain.base.common.model.bo.Constants;
+import com.northbrain.base.common.model.vo.orch.OrchAccessControlVO;
+import com.northbrain.base.gateway.service.IGatewayService;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * 类名：JsonWebToken过滤类
+ * 用途：对请求的uri进行过滤，校验JWT
+ * @author Jiakun
+ * @version 1.0
+ */
 public class JsonWebTokenFilter extends ZuulFilter
 {
     private static Logger logger = Logger.getLogger(JsonWebTokenFilter.class);
+    @Autowired
+    private IGatewayService gatewayService;
 
     @Override
     public String filterType()
@@ -46,13 +57,18 @@ public class JsonWebTokenFilter extends ZuulFilter
         RequestContext requestContext = RequestContext.getCurrentContext();
         HttpServletRequest httpServletRequest = requestContext.getRequest();
 
-        logger.debug("");
+        logger.debug(httpServletRequest);
         //如果请求的URI中包含登入、注册的服务，直接通过。
         for(String filter: Constants.BUSINESS_COMMON_JWT_REQUEST_URI_FILTER)
         {
             if(httpServletRequest.getRequestURI().contains(filter))
             {
-                requestContext = setSuccessRequestContext(requestContext);
+                // 对该请求进行路由
+                requestContext.setSendZuulResponse(true);
+                // 应答码设置为成功
+                requestContext.setResponseStatusCode(Constants.BUSINESS_COMMON_JWT_RESPONSE_SUCCESS);
+                // 设值，让下一个Filter看到上一个Filter的状态
+                requestContext.set(Constants.BUSINESS_COMMON_JWT_RESPONSE_FILTER_RESULT, true);
                 return null;
             }
         }
@@ -61,48 +77,41 @@ public class JsonWebTokenFilter extends ZuulFilter
         String authorization = httpServletRequest.getHeader(Constants.BUSINESS_COMMON_JWT_HEADER_PARAM_AUTHORIZATION);
 
         if(authorization == null || authorization.equals("") ||
-                !authorization.startsWith(Constants.BUSINESS_COMMON_JWT_HEADER_PARAM_AUTHORIZATION_STARTER))
+                !authorization.startsWith(Constants.BUSINESS_COMMON_JWT_HEADER_PARAM_AUTHORIZATION_STARTER) ||
+                gatewayService == null)
         {
-            requestContext = setUnauthorizedRequestContext(requestContext);
+            // 对该请求进行路由
+            requestContext.setSendZuulResponse(false);
+            // 应答码设置为成功
+            requestContext.setResponseStatusCode(Constants.BUSINESS_COMMON_JWT_RESPONSE_UNAUTHORIZED);
+            // 设值，让下一个Filter看到上一个Filter的状态
+            requestContext.set(Constants.BUSINESS_COMMON_JWT_RESPONSE_FILTER_RESULT, false);
             return null;
         }
 
         //调用编排服务对token进行校验
+        OrchAccessControlVO orchAccessControlVO = new OrchAccessControlVO();
+        orchAccessControlVO.setJsonWebToken(authorization);
+        orchAccessControlVO.setUri(httpServletRequest.getRequestURI());
+        orchAccessControlVO.setDescription(Constants.BUSINESS_COMMON_SERVICE_GATEWAY_DESCRIPTION);
 
-        return null;
-    }
+        if(gatewayService.readAccessControl(orchAccessControlVO))
+        {
+            // 对该请求进行路由
+            requestContext.setSendZuulResponse(false);
+            // 应答码设置为成功
+            requestContext.setResponseStatusCode(Constants.BUSINESS_COMMON_JWT_RESPONSE_UNAUTHORIZED);
+            // 设值，让下一个Filter看到上一个Filter的状态
+            requestContext.set(Constants.BUSINESS_COMMON_JWT_RESPONSE_FILTER_RESULT, false);
+            return null;
+        }
 
-    /**
-     * 方法：设置成功应答上下文
-     * @param requestContext 请求上下文
-     * @return 设置后的请求上下文
-     */
-    private RequestContext setSuccessRequestContext(RequestContext requestContext)
-    {
         // 对该请求进行路由
         requestContext.setSendZuulResponse(true);
         // 应答码设置为成功
         requestContext.setResponseStatusCode(Constants.BUSINESS_COMMON_JWT_RESPONSE_SUCCESS);
         // 设值，让下一个Filter看到上一个Filter的状态
         requestContext.set(Constants.BUSINESS_COMMON_JWT_RESPONSE_FILTER_RESULT, true);
-
-        return requestContext;
-    }
-
-    /**
-     * 方法：设置未鉴权成功上下文
-     * @param requestContext 请求上下文
-     * @return 设置后的请求上下文
-     */
-    private RequestContext setUnauthorizedRequestContext(RequestContext requestContext)
-    {
-        // 对该请求进行路由
-        requestContext.setSendZuulResponse(false);
-        // 应答码设置为成功
-        requestContext.setResponseStatusCode(Constants.BUSINESS_COMMON_JWT_RESPONSE_UNAUTHORIZED);
-        // 设值，让下一个Filter看到上一个Filter的状态
-        requestContext.set(Constants.BUSINESS_COMMON_JWT_RESPONSE_FILTER_RESULT, false);
-
-        return requestContext;
+        return null;
     }
 }

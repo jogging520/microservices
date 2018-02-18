@@ -157,17 +157,25 @@ public class SecurityDomain implements ISecurityDomain
     /**
      * 方法：获取特定的访问控制
      * @param roleId 角色编号
+     * @param organizationId 组织机构编码
      * @param domain 角色归属域
      * @param privilegeId 权限编号
      * @return 访问控制值对象列表
      * @throws Exception 异常
      */
     @Override
-    public List<AccessControlVO> readAccessControlsByRole(Integer roleId, String domain, int privilegeId) throws Exception
+    public List<AccessControlVO> readAccessControlsByRole(Integer roleId, Integer organizationId, String domain,
+                                                          int privilegeId) throws Exception
     {
         if(roleId <= 0)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE + "roleId:" + roleId);
+            throw new NumberScopeException(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION);
+        }
+
+        if(organizationId <= 0)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE + "organizationId:" + organizationId);
             throw new NumberScopeException(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION);
         }
 
@@ -195,7 +203,7 @@ public class SecurityDomain implements ISecurityDomain
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
         }
 
-        List<AccessControlPO> accessControlPOS = accessControlPOMapper.selectByRole(roleId, domain, privilegeId);
+        List<AccessControlPO> accessControlPOS = accessControlPOMapper.selectByRole(roleId, organizationId, domain, privilegeId);
 
         List<AccessControlVO> accessControlVOS = new ArrayList<>();
         AccessControlVO accessControlVO;
@@ -257,6 +265,44 @@ public class SecurityDomain implements ISecurityDomain
         }
 
         return loginVOS;
+    }
+
+    /**
+     * 方法：根据token中的属性判断当前的登录状态
+     *
+     * @param tokenVO 令牌值对象
+     * @return 登录信息的值对象列表
+     * @throws Exception 异常
+     */
+    @Override
+    public LoginVO readLoginByToken(TokenVO tokenVO) throws Exception
+    {
+        if(tokenVO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "tokenVO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        if(loginPOMapper == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "loginPOMapper");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        if(securityDTO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "securityDTO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        LoginPO loginPO = loginPOMapper.selectByPrimaryKey(tokenVO.getLoginId());
+
+        if(loginPO.getPartyId() == tokenVO.getPartyId() &&
+                loginPO.getRoleId() == tokenVO.getRoleId() &&
+                loginPO.getOrganizationId() == tokenVO.getOrganizationId())
+            return securityDTO.convertToLoginVO(loginPO);
+
+        return null;
     }
 
     /**
@@ -526,7 +572,8 @@ public class SecurityDomain implements ISecurityDomain
             throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
-        return JsonWebTokenUtil.generateJsonWebToken(tokenVO.getPartyId(), tokenVO.getRoleId(), tokenVO.getOrganizationId());
+        return JsonWebTokenUtil.generateJsonWebToken(tokenVO.getLoginId(), tokenVO.getPartyId(),
+                tokenVO.getRoleId(), tokenVO.getOrganizationId());
     }
 
     /**

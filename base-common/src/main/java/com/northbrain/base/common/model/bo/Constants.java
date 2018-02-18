@@ -33,12 +33,14 @@ public class Constants
     public static final String   BUSINESS_COMMON_COMMAND_LINE_SERVER_PORT									= "server.port";						        //命令行:服务端口号（tomcat）
     public static final String   BUSINESS_COMMON_COMMAND_LINE_SPRING_CONFIG_LOCATION						= "spring.config.location";				        //命令行:配置文件位置
     public static final String   BUSINESS_COMMON_SERVICE_GATEWAY                                            = "base-gateway";                               //服务网关
+    public static final String   BUSINESS_COMMON_SERVICE_GATEWAY_DESCRIPTION                                = "JWT校验";                                    //JWT校验描述
     public static final String   BUSINESS_COMMON_HTTP_REQUEST_CONSUMERS                                     = "application/json";                           //http请求消费类型
     public static final String   BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS                                     = "application/json";                           //http请求生产类型
     public static final String   BUSINESS_COMMON_JWT_HEADER_PARAM_AUTHORIZATION                             = "Authorization";                              //JWT的header中的认证部分
     public static final String   BUSINESS_COMMON_JWT_HEADER_PARAM_AUTHORIZATION_STARTER                     = "Bearer ";                                    //JWT的header中的认证部分的开头
     public static final String   BUSINESS_COMMON_JWT_HEADER_PARAM_TYPE                                      = "typ";                                        //JWT的header部分类型参数
     public static final String   BUSINESS_COMMON_JWT_HEADER_PARAM_TYPE_VALUE                                = "JWT";                                        //JWT的header部分类型参数取值
+    public static final String   BUSINESS_COMMON_JWT_PAYLOAD_PARAM_LOGIN_ID                                 = "login_id";                                   //JWT的payload部分登录编号参数
     public static final String   BUSINESS_COMMON_JWT_PAYLOAD_PARAM_PARTY_ID                                 = "party_id";                                   //JWT的payload部分参与者编号参数
     public static final String   BUSINESS_COMMON_JWT_PAYLOAD_PARAM_ROLE_ID                                  = "role_id";                                    //JWT的payload部分角色编号参数
     public static final String   BUSINESS_COMMON_JWT_PAYLOAD_PARAM_ORGANIZATION_ID                          = "organization_id";                            //JWT的payload部分组织机构编号参数

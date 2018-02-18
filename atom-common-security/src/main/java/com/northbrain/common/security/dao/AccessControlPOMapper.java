@@ -21,6 +21,7 @@ public interface AccessControlPOMapper
     AccessControlPO selectByPrimaryKey(Integer accessControlId) throws Exception;
 
     List<AccessControlPO> selectByRole(@Param("roleId") Integer roleId,
+                                       @Param("organizationId") Integer organizationId,
                                        @Param("domain") String domain,
                                        @Param("privilegeId") Integer privilegeId) throws Exception;
 

@@ -33,12 +33,13 @@ public interface ISecurityDomain
     /**
      * 方法：获取特定的访问控制
      * @param roleId 角色编号
+     * @param organizationId 组织机构编码
      * @param domain 角色归属域
      * @param privilegeId 权限编号
      * @return 访问控制值对象列表
      * @throws Exception 异常
      */
-    List<AccessControlVO> readAccessControlsByRole(Integer roleId, String domain, int privilegeId) throws Exception;
+    List<AccessControlVO> readAccessControlsByRole(Integer roleId, Integer organizationId, String domain, int privilegeId) throws Exception;
 
     /**
      * 方法：获取登录信息
@@ -47,6 +48,14 @@ public interface ISecurityDomain
      * @throws Exception 异常
      */
     List<LoginVO> readLoginsByParty(Integer partyId) throws Exception;
+
+    /**
+     * 方法：根据token中的属性判断当前的登录状态
+     * @param tokenVO 令牌值对象
+     * @return 登录信息的值对象列表
+     * @throws Exception 异常
+     */
+    LoginVO readLoginByToken(TokenVO tokenVO) throws Exception;
 
     /**
      * 方法：获取注册信息

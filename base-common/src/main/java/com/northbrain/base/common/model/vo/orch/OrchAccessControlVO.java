@@ -11,8 +11,8 @@ public class OrchAccessControlVO
     //JWT
     private String jsonWebToken;
 
-    //要调用的服务名称
-    private String serviceName;
+    //要调用的restful服务的uri
+    private String uri;
 
     //描述
     private String description;
@@ -25,12 +25,12 @@ public class OrchAccessControlVO
         this.jsonWebToken = jsonWebToken;
     }
 
-    public String getServiceName() {
-        return serviceName;
+    public String getUri() {
+        return uri;
     }
 
-    public void setServiceName(String serviceName) {
-        this.serviceName = serviceName;
+    public void setUri(String uri) {
+        this.uri = uri;
     }
 
     public String getDescription() {

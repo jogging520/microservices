@@ -8,6 +8,9 @@ package com.northbrain.base.common.model.vo.atom;
  */
 public class TokenVO
 {
+    //登录编码
+    private int loginId;
+
     //参与者编码
     private int partyId;
 
@@ -16,6 +19,14 @@ public class TokenVO
 
     //组织机构编码
     private int organizationId;
+
+    public int getLoginId() {
+        return loginId;
+    }
+
+    public void setLoginId(int loginId) {
+        this.loginId = loginId;
+    }
 
     public int getPartyId()
     {
@@ -45,5 +56,4 @@ public class TokenVO
     {
         this.organizationId = organizationId;
     }
-
 }

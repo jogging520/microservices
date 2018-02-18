@@ -67,6 +67,15 @@ public interface ISecurityDAO
     String readAtomLoginsByParty(@PathVariable("partyId")int partyId);
 
     /**
+     * 方法：根据token中的属性判断当前的登录状态
+     * @param tokenVO 令牌值对象
+     * @return 是否处于登录状态的JSON串
+     */
+    @RequestMapping(value = Constants.URI_ATOM_COMMON_SECURITY_LOGIN_SPECIFIED_REQUEST_MAPPING, method = RequestMethod.GET, produces = Constants.BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS, consumes = Constants.BUSINESS_COMMON_HTTP_REQUEST_CONSUMERS)
+    @ResponseBody
+    String readAtomLoginByToken(@RequestBody TokenVO tokenVO);
+
+    /**
      * 方法：获取特定的参与者注册信息列表
      * @param partyIdS 参与者编号列表
      * @return 参与者列表的JSON串
@@ -193,6 +202,23 @@ public interface ISecurityDAO
         public String readAtomLoginsByParty(int partyId)
         {
             logger.info(Hints.HINT_SYSTEM_PROCESS_CALL_HYSTRIX_DAO + "readAtomLoginsByParty");
+
+            ServiceVO serviceVO = new ServiceVO();
+            serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_SERVICE_HYSTRIX_EXCEPTION);
+
+            return JSON.toJSONString(serviceVO);
+        }
+
+        /**
+         * 方法：根据token中的属性判断当前的登录状态
+         *
+         * @param tokenVO 令牌值对象
+         * @return 是否处于登录状态的JSON串
+         */
+        @Override
+        public String readAtomLoginByToken(TokenVO tokenVO)
+        {
+            logger.info(Hints.HINT_SYSTEM_PROCESS_CALL_HYSTRIX_DAO + "readAtomLoginByToken");
 
             ServiceVO serviceVO = new ServiceVO();
             serviceVO.setResponseCodeAndDesc(Errors.ERROR_SYSTEM_SERVICE_HYSTRIX_EXCEPTION);

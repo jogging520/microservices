@@ -24,6 +24,7 @@
     <include refid="Base_Column_List" />
     from access_control
     where role_id = ${roleId} and
+          organization_id = ${organizationId} and
           domain = ${domain} and
           privilege_id = ${privilegeId}
   </select>

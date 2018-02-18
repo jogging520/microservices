@@ -59,10 +59,7 @@ public class JsonTransformationUtil
         responseVO.setResponseCode(atomServiceVO.getResponseCode());
         responseVO.setResponseDesc(atomServiceVO.getResponseDesc());
 
-        if(atomServiceVOResponse.getClass() == Boolean.class)
-            responseVO.setResponse((T) (atomServiceVOResponse));
-        else
-            throw new ClassCastException();
+        responseVO.setResponse((T) (atomServiceVOResponse));
 
         return responseVO;
     }

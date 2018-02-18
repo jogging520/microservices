@@ -40,14 +40,21 @@ public class JsonWebTokenUtil
     /**
      * 方法：生成JWT
      * token中除了预留的部分外，还包括私有部分：参与者编码、角色编码和组织机构编码
+     * @param loginId 登录编码
      * @param partyId 参与者编码
      * @param roleId 角色编码
      * @param organizationId 组织机构编码
      * @return 生成的JWT
      * @throws Exception 异常
      */
-    public static String generateJsonWebToken(int partyId, int roleId, int organizationId) throws Exception
+    public static String generateJsonWebToken(int loginId, int partyId, int roleId, int organizationId) throws Exception
     {
+        if(loginId <= 0)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE + "loginId");
+            throw new NumberScopeException(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION);
+        }
+
         if(partyId <= 0)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE + "partyId");
@@ -108,6 +115,7 @@ public class JsonWebTokenUtil
 
         //私有claims部分，目前只保持id号
         Map<String, Object> claims = new HashMap<>();
+        claims.put(Constants.BUSINESS_COMMON_JWT_PAYLOAD_PARAM_LOGIN_ID, loginId);
         claims.put(Constants.BUSINESS_COMMON_JWT_PAYLOAD_PARAM_PARTY_ID, partyId);
         claims.put(Constants.BUSINESS_COMMON_JWT_PAYLOAD_PARAM_ROLE_ID, roleId);
         claims.put(Constants.BUSINESS_COMMON_JWT_PAYLOAD_PARAM_ORGANIZATION_ID, organizationId);
@@ -137,6 +145,7 @@ public class JsonWebTokenUtil
 
     /**
      * 方法：解析JWT
+     * 首先判断公有部分，包括发行者、接收者等，再解析私有部分，包括登录编码、参与者编码、角色编码和组织机构编码等。
      * @param jsonWebToken token
      * @return 申明在token中的id信息
      * @throws Exception 异常
@@ -213,6 +222,7 @@ public class JsonWebTokenUtil
 
         //解析私有claims
         Map<String, Object> privateClaims = new HashMap<>();
+        privateClaims.put(Constants.BUSINESS_COMMON_JWT_PAYLOAD_PARAM_LOGIN_ID, claims.get(Constants.BUSINESS_COMMON_JWT_PAYLOAD_PARAM_LOGIN_ID));
         privateClaims.put(Constants.BUSINESS_COMMON_JWT_PAYLOAD_PARAM_PARTY_ID, claims.get(Constants.BUSINESS_COMMON_JWT_PAYLOAD_PARAM_PARTY_ID));
         privateClaims.put(Constants.BUSINESS_COMMON_JWT_PAYLOAD_PARAM_ROLE_ID, claims.get(Constants.BUSINESS_COMMON_JWT_PAYLOAD_PARAM_ROLE_ID));
         privateClaims.put(Constants.BUSINESS_COMMON_JWT_PAYLOAD_PARAM_ORGANIZATION_ID, claims.get(Constants.BUSINESS_COMMON_JWT_PAYLOAD_PARAM_ORGANIZATION_ID));

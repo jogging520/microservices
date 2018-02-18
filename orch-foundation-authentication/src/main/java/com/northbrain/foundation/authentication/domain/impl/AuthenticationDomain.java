@@ -74,8 +74,8 @@ public class AuthenticationDomain implements IAuthenticationDomain
     {
         if (orchRegistryVO == null)
         {
-            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "orchRegistryVO");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "orchRegistryVO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         if (authenticationDTO == null)
@@ -314,8 +314,8 @@ public class AuthenticationDomain implements IAuthenticationDomain
     {
         if (orchLoginVO == null)
         {
-            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "orchLoginVO");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "orchLoginVO");
+            throw new ObjectNullException(Errors.ERROR_SYSTEM_INSTANTIATION_EXCEPTION);
         }
 
         if (authenticationDTO == null)
@@ -545,7 +545,13 @@ public class AuthenticationDomain implements IAuthenticationDomain
 
     /**
      * 方法：访问控制
-     *
+     * 1、获取全局唯一的序列号，作为操作记录、事务的流水号
+     * 2、新生成一条操作记录，并作为分布式事务（最终一致性）的开始。状态为初始状态。
+     * 3、获取token的值
+     * 4、校验token是否处于登录状态
+     * 5、获取服务对应的权限id
+     * 6、根据token中的partyId、roleId、organizationId校验该服务是否有权限被访问
+     * 7、记录日志，并返回。
      * @param orchAccessControlVO 编排层访问控制值对象
      * @return 是否运行访问控制
      */
@@ -554,8 +560,8 @@ public class AuthenticationDomain implements IAuthenticationDomain
     {
         if (orchAccessControlVO == null)
         {
-            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "orchAccessControlVO");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "orchAccessControlVO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         if (authenticationDTO == null)
@@ -630,7 +636,7 @@ public class AuthenticationDomain implements IAuthenticationDomain
                 BaseType.STATUS.SUCCESS, Errors.SUCCESS_EXECUTE);
         logger.info(operationRecordVO);
 
-        //4、获取服务对应的权限id
+        //4、校验token是否处于登录状态
         rank++;
         operationRecordDetailVO =
                 authenticationDTO.createOperationRecordDetail(operationRecordVO, rank,
@@ -641,9 +647,42 @@ public class AuthenticationDomain implements IAuthenticationDomain
             return updateFailureResponseVO(responseVO, Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL,
                     Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION, "operationRecordDetailVO");
 
-        //权限名为服务名
-        ResponseVO<List<PrivilegeVO>> privilegeResponseVO = readAtomPrivilegeByName(BaseType.PRIVILEGEDOMAIN.ORCHSERVICE.name(),
-                orchAccessControlVO.getServiceName());
+        ResponseVO<LoginVO> loginResponseVO = readAtomLoginByToken(tokenVO);
+
+        if (loginResponseVO == null)
+            return createOperationRecordDetail(operationRecordVO, operationRecordDetailVO, BaseType.STATUS.FAILURE,
+                    Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION,
+                    Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "loginResponseVO", responseVO);
+
+        if(!loginResponseVO.getResponseCode().equals(Errors.SUCCESS_EXECUTE.getCode()))
+            return createOperationRecordDetail(operationRecordVO, operationRecordDetailVO, BaseType.STATUS.FAILURE,
+                    loginResponseVO.getResponseCode(), loginResponseVO.getResponseDesc(),
+                    Errors.ERROR_BUSINESS_COMMON_CALL_ATOM_SERVICE + "readAtomLoginByToken", responseVO);
+
+        LoginVO loginVO = loginResponseVO.getResponse();
+
+        if (loginVO == null)
+            return createOperationRecordDetail(operationRecordVO, operationRecordDetailVO, BaseType.STATUS.FAILURE,
+                    Errors.ERROR_BUSINESS_COMMON_SECURITY_LOGIN_EXCEPTION,
+                    Errors.ERROR_BUSINESS_COMMON_SECURITY_LOGIN_EXCEPTION + "loginVO", responseVO);
+
+        operationRecordVO = createOperationRecordDetail(operationRecordVO, operationRecordDetailVO,
+                BaseType.STATUS.SUCCESS, Errors.SUCCESS_EXECUTE);
+
+        //5、获取服务对应的权限id
+        rank++;
+        operationRecordDetailVO =
+                authenticationDTO.createOperationRecordDetail(operationRecordVO, rank,
+                        BaseType.OPERATETYPE.READ, BaseType.DOMAIN.PARTY,
+                        Constants.BUSINESS_COMMON_SECURITY_ATOM_MICROSERVICE, BaseType.STATUS.INITIAL);
+
+        if (operationRecordDetailVO == null)
+            return updateFailureResponseVO(responseVO, Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL,
+                    Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION, "operationRecordDetailVO");
+
+        //权限名为restful的rui的前缀
+        ResponseVO<List<PrivilegeVO>> privilegeResponseVO = readAtomPrivilegeByName(
+                BaseType.PRIVILEGEDOMAIN.ORCHSERVICE.name(), orchAccessControlVO.getUri());
 
         if (privilegeResponseVO == null)
             return createOperationRecordDetail(operationRecordVO, operationRecordDetailVO, BaseType.STATUS.FAILURE,
@@ -671,7 +710,7 @@ public class AuthenticationDomain implements IAuthenticationDomain
                     Errors.ERROR_BUSINESS_PARTY_BASIC_EXCEPTION,
                     Errors.ERROR_BUSINESS_PARTY_BASIC_EXCEPTION + "privilegeVOS", responseVO);
 
-        //5、根据token中的partyId、roleId、organizationId校验该服务是否有权限被访问
+        //6、根据token中的partyId、roleId、organizationId校验该服务是否有权限被访问
         rank++;
         operationRecordDetailVO =
                 authenticationDTO.createOperationRecordDetail(operationRecordVO, rank,
@@ -705,11 +744,20 @@ public class AuthenticationDomain implements IAuthenticationDomain
         operationRecordVO = createOperationRecordDetail(operationRecordVO, operationRecordDetailVO,
                 BaseType.STATUS.SUCCESS, Errors.SUCCESS_EXECUTE);
 
-        //没有访问控制定义
+        //没有访问控制定义，不允许访问
         if(accessControlVOS.size() != 1)
             return createOperationRecordDetail(operationRecordVO, operationRecordDetailVO, BaseType.STATUS.SUCCESS,
-                    Errors.ERROR_BUSINESS_PARTY_BASIC_EXCEPTION,
-                    Errors.ERROR_BUSINESS_PARTY_BASIC_EXCEPTION + "accessControlVOS", responseVO);
+                    Errors.ERROR_BUSINESS_COMMON_SECURITY_ACCESS_CONTROL_EXCEPTION,
+                    Errors.ERROR_BUSINESS_COMMON_SECURITY_ACCESS_CONTROL_EXCEPTION + "accessControlVOS", responseVO);
+
+        //7、记录日志，并返回。
+        operationRecordVO.setStatus(BaseType.STATUS.SUCCESS.ordinal());
+        operationRecordVO.setFinishTime(new Date());
+        logger.info(operationRecordVO);
+        createAtomOperationRecord(operationRecordVO);
+        responseVO.setResponse(true);
+
+        return responseVO;
     }
 
     /**
@@ -970,6 +1018,31 @@ public class AuthenticationDomain implements IAuthenticationDomain
         responseVO.setResponse(loginVOS);
         return responseVO;
     }
+
+    /**
+     * 方法：根据token中的属性判断当前的登录状态
+     * @param tokenVO 令牌值对象
+     * @return 是否处于登录状态
+     * @throws Exception 异常
+     */
+    private ResponseVO<LoginVO> readAtomLoginByToken(TokenVO tokenVO) throws Exception
+    {
+        if (tokenVO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "tokenVO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        if (securityDAO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "securityDAO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        return JsonTransformationUtil.transformJSONStringIntoValueObject(
+                this.securityDAO.readAtomLoginByToken(tokenVO), LoginVO.class);
+    }
+
 
     /**
      * 方法：调用创建注册信息的原子服务进行注册
