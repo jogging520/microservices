@@ -45,7 +45,8 @@ public class SequenceDomain implements ISequenceDomain
         }
 
         return Constants.BUSINESS_COMMON_BASIC_SEQUENCE +
-                sequenceDAO.getNextValue(Constants.BUSINESS_COMMON_NODE_SEPARATOR + Constants.STORAGE_ZOOKEEPER_SEQUENCE_NAMESPACE,
+                sequenceDAO.getNextValue(Constants.BUSINESS_COMMON_NODE_SEPARATOR + Constants.STORAGE_ZOOKEEPER_SEQUENCE_NAMESPACE +
+                        Constants.BUSINESS_COMMON_NODE_SEPARATOR + Constants.STORAGE_ZOOKEEPER_STORAGE_NAMESPACE,
                         Names.STORAGE_ZOOKEEPER_GLOBAL_OPERATION_RECORD_SEQUENCE.getName());
     }
 
@@ -64,7 +65,8 @@ public class SequenceDomain implements ISequenceDomain
         }
 
         return Constants.BUSINESS_COMMON_BASIC_SEQUENCE +
-                sequenceDAO.getNextValue(Constants.BUSINESS_COMMON_NODE_SEPARATOR + Constants.STORAGE_ZOOKEEPER_SEQUENCE_NAMESPACE,
+                sequenceDAO.getNextValue(Constants.BUSINESS_COMMON_NODE_SEPARATOR + Constants.STORAGE_ZOOKEEPER_SEQUENCE_NAMESPACE +
+                                Constants.BUSINESS_COMMON_NODE_SEPARATOR + Constants.STORAGE_ZOOKEEPER_STORAGE_NAMESPACE,
                         Names.STORAGE_ZOOKEEPER_GLOBAL_REGISTRY_SEQUENCE.getName());
     }
 
@@ -83,7 +85,8 @@ public class SequenceDomain implements ISequenceDomain
         }
 
         return Constants.BUSINESS_COMMON_BASIC_SEQUENCE +
-                sequenceDAO.getNextValue(Constants.BUSINESS_COMMON_NODE_SEPARATOR + Constants.STORAGE_ZOOKEEPER_SEQUENCE_NAMESPACE,
+                sequenceDAO.getNextValue(Constants.BUSINESS_COMMON_NODE_SEPARATOR + Constants.STORAGE_ZOOKEEPER_SEQUENCE_NAMESPACE +
+                                Constants.BUSINESS_COMMON_NODE_SEPARATOR + Constants.STORAGE_ZOOKEEPER_STORAGE_NAMESPACE,
                         Names.STORAGE_ZOOKEEPER_GLOBAL_LOGIN_SEQUENCE.getName());
     }
 
@@ -102,7 +105,8 @@ public class SequenceDomain implements ISequenceDomain
         }
 
         return Constants.BUSINESS_COMMON_BASIC_SEQUENCE +
-                sequenceDAO.getNextValue(Constants.BUSINESS_COMMON_NODE_SEPARATOR + Constants.STORAGE_ZOOKEEPER_SEQUENCE_NAMESPACE,
+                sequenceDAO.getNextValue(Constants.BUSINESS_COMMON_NODE_SEPARATOR + Constants.STORAGE_ZOOKEEPER_SEQUENCE_NAMESPACE +
+                                Constants.BUSINESS_COMMON_NODE_SEPARATOR + Constants.STORAGE_ZOOKEEPER_STORAGE_NAMESPACE,
                         Names.STORAGE_ZOOKEEPER_GLOBAL_PARTY_SEQUENCE.getName());
     }
 }

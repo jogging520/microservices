@@ -30,11 +30,11 @@ public class GatewayApplication
                 LauncherUitl.initProperties(BaseType.SERVICETYPE.ORCH);
                 //设置域名
                 LauncherUitl.appendParameter(Constants.STORAGE_ZOOKEEPER_STORAGE_NAMESPACE,
-                        Names.STORAGE_ZOOKEEPER_DOMAIN_NAMESPACE.getName(),
+                        Constants.STORAGE_ZOOKEEPER_DOMAIN_NAMESPACE,
                         Constants.STORAGE_ZOOKEEPER_GATEWAY_NAMESPACE);
                 //设置应用名称
                 LauncherUitl.appendParameter(Constants.STORAGE_ZOOKEEPER_BUSINESS_NAMESPACE,
-                        Names.BUSINESS_COMMON_APPLICATION_NAME.getName(),
+                        Constants.BUSINESS_COMMON_APPLICATION_NAME,
                         Constants.BUSINESS_COMMON_SERVICE_GATEWAY);
                 //设置日志级别
                 LauncherUitl.setLog();

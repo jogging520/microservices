@@ -32,11 +32,11 @@ public class OperationRecordApplication
                 LauncherUitl.initProperties(BaseType.SERVICETYPE.ATOM);
                 //设置域名
                 LauncherUitl.appendParameter(Constants.STORAGE_ZOOKEEPER_STORAGE_NAMESPACE,
-                        Names.STORAGE_ZOOKEEPER_DOMAIN_NAMESPACE.getName(),
+                        Constants.STORAGE_ZOOKEEPER_DOMAIN_NAMESPACE,
                         Constants.STORAGE_ZOOKEEPER_RELATION_NAMESPACE);
                 //设置应用名称
                 LauncherUitl.appendParameter(Constants.STORAGE_ZOOKEEPER_BUSINESS_NAMESPACE,
-                        Names.BUSINESS_COMMON_APPLICATION_NAME.getName(),
+                        Constants.BUSINESS_COMMON_APPLICATION_NAME,
                         Constants.BUSINESS_RELATION_OPERATION_RECORD_ATOM_MICROSERVICE);
                 //设置日志级别
                 LauncherUitl.setLog();

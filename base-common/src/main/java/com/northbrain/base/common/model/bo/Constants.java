@@ -32,6 +32,8 @@ public class Constants
     public static final String   BUSINESS_COMMON_COMMAND_LINE_PROJECT_NAME								    = "projectName";						        //命令行:项目名称
     public static final String   BUSINESS_COMMON_COMMAND_LINE_SERVER_PORT									= "server.port";						        //命令行:服务端口号（tomcat）
     public static final String   BUSINESS_COMMON_COMMAND_LINE_SPRING_CONFIG_LOCATION						= "spring.config.location";				        //命令行:配置文件位置
+    public static final String   BUSINESS_COMMON_APPLICATION_NAME                                           = "BUSINESS_COMMON_APPLICATION_NAME";           //业务级应用名称命名空间的名称（用于启动时添加参数）
+
     public static final String   BUSINESS_COMMON_SERVICE_GATEWAY                                            = "base-gateway";                               //服务网关
     public static final String   BUSINESS_COMMON_SERVICE_GATEWAY_DESCRIPTION                                = "JWT校验";                                    //JWT校验描述
     public static final String   BUSINESS_COMMON_HTTP_REQUEST_CONSUMERS                                     = "application/json";                           //http请求消费类型
@@ -84,7 +86,9 @@ public class Constants
     public static final String   STORAGE_ZOOKEEPER_STORAGE_NAMESPACE 										= "STORAGE";							        //存储大类常量命名空间（Parameter配置）
     public static final String   STORAGE_ZOOKEEPER_BUSINESS_NAMESPACE 									    = "BUSINESS";							        //业务大类常量命名空间（Parameter配置）
     public static final String   STORAGE_ZOOKEEPER_SYSTEM_NAMESPACE 										= "SYSTEM";								        //系统大类常量命名空间（Parameter配置）
-    public static final String   STORAGE_ZOOKEEPER_SEQUENCE_NAMESPACE 									    = "sequence";							        //序列号命名空间（也是全局的序列号载体
+    public static final String   STORAGE_ZOOKEEPER_SEQUENCE_NAMESPACE 									    = "sequence";							        //序列号命名空间（也是全局的序列号载体）
+    public static final String   STORAGE_ZOOKEEPER_DOMAIN_NAMESPACE                                         = "STORAGE_ZOOKEEPER_DOMAIN_NAMESPACE";         //zookeeper域命名空间的名称（用于启动时添加参数）
+
 
     public static final String   STORAGE_DATABASE_JDBC_DRIVER_CLASS_NAME_PROPERTY_NAME                	    = "driverClassName"; 					        //数据库驱动属性名
     public static final String   STORAGE_DATABASE_JDBC_URL_PROPERTY_NAME                              	    = "url"; 								        //数据库连接串属性名

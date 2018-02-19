@@ -15,5 +15,5 @@ public interface ISequenceDAO
 	 * @param sequenceName 序列名称
 	 * @return 下一个序列号
 	 */
-	public int getNextValue(String path, String sequenceName) throws Exception;
+	int getNextValue(String path, String sequenceName) throws Exception;
 }
