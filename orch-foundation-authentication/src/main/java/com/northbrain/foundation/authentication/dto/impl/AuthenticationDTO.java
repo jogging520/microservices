@@ -322,7 +322,7 @@ public class AuthenticationDTO implements IAuthenticationDTO
         if (operationRecordVO == null)
         {
             logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "operationRecordVO");
-            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
         }
 
         if(rank <= 0)
@@ -369,10 +369,63 @@ public class AuthenticationDTO implements IAuthenticationDTO
     @Override
     public TokenVO convertOrchLoginVOToTokenVO(OrchLoginVO orchLoginVO, int partyId) throws Exception
     {
+        if (orchLoginVO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "orchLoginVO");
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        if(partyId <= 0)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE + "partyId:" + String.valueOf(partyId));
+            throw new NumberScopeException(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION);
+        }
+
         TokenVO tokenVO = new TokenVO();
         tokenVO.setPartyId(partyId);
         tokenVO.setOrganizationId(orchLoginVO.getOrganizationId());
 
         return tokenVO;
+    }
+
+    /**
+     * 方法：将token值对象转换成流控控制值对象
+     *
+     * @param tokenVO 令牌值对象
+     * @param flowControlType 流控类型
+     * @param flow 流控值
+     * @return 流量控制值对象
+     * @throws Exception 异常
+     */
+    @Override
+    public FlowControlVO convertTokenVOToFlowControlVO(TokenVO tokenVO, BaseType.FLOWCONTROLTYPE flowControlType, float flow)
+            throws Exception
+    {
+        if (tokenVO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "tokenVO");
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        if (flowControlType == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "flowControlType");
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        if(flow <= 0)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE + "partyId:" + String.valueOf(flow));
+            throw new NumberScopeException(Errors.ERROR_BUSINESS_COMMON_NUMBER_SCOPE_EXCEPTION);
+        }
+
+        FlowControlVO flowControlVO = new FlowControlVO();
+        flowControlVO.setPartyId(tokenVO.getPartyId());
+        flowControlVO.setRoleId(tokenVO.getRoleId());
+        flowControlVO.setOrganizationId(tokenVO.getOrganizationId());
+        flowControlVO.setFlowControlType(flowControlType);
+        flowControlVO.setFlow(flow);
+
+        return flowControlVO;
     }
 }

@@ -102,6 +102,11 @@ public class BaseType
     public enum PRIVILEGEDOMAIN {ORCHSERVICE, ATOMSERVICE}
 
     /**
+     * 流控类型
+     */
+    public enum FLOWCONTROLTYPE {PROPORTION, THRESHOLD}
+
+    /**
      * 匹配操作系统类型
      * @param operatingSystem
      * @return 操作系统枚举类型

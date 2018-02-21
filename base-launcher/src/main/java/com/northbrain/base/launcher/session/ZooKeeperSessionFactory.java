@@ -68,7 +68,7 @@ public class ZooKeeperSessionFactory
 
         if(storageZookeeperDomainNamespace == null || storageZookeeperDomainNamespace.equals(""))
         {
-            logger.error(Errors.ERROR_BUSINESS_COMMON_PARAMETER_CONFIG + "STORAGE_ZOOKEEPER_DOMAIN_NAMESPACE");
+            logger.error(Errors.ERROR_BUSINESS_COMMON_PARAMETER_CONFIG + "STORAGE_ZOOKEEPER_DOMAIN_NAMESPACE_NAME");
             throw new ParameterConfigException(Errors.ERROR_BUSINESS_COMMON_PARAMETER_CONFIG_EXCEPTION);
         }
 

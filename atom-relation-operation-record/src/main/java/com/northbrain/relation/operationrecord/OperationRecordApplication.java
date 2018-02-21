@@ -32,7 +32,7 @@ public class OperationRecordApplication
                 LauncherUitl.initProperties(BaseType.SERVICETYPE.ATOM);
                 //设置域名
                 LauncherUitl.appendParameter(Constants.STORAGE_ZOOKEEPER_STORAGE_NAMESPACE,
-                        Constants.STORAGE_ZOOKEEPER_DOMAIN_NAMESPACE,
+                        Constants.STORAGE_ZOOKEEPER_DOMAIN_NAMESPACE_NAME,
                         Constants.STORAGE_ZOOKEEPER_RELATION_NAMESPACE);
                 //设置应用名称
                 LauncherUitl.appendParameter(Constants.STORAGE_ZOOKEEPER_BUSINESS_NAMESPACE,

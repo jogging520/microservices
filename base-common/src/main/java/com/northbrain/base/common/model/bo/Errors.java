@@ -81,6 +81,7 @@ public enum Errors
     ERROR_BUSINESS_COMMON_SECURITY_ACCESS_CONTROL_INSERT            ("3014", "插入访问控制信息时候发生异常。"),
     ERROR_BUSINESS_COMMON_SECURITY_ACCESS_CONTROL_UPDATE            ("3015", "更新访问控制信息时候发生异常。"),
     ERROR_BUSINESS_COMMON_SECURITY_ACCESS_CONTROL_DELETE            ("3016", "删除访问控制信息时候发生异常。"),
+    ERROR_BUSINESS_COMMON_FLOW_CONTROL_EXCEPTION                    ("3017", "流量控制发生异常。"),
 
     ERROR_BUSINESS_COMMON_VALUE_OBJECT_PROPERTY_ENUM_EXCEPTION      ("3021", "发生值对象的属性取值不在枚举范围内异常。"),
     ERROR_BUSINESS_COMMON_VALUE_OBJECT_PROPERTY_DOMAIN_ENUM         ("3022", "值对象的域属性domain取值不在枚举范围内。"),

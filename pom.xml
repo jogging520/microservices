@@ -23,6 +23,7 @@
     <module>atom-product-basic</module>
     <module>atom-resource-basic</module>
     <module>atom-party-basic</module>
+      <module>atom-common-flow-control</module>
   </modules>
   <packaging>pom</packaging>
 

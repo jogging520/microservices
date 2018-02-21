@@ -72,6 +72,6 @@
     <orderEntry type="library" name="Maven: org.aspectj:aspectjweaver:1.8.10" level="project" />
     <orderEntry type="library" name="Maven: org.apache.maven.reporting:maven-reporting-api:2.0.6" level="project" />
     <orderEntry type="library" name="Maven: org.apache.maven.doxia:doxia-sink-api:1.0-alpha-7" level="project" />
-    <orderEntry type="library" name="Maven: com.alibaba:fastjson:1.2.42" level="project" />
+    <orderEntry type="library" name="Maven: com.alibaba:fastjson:1.2.46" level="project" />
   </component>
 </module>

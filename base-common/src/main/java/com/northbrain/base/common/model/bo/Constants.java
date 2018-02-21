@@ -56,9 +56,10 @@ public class Constants
     /**
      * 微服务名称定义
      */
-    public static final String   BUSINESS_COMMON_SEQUENCE_ATOM_MICROSERVICE                                 = "atom-common-sequence";                       //原子微服务：配置-序列号
-    public static final String   BUSINESS_COMMON_SECURITY_ATOM_MICROSERVICE                                 = "atom-common-security";                       //原子微服务：配置-安全
-    public static final String   BUSINESS_COMMON_STRATEGY_ATOM_MICROSERVICE                                 = "atom-common-strategy";                       //原子微服务：配置-策略
+    public static final String   BUSINESS_COMMON_SEQUENCE_ATOM_MICROSERVICE                                 = "atom-common-sequence";                       //原子微服务：通用-序列号
+    public static final String   BUSINESS_COMMON_SECURITY_ATOM_MICROSERVICE                                 = "atom-common-security";                       //原子微服务：通用-安全
+    public static final String   BUSINESS_COMMON_STRATEGY_ATOM_MICROSERVICE                                 = "atom-common-strategy";                       //原子微服务：通用-策略
+    public static final String   BUSINESS_COMMON_FLOW_CONTROL_ATOM_MICROSERVICE                             = "atom-common-flow-control";                   //原子微服务：通用-流控
 
     public static final String   BUSINESS_PRODUCT_BASIC_ATOM_MICROSERVICE                                   = "atom-product-basic";                         //原子微服务：产品-基础
     public static final String   BUSINESS_PRODUCT_COURSE_ATOM_MICROSERVICE                                  = "atom-product-course";                        //原子微服务：产品-课程
@@ -87,7 +88,7 @@ public class Constants
     public static final String   STORAGE_ZOOKEEPER_BUSINESS_NAMESPACE 									    = "BUSINESS";							        //业务大类常量命名空间（Parameter配置）
     public static final String   STORAGE_ZOOKEEPER_SYSTEM_NAMESPACE 										= "SYSTEM";								        //系统大类常量命名空间（Parameter配置）
     public static final String   STORAGE_ZOOKEEPER_SEQUENCE_NAMESPACE 									    = "sequence";							        //序列号命名空间（也是全局的序列号载体）
-    public static final String   STORAGE_ZOOKEEPER_DOMAIN_NAMESPACE                                         = "STORAGE_ZOOKEEPER_DOMAIN_NAMESPACE";         //zookeeper域命名空间的名称（用于启动时添加参数）
+    public static final String   STORAGE_ZOOKEEPER_DOMAIN_NAMESPACE_NAME                                    = "STORAGE_ZOOKEEPER_DOMAIN_NAMESPACE_NAME";         //zookeeper域命名空间的名称（用于启动时添加参数）
 
 
     public static final String   STORAGE_DATABASE_JDBC_DRIVER_CLASS_NAME_PROPERTY_NAME                	    = "driverClassName"; 					        //数据库驱动属性名
@@ -154,6 +155,7 @@ public class Constants
     public static final String   URI_ATOM_COMMON_SECURITY_REGISTRY_REQUEST_MAPPING                          = "/common/security/registry";                  //原子服务URI：注册
     public static final String   URI_ATOM_COMMON_SECURITY_TOKEN_REQUEST_MAPPING                             = "/common/security/token";                     //原子服务URI：JWT
     public static final String   URI_ATOM_COMMON_STRATEGY_REQUEST_MAPPING                                   = "/common/strategy";                           //原子服务URI：策略
+    public static final String   URI_ATOM_COMMON_FLOW_CONTROL_REQUEST_MAPPING                               = "/common/flowcontrol";                        //原子服务URI：流量控制
 
     public static final String   URI_ORCH_FOUNDATION_AUTHENTICATION_REGISTRY_REQUEST_MAPPING                = "/foundation/authentication/registry";        //编排服务URI：基础鉴权认证-注册						        //编排服务URI：全量在用的课程清单（只有课程本身）
     public static final String   URI_ORCH_FOUNDATION_AUTHENTICATION_LOGIN_REQUEST_MAPPING                   = "/foundation/authentication/login";           //编排服务URI：基础鉴权认证-登录						        //编排服务URI：全量在用的课程清单（只有课程本身）

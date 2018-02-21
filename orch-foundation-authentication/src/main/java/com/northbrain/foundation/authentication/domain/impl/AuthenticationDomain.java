@@ -42,17 +42,20 @@ public class AuthenticationDomain implements IAuthenticationDomain
     private final IPartyDAO partyDAO;
     private final ISecurityDAO securityDAO;
     private final IStrategyDAO strategyDAO;
+    private final IFlowControlDAO flowControlDAO;
     private final IAuthenticationDTO authenticationDTO;
 
     @Autowired
     public AuthenticationDomain(IOperationRecordDAO operationRecordDAO, ISequenceDAO sequenceDAO, IPartyDAO partyDAO,
-                                ISecurityDAO securityDAO, IStrategyDAO strategyDAO, IAuthenticationDTO authenticationDTO)
+                                ISecurityDAO securityDAO, IStrategyDAO strategyDAO, IFlowControlDAO flowControlDAO,
+                                IAuthenticationDTO authenticationDTO)
     {
         this.operationRecordDAO = operationRecordDAO;
         this.sequenceDAO = sequenceDAO;
         this.partyDAO = partyDAO;
         this.securityDAO = securityDAO;
         this.strategyDAO = strategyDAO;
+        this.flowControlDAO = flowControlDAO;
         this.authenticationDTO = authenticationDTO;
     }
 
@@ -551,7 +554,8 @@ public class AuthenticationDomain implements IAuthenticationDomain
      * 4、校验token是否处于登录状态
      * 5、获取服务对应的权限id
      * 6、根据token中的partyId、roleId、organizationId校验该服务是否有权限被访问
-     * 7、记录日志，并返回。
+     * 7、校验是否已经达到流控的门限
+     * 8、记录日志，并返回。
      * @param orchAccessControlVO 编排层访问控制值对象
      * @return 是否运行访问控制
      */
@@ -750,7 +754,50 @@ public class AuthenticationDomain implements IAuthenticationDomain
                     Errors.ERROR_BUSINESS_COMMON_SECURITY_ACCESS_CONTROL_EXCEPTION,
                     Errors.ERROR_BUSINESS_COMMON_SECURITY_ACCESS_CONTROL_EXCEPTION + "accessControlVOS", responseVO);
 
-        //7、记录日志，并返回。
+        //7、校验是否已经达到流控的门限
+        rank++;
+        operationRecordDetailVO =
+                authenticationDTO.createOperationRecordDetail(operationRecordVO, rank,
+                        BaseType.OPERATETYPE.READ, BaseType.DOMAIN.PARTY,
+                        Constants.BUSINESS_COMMON_FLOW_CONTROL_ATOM_MICROSERVICE, BaseType.STATUS.INITIAL);
+
+        if (operationRecordDetailVO == null)
+            return updateFailureResponseVO(responseVO, Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL,
+                    Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION, "operationRecordDetailVO");
+
+        // TODO 流控的值要定义，或者传固定值。
+        FlowControlVO flowControlVO = authenticationDTO.convertTokenVOToFlowControlVO(tokenVO,
+                BaseType.FLOWCONTROLTYPE.THRESHOLD, 0);
+
+        if (flowControlVO == null)
+            return createOperationRecordDetail(operationRecordVO, operationRecordDetailVO, BaseType.STATUS.FAILURE,
+                    Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION,
+                    Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "flowControlVO", responseVO);
+
+        ResponseVO<Boolean> flowControlResponseVO = readAtomFlowControl(flowControlVO);
+
+        if (flowControlResponseVO == null)
+            return createOperationRecordDetail(operationRecordVO, operationRecordDetailVO, BaseType.STATUS.FAILURE,
+                    Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION,
+                    Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "flowControlResponseVO", responseVO);
+
+        if(!flowControlResponseVO.getResponseCode().equals(Errors.SUCCESS_EXECUTE.getCode()))
+            return createOperationRecordDetail(operationRecordVO, operationRecordDetailVO, BaseType.STATUS.FAILURE,
+                    flowControlResponseVO.getResponseCode(), flowControlResponseVO.getResponseDesc(),
+                    Errors.ERROR_BUSINESS_COMMON_CALL_ATOM_SERVICE + "readAtomFlowControl", responseVO);
+
+        boolean flowControl = flowControlResponseVO.getResponse();
+
+        operationRecordVO = createOperationRecordDetail(operationRecordVO, operationRecordDetailVO,
+                BaseType.STATUS.SUCCESS, Errors.SUCCESS_EXECUTE);
+
+        //已经达到流控的限制范围，直接返回。
+        if(flowControl)
+            return createOperationRecordDetail(operationRecordVO, operationRecordDetailVO, BaseType.STATUS.SUCCESS,
+                    Errors.ERROR_BUSINESS_COMMON_FLOW_CONTROL_EXCEPTION,
+                    Errors.ERROR_BUSINESS_COMMON_FLOW_CONTROL_EXCEPTION + "flowControl", responseVO);
+
+        //8、记录日志，并返回。
         operationRecordVO.setStatus(BaseType.STATUS.SUCCESS.ordinal());
         operationRecordVO.setFinishTime(new Date());
         logger.info(operationRecordVO);
@@ -1397,6 +1444,29 @@ public class AuthenticationDomain implements IAuthenticationDomain
 
         responseVO.setResponse(privilegeVOS);
         return responseVO;
+    }
+
+    /**
+     * 方法：获取流量控制是否放行的权限
+     * @param flowControlVO 流控值对象
+     * @return 是否放行的ResponseVO封装对象
+     * @throws Exception 异常
+     */
+    private ResponseVO<Boolean> readAtomFlowControl(FlowControlVO flowControlVO) throws Exception
+    {
+        if (flowControlVO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_NULL + "flowControlVO");
+            throw new ArgumentInputException(Errors.ERROR_BUSINESS_COMMON_ARGUMENT_INPUT_EXCEPTION);
+        }
+
+        if (flowControlDAO == null)
+        {
+            logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "flowControlDAO");
+            throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
+        }
+
+        return JsonTransformationUtil.transformJSONString(this.flowControlDAO.readAtomFlowControl(flowControlVO));
     }
 
     /**

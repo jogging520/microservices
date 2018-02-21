@@ -81,11 +81,21 @@ public interface IAuthenticationDTO
             throws Exception;
 
     /**
-     * 将登录参与者VO转换成令牌VO
+     * 方法：将登录参与者VO转换成令牌VO
      * @param orchLoginVO 登录信息VO
      * @param partyId 参与者编码
      * @return 令牌VO
      * @throws Exception 异常
      */
     TokenVO convertOrchLoginVOToTokenVO(OrchLoginVO orchLoginVO, int partyId) throws Exception;
+
+    /**
+     * 方法：将token值对象转换成流控控制值对象
+     * @param tokenVO 令牌值对象
+     * @param flowControlType 流控类型
+     * @param flow 流控值
+     * @return 流量控制值对象
+     * @throws Exception 异常
+     */
+    FlowControlVO convertTokenVOToFlowControlVO(TokenVO tokenVO, BaseType.FLOWCONTROLTYPE flowControlType, float flow) throws Exception;
 }
