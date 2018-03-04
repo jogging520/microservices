@@ -47,6 +47,7 @@ public enum Names
     /**
      * 数据存储级参数命名BUSINESS_XXXX_， XXXX为REDIS、ZOOKEEPER、DATABASE等
      */
+    STORAGE_ZOOKEEPER_DOMAIN_NAMESPACE                              ("STORAGE",     "STORAGE_ZOOKEEPER_DOMAIN_NAMESPACE"                        ), //ZooKeeper基础域命名空间
     STORAGE_ZOOKEEPER_SERVERS_ADDRESS                               ("STORAGE",     "STORAGE_ZOOKEEPER_SERVERS_ADDRESS"                         ), //ZooKeeper服务器地址群
     STORAGE_ZOOKEEPER_BASE_SLEEP_TIME_MS                            ("STORAGE",     "STORAGE_ZOOKEEPER_BASE_SLEEP_TIME_MS"                      ), //连接ZooKeeper重试策略RetryPolicy初始Sleep时间，毫秒
     STORAGE_ZOOKEEPER_CONNECT_MAX_RETRIES							("STORAGE",		"STORAGE_ZOOKEEPER_CONNECT_MAX_RETRIES"                     ), //连接ZooKeeper重试次数

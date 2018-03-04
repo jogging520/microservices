@@ -1,7 +1,5 @@
 package com.northbrain.base.common.util;
 
-import java.lang.reflect.ParameterizedType;
-
 import org.apache.log4j.Logger;
 
 import com.alibaba.fastjson.JSON;

@@ -88,7 +88,7 @@ public class Constants
     public static final String   STORAGE_ZOOKEEPER_BUSINESS_NAMESPACE 									    = "BUSINESS";							        //业务大类常量命名空间（Parameter配置）
     public static final String   STORAGE_ZOOKEEPER_SYSTEM_NAMESPACE 										= "SYSTEM";								        //系统大类常量命名空间（Parameter配置）
     public static final String   STORAGE_ZOOKEEPER_SEQUENCE_NAMESPACE 									    = "sequence";							        //序列号命名空间（也是全局的序列号载体）
-    public static final String   STORAGE_ZOOKEEPER_DOMAIN_NAMESPACE_NAME                                    = "STORAGE_ZOOKEEPER_DOMAIN_NAMESPACE_NAME";         //zookeeper域命名空间的名称（用于启动时添加参数）
+    public static final String   STORAGE_ZOOKEEPER_DOMAIN_NAMESPACE_NAME                                    = "STORAGE_ZOOKEEPER_DOMAIN_NAMESPACE";         //zookeeper域命名空间的名称（用于启动时添加参数）
 
 
     public static final String   STORAGE_DATABASE_JDBC_DRIVER_CLASS_NAME_PROPERTY_NAME                	    = "driverClassName"; 					        //数据库驱动属性名
