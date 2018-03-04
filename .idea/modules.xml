@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/atom-common-call-graph/atom-common-call-graph.iml" filepath="$PROJECT_DIR$/atom-common-call-graph/atom-common-call-graph.iml" />
       <module fileurl="file://$PROJECT_DIR$/atom-common-flow-control/atom-common-flow-control.iml" filepath="$PROJECT_DIR$/atom-common-flow-control/atom-common-flow-control.iml" />
       <module fileurl="file://$PROJECT_DIR$/atom-common-security/atom-common-security.iml" filepath="$PROJECT_DIR$/atom-common-security/atom-common-security.iml" />
       <module fileurl="file://$PROJECT_DIR$/atom-common-sequence/atom-common-sequence.iml" filepath="$PROJECT_DIR$/atom-common-sequence/atom-common-sequence.iml" />
@@ -16,8 +17,8 @@
       <module fileurl="file://$PROJECT_DIR$/atom-resource-basic/atom-resource-basic.iml" filepath="$PROJECT_DIR$/atom-resource-basic/atom-resource-basic.iml" />
       <module fileurl="file://$PROJECT_DIR$/atom-resource-storage/atom-resource-storage.iml" filepath="$PROJECT_DIR$/atom-resource-storage/atom-resource-storage.iml" />
       <module fileurl="file://$PROJECT_DIR$/base-common/base-common.iml" filepath="$PROJECT_DIR$/base-common/base-common.iml" />
-      <module fileurl="file://$PROJECT_DIR$/base-gateway/base-gateway.iml" filepath="$PROJECT_DIR$/base-gateway/base-gateway.iml" />
       <module fileurl="file://$PROJECT_DIR$/base-launcher/base-launcher.iml" filepath="$PROJECT_DIR$/base-launcher/base-launcher.iml" />
+      <module fileurl="file://$PROJECT_DIR$/entr-general-gateway/entr-general-gateway.iml" filepath="$PROJECT_DIR$/entr-general-gateway/entr-general-gateway.iml" />
       <module fileurl="file://$PROJECT_DIR$/microservices.iml" filepath="$PROJECT_DIR$/microservices.iml" />
       <module fileurl="file://$PROJECT_DIR$/orch-foundation-authentication/orch-foundation-authentication.iml" filepath="$PROJECT_DIR$/orch-foundation-authentication/orch-foundation-authentication.iml" />
       <module fileurl="file://$PROJECT_DIR$/orch-list-course/orch-list-course.iml" filepath="$PROJECT_DIR$/orch-list-course/orch-list-course.iml" />

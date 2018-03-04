@@ -2,6 +2,7 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/atom-common-call-graph" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/atom-common-flow-control" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/atom-common-security" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/atom-common-sequence" charset="UTF-8" />
@@ -18,6 +19,7 @@
     <file url="file://$PROJECT_DIR$/base-common" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/base-gateway" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/base-launcher" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/entr-general-gateway" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/orch-foundation-authentication" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/orch-list-course" charset="UTF-8" />
   </component>

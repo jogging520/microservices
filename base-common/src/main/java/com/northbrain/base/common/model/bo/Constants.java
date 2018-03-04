@@ -34,7 +34,6 @@ public class Constants
     public static final String   BUSINESS_COMMON_COMMAND_LINE_SPRING_CONFIG_LOCATION						= "spring.config.location";				        //命令行:配置文件位置
     public static final String   BUSINESS_COMMON_APPLICATION_NAME                                           = "BUSINESS_COMMON_APPLICATION_NAME";           //业务级应用名称命名空间的名称（用于启动时添加参数）
 
-    public static final String   BUSINESS_COMMON_SERVICE_GATEWAY                                            = "base-gateway";                               //服务网关
     public static final String   BUSINESS_COMMON_SERVICE_GATEWAY_DESCRIPTION                                = "JWT校验";                                    //JWT校验描述
     public static final String   BUSINESS_COMMON_HTTP_REQUEST_CONSUMERS                                     = "application/json";                           //http请求消费类型
     public static final String   BUSINESS_COMMON_HTTP_REQUEST_PRODUCERS                                     = "application/json";                           //http请求生产类型
@@ -60,6 +59,7 @@ public class Constants
     public static final String   BUSINESS_COMMON_SECURITY_ATOM_MICROSERVICE                                 = "atom-common-security";                       //原子微服务：通用-安全
     public static final String   BUSINESS_COMMON_STRATEGY_ATOM_MICROSERVICE                                 = "atom-common-strategy";                       //原子微服务：通用-策略
     public static final String   BUSINESS_COMMON_FLOW_CONTROL_ATOM_MICROSERVICE                             = "atom-common-flow-control";                   //原子微服务：通用-流控
+    public static final String   BUSINESS_COMMON_CALL_GRAPH_ATOM_MICROSERVICE                               = "atom-common-call-graph";                     //原子微服务：通用-调用关系
 
     public static final String   BUSINESS_PRODUCT_BASIC_ATOM_MICROSERVICE                                   = "atom-product-basic";                         //原子微服务：产品-基础
     public static final String   BUSINESS_PRODUCT_COURSE_ATOM_MICROSERVICE                                  = "atom-product-course";                        //原子微服务：产品-课程
@@ -111,12 +111,15 @@ public class Constants
     public static final String   STORAGE_DATABASE_JDBC_REMOVE_ABANDONED_TIMEOUT_PROPERTY_NAME				= "removeAbandonedTimeout"; 			        //泄露的连接可以被删除的超时值属性名
     public static final String   STORAGE_DATABASE_JDBC_VALIDATION_INTERVAL_PROPERTY_NAME					= "validationInterval"; 				        //避免过度验证属性名
 
-    
+
+    public static final int      SYSTEM_GATEWAY_FILTER_JSON_WEB_TOKEN_ORDER                                 = 0;                                            //JWT的过滤优先级；
+    public static final int      SYSTEM_GATEWAY_FILTER_CALL_GRAPH_ORDER                                     = 100;                                          //调用关系过滤优先级
+
     public static final String   SYSTEM_SPRING_RESOURCE_PROPERTY_NAME 									    = "resource";							        //Properties配置的名称（目录）
     public static final String   SYSTEM_SPRING_RESOURCE_PROPERTY_LOCATION 								    = "classpath:application.properties";	        //Properties配置的位置及文件名
     public static final String   SYSTEM_SPRING_DATASOURCE_BEAN_NAME										    = "dataSource";							        //Spring boot启动数据库的数据源（名称）
     public static final String   SYSTEM_SPRING_PROPERTY_APPLICATION_NAME							        = "spring.application.name";			        //Spring boot属性:应用名称
-
+    public static final String   SYSTEM_GENERAL_GATEWAY_ENTR_MICROSERVICE                                   = "entr-general-gateway";                       //系统通用网关微服务
 
 
     /**

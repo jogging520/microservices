@@ -8,7 +8,6 @@
   <modules>
     <module>base-common</module>
     <module>base-launcher</module>
-    <module>base-gateway</module>
     <module>atom-product-course</module>
     <module>atom-resource-storage</module>
     <module>orch-list-course</module>
@@ -24,6 +23,8 @@
     <module>atom-resource-basic</module>
     <module>atom-party-basic</module>
     <module>atom-common-flow-control</module>
+    <module>atom-common-call-graph</module>
+    <module>entr-general-gateway</module>
   </modules>
   <packaging>pom</packaging>
 
@@ -177,6 +178,36 @@
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-starter-zuul</artifactId>
         <version>1.3.5.RELEASE</version>
+      </dependency>
+      <!-- zipkin-server -->
+      <dependency>
+        <groupId>io.zipkin.java</groupId>
+        <artifactId>zipkin-server</artifactId>
+        <version>RELEASE</version>
+      </dependency>
+      <!-- zipkin autoconfigure ui -->
+      <dependency>
+        <groupId>io.zipkin.java</groupId>
+        <artifactId>zipkin-autoconfigure-ui</artifactId>
+        <version>RELEASE</version>
+      </dependency>
+      <!-- zipkin elasticsearch -->
+      <dependency>
+        <groupId>io.zipkin.java</groupId>
+        <artifactId>zipkin-autoconfigure-storage-elasticsearch-http</artifactId>
+        <version>RELEASE</version>
+      </dependency>
+      <!-- zipkin client -->
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-zipkin</artifactId>
+        <version>RELEASE</version>
+      </dependency>
+      <!-- sleuth -->
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-sleuth-core</artifactId>
+        <version>1.3.2.RELEASE</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

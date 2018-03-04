@@ -51,14 +51,6 @@ public class BaseType
      */
     public enum CONTAIN {EXISTS, PARTEXISTS, NOTEXISTS, FAILURE}
 
-    /**
-     * 过滤器类型
-     * pre：可以在请求被路由之前调用
-     * route：在路由请求时候被调用
-     * post：在route和error过滤器之后被调用
-     * error：处理请求时发生错误时被调用
-     */
-    public enum FILTERTYPE {pre, route, post, error}
 
     /**
      *************************业务部分**********************
