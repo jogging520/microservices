@@ -81,7 +81,8 @@
     <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-sleuth-core:1.3.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.aspectj:aspectjrt:1.8.10" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-sleuth-zipkin:1.2.5.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: io.zipkin.java:zipkin:1.28.0" level="project" />
+    <orderEntry type="library" name="Maven: io.zipkin.java:zipkin:2.5.1" level="project" />
+    <orderEntry type="library" name="Maven: io.zipkin.zipkin2:zipkin:2.5.1" level="project" />
     <orderEntry type="library" name="Maven: io.zipkin.reporter:zipkin-reporter:1.0.0" level="project" />
     <orderEntry type="library" name="Maven: io.github.openfeign:feign-core:9.5.0" level="project" />
     <orderEntry type="library" name="Maven: org.jvnet:animal-sniffer-annotation:1.0" level="project" />
