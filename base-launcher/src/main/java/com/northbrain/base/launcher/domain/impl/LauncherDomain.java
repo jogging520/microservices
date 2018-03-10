@@ -78,12 +78,6 @@ public class LauncherDomain implements ILauncherDomain, BeanDefinitionRegistryPo
 
             mutablePropertyValues = beanDefinition.getPropertyValues();
 
-            if(mutablePropertyValues == null)
-            {
-                logger.error(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL + "mutablePropertyValues");
-                throw new ObjectNullException(Errors.ERROR_BUSINESS_COMMON_OBJECT_NULL_EXCEPTION);
-            }
-
             logger.debug(Hints.HINT_BUSINESS_COMMON_DYNAMIC_ADD_REMOTE_PROPERTIES);
 
             placeHolderDAO = new PlaceHolderDAO();

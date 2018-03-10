@@ -13,10 +13,13 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import java.util.HashMap;
 import java.util.Map;
 
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
 @SpringBootApplication
 @ComponentScan({"com.northbrain"})
 @EnableDiscoveryClient
 @EnableTransactionManagement
+@EnableSwagger2
 public class CourseApplication
 {	
 	private static Logger logger = Logger.getLogger(CourseApplication.class);

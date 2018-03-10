@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.springframework.cloud:spring-cloud-starter-netflix-zuul:2.0.0.BUILD-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/cloud/spring-cloud-starter-netflix-zuul/2.0.0.BUILD-SNAPSHOT/spring-cloud-starter-netflix-zuul-2.0.0.BUILD-20180310.140904-1506.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/cloud/spring-cloud-starter-netflix-zuul/2.0.0.BUILD-SNAPSHOT/spring-cloud-starter-netflix-zuul-2.0.0.BUILD-20180310.140904-1506-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/cloud/spring-cloud-starter-netflix-zuul/2.0.0.BUILD-SNAPSHOT/spring-cloud-starter-netflix-zuul-2.0.0.BUILD-20180310.140904-1506-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

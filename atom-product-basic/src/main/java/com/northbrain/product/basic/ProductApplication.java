@@ -8,14 +8,19 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.northbrain.base.common.model.bo.*;
 import com.northbrain.base.common.util.LauncherUitl;
 import com.northbrain.base.common.util.StackTracerUtil;
 
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
 @SpringBootApplication
 @ComponentScan({"com.northbrain"})
 @EnableDiscoveryClient
+@EnableTransactionManagement
+@EnableSwagger2
 public class ProductApplication
 {
     private static Logger logger = Logger.getLogger(ProductApplication.class);

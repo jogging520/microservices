@@ -17,10 +17,13 @@ import com.northbrain.base.common.model.bo.Hints;
 import com.northbrain.base.common.util.LauncherUitl;
 import com.northbrain.base.common.util.StackTracerUtil;
 
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
 @SpringBootApplication
 @ComponentScan({"com.northbrain"})
 @EnableDiscoveryClient
 @EnableTransactionManagement
+@EnableSwagger2
 public class FlowControlApplication
 {
     private static Logger logger = Logger.getLogger(FlowControlApplication.class);

@@ -18,6 +18,16 @@
     </properties>
 
     <dependencies>
+        <!-- swagger -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+        </dependency>
+        <!-- swagger-ui -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+        </dependency>
         <!-- northbrain atom-common-->
         <dependency>
             <groupId>com.northbrain</groupId>

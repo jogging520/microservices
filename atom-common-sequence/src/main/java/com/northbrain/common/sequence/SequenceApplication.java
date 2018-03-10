@@ -13,9 +13,12 @@ import com.northbrain.base.common.model.bo.*;
 import com.northbrain.base.common.util.LauncherUitl;
 import com.northbrain.base.common.util.StackTracerUtil;
 
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
 @SpringBootApplication
 @ComponentScan({"com.northbrain"})
 @EnableDiscoveryClient
+@EnableSwagger2
 public class SequenceApplication
 {
     private static Logger logger = Logger.getLogger(SequenceApplication.class);

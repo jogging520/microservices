@@ -14,10 +14,13 @@ import com.northbrain.base.common.util.LauncherUitl;
 import com.northbrain.base.common.util.StackTracerUtil;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
 @SpringBootApplication
 @ComponentScan({"com.northbrain"})
 @EnableDiscoveryClient
 @EnableTransactionManagement
+@EnableSwagger2
 public class StorageApplication
 {
     private static Logger logger = Logger.getLogger(StorageApplication.class);
